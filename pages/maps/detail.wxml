@@ -1,0 +1,11 @@
+<view>
+
+    <view calss="place_name">名称：{{title}} </view> 
+	<view calss="place_address">地址：{{address}} </view> 
+	<view calss="place_tel">电话：{{telephone}} </view>
+	<view calss="place_tel">价格：¥{{price}} </view>
+	<view calss="place_tel">评价：{{service_rating}}/5 </view>
+
+
+
+</view>

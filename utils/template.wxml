@@ -1,0 +1,90 @@
+<template name="tFindFriend">
+  <view class="weui-panel weui-panel_access">
+    <view class="weui-panel__bd">
+      <navigator url="showFriend?id={{item.id}}&title={{item.title}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+          <image class="weui-media-box__thumb" src="http://www.qqleju.com/uploads/allimg/160622/22-101309_76.jpg" />
+        </view>
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+          <view class="weui-media-box__title">
+            
+              <view class="weui-flex">
+                <view class="weui-flex__item"  style="color:blue;font-weight:bold">{{item.title}}</view>
+                <view style="color:gray;">4km</view>
+              </view>
+          </view>
+          <view class="weui-media-box__desc">
+          <view class="weui-flex">
+              <view class="weui-flex__item">
+                <view style="color:red ">运动：23 </view>
+                
+              </view>
+              <view style="color:red ">信用： {{item.level}}</view> 
+                
+               
+            </view>
+            <view class="weui-flex">
+              <view class="weui-flex__item">
+                <view class="placeholder">{{item.intro}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+  </view>
+</template>
+<template name="tPlaceList">
+  <view class='place-container weui-panel weui-panel_access'>
+    <navigator url="placeDetail?id={{item.id}}&title={{item.title}}&address={{item.address}}&telephone={{item.telephone}}&price={{item.price}}&distance={{item.distance}}&overall_rating={{item.overall_rating}}&service_rating={{item.service_rating}}
+         class=" weui-media-box weui-media-box_appmsg " hover-class="weui-cell_active ">
+			     <view class="weui-media-box__hd weui-media-box__hd_in-appmsg ">
+                        <image class="weui-media-box__thumb " src="http://pic.58pic.com/58pic/13/14/14/21s58PICdGy_1024.jpg " />
+                 </view>
+                 <view class="weui-media-box__bd weui-media-box__bd_in-appmsg ">
+                       <view class="weui-media-box__title ">{{item.title}}</view>
+                      
+                       
+                      <view class="weui-media-box__desc ">{{item.distance/1000}} 千米</view>
+                      <view class="weui-media-box__desc ">地址：{{item.address}}</view>
+                 </view>
+        </navigator> 							
+	    </view>
+</template> 
+
+<template name="tFriendCycleList"> 
+<view class='place-container weui-panel weui-panel_access'>	
+     
+      <view class="weui-panel__bd ">
+                <navigator url="showCycle" class="weui-media-box weui-media-box_appmsg " hover-class="weui-cell_active ">
+                    <view class="weui-media-box__hd weui-media-box__hd_in-appmsg ">
+                        <image class="weui-media-box__thumb " src="http://www.qqleju.com/uploads/allimg/160622/22-101309_76.jpg " />
+                    </view>
+                    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg ">
+                        <view class="weui-media-box__title ">
+                        <view class="weui-flex ">
+                            <view class="weui-flex__item " style="font-weight:bold;color:blue;"><view  >{{item.title}}</view></view>
+                            <view class="weui-flex__item "><view  ></view></view>
+                            <view class="weui-flex__item "><view  >熊友圈人数：{{item.sum}}</view></view> 
+                        </view>
+                        <view class="weui-flex ">
+                            <view class="weui-flex__item "><view  >类型：{{item.type}}</view></view>
+                            <view class="weui-flex__item "><view  ></view></view>
+                            <view class="weui-flex__item " style="color:red "><view  >等级：{{item.level}}</view></view>
+                        </view>
+                    </view>
+                        <view class="weui-media-box__desc "> 
+                        
+                        <view class="weui-flex ">
+                             
+                            <view class="weui-flex__item "><view  >{{item.intro}}</view></view>
+                        </view>
+                        </view>
+                    </view>
+                </navigator>
+                 
+            </view>					
+	    </view>
+
+
+</template>

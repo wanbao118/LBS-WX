@@ -1,0 +1,55 @@
+<!--pages/discovery/placeDetail.wxml-->
+<view class="page">
+      <view class="page__hd" style="background-color:#9900cc">
+             
+      </view>
+
+
+      <view class="page__bd">
+<view class="weui-flex">{{place.title}}</view>
+<view class="weui-flex"> 
+        <button  size="mini"  disabled="true" > 我要预约 </button>
+      </view>
+     <view class="weui-flex">
+        <view class="weui-flex__item">
+        
+        <image style="width: 100px; height: 100px; background-color: #eeeeee;" mode="aspectFit"                             src="http://www.qqleju.com/uploads/allimg/160622/22-101309_76.jpg">
+        </image>
+        </view>
+        <view class="weui-flex__item">
+            <view class="weui-flex">
+           
+             
+            </view>
+            <view class="weui-flex">
+            <view class="weui-flex__item">综合评分：{{place.overall_rating}}</view>
+             
+            </view>
+            <view class="weui-flex">
+            <view class="weui-flex__item">距离：{{place.distance/1000}}公里</view>
+             
+            
+            </view>
+            <view class="weui-flex">
+            <view class="weui-flex__item">Tel：{{place.telephone}}</view>
+             
+            </view>
+            <view class="weui-flex">
+            <view class="weui-flex__item">人均消费：{{place.price}}元</view>
+             
+            </view>
+            <view class="weui-flex">
+            <view class="weui-flex__item">服务评分：{{place.service_rating}}/5</view>
+             
+            </view>
+        </view>
+    </view>
+    <view class="weui-flex"> <view class="weui-flex__item">地址：{{place.address}}</view></view>
+     
+      
+    
+      </view>
+
+
+      </view>
+
