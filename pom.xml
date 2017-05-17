@@ -7,7 +7,6 @@
 	<packaging>pom</packaging>
 	<name>group-pbox-pvbs-parent</name>
 	<description>group-pbox-pvbs-parent</description>
-	
 	<modules>
 		<module>group-pbox-pvbs-model</module>
 		<module>group-pbox-pvbs-util</module>
