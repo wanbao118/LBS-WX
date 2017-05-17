@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.pbox.pvbs</groupId>
+	<artifactId>group-pbox-pvbs-parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>group-pbox-pvbs-parent</name>
+	<description>group-pbox-pvbs-parent</description>
+	<modules>
+		<module>group-pbox-pvbs-model</module>
+		<module>group-pbox-pvbs-util</module>
+		<module>group-pbox-pvbs-Acct</module>
+		<module>group-pbox-pvbs-termDeposit</module>
+		<module>group-pbox-pvbs-transaction</module>
+		<module>group-pbox-pvbs-ccyEx</module>
+		<module>group-pbox-pvbs-web</module>
+		<module>group-pbox-pvbs-persist</module>
+		<module>group-pbox-pvbs-controller</module>
+	</modules>
+	<properties>
+		<nexus-url>http://117.78.38.89:8081</nexus-url>
+	</properties>
+	<distributionManagement>
+		<repository>
+			<id>nexus</id>
+			<name>Releases</name>
+			<url>${nexus-url}/repository/maven-releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus</id>
+			<name>Snapshot</name>
+			<url>${nexus-url}/repository/maven-snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>
