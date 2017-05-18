@@ -12,7 +12,7 @@
 	<artifactId>group-pbox-pvbs-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>vbsDev</name>
+	<name>vbs</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>
@@ -34,7 +34,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>vbsDev</finalName>
+		<finalName>vbs</finalName>
 		<plugins>
 			<plugin>
 					<groupId>org.codehaus.mojo</groupId>
