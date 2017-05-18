@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group.pbox.pvbs.persist.user.UserMapper">
+	<resultMap id="userMap" type="com.group.pbox.pvbs.model.user.User">
+		<id property="id" column="ID" javaType="String" />
+		<result property="userId" column="USER_ID" javaType="String" />
+		<result property="userName" column="USER_NAME" javaType="String" />
+		<result property="userPosition" column="USER_POSITION" javaType="String" />
+		<result property="transactionLimit" column="TRANSACTION_LIMIT" javaType="String" />
+		<result property="termDepositeLimit" column="TD_LIMI" javaType="String" />
+		<result property="exchangeRateLimit" column="EXCH_LIMIT" javaType="String" />
+		<result property="password" column="USER_PASSWORD" javaType="String" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID AS id, USER_ID AS userId, USER_NAME AS
+		userName, USER_POSITION AS userPosition, TRANSACTION_LIMIT AS transactionLimit,
+		TD_LIMI AS termDepositeLimit, EXCH_LIMIT AS exchangeRateLimit, USER_PASSWORD AS password
+	</sql>
+	<select id="accountValid" parameterType="com.group.pbox.pvbs.model.user.User"
+		resultType="int">
+		select count(0) from t_user where
+		USER_ID=#{userId} AND
+		USER_PASSWORD=#{password}
+	</select>
+</mapper>
