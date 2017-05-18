@@ -1,24 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--
-        ===
-        This comment should NOT be removed.
-
-        Charisma v2.0.0
-
-        Copyright 2012-2014 Muhammad Usman
-        Licensed under the Apache License v2.0
-        http://www.apache.org/licenses/LICENSE-2.0
-
-        http://usman.it
-        http://twitter.com/halalit_usman
-        ===
-    -->
-    <!--meta charset="utf-8"-->
-    <title>Free HTML5 Bootstrap Admin Template</title>
+    <title>Virtual Banking System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
+    <meta name="description" content="Virtual Banking System">
     <meta name="author" content="Muhammad Usman">
 
     <!-- The styles -->
@@ -49,9 +34,6 @@
 
     <!-- The fav icon -->
     <link rel="shortcut icon" href="img/favicon.ico">
-<style type="text/css">
-	
-</style>
 </head>
 
 <body class="login-background">
@@ -73,30 +55,27 @@
     <div class="row">
         <div style="min-width:320px" class="well col-md-5 center login-box new-login-box">
     
-            <div class="alert alert-info new-login-box-header">
-                Welcome to SpiderNet
+            <div class="alert alert-info new-login-box-header" id="loginAlert">
+                Welcome to Virtual Banking System
             </div>
-            <form class="form-horizontal" action="index.html" method="post">
+            <form class="form-horizontal" method="post" id="">
                 <fieldset>
                     <div class="input-group input-group-lg">
                         <span  class="input-group-addon input-area-span"><i class="glyphicon glyphicon-user green-1"></i></span>
-                        <input type="text"  class="form-control input-area" placeholder="用户名">
+                        <input type="text" id="userId" name="userId" class="form-control input-area" placeholder="用户名">
                     </div>
                     <div class="clearfix"></div><br>
 
                     <div class="input-group input-group-lg">
                         <span  class="input-group-addon input-area-span"><i class="glyphicon glyphicon-lock green-1"></i></span>
-                        <input type="password"  class="form-control input-area" placeholder="密码">
+                        <input type="password" id="password" name="password"  class="form-control input-area" placeholder="密码">
                     </div>
                     <div class="clearfix"></div>
 
-                   <!-- <div class="input-prepend">
-                        <label class="remember" for="remember"><input type="checkbox" id="remember">  记住用户名</label>
-                    </div>-->
                     <div class="clearfix"></div>
 
                     <p class="center col-md-5 p-style">
-                        <button type="submit" class="btn btn-primary btn-primary-new">登录</button>
+                        <button type="submit" id="submitBtn" class="btn btn-primary btn-primary-new">登录</button>
                     </p>
                 </fieldset>
             </form>
@@ -109,7 +88,7 @@
 <!-- external javascript -->
 
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
+<script src="bower_components/bootstrap-val/bootstrapValidator.min.js"></script>
 <!-- library for cookie management -->
 <script src="js/jquery.cookie.js"></script>
 <!-- calender plugin -->
@@ -140,7 +119,6 @@
 <script src="js/jquery.history.js"></script>
 <!-- application script for Charisma demo -->
 <script src="js/charisma.js"></script>
-
-
+<script src="login/login.js"></script>
 </body>
 </html>

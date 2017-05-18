@@ -9,48 +9,23 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>com.pbox.pvbs</groupId>
-	<artifactId>group-pbox-pvbs-web</artifactId>
+	<artifactId>group-pbox-pvbs-user</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
-	<name>vbs</name>
+	<name>group-pbox-pvbs-user</name>
 	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.pbox.pvbs</groupId>
 			<artifactId>group-pbox-pvbs-model</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.pbox.pvbs</groupId>
-			<artifactId>group-pbox-pvbs-controller</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.pbox.pvbs</groupId>
-			<artifactId>group-pbox-pvbs-util</artifactId>
+			<artifactId>group-pbox-pvbs-persist</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
-	<build>
-		<finalName>vbs</finalName>
-		<plugins>
-			<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>sonar-maven-plugin</artifactId>
-					<version>2.7</version>
-			</plugin>
-			
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>
