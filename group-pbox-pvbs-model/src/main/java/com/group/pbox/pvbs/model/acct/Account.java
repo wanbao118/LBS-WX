@@ -1,4 +1,4 @@
-package com.group.pbox.pvbs.model.account;
+package com.group.pbox.pvbs.model.acct;
 
 public class Account {
 
