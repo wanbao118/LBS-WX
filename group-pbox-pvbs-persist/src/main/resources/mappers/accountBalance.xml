@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group.pbox.pvbs.persist.account.AccountBalanceMapper">
+	<resultMap id="accountBalanceMap" type="com.group.pbox.pvbs.model.account.AccountBalance">
+		<id property="id" column="ID" javaType="String" />
+		<result property="accountId" column="ACCOUNT_ID" javaType="String" />
+		<result property="currencyCode" column="CURRENCY_CODE" javaType="String" />
+		<result property="balance" column="BALANCE" javaType="Double" />
+		<result property="lastUpatedDate" column="LAST_UPDATED_DATE" javaType="Date" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		t.ID AS id, t.ACCOUNT_ID AS accountId, t.CURRENCY_CODE AS
+		currencyCode, t.BALANCE AS balance, t.LAST_UPDATED_DATE AS lastUpatedDate,a.REAL_ACCOUNT_NUMBER as accountNum
+	</sql>
+	<select id="getAccountBalance" parameterType="com.group.pbox.pvbs.model.account.AccountBalance"
+		resultType="com.group.pbox.pvbs.model.account.AccountBalance">
+		select
+		<include refid="Base_Column_List" />
+		 from t_account_balance t left join t_account a on  t.ACCOUNT_ID=a.ID where
+		a.REAL_ACCOUNT_NUMBER=#{accountNum} AND
+		CURRENCY_CODE=#{currencyCode}
+	</select>
+	<insert id="insertAccountBalance" parameterType="com.group.pbox.pvbs.model.account.AccountBalance">
+		insert into t_account_balance (ID,ACCOUNT_ID,CURRENCY_CODE,BALANCE,LAST_UPDATED_DATE)
+		values
+		(#{id},#{accountId},#{currencyCode},#{balance},#{lastUpatedDate})
+	</insert>
+	<update id="updateAccountBalance" parameterType="com.group.pbox.pvbs.model.account.AccountBalance">
+		update t_account_balance SET
+		BALANCE = #{balance}
+		where ID=#{id}
+	</update>
+</mapper>
