@@ -1,18 +1,17 @@
 package com.group.pbox.pvbs.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Response
 {
-    /**
-     * 200 success 203 error
-     */
-    private int result;
-    private List<String> errorCode;
+
+    private String result = ErrorCode.RESPONSE_SUCCESS;
+    private List<String> errorCode = new ArrayList<String>();
     private Map<String, String> params = new HashMap<String, String>();
-    private List<Object> listData;
+    private List listData;
 
     public List<String> getErrorCode()
     {
@@ -44,13 +43,14 @@ public class Response
         this.listData = listData;
     }
 
-    public int getResult()
+    public String getResult()
     {
         return result;
     }
 
-    public void setResult(int result)
+    public void setResult(String result)
     {
         this.result = result;
     }
+
 }
