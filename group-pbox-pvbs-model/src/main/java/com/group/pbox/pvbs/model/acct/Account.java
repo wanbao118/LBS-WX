@@ -1,65 +1,54 @@
 package com.group.pbox.pvbs.model.acct;
 
-public class Account
-{
+public class Account {
 
-    private String id;
+	private String id;
+	
+	private String realAccountNumber;
+	
+	private String clearingCode;
+	
+	private String branchNumber;
+	
+	private String accountNumber;
 
-    private String realAccountNumber;
+	public String getId() {
+		return id;
+	}
 
-    private String clearingCode;
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    private String branchNumber;
+	public String getRealAccountNumber() {
+		return realAccountNumber;
+	}
 
-    private String accountNumber;
+	public void setRealAccountNumber(String realAccountNumber) {
+		this.realAccountNumber = realAccountNumber;
+	}
 
-    public String getId()
-    {
-        return id;
-    }
+	public String getClearingCode() {
+		return clearingCode;
+	}
 
-    public void setId(String id)
-    {
-        this.id = id;
-    }
+	public void setClearingCode(String clearingCode) {
+		this.clearingCode = clearingCode;
+	}
 
-    public String getRealAccountNumber()
-    {
-        return realAccountNumber;
-    }
+	public String getBranchNumber() {
+		return branchNumber;
+	}
 
-    public void setRealAccountNumber(String realAccountNumber)
-    {
-        this.realAccountNumber = realAccountNumber;
-    }
+	public void setBranchNumber(String branchNumber) {
+		this.branchNumber = branchNumber;
+	}
 
-    public String getClearingCode()
-    {
-        return clearingCode;
-    }
+	public String getAccountNumber() {
+		return accountNumber;
+	}
 
-    public void setClearingCode(String clearingCode)
-    {
-        this.clearingCode = clearingCode;
-    }
-
-    public String getBranchNumber()
-    {
-        return branchNumber;
-    }
-
-    public void setBranchNumber(String branchNumber)
-    {
-        this.branchNumber = branchNumber;
-    }
-
-    public String getAccountNumber()
-    {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(String accountNumber)
-    {
-        this.accountNumber = accountNumber;
-    }
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
 }
