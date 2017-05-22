@@ -1,9 +1,9 @@
 package com.group.pbox.pvbs.acct;
 
-import com.group.pbox.pvbs.acct.model.AcctRequest;
+import com.group.pbox.pvbs.model.acct.Account;
 
 public interface IAcctCreationService
 {
-    int addAcct(AcctRequest acctRequest);
+    int addAcct(Account acctRequest);
     Integer fetchAcct();
 }

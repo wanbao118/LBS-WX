@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.group.pbox.pvbs.acct.model.AcctRequest;
+import com.group.pbox.pvbs.model.acct.Account;
 import com.group.pbox.pvbs.persist.acct.AcctMapper;
 
 @Service
@@ -13,9 +13,9 @@ public class AcctCreationServiceImpl implements IAcctCreationService
     @Resource
     AcctMapper acctMapper;
 
-    public int addAcct(AcctRequest acctRequest)
+    public int addAcct(Account acctRequest)
     {
-        return acctMapper.addAcct(acctRequest.getAcctflag());
+        return acctMapper.addAcct(acctRequest);
     }
 
     public Integer fetchAcct()
