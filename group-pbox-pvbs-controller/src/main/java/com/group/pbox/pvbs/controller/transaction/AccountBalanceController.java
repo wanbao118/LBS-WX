@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.group.pbox.pvbs.controller.model.BaseResponseModel;
 import com.group.pbox.pvbs.controller.model.request.TransactionReq;
-import com.group.pbox.pvbs.model.account.AccountBalance;
+import com.group.pbox.pvbs.model.acct.AccountBalance;
 import com.group.pbox.pvbs.transaction.IAccountBalanceService;
 import com.group.pbox.pvbs.util.ErrorCode;
 import com.group.pbox.pvbs.util.OperationCode;
