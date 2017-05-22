@@ -1,4 +1,4 @@
-package org.group.pbox.pvbs.ccyEx;
+package com.group.pbox.pvbs.ccyEx;
 
 /**
  * Hello world!
