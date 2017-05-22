@@ -1,4 +1,4 @@
-package org.group.pbox.pvbs.termDeposit;
+package com.group.pbox.pvbs.termDeposit;
 
 /**
  * Hello world!

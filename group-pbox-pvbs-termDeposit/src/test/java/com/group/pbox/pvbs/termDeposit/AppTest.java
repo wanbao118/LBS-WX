@@ -1,4 +1,4 @@
-package org.group.pbox.pvbs.termDeposit;
+package com.group.pbox.pvbs.termDeposit;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
