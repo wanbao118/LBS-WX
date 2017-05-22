@@ -1,7 +1,9 @@
 package com.group.pbox.pvbs.persist.acct;
 
+import com.group.pbox.pvbs.model.acct.Account;
+
 public interface AcctMapper
 {
-    int addAcct(String acctflag);
+    int addAcct(Account acctRequest);
     Integer fetchAcct();
 }
