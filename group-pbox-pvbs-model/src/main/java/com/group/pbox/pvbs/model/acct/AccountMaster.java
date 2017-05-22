@@ -2,105 +2,126 @@ package com.group.pbox.pvbs.model.acct;
 
 import java.util.Date;
 
-public class AccountMaster {
+public class AccountMaster
+{
 
-	private String id;
-	
-	private String accountId;
-	
-	private String customerName;
-	
-	private String customerId;
-	
-	private Date dateOfBirth;
-	
-	private String address;
-	
-	private String contactAddress;
-	
-	private String contactNumber;
-	
-	private String wechatId;
-	
-	private String employment;
+    private String id;
 
-	public String getId() {
-		return id;
-	}
+    private String accountId;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    private String customerName;
 
-	public String getAccountId() {
-		return accountId;
-	}
+    private String customerId;
 
-	public void setAccountId(String accountId) {
-		this.accountId = accountId;
-	}
+    private Date dateOfBirth;
 
-	public String getCustomerName() {
-		return customerName;
-	}
+    private String address;
 
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
-	}
+    private String contactAddress;
 
-	public String getCustomerId() {
-		return customerId;
-	}
+    private String contactNumber;
 
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
-	}
+    private String wechatId;
 
-	public Date getDateOfBirth() {
-		return dateOfBirth;
-	}
+    private String employment;
 
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
+    public String getId()
+    {
+        return id;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public void setId(String id)
+    {
+        this.id = id;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public String getAccountId()
+    {
+        return accountId;
+    }
 
-	public String getContactAddress() {
-		return contactAddress;
-	}
+    public void setAccountId(String accountId)
+    {
+        this.accountId = accountId;
+    }
 
-	public void setContactAddress(String contactAddress) {
-		this.contactAddress = contactAddress;
-	}
+    public String getCustomerName()
+    {
+        return customerName;
+    }
 
-	public String getContactNumber() {
-		return contactNumber;
-	}
+    public void setCustomerName(String customerName)
+    {
+        this.customerName = customerName;
+    }
 
-	public void setContactNumber(String contactNumber) {
-		this.contactNumber = contactNumber;
-	}
+    public String getCustomerId()
+    {
+        return customerId;
+    }
 
-	public String getWechatId() {
-		return wechatId;
-	}
+    public void setCustomerId(String customerId)
+    {
+        this.customerId = customerId;
+    }
 
-	public void setWechatId(String wechatId) {
-		this.wechatId = wechatId;
-	}
+    public Date getDateOfBirth()
+    {
+        return dateOfBirth;
+    }
 
-	public String getEmployment() {
-		return employment;
-	}
+    public void setDateOfBirth(Date dateOfBirth)
+    {
+        this.dateOfBirth = dateOfBirth;
+    }
 
-	public void setEmployment(String employment) {
-		this.employment = employment;
-	}
+    public String getAddress()
+    {
+        return address;
+    }
+
+    public void setAddress(String address)
+    {
+        this.address = address;
+    }
+
+    public String getContactAddress()
+    {
+        return contactAddress;
+    }
+
+    public void setContactAddress(String contactAddress)
+    {
+        this.contactAddress = contactAddress;
+    }
+
+    public String getContactNumber()
+    {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber)
+    {
+        this.contactNumber = contactNumber;
+    }
+
+    public String getWechatId()
+    {
+        return wechatId;
+    }
+
+    public void setWechatId(String wechatId)
+    {
+        this.wechatId = wechatId;
+    }
+
+    public String getEmployment()
+    {
+        return employment;
+    }
+
+    public void setEmployment(String employment)
+    {
+        this.employment = employment;
+    }
 }

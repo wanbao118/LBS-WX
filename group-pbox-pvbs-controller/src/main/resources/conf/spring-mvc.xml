@@ -33,12 +33,13 @@
 			</list>
 		</property>
 	</bean>
-
-	<!-- <mvc:interceptors>
+	<mvc:resources location="/" mapping="/**/*.js"/> 
+	<mvc:resources location="/" mapping="/**/*.css"/>  
+	<mvc:resources location="/" mapping="/**/*.html"/>  
+	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/employee/**" />
-			<mvc:mapping path="/trainning/**" />
-			<mvc:mapping path="/manage/**" />
+			<mvc:mapping path="/accountbalance/**" />
+			<mvc:mapping path="/user/**" />
 			<mvc:exclude-mapping path="/**/fonts/*" />
 			<mvc:exclude-mapping path="/**/*.css" />
 			<mvc:exclude-mapping path="/**/*.js" />
@@ -46,18 +47,18 @@
 			<mvc:exclude-mapping path="/**/*.gif" />
 			<mvc:exclude-mapping path="/**/*.jpg" />
 			<mvc:exclude-mapping path="/**/*.jpeg" />
-			<bean class="com.spidernet.interceptor.PageInterceptor" />
+			<bean class="com.group.pbox.pvbs.controller.interceptor.PageInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 
-    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
                 <value>classpath*:conf/login.properties</value>
             </list>
         </property>
         <property name="ignoreUnresolvablePlaceholders" value="true" />
-    </bean> -->
+    </bean> --> 
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -66,5 +67,4 @@
 		<property name="prefix" value="/WEB-INF/page/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
-<mvc:resources location="/WEB-INF/html/" mapping="/html/**"/>
 </beans>
