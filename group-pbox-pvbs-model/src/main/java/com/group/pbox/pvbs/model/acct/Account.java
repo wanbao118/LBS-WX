@@ -1,54 +1,65 @@
-package com.group.pbox.pvbs.model.account;
+package com.group.pbox.pvbs.model.acct;
 
-public class Account {
+public class Account
+{
 
-	private String id;
-	
-	private String realAccountNumber;
-	
-	private String clearingCode;
-	
-	private String branchNumber;
-	
-	private String accountNumber;
+    private String id;
 
-	public String getId() {
-		return id;
-	}
+    private String realAccountNumber;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    private String clearingCode;
 
-	public String getRealAccountNumber() {
-		return realAccountNumber;
-	}
+    private String branchNumber;
 
-	public void setRealAccountNumber(String realAccountNumber) {
-		this.realAccountNumber = realAccountNumber;
-	}
+    private String accountNumber;
 
-	public String getClearingCode() {
-		return clearingCode;
-	}
+    public String getId()
+    {
+        return id;
+    }
 
-	public void setClearingCode(String clearingCode) {
-		this.clearingCode = clearingCode;
-	}
+    public void setId(String id)
+    {
+        this.id = id;
+    }
 
-	public String getBranchNumber() {
-		return branchNumber;
-	}
+    public String getRealAccountNumber()
+    {
+        return realAccountNumber;
+    }
 
-	public void setBranchNumber(String branchNumber) {
-		this.branchNumber = branchNumber;
-	}
+    public void setRealAccountNumber(String realAccountNumber)
+    {
+        this.realAccountNumber = realAccountNumber;
+    }
 
-	public String getAccountNumber() {
-		return accountNumber;
-	}
+    public String getClearingCode()
+    {
+        return clearingCode;
+    }
 
-	public void setAccountNumber(String accountNumber) {
-		this.accountNumber = accountNumber;
-	}
+    public void setClearingCode(String clearingCode)
+    {
+        this.clearingCode = clearingCode;
+    }
+
+    public String getBranchNumber()
+    {
+        return branchNumber;
+    }
+
+    public void setBranchNumber(String branchNumber)
+    {
+        this.branchNumber = branchNumber;
+    }
+
+    public String getAccountNumber()
+    {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber)
+    {
+        this.accountNumber = accountNumber;
+    }
 }
