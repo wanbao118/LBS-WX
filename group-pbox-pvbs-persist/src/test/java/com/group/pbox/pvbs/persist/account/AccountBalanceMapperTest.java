@@ -12,7 +12,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.group.pbox.pvbs.model.account.AccountBalance;
+import com.group.pbox.pvbs.model.acct.AccountBalance;
+import com.group.pbox.pvbs.persist.acct.AccountBalanceMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:conf/spring-mybatis.xml" })

@@ -1,6 +1,6 @@
-package com.group.pbox.pvbs.persist.account;
+package com.group.pbox.pvbs.persist.acct;
 
-import com.group.pbox.pvbs.model.account.AccountBalance;
+import com.group.pbox.pvbs.model.acct.AccountBalance;
 
 public interface AccountBalanceMapper
 {

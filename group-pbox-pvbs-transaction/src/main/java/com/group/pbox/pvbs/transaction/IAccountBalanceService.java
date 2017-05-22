@@ -1,6 +1,6 @@
 package com.group.pbox.pvbs.transaction;
 
-import com.group.pbox.pvbs.model.account.AccountBalance;
+import com.group.pbox.pvbs.model.acct.AccountBalance;
 
 public interface IAccountBalanceService
 {

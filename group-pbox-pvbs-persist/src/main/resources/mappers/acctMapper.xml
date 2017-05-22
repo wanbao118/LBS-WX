@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group.pbox.pvbs.persist.acct.AcctMapper">
+	<resultMap id="acctMap" type="com.group.pbox.pvbs.model.acct.Account">
+		<id property="id" column="ID" javaType="String" />
+		<result property="realAccountNumber" column="REAL_ACCOUNT_NUMBER" javaType="String" />
+		<result property="clearingCode" column="CLEARING_CODE" javaType="String" />
+		<result property="accountNumber" column="ACCOUNT_NUMBER" javaType="String" />
+		<result property="branchNumber" column="BRANCH_NUMBER" javaType="String" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID AS id, REAL_ACCOUNT_NUMBER AS realAccountNumber, CLEARING_CODE AS
+		clearingCode, BRANCH_NUMBER AS branchNumber, ACCOUNT_NUMBER AS accountNumber
+	</sql>
+	<insert id="addAcct" parameterType="com.group.pbox.pvbs.model.acct.Account">
+		insert into T_ACCOUNT
+		(ID,REAL_ACCOUNT_NUMBER,CLEARING_CODE,ACCOUNT_NUMBER,BRANCH_NUMBER)
+		values
+		(#{id},#{realAccountNumber},#{clearingCode},#{accountNumber},#{branchNumber})
+	</insert>
+	
+	<select id="fetchAcct" parameterType="com.group.pbox.pvbs.model.acct.Account"
+		resultType="Integer">
+		select MAX(ACCOUNT_NUMBER) as ACCOUNT_NUMBER from t_account
+	</select>
+</mapper>

@@ -4,8 +4,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.group.pbox.pvbs.model.account.AccountBalance;
-import com.group.pbox.pvbs.persist.account.AccountBalanceMapper;
+import com.group.pbox.pvbs.model.acct.AccountBalance;
+import com.group.pbox.pvbs.persist.acct.AccountBalanceMapper;
 import com.group.pbox.pvbs.util.ErrorCode;
 import com.group.pbox.pvbs.util.Utils;
 
