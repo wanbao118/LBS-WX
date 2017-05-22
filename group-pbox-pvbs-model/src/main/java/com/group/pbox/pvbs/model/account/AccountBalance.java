@@ -1,57 +1,78 @@
 package com.group.pbox.pvbs.model.account;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
-public class AccountBalance {
-	
-	private String id;
-	
-	private String accountId;
-	
-	private String currencyCode;
-	
-	private BigDecimal balance;
-	
-	private Date lastUpatedDate;
+public class AccountBalance
+{
+    private String accountNum;
 
-	public String getId() {
-		return id;
-	}
+    private String id;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    private String accountId;
 
-	public String getAccountId() {
-		return accountId;
-	}
+    private String currencyCode;
 
-	public void setAccountId(String accountId) {
-		this.accountId = accountId;
-	}
+    private double balance;
 
-	public String getCurrencyCode() {
-		return currencyCode;
-	}
+    private Date lastUpatedDate;
 
-	public void setCurrencyCode(String currencyCode) {
-		this.currencyCode = currencyCode;
-	}
+    public String getId()
+    {
+        return id;
+    }
 
-	public BigDecimal getBalance() {
-		return balance;
-	}
+    public void setId(String id)
+    {
+        this.id = id;
+    }
 
-	public void setBalance(BigDecimal balance) {
-		this.balance = balance;
-	}
+    public String getAccountId()
+    {
+        return accountId;
+    }
 
-	public Date getLastUpatedDate() {
-		return lastUpatedDate;
-	}
+    public void setAccountId(String accountId)
+    {
+        this.accountId = accountId;
+    }
 
-	public void setLastUpatedDate(Date lastUpatedDate) {
-		this.lastUpatedDate = lastUpatedDate;
-	}
+    public String getCurrencyCode()
+    {
+        return currencyCode;
+    }
+
+    public void setCurrencyCode(String currencyCode)
+    {
+        this.currencyCode = currencyCode;
+    }
+
+    public Date getLastUpatedDate()
+    {
+        return lastUpatedDate;
+    }
+
+    public void setLastUpatedDate(Date lastUpatedDate)
+    {
+        this.lastUpatedDate = lastUpatedDate;
+    }
+
+    public double getBalance()
+    {
+        return balance;
+    }
+
+    public void setBalance(double balance)
+    {
+        this.balance = balance;
+    }
+
+    public String getAccountNum()
+    {
+        return accountNum;
+    }
+
+    public void setAccountNum(String accountNum)
+    {
+        this.accountNum = accountNum;
+    }
 }

@@ -1,17 +1,32 @@
-package com.group.pbox.pvbs.util;
+package com.group.pbox.pvbs.controller.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Response
+import com.group.pbox.pvbs.util.ErrorCode;
+
+public class BaseResponseModel
 {
 
     private String result = ErrorCode.RESPONSE_SUCCESS;
+
     private List<String> errorCode = new ArrayList<String>();
+
     private Map<String, String> params = new HashMap<String, String>();
+
     private List listData;
+
+    public String getResult()
+    {
+        return result;
+    }
+
+    public void setResult(String result)
+    {
+        this.result = result;
+    }
 
     public List<String> getErrorCode()
     {
@@ -33,24 +48,14 @@ public class Response
         this.params = params;
     }
 
-    public List<Object> getListData()
+    public List getListData()
     {
         return listData;
     }
 
-    public void setListData(List<Object> listData)
+    public void setListData(List listData)
     {
         this.listData = listData;
-    }
-
-    public String getResult()
-    {
-        return result;
-    }
-
-    public void setResult(String result)
-    {
-        this.result = result;
     }
 
 }
