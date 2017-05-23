@@ -14,21 +14,45 @@
 	</appender>     
 
 	<appender name="FILE" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="D:/spidernet/log4j.log" />
-		<param name="Append" value="false" />
+		<param name="File" value="D:/logs/vbs/system.log" />
+		<param name="Append" value="true" />
+		 <param name="MaxFileSize" value="20000KB"/>
+     	<param name="MaxBackupIndex" value="5"/>
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d [%t] %p -%m%n" />
 		</layout>  
 	</appender>
-
+	<appender name="BUSINESS" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="D:/logs/vbs/business.log" />
+		<param name="Append" value="true" />
+		<param name="MaxFileSize" value="20000KB"/>
+     	<param name="MaxBackupIndex" value="100"/>
+		 <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern" value="%d [%p] %c{1} - %m%n" />  
+        </layout>  
+        <!-- customized filter -->
+        <filter class="com.group.pbox.pvbs.util.log.TransactionLogFilter">  
+            <param name="levelMin" value="info" />  
+            <param name="levelMax" value="Transaction" />  
+            <param name="AcceptOnMatch" value="true" />  
+        </filter>  
+	</appender>
     <!-- test -->
 	<root>
 		<priority value="debug" />
-		<!-- <appender-ref ref="CONSOLE" /> -->
 		<appender-ref ref="FILE" />
 	</root>
 	<category name="org.springframework">
-		<priority value="error" />
-		<appender-ref ref="CONSOLE" />
+		<priority value="debug" />
+		<appender-ref ref="FILE" />
 	</category>
+	<category name="com.group.pbox.pvbs">
+		<priority value="debug" />
+		<appender-ref ref="FILE" />
+	</category>
+	<category name="com.group.pbox.pvbs.controller">
+		<priority value="TRANSACTION" />
+		<appender-ref ref="BUSINESS" />
+	</category>
+	
 </log4j:configuration>
