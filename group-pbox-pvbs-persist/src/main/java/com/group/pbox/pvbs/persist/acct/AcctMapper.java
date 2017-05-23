@@ -6,4 +6,5 @@ public interface AcctMapper
 {
     int addAcct(Account acctRequest);
     Integer fetchAcct();
+    int accountValid(Account account);
 }
