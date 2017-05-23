@@ -33,6 +33,8 @@ public class AcctController {
 
 		BaseResponseModel resp = new BaseResponseModel();
 		int result;
+		@SuppressWarnings("unused")
+		String acct = null;
 		if (StringUtils.equalsIgnoreCase(acctRequest.getOperation(), OperationCode.ACCT_CREATION)) {
 			Account account = new Account();
 			account.setId(Utils.getUUID());
@@ -46,12 +48,29 @@ public class AcctController {
 			if (accountResult > 0) {
 				resp.setResult(ErrorCode.ACCOUNT_HAVE_FOUND);
 			} else {
-				Integer maxAcctNumber = acctCreationService.fetchAcct();
-
-				Integer newAcctNumber = maxAcctNumber + 1;
-				account.setAccountNumber(newAcctNumber.toString());
+				
+				String maxAcctNumber = acctCreationService.fetchAcct();
+				Integer newAcctNumber = Integer.valueOf(maxAcctNumber) + 1;
+				if (newAcctNumber.toString().length() == 1)
+		    	{
+		    		acct = "0000" + newAcctNumber;
+		    	}else if (newAcctNumber.toString().length() == 2)
+		    	{
+		    		acct = "000" + newAcctNumber;
+		    	}else if (newAcctNumber.toString().length() == 3)
+		    	{
+		    		acct = "00" + newAcctNumber;
+		    	}else if (newAcctNumber.toString().length() == 4)
+		    	{
+		    		acct = "0" + newAcctNumber;
+		    	}else if (newAcctNumber.toString().length() == 5)
+		    	{
+		    		acct = newAcctNumber.toString();
+		    	}
+				
+				account.setAccountNumber(acct);
 				account.setRealAccountNumber(
-						account.getClearingCode() + account.getBranchNumber() + newAcctNumber.toString());
+						account.getClearingCode() + account.getBranchNumber() + acct);
 				result = acctCreationService.addAcct(account);
 
 				if (result > 0) {

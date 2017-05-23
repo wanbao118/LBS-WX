@@ -5,6 +5,6 @@ import com.group.pbox.pvbs.model.acct.Account;
 public interface AcctMapper
 {
     int addAcct(Account acctRequest);
-    Integer fetchAcct();
+    String fetchAcct();
     int accountValid(Account account);
 }

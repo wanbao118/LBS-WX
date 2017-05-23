@@ -6,5 +6,5 @@ public interface IAcctCreationService
 {
     int addAcct(Account acctRequest);
     int accountValid(Account account);
-    Integer fetchAcct();
+    String fetchAcct();
 }
