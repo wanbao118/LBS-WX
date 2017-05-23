@@ -23,58 +23,44 @@ import com.group.pbox.pvbs.util.Utils;
 @RequestMapping("/acct")
 public class AcctController {
 
-    @Resource
-    IAcctCreationService acctCreationService;
+	@Resource
+	IAcctCreationService acctCreationService;
 
-    @RequestMapping(value = "/addAcct", method = RequestMethod.POST, consumes = "application/json")
-    @ResponseBody
-    public Object addAcct(final HttpServletRequest request,
-            final HttpServletResponse response, @RequestBody AcctReq acctRequest)
-    {
-        
-        BaseResponseModel resp = new BaseResponseModel();
-        int result;
-        if (StringUtils.equalsIgnoreCase(acctRequest.getOperation(),
-                OperationCode.ACCT_CREATION))
-        {
-        	Account account = new Account();
-        	account.setId(Utils.getUUID());
-            account.setAccountNumber(acctRequest.getAccountNumber());
-            account.setBranchNumber(acctRequest.getBranchNumber());
-            account.setClearingCode(acctRequest.getClearingCode());
-            account.setRealAccountNumber(acctRequest.getRealAccountNumber());
-        	Integer maxAcctNumber = acctCreationService.fetchAcct();
-        	
-        	if (null == maxAcctNumber)
-        	{
-        		result = acctCreationService.addAcct(account);
-        		
-        		if (result > 0)
-        		{
-        			resp.setResult(ErrorCode.RESPONSE_SUCCESS);
-        		}
-        		else
-        		{
-        			resp.setResult(ErrorCode.RESPONSE_ERROR);
-        		}
-        	}
-        	else
-        	{
-        		Integer newAcctNumber = maxAcctNumber+1;
-        		account.setAccountNumber(newAcctNumber.toString());
-        		account.setRealAccountNumber(account.getClearingCode()+account.getBranchNumber()+newAcctNumber.toString());
-        		result = acctCreationService.addAcct(account);
-        		
-        		if (result > 0)
-        		{
-        			resp.setResult(ErrorCode.RESPONSE_SUCCESS);
-        		}
-        		else
-        		{
-        			resp.setResult(ErrorCode.RESPONSE_ERROR);
-        		}
-        	}
-        }
-        return resp;
-    }
+	@RequestMapping(value = "/addAcct", method = RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
+	public Object addAcct(final HttpServletRequest request, final HttpServletResponse response,
+			@RequestBody AcctReq acctRequest) {
+
+		BaseResponseModel resp = new BaseResponseModel();
+		int result;
+		if (StringUtils.equalsIgnoreCase(acctRequest.getOperation(), OperationCode.ACCT_CREATION)) {
+			Account account = new Account();
+			account.setId(Utils.getUUID());
+			account.setAccountNumber(acctRequest.getAccountNumber());
+			account.setBranchNumber(acctRequest.getBranchNumber());
+			account.setClearingCode(acctRequest.getClearingCode());
+			account.setRealAccountNumber(acctRequest.getRealAccountNumber());
+
+			int accountResult = acctCreationService.accountValid(account);
+
+			if (accountResult > 0) {
+				resp.setResult(ErrorCode.ACCOUNT_HAVE_FOUND);
+			} else {
+				Integer maxAcctNumber = acctCreationService.fetchAcct();
+
+				Integer newAcctNumber = maxAcctNumber + 1;
+				account.setAccountNumber(newAcctNumber.toString());
+				account.setRealAccountNumber(
+						account.getClearingCode() + account.getBranchNumber() + newAcctNumber.toString());
+				result = acctCreationService.addAcct(account);
+
+				if (result > 0) {
+					resp.setResult(ErrorCode.RESPONSE_SUCCESS);
+				} else {
+					resp.setResult(ErrorCode.RESPONSE_ERROR);
+				}
+			}
+		}
+		return resp;
+	}
 }
