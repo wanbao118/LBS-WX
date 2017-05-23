@@ -62,14 +62,14 @@ function login(e) {
 	var password = $("#password").val();
 	var json = {'userId' : userId, 'password' : password};
 	$.ajax({
-			url : "/vbs/service/user/loginCheck",
+			url : loginPath,
 			type : "post",
 			contentType: "application/json",
 			dataType : "json",
 			data : JSON.stringify(json),
 			success : function(response) {
 				if (response.result==00000) {
-					 window.location.href = getContextPath()+"index.html";
+					 window.location.href = mainPath;
 				}
 				else {
 					//$("#loginAlert").width(500);
@@ -79,9 +79,9 @@ function login(e) {
 			}
 		});
 }
-function getContextPath(){ 
-	var pathName = document.location.pathname; 
-//	var index = pathName.substr(1).indexOf("/"); 
-//	var result = pathName.substr(0,index+1); 
-	return pathName; 
-	} 
+//function getContextPath(){ 
+//	var pathName = document.location.pathname; 
+////	var index = pathName.substr(1).indexOf("/"); 
+////	var result = pathName.substr(0,index+1); 
+//	return pathName; 
+//	} 
