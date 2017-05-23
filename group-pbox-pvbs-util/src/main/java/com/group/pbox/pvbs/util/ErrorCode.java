@@ -25,4 +25,6 @@ public class ErrorCode
     public static String ACCOUNT_BALANCE_NOT_ZERO = "10005";
     // can not withDraw so much money.too more.
     public static String ACCOUNT_BALANCE_LESS = "10006";
+    // Account Have Found
+    public static String ACCOUNT_HAVE_FOUND = "10007";
 }
