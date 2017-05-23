@@ -2,6 +2,7 @@ package com.group.pbox.pvbs.transaction;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.group.pbox.pvbs.model.acct.AccountBalance;
@@ -12,11 +13,15 @@ import com.group.pbox.pvbs.util.Utils;
 @Service
 public class AccountBalanceServiceImpl implements IAccountBalanceService
 {
+    private static final Logger logger = Logger
+            .getLogger(AccountBalanceServiceImpl.class);
+
     @Resource
     AccountBalanceMapper accountBalanceMapper;
 
     public String deposit(AccountBalance accountBalance)
     {
+        logger.debug("test log");
         AccountBalance sourceAccountBalance = accountBalanceMapper
                 .getAccountBalance(accountBalance);
         int result = 0;
