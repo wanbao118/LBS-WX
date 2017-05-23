@@ -11,17 +11,17 @@ $(document).ready(function() {
         	userId: {
 				validators: {
                     notEmpty: {
-                        message: '请输入您的用户名'
+                        message: 'Please input username!'
                     },
 
                     regexp: {
                         regexp: /^([\u4E00-\u9FA5]|\w)*$/,
-                        message: '请勿包含特殊字符'
+                        message: 'Please do not include special characters!'
                     },
                     stringLength: {
                         min: 1,
                         max: 20,
-                        message: '请输入长度在1到20位之间的用户名'
+                        message: 'Please input username between one and twenty!'
                     },
 /*                     remote: {
                         url: paths+'/service/employee/checkErExists',
@@ -35,12 +35,12 @@ $(document).ready(function() {
             password: {
                 validators: {
                     notEmpty: {
-                        message: '请输入密码'
+                        message: 'Please input password!'
                     },
                     stringLength: {
                         min: 1,
                         max: 15,
-                        message: '请输入长度在1到15位密码'
+                        message: 'Please input password between one and fifteen!'
                     },
                 }
             }
@@ -58,24 +58,22 @@ $(document).ready(function() {
     }) ;
 });
 function login(e) {
-	var userName = $("#userId").val();
+	var userId = $("#userId").val();
 	var password = $("#password").val();
-
+	var json = {'userId' : userId, 'password' : password};
 	$.ajax({
-			url : getContextPath()+"/service/manage/login",
+			url : "/vbs/service/user/loginCheck",
 			type : "post",
-			async : true,
-			cache : false,
+			contentType: "application/json",
 			dataType : "json",
-			data : {'userId' : userName, 'password' : password},
-			timeout : 20000,
+			data : JSON.stringify(json),
 			success : function(response) {
-				if (response.result==200) {
+				if (response.result==00000) {
 					 window.location.href = getContextPath()+"index.html";
 				}
 				else {
 					//$("#loginAlert").width(500);
-					$("#loginAlert").html('用户名密码错误');
+					$("#loginAlert").html('Username or Password Fail!');
 					$("#loginAlert").css({color:"red"});
 				}
 			}
@@ -83,7 +81,7 @@ function login(e) {
 }
 function getContextPath(){ 
 	var pathName = document.location.pathname; 
-	var index = pathName.substr(1).indexOf("/"); 
-	var result = pathName.substr(0,index+1); 
-	return result; 
+//	var index = pathName.substr(1).indexOf("/"); 
+//	var result = pathName.substr(0,index+1); 
+	return pathName; 
 	} 
