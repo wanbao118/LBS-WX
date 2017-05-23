@@ -18,7 +18,7 @@ public class AcctCreationServiceImpl implements IAcctCreationService
         return acctMapper.addAcct(acctRequest);
     }
 
-    public Integer fetchAcct()
+    public String fetchAcct()
     {
         return acctMapper.fetchAcct();
     }

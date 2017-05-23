@@ -27,7 +27,7 @@
 	</select>
 	
 	<select id="fetchAcct" parameterType="com.group.pbox.pvbs.model.acct.Account"
-		resultType="Integer">
+		resultType="String">
 		select MAX(ACCOUNT_NUMBER) as ACCOUNT_NUMBER from t_account
 	</select>
 </mapper>
