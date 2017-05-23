@@ -1,7 +1,9 @@
-package com.group.pbox.pvbs.model.acct;
+package com.group.pbox.pvbs.controller.model.request;
 
-public class Account {
+import com.group.pbox.pvbs.controller.model.BaseRequestModel;
 
+public class AcctReq extends BaseRequestModel{
+	
 	private String id;
 	
 	private String realAccountNumber;
@@ -51,4 +53,6 @@ public class Account {
 	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
 	}
+
+	
 }
