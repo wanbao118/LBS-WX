@@ -22,4 +22,9 @@ public class AcctCreationServiceImpl implements IAcctCreationService
     {
         return acctMapper.fetchAcct();
     }
+    
+    public int accountValid(Account account)
+    {
+        return acctMapper.accountValid(account);
+    }
 }
