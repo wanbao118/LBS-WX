@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +18,15 @@ import com.group.pbox.pvbs.model.acct.AccountBalance;
 import com.group.pbox.pvbs.transaction.IAccountBalanceService;
 import com.group.pbox.pvbs.util.ErrorCode;
 import com.group.pbox.pvbs.util.OperationCode;
+import com.group.pbox.pvbs.util.log.TransactionLog;
 
 @Controller
 @RequestMapping("/accountbalance")
 public class AccountBalanceController
 {
+    private static final Logger logger = Logger
+            .getLogger(AccountBalanceController.class);
+    private static final Logger logger1 = Logger.getLogger("customer");
     @Resource
     IAccountBalanceService accountBalanceService;
 
@@ -31,6 +36,8 @@ public class AccountBalanceController
             final HttpServletResponse response,
             @RequestBody TransactionReq transactionReq)
     {
+        logger1.info("system log.");
+        TransactionLog.customerLog(logger, "transaction log");
         AccountBalance accountBalance = new AccountBalance();
         accountBalance.setAccountNum(transactionReq.getAccountNumber());
         accountBalance.setBalance(transactionReq.getAmount());
