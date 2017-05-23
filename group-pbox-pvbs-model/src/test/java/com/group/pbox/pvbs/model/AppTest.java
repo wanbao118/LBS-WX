@@ -1,4 +1,4 @@
-package org.group.pbox.pvbs.model;
+package com.group.pbox.pvbs.model;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
