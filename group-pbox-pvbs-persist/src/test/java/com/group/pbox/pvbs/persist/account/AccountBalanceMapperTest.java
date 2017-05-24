@@ -9,14 +9,19 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.group.pbox.pvbs.model.acct.AccountBalance;
 import com.group.pbox.pvbs.persist.acct.AccountBalanceMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:conf/spring-mybatis.xml" })
+@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
+@Transactional
 public class AccountBalanceMapperTest
 {
     @Resource
@@ -35,12 +40,13 @@ public class AccountBalanceMapperTest
     }
 
     @Test
+    @Rollback(true)
     public void insertAccountBalanceTest()
     {
         AccountBalance accountBalance = new AccountBalance();
         accountBalance.setAccountId("1");
         accountBalance.setCurrencyCode("MMM");
-        accountBalance.setId("5");
+        accountBalance.setId("7");
         accountBalance.setBalance(27898.98);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         accountBalance.setLastUpatedDate(new Date());
