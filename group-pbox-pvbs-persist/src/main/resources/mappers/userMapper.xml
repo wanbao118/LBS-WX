@@ -6,21 +6,42 @@
 		<id property="id" column="ID" javaType="String" />
 		<result property="userId" column="USER_ID" javaType="String" />
 		<result property="userName" column="USER_NAME" javaType="String" />
-		<result property="userPosition" column="USER_POSITION" javaType="String" />
-		<result property="transactionLimit" column="TRANSACTION_LIMIT" javaType="String" />
+		<result property="userPosition" column="USER_POSITION"
+			javaType="String" />
+		<result property="transactionLimit" column="TRANSACTION_LIMIT"
+			javaType="String" />
 		<result property="termDepositeLimit" column="TD_LIMI" javaType="String" />
-		<result property="exchangeRateLimit" column="EXCH_LIMIT" javaType="String" />
-		<result property="password" column="USER_PASSWORD" javaType="String" />
+		<result property="exchangeRateLimit" column="EXCH_LIMIT"
+			javaType="String" />
+		<result property="userPassword" column="USER_PASSWORD"
+			javaType="String" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		ID AS id, USER_ID AS userId, USER_NAME AS
-		userName, USER_POSITION AS userPosition, TRANSACTION_LIMIT AS transactionLimit,
-		TD_LIMI AS termDepositeLimit, EXCH_LIMIT AS exchangeRateLimit, USER_PASSWORD AS password
+		userName,
+		USER_POSITION AS userPosition, TRANSACTION_LIMIT AS transactionLimit,
+		TD_LIMI AS termDepositeLimit, EXCH_LIMIT AS exchangeRateLimit,
+		USER_PASSWORD AS userPassword, USER_STATUS AS userStatus
 	</sql>
 	<select id="accountValid" parameterType="com.group.pbox.pvbs.model.user.User"
 		resultType="int">
 		select count(0) from t_user where
 		USER_ID=#{userId} AND
-		USER_PASSWORD=#{password}
+		USER_PASSWORD=#{userPassword}
 	</select>
+
+	<insert id="addUser" parameterType="com.group.pbox.pvbs.model.user.User">
+		insert into t_user
+		(ID,USER_ID,USER_NAME,USER_POSITION,TRANSACTION_LIMIT,TD_LIMIT,EXCH_LIMIT,USER_PASSWORD,USER_STATUS)
+		values
+		(#{id},#{userId},#{userName},#{userPosition},#{transactionLimit},#{termDepositeLimit},#{exchangeRateLimit},#{userPassword},#{userStatus})
+	</insert>
+
+	<select id="fetchUserDetlByUserId" parameterType="String"
+		resultType="com.group.pbox.pvbs.model.user.User">
+		select
+		<include refid="Base_Column_List" />
+		from t_user where USER_ID = #{userId}
+	</select>
+
 </mapper>
