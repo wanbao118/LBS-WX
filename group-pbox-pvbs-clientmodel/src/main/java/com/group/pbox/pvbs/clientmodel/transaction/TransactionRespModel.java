@@ -1,8 +1,22 @@
 package com.group.pbox.pvbs.clientmodel.transaction;
 
-import com.group.pbox.pvbs.common.model.BaseClientReqModel;
+import java.util.ArrayList;
+import java.util.List;
 
-public class TransactionRespModel extends BaseClientReqModel
+import com.group.pbox.pvbs.common.model.BaseClientRespModel;
+
+public class TransactionRespModel extends BaseClientRespModel
 {
+    private List<TransactionRespData> listData = new ArrayList<TransactionRespData>();
+
+    public List<TransactionRespData> getListData()
+    {
+        return listData;
+    }
+
+    public void setListData(List<TransactionRespData> listData)
+    {
+        this.listData = listData;
+    }
 
 }

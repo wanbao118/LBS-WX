@@ -13,8 +13,6 @@ public abstract class BaseClientRespModel
 
     private Map<String, String> params = new HashMap<String, String>();
 
-    private List listData;
-
     public String getResult()
     {
         return result;
@@ -45,13 +43,4 @@ public abstract class BaseClientRespModel
         this.params = params;
     }
 
-    public List getListData()
-    {
-        return listData;
-    }
-
-    public void setListData(List listData)
-    {
-        this.listData = listData;
-    }
 }

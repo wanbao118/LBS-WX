@@ -1,10 +1,11 @@
 package com.group.pbox.pvbs.transaction;
 
-import com.group.pbox.pvbs.model.acct.AccountBalance;
+import com.group.pbox.pvbs.clientmodel.transaction.TransactionReqModel;
+import com.group.pbox.pvbs.clientmodel.transaction.TransactionRespModel;
 
 public interface IAccountBalanceService
 {
-    public String deposit(AccountBalance accountBalance);
+    public TransactionRespModel deposit(TransactionReqModel transactionReqModel) throws Exception;
 
-    public String withDrawal(AccountBalance accountBalance);
+    public TransactionRespModel withDrawal(TransactionReqModel transactionReqModel) throws Exception;
 }
