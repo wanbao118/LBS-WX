@@ -8,16 +8,17 @@
 		<result property="clearingCode" column="CLEARING_CODE" javaType="String" />
 		<result property="accountNumber" column="ACCOUNT_NUMBER" javaType="String" />
 		<result property="branchNumber" column="BRANCH_NUMBER" javaType="String" />
+		<result property="status" column="STATUS" javaType="int" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		ID AS id, REAL_ACCOUNT_NUMBER AS realAccountNumber, CLEARING_CODE AS
-		clearingCode, BRANCH_NUMBER AS branchNumber, ACCOUNT_NUMBER AS accountNumber
+		clearingCode, BRANCH_NUMBER AS branchNumber, ACCOUNT_NUMBER AS accountNumber, STATUS AS status
 	</sql>
 	<insert id="addAcct" parameterType="com.group.pbox.pvbs.model.acct.Account">
 		insert into T_ACCOUNT
-		(ID,REAL_ACCOUNT_NUMBER,CLEARING_CODE,ACCOUNT_NUMBER,BRANCH_NUMBER)
+		(ID,REAL_ACCOUNT_NUMBER,CLEARING_CODE,ACCOUNT_NUMBER,BRANCH_NUMBER,STATUS)
 		values
-		(#{id},#{realAccountNumber},#{clearingCode},#{accountNumber},#{branchNumber})
+		(#{id},#{realAccountNumber},#{clearingCode},#{accountNumber},#{branchNumber},#{status})
 	</insert>
 	
 	<select id="accountValid" parameterType="com.group.pbox.pvbs.model.acct.Account"
