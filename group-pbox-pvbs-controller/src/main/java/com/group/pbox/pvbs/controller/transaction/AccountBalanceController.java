@@ -44,17 +44,16 @@ public class AccountBalanceController
         accountBalance.setCurrencyCode(transactionReq.getCurrency());
         BaseResponseModel resp = new BaseResponseModel();
         String result = "";
-        if (StringUtils.equalsIgnoreCase(transactionReq.getOperation(),
-                OperationCode.TRANS_DEPOSIT))
+        switch (transactionReq.getOperation())
         {
-            // Deposit
-            result = accountBalanceService.deposit(accountBalance);
-        }
-        else if (StringUtils.equalsIgnoreCase(transactionReq.getOperation(),
-                OperationCode.TRANS_WITHDRAW))
-        {
-            // withdrawl
-            result = accountBalanceService.withDrawal(accountBalance);
+            case OperationCode.TRANS_DEPOSIT:
+                // Deposit
+                result = accountBalanceService.deposit(accountBalance);
+                break;
+            case OperationCode.TRANS_WITHDRAW:
+                // withdrawl
+                result = accountBalanceService.withDrawal(accountBalance);
+                break;
 
         }
         if (!StringUtils.equalsIgnoreCase(result, ErrorCode.RESPONSE_SUCCESS)
