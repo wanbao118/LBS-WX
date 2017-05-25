@@ -14,6 +14,7 @@ document.write(" 	 			</li>");
 document.write(" 				<li class=\"accordion\"><a href=\"#\"><i class=\"glyphicon glyphicon-plus\"></i><span>Admin</span></a>");                         
 document.write(" 	 				<ul class=\"nav nav-pills nav-stacked\">");                         
 document.write(" 	 					<li><a href=\""+contextPath+"/admin/userMaintain.html\">User Maintain</a></li>"); 
+document.write(" 	 					<li><a href=\""+contextPath+"/admin/userCreation.html\">User Add</a></li>"); 
 document.write(" 	 				</ul>");                            
 document.write(" 	 			</li>"); 
 document.write(" 	 		</ul>");                                
