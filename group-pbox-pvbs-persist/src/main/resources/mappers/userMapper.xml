@@ -20,13 +20,13 @@
 		ID AS id, USER_ID AS userId, USER_NAME AS
 		userName,
 		USER_POSITION AS userPosition, TRANSACTION_LIMIT AS transactionLimit,
-		TD_LIMI AS termDepositeLimit, EXCH_LIMIT AS exchangeRateLimit,
+		TD_LIMIT AS termDepositeLimit, EXCH_LIMIT AS exchangeRateLimit,
 		USER_PASSWORD AS userPassword, USER_STATUS AS userStatus
 	</sql>
-	<select id="accountValid" parameterType="com.group.pbox.pvbs.model.user.User"
+	<select id="accountValid" parameterType="com.group.pbox.pvbs.model.user.User" 
 		resultType="com.group.pbox.pvbs.model.user.User">
 		select
-		<sql id="Base_Column_List" />
+		<include refid="Base_Column_List" />
 		from t_user where
 		USER_ID=#{userId} AND
 		USER_PASSWORD=#{userPassword}
