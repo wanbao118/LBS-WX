@@ -1,4 +1,5 @@
 document.write("<script src=\""+contextPath+"/bower_components/bootstrap/dist/js/bootstrap.min.js\"></script>");
+document.write("<script src=\""+contextPath+"/bower_components/bootstrap-val/bootstrapValidator.min.js\"></script>");
 //library for cookie management
 document.write("<script src=\""+contextPath+"/js/jquery.cookie.js\"></script>");
 //calender plugin
