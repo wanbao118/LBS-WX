@@ -91,6 +91,7 @@ function creation(e) {
 		data : JSON.stringify(acct),
 		success : function(response) {
 			if (response.result == 00000) {
+				
 				$('#creationForm').find('.alert').html('User created successfully!').show();
 			} else {
 				$('#creationForm').find('.alert').html('User has existsed!').show();

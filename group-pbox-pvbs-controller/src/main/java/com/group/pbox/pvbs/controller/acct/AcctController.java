@@ -15,7 +15,6 @@ import com.group.pbox.pvbs.acct.IAcctCreationService;
 import com.group.pbox.pvbs.clientmodel.acct.AcctReqModel;
 import com.group.pbox.pvbs.clientmodel.acct.AcctRespModel;
 import com.group.pbox.pvbs.controller.transaction.AccountBalanceController;
-import com.group.pbox.pvbs.util.ErrorCode;
 import com.group.pbox.pvbs.util.OperationCode;
 import com.group.pbox.pvbs.util.log.TransactionLog;
 
@@ -42,7 +41,7 @@ public class AcctController {
         {
             case OperationCode.ACCT_CREATION:
                 // add
-            	acctResp = acctCreation(acctRequest);
+            	acctResp = acctCreationService.addAcct(acctRequest);
                 break;
             case OperationCode.ACCT_MAINTENANCE:
                 // edit
@@ -53,19 +52,6 @@ public class AcctController {
         }
 		
 		TransactionLog.customerLog(transactionLogger, "transaction log end");
-		return acctResp;
-	}
-
-	private AcctRespModel acctCreation(AcctReqModel acctRequest) {
-		AcctRespModel acctResp = new AcctRespModel();
-
-		acctResp = acctCreationService.accountValid(acctRequest);
-
-		if (acctResp.getResult().equals(ErrorCode.RESPONSE_SUCCESS))
-		{
-			acctResp = acctCreationService.addAcct(acctRequest);
-		}
-		
 		return acctResp;
 	}
 }
