@@ -1,10 +1,15 @@
 package com.group.pbox.pvbs.transaction;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import com.group.pbox.pvbs.clientmodel.transaction.TransactionReqModel;
+import com.group.pbox.pvbs.clientmodel.transaction.TransactionRespModel;
 import com.group.pbox.pvbs.model.acct.AccountBalance;
 import com.group.pbox.pvbs.persist.acct.AccountBalanceMapper;
 import com.group.pbox.pvbs.util.ErrorCode;
@@ -13,65 +18,74 @@ import com.group.pbox.pvbs.util.Utils;
 @Service
 public class AccountBalanceServiceImpl implements IAccountBalanceService
 {
-    private static final Logger logger = Logger
-            .getLogger(AccountBalanceServiceImpl.class);
+    private static final Logger logger = Logger.getLogger(AccountBalanceServiceImpl.class);
 
     @Resource
     AccountBalanceMapper accountBalanceMapper;
 
-    public String deposit(AccountBalance accountBalance)
+    @Override
+    public TransactionRespModel deposit(TransactionReqModel transactionReqModel) throws Exception
     {
-        logger.debug("test log");
-        AccountBalance sourceAccountBalance = accountBalanceMapper
-                .getAccountBalance(accountBalance);
+        TransactionRespModel transactionRespModel = new TransactionRespModel();
+        List<String> errorList = new ArrayList<String>();
+        AccountBalance accountBalance = new AccountBalance();
+        accountBalance.setAccountNum(transactionReqModel.getAccountNumber());
+        accountBalance.setBalance(transactionReqModel.getAmount());
+        accountBalance.setCurrencyCode(transactionReqModel.getCurrency());
+        AccountBalance sourceAccountBalance = accountBalanceMapper.getAccountBalance(accountBalance);
         int result = 0;
         if (null == sourceAccountBalance)
         {
             accountBalance.setId(Utils.getUUID());
-            // should get account id by account num.
-            // hurrican will do this.we will refference.
             result = accountBalanceMapper.insertAccountBalance(accountBalance);
         }
         else
         {
-            sourceAccountBalance.setBalance(sourceAccountBalance.getBalance()
-                    + accountBalance.getBalance());
-            result = accountBalanceMapper
-                    .updateAccountBalance(sourceAccountBalance);
+            sourceAccountBalance.setBalance(sourceAccountBalance.getBalance() + accountBalance.getBalance());
+            result = accountBalanceMapper.updateAccountBalance(sourceAccountBalance);
         }
-        if (result != -1)
+        if (result == -1)
         {
-            return ErrorCode.RESPONSE_SUCCESS;
+            transactionRespModel.setResult(ErrorCode.RESPONSE_ERROR);
+            errorList.add(ErrorCode.SYSTEM_OPERATION_ERROR);
+            transactionRespModel.setErrorCode(errorList);
         }
         else
         {
-            return ErrorCode.RESPONSE_ERROR;
+            transactionRespModel.setResult(ErrorCode.RESPONSE_SUCCESS);
         }
+        return transactionRespModel;
     }
 
-    public String withDrawal(AccountBalance accountBalance)
+    @Override
+    public TransactionRespModel withDrawal(TransactionReqModel transactionReqModel) throws Exception
     {
-        AccountBalance sourceAccountBalance = accountBalanceMapper
-                .getAccountBalance(accountBalance);
-        if (null == sourceAccountBalance)
+        TransactionRespModel transactionRespModel = new TransactionRespModel();
+        List<String> errorList = new ArrayList<String>();
+        AccountBalance accountBalance = new AccountBalance();
+        accountBalance.setAccountNum(transactionReqModel.getAccountNumber());
+        accountBalance.setBalance(transactionReqModel.getAmount());
+        accountBalance.setCurrencyCode(transactionReqModel.getCurrency());
+        AccountBalance sourceAccountBalance = accountBalanceMapper.getAccountBalance(accountBalance);
+
+        if (null == sourceAccountBalance || accountBalance.getBalance() > sourceAccountBalance.getBalance())
         {
-            return ErrorCode.RECORD_NOT_FOUND;
+            errorList.add(ErrorCode.INSUFFICIENT_FUNDING);
+            transactionRespModel.setResult(ErrorCode.RESPONSE_ERROR);
+            transactionRespModel.setErrorCode(errorList);
+            return transactionRespModel;
         }
 
-        if (accountBalance.getBalance() > sourceAccountBalance.getBalance())
-        {
-            return ErrorCode.ACCOUNT_BALANCE_LESS;
-        }
-
-        sourceAccountBalance.setBalance(sourceAccountBalance.getBalance()
-                - accountBalance.getBalance());
-        int updateResult = accountBalanceMapper
-                .updateAccountBalance(sourceAccountBalance);
+        sourceAccountBalance.setBalance(sourceAccountBalance.getBalance() - accountBalance.getBalance());
+        int updateResult = accountBalanceMapper.updateAccountBalance(sourceAccountBalance);
         if (updateResult == -1)
         {
-            return ErrorCode.DB_OPERATION_ERROR;
+            errorList.add(ErrorCode.DB_OPERATION_ERROR);
+            transactionRespModel.setResult(ErrorCode.RESPONSE_ERROR);
+            transactionRespModel.setErrorCode(errorList);
         }
-        return ErrorCode.RESPONSE_SUCCESS;
+        transactionRespModel.setResult(ErrorCode.RESPONSE_SUCCESS);
+        return transactionRespModel;
     }
 
 }
