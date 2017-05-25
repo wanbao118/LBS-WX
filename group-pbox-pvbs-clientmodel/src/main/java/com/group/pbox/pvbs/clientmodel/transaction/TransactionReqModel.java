@@ -7,6 +7,7 @@ public class TransactionReqModel extends BaseClientReqModel
     private String accountNumber;
     private String currency;
     private double amount;
+    private String accountId;
 
     public String getAccountNumber()
     {
@@ -36,5 +37,15 @@ public class TransactionReqModel extends BaseClientReqModel
     public void setAmount(double amount)
     {
         this.amount = amount;
+    }
+
+    public String getAccountId()
+    {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId)
+    {
+        this.accountId = accountId;
     }
 }

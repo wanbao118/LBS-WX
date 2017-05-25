@@ -8,4 +8,6 @@ public interface IAccountBalanceService
     public TransactionRespModel deposit(TransactionReqModel transactionReqModel) throws Exception;
 
     public TransactionRespModel withDrawal(TransactionReqModel transactionReqModel) throws Exception;
+
+    public TransactionRespModel transfer(TransactionReqModel transactionReqModel) throws Exception;
 }
