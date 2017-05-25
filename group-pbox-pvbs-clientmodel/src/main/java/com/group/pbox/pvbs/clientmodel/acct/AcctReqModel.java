@@ -1,8 +1,8 @@
-package com.group.pbox.pvbs.controller.model.request;
+package com.group.pbox.pvbs.clientmodel.acct;
 
-import com.group.pbox.pvbs.controller.model.BaseRequestModel;
+import com.group.pbox.pvbs.common.model.BaseClientReqModel;
 
-public class AcctReq extends BaseRequestModel{
+public class AcctReqModel extends BaseClientReqModel{
 	
 	private String id;
 	

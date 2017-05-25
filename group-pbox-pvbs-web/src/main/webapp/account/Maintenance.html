@@ -40,48 +40,29 @@
 							</div>
 							<div class="box-content">
 
-
 								<form id="empForm" method="post" class="form-horizontal"
 									style="width: 100%" action="target.php">
 									
 									
 									<div class="form-group">
-										<div class="group">
-											<label class="col-lg-2 control-label">Basic Banking Function</label>
-											<div class="col-lg-3">
-												<select href="#" class="form-control " name="bu"
-													data-bv-notempty data-bv-notempty-message="请选择交付部"
-													id="bu" data-bv-group=".group"
-													onchange="loadProject(this.options[this.options.selectedIndex].value);"
-													<option value="">-- 请选择交付部 --</option>
-												</select>
-											</div>
-										</div>
 										
 										<div class="group">
-											<label class="col-sm-2 control-label">Basic Account Function</label>
+											<label class="col-sm-3 control-label">Basic Account Function</label>
 											<div class="col-sm-3">
 												<input type="text" class="form-control" name="er" id="er" />
 											</div>
+<!-- 											<input type="button" value="Enquiry&nbsp;&nbsp;" name="subscribe" -->
+<!-- 												id="sub_upd" href="#" class="button btn btn-primary" -->
+<!-- 												data-dismiss="modal" -->
+<!-- 												style="background-color: #aaa; border: 0 none; border-radius: 4px; color: #FFFFFF; cursor: pointer; display: inline-block; font-size: 15px; font-weight: bold; height: 32px; line-height: 32px; margin: 0 5px 10px 0; padding: 0; text-align: center; text-decoration: none; vertical-align: top; white-space: nowrap; width: 100px; margin: auto;" -->
+<!-- 												onclick="ViewCapability();"> -->
+ 											<input type="submit" value=" Enquiry&nbsp;&nbsp;" name="subscribe"
+ 												id="sub_bt" href="#" class="button btn btn-primary"  
+ 												data-dismiss="modal" 
+ 												style="background-color: #aaa; border: 0 none; border-radius: 4px; color: #FFFFFF; cursor: pointer; display: inline-block; font-size: 15px; font-weight: bold; height: 32px; line-height: 32px; margin: 0 5px 10px 0; padding: 0; text-align: center; text-decoration: none; vertical-align: top; white-space: nowrap; width: 100px; margin: auto;"> 
 										</div>
 									</div>
 									
-									<div class="form-group">
-										<div style="text-align: center;width:50%;float:left">
-											<input type="button" value="Add&nbsp;&nbsp;" name="subscribe"
-												id="sub_upd" href="#" class="button btn btn-primary"
-												data-dismiss="modal"
-												style="background-color: #aaa; border: 0 none; border-radius: 4px; color: #FFFFFF; cursor: pointer; display: inline-block; font-size: 15px; font-weight: bold; height: 32px; line-height: 32px; margin: 0 5px 10px 0; padding: 0; text-align: center; text-decoration: none; vertical-align: top; white-space: nowrap; width: 100px; margin: auto;"
-												onclick="ViewCapability();">
-										</div>
-										
-										<div style="text-align: center;width:50%;float:right">
-											<input type="submit" value=" Enquiry&nbsp;&nbsp;" name="subscribe"
-												id="sub_bt" href="#" class="button btn btn-primary"
-												data-dismiss="modal"
-												style="background-color: #aaa; border: 0 none; border-radius: 4px; color: #FFFFFF; cursor: pointer; display: inline-block; font-size: 15px; font-weight: bold; height: 32px; line-height: 32px; margin: 0 5px 10px 0; padding: 0; text-align: center; text-decoration: none; vertical-align: top; white-space: nowrap; width: 100px; margin: auto;">
-										</div>
-									</div>
 									
 									<div>
 									<table id="EmployeeList"
