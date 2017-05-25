@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,24 +24,25 @@ import com.group.pbox.pvbs.util.OperationCode;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+	private static final Logger sysLogger = Logger.getLogger("customer");
+
 	@Resource
 	IUserService userService;
 
 	@RequestMapping(value = "/loginCheck", method = RequestMethod.POST, consumes = "application/json")
 	@ResponseBody
 	public Object loginCheck(final HttpServletRequest request, final HttpServletResponse response,
-			@RequestBody User user) {
+			@RequestBody UserReqModel userRequest) {
 
-		BaseResponseModel resp = new BaseResponseModel();
+		UserRespModel userRespModel = new UserRespModel();
 
-		int result = userService.accountValid(user);
+		try {
+			userRespModel = userService.accountValid(userRequest);
+		} catch (Exception e) {
 
-		if (result > 0) {
-			resp.setResult(ErrorCode.RESPONSE_SUCCESS);
-		} else {
-			resp.setResult(ErrorCode.RESPONSE_ERROR);
 		}
-		return resp;
+
+		return userRespModel;
 	}
 
 	@RequestMapping(value = "/userMaintain", method = RequestMethod.POST, consumes = "application/json")
