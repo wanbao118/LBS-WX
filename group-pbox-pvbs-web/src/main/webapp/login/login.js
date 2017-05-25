@@ -62,14 +62,14 @@ function login(e) {
 	var password = $("#password").val();
 	var json = {'userId' : userId, 'password' : password};
 	$.ajax({
-			url : loginPath,
+			url : contextPath+"/service/user/loginCheck",
 			type : "post",
 			contentType: "application/json",
 			dataType : "json",
 			data : JSON.stringify(json),
 			success : function(response) {
 				if (response.result==00000) {
-					 window.location.href = mainPath;
+					 window.location.href = contextPath+"/index.html";
 				}
 				else {
 					//$("#loginAlert").width(500);
