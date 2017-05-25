@@ -1,6 +1,7 @@
 package com.group.pbox.pvbs.user;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import javax.annotation.Resource;
 
@@ -9,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.group.pbox.pvbs.clientmodel.user.UserReqModel;
 import com.group.pbox.pvbs.model.user.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -19,11 +21,12 @@ public class UserServiceImplTest
     IUserService userService;
 
     @Test
-    public void accountValidTest()
+    public void accountValidTest() throws Exception
     {
         User user = new User();
-        user.setUserId("0001");
-        user.setUserPassword("1");
-        assertEquals(userService.accountValid(user), 1);
+        UserReqModel userRequestModel = new UserReqModel();
+        userRequestModel.setUserId("0001");
+        userRequestModel.setUserPassword("1");
+        assertNotNull(userService.accountValid(userRequestModel));
     }
 }
