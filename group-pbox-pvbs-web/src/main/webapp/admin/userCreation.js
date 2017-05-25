@@ -107,8 +107,8 @@ $(document).ready(function() {
         });
 });
 function addUser(e){
-	$('#userAddForm').find('.alert-success').hidden();
-	$('#userAddForm').find('.alert-warning').hidden();
+	$('#userAddForm').find('.alert-success').hide();
+	$('#userAddForm').find('.alert-warning').hide();
 	var userId = $("#userId").val();
 	var userName = $("#userName").val();
 	var userPosition = $("#userPosition").val();
@@ -124,7 +124,7 @@ function addUser(e){
 			dataType : "json",
 			data : JSON.stringify(json),
 			success : function(response) {
-				if (response.result==00000) {
+				if (response.result=="00000") {
 					$('#userAddForm').find('.alert-success').html('add user success.').show();
 				}
 				else {
