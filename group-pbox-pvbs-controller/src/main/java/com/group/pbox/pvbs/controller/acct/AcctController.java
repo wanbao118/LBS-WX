@@ -33,7 +33,7 @@ public class AcctController {
 
 		BaseResponseModel resp = new BaseResponseModel();
 		int result;
-		@SuppressWarnings("unused")
+		String resultResp = "";
 		String acct = null;
 		if (StringUtils.equalsIgnoreCase(acctRequest.getOperation(), OperationCode.ACCT_CREATION)) {
 			Account account = new Account();
@@ -47,6 +47,7 @@ public class AcctController {
 
 			if (accountResult > 0) {
 				resp.setResult(ErrorCode.ACCOUNT_HAVE_FOUND);
+				resp.getErrorCode().add(resultResp);
 			} else {
 				
 				String maxAcctNumber = acctCreationService.fetchAcct();
