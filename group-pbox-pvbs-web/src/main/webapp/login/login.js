@@ -59,8 +59,8 @@ $(document).ready(function() {
 });
 function login(e) {
 	var userId = $("#userId").val();
-	var password = $("#password").val();
-	var json = {'userId' : userId, 'password' : password};
+	var userPassword = $("#userPassword").val();
+	var json = {'userId' : userId, 'userPassword' : userPassword};
 	$.ajax({
 			url : contextPath+"/service/user/loginCheck",
 			type : "post",
