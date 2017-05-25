@@ -17,7 +17,7 @@ public class AcctCreationServiceImpl implements IAcctCreationService
     @Resource
     AcctMapper acctMapper;
 
-    public AcctRespModel addAcct(AcctReqModel acctRequest)
+    public AcctRespModel addAcct(AcctReqModel acctRequest) throws Exception
     {
     	AcctRespModel acctResp = new AcctRespModel();
 		Account account = new Account();
@@ -76,12 +76,7 @@ public class AcctCreationServiceImpl implements IAcctCreationService
         return acctResp; 
     }
 
-    public String fetchAcct()
-    {
-        return acctMapper.fetchAcct();
-    }
-    
-    public AcctRespModel accountValid(AcctReqModel acctRequest)
+    public AcctRespModel accountValid(AcctReqModel acctRequest) throws Exception
     {
     	AcctRespModel acctResp = new AcctRespModel();
     	Account account = new Account();
