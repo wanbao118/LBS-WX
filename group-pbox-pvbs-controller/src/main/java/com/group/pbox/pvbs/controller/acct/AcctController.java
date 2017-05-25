@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,75 +12,60 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.group.pbox.pvbs.acct.IAcctCreationService;
-import com.group.pbox.pvbs.controller.model.BaseResponseModel;
-import com.group.pbox.pvbs.controller.model.request.AcctReq;
-import com.group.pbox.pvbs.model.acct.Account;
+import com.group.pbox.pvbs.clientmodel.acct.AcctReqModel;
+import com.group.pbox.pvbs.clientmodel.acct.AcctRespModel;
+import com.group.pbox.pvbs.controller.transaction.AccountBalanceController;
 import com.group.pbox.pvbs.util.ErrorCode;
 import com.group.pbox.pvbs.util.OperationCode;
-import com.group.pbox.pvbs.util.Utils;
+import com.group.pbox.pvbs.util.log.TransactionLog;
 
 @Controller
 @RequestMapping("/acct")
 public class AcctController {
 
+    private static final Logger transactionLogger = Logger
+            .getLogger(AccountBalanceController.class);
+    private static final Logger logger = Logger.getLogger("customer");
+	
 	@Resource
 	IAcctCreationService acctCreationService;
 
-	@RequestMapping(value = "/addAcct", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(value = "/acctMaintenance ", method = RequestMethod.POST, consumes = "application/json")
 	@ResponseBody
 	public Object addAcct(final HttpServletRequest request, final HttpServletResponse response,
-			@RequestBody AcctReq acctRequest) {
+			@RequestBody AcctReqModel acctRequest) {
 
-		BaseResponseModel resp = new BaseResponseModel();
-		int result;
-		String resultResp = "";
-		String acct = null;
-		if (StringUtils.equalsIgnoreCase(acctRequest.getOperation(), OperationCode.ACCT_CREATION)) {
-			Account account = new Account();
-			account.setId(Utils.getUUID());
-			account.setAccountNumber(acctRequest.getAccountNumber());
-			account.setBranchNumber(acctRequest.getBranchNumber());
-			account.setClearingCode(acctRequest.getClearingCode());
-			account.setRealAccountNumber(acctRequest.getRealAccountNumber());
+		logger.info("system log.");
+        TransactionLog.customerLog(transactionLogger, "transaction log begin");
+        AcctRespModel acctResp = new AcctRespModel();
+        switch (acctRequest.getOperationCode())
+        {
+            case OperationCode.ACCT_CREATION:
+                // add
+            	acctResp = acctCreation(acctRequest);
+                break;
+            case OperationCode.ACCT_MAINTENANCE:
+                // edit
+                break;
+            case OperationCode.ACCT_CLOSURE:
+                // delete
+                break;
+        }
+		
+		TransactionLog.customerLog(transactionLogger, "transaction log end");
+		return acctResp;
+	}
 
-			int accountResult = acctCreationService.accountValid(account);
+	private AcctRespModel acctCreation(AcctReqModel acctRequest) {
+		AcctRespModel acctResp = new AcctRespModel();
 
-			if (accountResult > 0) {
-				resp.setResult(ErrorCode.ACCOUNT_HAVE_FOUND);
-				resp.getErrorCode().add(resultResp);
-			} else {
-				
-				String maxAcctNumber = acctCreationService.fetchAcct();
-				Integer newAcctNumber = Integer.valueOf(maxAcctNumber) + 1;
-				if (newAcctNumber.toString().length() == 1)
-		    	{
-		    		acct = "0000" + newAcctNumber;
-		    	}else if (newAcctNumber.toString().length() == 2)
-		    	{
-		    		acct = "000" + newAcctNumber;
-		    	}else if (newAcctNumber.toString().length() == 3)
-		    	{
-		    		acct = "00" + newAcctNumber;
-		    	}else if (newAcctNumber.toString().length() == 4)
-		    	{
-		    		acct = "0" + newAcctNumber;
-		    	}else if (newAcctNumber.toString().length() == 5)
-		    	{
-		    		acct = newAcctNumber.toString();
-		    	}
-				
-				account.setAccountNumber(acct);
-				account.setRealAccountNumber(
-						account.getClearingCode() + account.getBranchNumber() + acct);
-				result = acctCreationService.addAcct(account);
+		acctResp = acctCreationService.accountValid(acctRequest);
 
-				if (result > 0) {
-					resp.setResult(ErrorCode.RESPONSE_SUCCESS);
-				} else {
-					resp.setResult(ErrorCode.RESPONSE_ERROR);
-				}
-			}
+		if (acctResp.getResult().equals(ErrorCode.RESPONSE_SUCCESS))
+		{
+			acctResp = acctCreationService.addAcct(acctRequest);
 		}
-		return resp;
+		
+		return acctResp;
 	}
 }
