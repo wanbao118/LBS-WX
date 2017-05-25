@@ -1,12 +1,12 @@
 package com.group.pbox.pvbs.sysconf;
 
-import java.util.List;
-
-import com.group.pbox.pvbs.model.sysConf.SysConf;
+import com.group.pbox.pvbs.clientmodel.sysconf.SysConfReqModel;
+import com.group.pbox.pvbs.clientmodel.sysconf.SysConfRespModel;
 
 public interface ISysConfService
 {
-    public List<SysConf> getAllSysConf();
+    public SysConfRespModel getAllSysConf() throws Exception;
 
-    public List<SysConf> getAllSysConfByParam(SysConf sysConf);
+    public SysConfRespModel getAllSysConfByParam(SysConfReqModel reqModel)
+            throws Exception;
 }
