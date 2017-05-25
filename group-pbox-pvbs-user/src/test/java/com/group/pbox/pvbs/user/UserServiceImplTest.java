@@ -23,7 +23,7 @@ public class UserServiceImplTest
     {
         User user = new User();
         user.setUserId("0001");
-        user.setPassword("1");
+        user.setUserPassword("1");
         assertEquals(userService.accountValid(user), 1);
     }
 }

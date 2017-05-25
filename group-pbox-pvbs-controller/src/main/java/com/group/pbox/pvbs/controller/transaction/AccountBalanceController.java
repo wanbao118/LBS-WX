@@ -57,6 +57,10 @@ public class AccountBalanceController
                     // withdrawl
                     transactionRespModel = withDrawal(transactionReqModel);
                     break;
+                case OperationCode.TRANS_TRANSFER:
+                    // transfer
+                    transactionRespModel = transfer(transactionReqModel);
+                    break;
             }
             sysLogger.info("end transaction:" + transactionReqModel.getAccountNumber() + "|" + transactionReqModel.getCurrency() + "|" + transactionReqModel.getAmount() + "|"
                     + transactionReqModel.getOperationCode());
@@ -68,6 +72,23 @@ public class AccountBalanceController
             transactionRespModel.setResult(ErrorCode.RESPONSE_ERROR);
             transactionRespModel.setErrorCode(errorList);
         }
+        return transactionRespModel;
+    }
+
+    private TransactionRespModel transfer(TransactionReqModel transactionReqModel) throws Exception
+    {
+        TransactionLog.customerLog(businessLogger, "start transfer:" + transactionReqModel.getAccountNumber() + "|" + transactionReqModel.getCurrency() + "|" + transactionReqModel.getAmount() + "|"
+                + transactionReqModel.getOperationCode());
+        TransactionRespModel transactionRespModel = checkCurrencySurpport(transactionReqModel);
+        if (StringUtils.equalsIgnoreCase(transactionRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
+        {
+            return transactionRespModel;
+        }
+        // todo account not find
+        // todo exced limit
+        transactionRespModel = accountBalanceService.transfer(transactionReqModel);
+        TransactionLog.customerLog(businessLogger, "end deposit:" + transactionReqModel.getAccountNumber() + "|" + transactionReqModel.getCurrency() + "|" + transactionReqModel.getAmount() + "|"
+                + transactionReqModel.getOperationCode());
         return transactionRespModel;
     }
 
@@ -128,7 +149,6 @@ public class AccountBalanceController
                 break;
             }
         }
-
         if (!result)
         {
             errorList.add(ErrorCode.CURRENCY_NOT_FOUND);
