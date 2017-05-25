@@ -20,8 +20,36 @@ public class UserServiceImpl implements IUserService {
 	@Resource
 	UserMapper userMapper;
 
-	public int accountValid(User user) {
-		return userMapper.accountValid(user);
+	public UserRespModel accountValid(UserReqModel userReqModel) {
+		UserRespModel userResponseModel = new UserRespModel();
+
+		User user = new User();
+		user.setUserId(userReqModel.getUserId());
+		user.setUserPassword(userReqModel.getUserPassword());
+		User returnUser = userMapper.accountValid(user);
+		if(returnUser!=null){
+			List<UserRespData> list = new ArrayList<UserRespData>();
+			UserRespData userRespData = new UserRespData();
+			userRespData.setId(returnUser.getId());
+			userRespData.setUserId(returnUser.getUserId());
+			userRespData.setUserName(returnUser.getUserName());
+			userRespData.setUserPassword(returnUser.getUserPassword());
+			userRespData.setUserPosition(returnUser.getUserPosition());
+			userRespData.setExchangeRateLimit(returnUser.getExchangeRateLimit());
+			userRespData.setTransactionLimit(returnUser.getTransactionLimit());
+			userRespData.setTermDepositeLimit(returnUser.getTermDepositeLimit());
+			userRespData.setUserStatus(returnUser.getUserStatus());
+			list.add(userRespData);
+			userResponseModel.setResult(ErrorCode.RESPONSE_SUCCESS);
+			userResponseModel.setListData(list);
+		}else{
+			userResponseModel.setResult(ErrorCode.RESPONSE_ERROR);
+			List<String> errorList = new ArrayList<String>();
+			errorList.add(ErrorCode.RECORD_NOT_FOUND);
+			userResponseModel.setErrorCode(errorList);
+		}
+
+		return userResponseModel;
 	}
 
 	public UserRespModel addUser(UserReqModel userReqModel) {

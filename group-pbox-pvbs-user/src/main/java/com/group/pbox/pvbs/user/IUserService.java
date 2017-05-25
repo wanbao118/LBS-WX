@@ -8,7 +8,7 @@ import com.group.pbox.pvbs.model.user.User;
 
 public interface IUserService
 {
-    int accountValid(User user);
+	UserRespModel accountValid(UserReqModel userReqModel) throws Exception;
     UserRespModel addUser(UserReqModel userReqModel);
     UserRespModel updateUser(UserReqModel userReqModel);
     int deleteUser(String userId);
