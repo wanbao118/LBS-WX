@@ -60,5 +60,15 @@
 			<artifactId>group-pbox-pvbs-user</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.pbox.pvbs</groupId>
+			<artifactId>group-pbox-pvbs-common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.pbox.pvbs</groupId>
+			<artifactId>group-pbox-pvbs-clientmodel</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 </project>
