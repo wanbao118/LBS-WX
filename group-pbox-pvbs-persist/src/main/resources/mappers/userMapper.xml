@@ -24,8 +24,10 @@
 		USER_PASSWORD AS userPassword, USER_STATUS AS userStatus
 	</sql>
 	<select id="accountValid" parameterType="com.group.pbox.pvbs.model.user.User"
-		resultType="int">
-		select count(0) from t_user where
+		resultType="com.group.pbox.pvbs.model.user.User">
+		select
+		<sql id="Base_Column_List" />
+		from t_user where
 		USER_ID=#{userId} AND
 		USER_PASSWORD=#{userPassword}
 	</select>
