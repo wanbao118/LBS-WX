@@ -11,21 +11,17 @@ $(document)
 											validating : 'glyphicon glyphicon-refresh'
 										},
 										fields : {
-											userId : {
+											clearingCode : {
+												group: '.group',
 												validators : {
 													notEmpty : {
-														message : 'Please input username!'
+														message : 'please input clearing code!'
 													},
 
 													regexp : {
-														regexp : /^([\u4E00-\u9FA5]|\w)*$/,
-														message : 'Please do not include special characters!'
-													},
-													stringLength : {
-														min : 1,
-														max : 20,
-														message : 'Please input username between one and twenty!'
-													},
+														regexp : '^[0-9]{3}$',
+														message : 'Please input three number!'
+													}
 												/*
 												 * remote: { url:
 												 * paths+'/service/employee/checkErExists',
@@ -61,7 +57,6 @@ $(document)
 							});
 				});
 function creation(e) {
-	var $form = $(e.target);
 	var clearingCode = $("#clearingCode").val();
 	var branchNumber = $("#branchNumber").val();
 	var accountNumber = $("#accountNumber").val();
@@ -86,10 +81,10 @@ function creation(e) {
 		'contactNumber' : contactNumber,
 		'wechatId' : wechatId,
 		'employment' : employment,
-		'operation' : 'A'
+		'operationCode' : 'A'
 	};
 	$.ajax({
-		url : contextPath+"/service/acct/addAcct",
+		url : contextPath+"/service/acct/acctMaintenance",
 		type : "post",
 		contentType : "application/json",
 		dataType : "json",
