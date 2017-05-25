@@ -22,5 +22,10 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+			<groupId>com.pbox.pvbs</groupId>
+			<artifactId>group-pbox-pvbs-common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
   </dependencies>
 </project>
