@@ -1,10 +1,10 @@
 package com.group.pbox.pvbs.acct;
 
-import com.group.pbox.pvbs.model.acct.Account;
+import com.group.pbox.pvbs.clientmodel.acct.AcctReqModel;
+import com.group.pbox.pvbs.clientmodel.acct.AcctRespModel;
 
 public interface IAcctCreationService
 {
-    int addAcct(Account acctRequest);
-    int accountValid(Account account);
-    String fetchAcct();
+	AcctRespModel addAcct(AcctReqModel acctRequest);
+    AcctRespModel accountValid(AcctReqModel acctRequest);
 }
