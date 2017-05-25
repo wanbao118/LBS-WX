@@ -5,6 +5,6 @@ import com.group.pbox.pvbs.clientmodel.acct.AcctRespModel;
 
 public interface IAcctCreationService
 {
-	AcctRespModel addAcct(AcctReqModel acctRequest);
-    AcctRespModel accountValid(AcctReqModel acctRequest);
+	AcctRespModel addAcct(AcctReqModel acctRequest) throws Exception;
+    AcctRespModel accountValid(AcctReqModel acctRequest) throws Exception;
 }
