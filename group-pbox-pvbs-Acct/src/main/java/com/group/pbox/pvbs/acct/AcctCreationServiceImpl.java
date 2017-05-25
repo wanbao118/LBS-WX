@@ -61,6 +61,7 @@ public class AcctCreationServiceImpl implements IAcctCreationService
 		account.setAccountNumber(acct);
 		account.setRealAccountNumber(
 				account.getClearingCode() + account.getBranchNumber() + acct);
+		account.setStatus(0);
 		int addAcct = acctMapper.addAcct(account);
 		
 		if (addAcct > 0)
