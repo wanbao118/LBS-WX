@@ -1,6 +1,6 @@
 package com.group.pbox.pvbs.persist.user;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import javax.annotation.Resource;
 
@@ -24,7 +24,7 @@ public class UserMapperTest
         User user = new User();
         user.setUserId("0001");
         user.setUserPassword("1");
-        assertEquals(userMapper.accountValid(user), 1);
+        assertNotNull(userMapper.accountValid(user));
     }
 
 }
