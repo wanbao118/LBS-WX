@@ -1,7 +1,6 @@
 package com.group.pbox.pvbs.model.user;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 public class User implements Serializable
 {
@@ -14,12 +13,21 @@ public class User implements Serializable
     private String userId;
     private String userName;
     private String userPosition;
-    private BigDecimal transactionLimit;
-    private BigDecimal termDepositeLimit;
-    private BigDecimal exchangeRateLimit;
-    private String password;
+    private Double transactionLimit;
+    private Double termDepositeLimit;
+    private Double exchangeRateLimit;
+    private String userPassword;
+    private String userStatus;
 
-    public String getId()
+    public String getUserStatus() {
+		return userStatus;
+	}
+
+	public void setUserStatus(String userStatus) {
+		this.userStatus = userStatus;
+	}
+
+	public String getId()
     {
         return id;
     }
@@ -59,44 +67,44 @@ public class User implements Serializable
         this.userPosition = userPosition;
     }
 
-    public BigDecimal getTransactionLimit()
+    public Double getTransactionLimit()
     {
         return transactionLimit;
     }
 
-    public void setTransactionLimit(BigDecimal transactionLimit)
+    public void setTransactionLimit(Double transactionLimit)
     {
         this.transactionLimit = transactionLimit;
     }
 
-    public BigDecimal getTermDepositeLimit()
+    public Double getTermDepositeLimit()
     {
         return termDepositeLimit;
     }
 
-    public void setTermDepositeLimit(BigDecimal termDepositeLimit)
+    public void setTermDepositeLimit(Double termDepositeLimit)
     {
         this.termDepositeLimit = termDepositeLimit;
     }
 
-    public BigDecimal getExchangeRateLimit()
+    public Double getExchangeRateLimit()
     {
         return exchangeRateLimit;
     }
 
-    public void setExchangeRateLimit(BigDecimal exchangeRateLimit)
+    public void setExchangeRateLimit(Double exchangeRateLimit)
     {
         this.exchangeRateLimit = exchangeRateLimit;
     }
 
-    public String getPassword()
+    public String getUserPassword()
     {
-        return password;
+        return userPassword;
     }
 
-    public void setPassword(String password)
+    public void setUserPassword(String userPassword)
     {
-        this.password = password;
+        this.userPassword = userPassword;
     }
 
 }
