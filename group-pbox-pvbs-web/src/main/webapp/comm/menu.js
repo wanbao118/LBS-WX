@@ -17,6 +17,13 @@ document.write(" 	 					<li><a href=\""+contextPath+"/admin/userMaintain.html\">
 document.write(" 	 					<li><a href=\""+contextPath+"/admin/userCreation.html\">User Add</a></li>"); 
 document.write(" 	 				</ul>");                            
 document.write(" 	 			</li>"); 
+document.write(" 				<li class=\"accordion\"><a href=\"#\"><i class=\"glyphicon glyphicon-plus\"></i><span>ExchangeRate</span></a>");                         
+document.write(" 	 				<ul class=\"nav nav-pills nav-stacked\">");                         
+document.write(" 	 					<li><a href=\""+contextPath+"/exchangeRate/queryExRate.html\">Exchange Rate</a></li>"); 
+document.write(" 	 					<li><a href=\""+contextPath+"/exchangeRate/userCreation.html\">User Add</a></li>"); 
+document.write(" 	 				</ul>");                            
+document.write(" 	 			</li>"); 
+
 document.write(" 	 		</ul>");                                
 document.write(" 	    </div>");                               
 document.write(" 	</div>");  

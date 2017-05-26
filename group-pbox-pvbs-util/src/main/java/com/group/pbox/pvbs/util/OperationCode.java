@@ -14,4 +14,6 @@ public class OperationCode
     public static final String ACCT_DETL = "D";
     public static final String FETCH_BY_USER_ID = "FBU";
 
+    public static final String FETCH_ALL_CCYEXRATE = "FAC";
+    public static final String FETCH_BY_CURRENCY_CODE = "FBC";
 }
