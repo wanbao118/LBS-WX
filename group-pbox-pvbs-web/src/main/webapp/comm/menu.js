@@ -27,6 +27,12 @@ document.write(" 	 					<li><a href=\""+contextPath+"/exchangerate/sell.html\">S
 document.write(" 	 				</ul>");                            
 document.write(" 	 			</li>"); 
 
+document.write(" 				<li class=\"accordion\"><a href=\"#\"><i class=\"glyphicon glyphicon-plus\"></i><span>Transaction</span></a>");                         
+document.write(" 	 				<ul class=\"nav nav-pills nav-stacked\">");                         
+document.write(" 	 					<li><a href=\""+contextPath+"/transaction/withDraw.html\">Exchange Rate</a></li>"); 
+document.write(" 	 				</ul>");                            
+document.write(" 	 			</li>"); 
+
 document.write(" 	 		</ul>");                                
 document.write(" 	    </div>");                               
 document.write(" 	</div>");  
