@@ -35,6 +35,7 @@ public class ErrorCode
     public static String ADD_ACCOUNT_SUCCESS = "10009";
     // Add Account Failed
     public static final String ADD_ACCOUNT_FAILED = "10010";
+<<<<<<< Updated upstream
     // Edit Account Mater Success
     public static final String EDIT_ACCOUNT_MASTER_SUCCESS = "10011";
     // Edit Account Mater Failed
@@ -48,5 +49,9 @@ public class ErrorCode
     public static final String ENQUIRE_BALANCE_FAILED = "10016";
     // Inquire Balance Success
     public static final String ENQUIRE_BALANCE_SUCCESS = "10017";
-    
+
+
+    public static final String ACCOUNT_TRANSFER_SOURCE_NOT_FOUND = "10018";
+    public static final String ACCOUNT_TRANSFER_TARGET_NOT_FOUND = "10019";
+
 }
