@@ -1,5 +1,10 @@
 package com.group.pbox.pvbs.acct;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -7,7 +12,11 @@ import org.springframework.stereotype.Service;
 import com.group.pbox.pvbs.clientmodel.acct.AcctReqModel;
 import com.group.pbox.pvbs.clientmodel.acct.AcctRespModel;
 import com.group.pbox.pvbs.model.acct.Account;
+import com.group.pbox.pvbs.model.acct.AccountBalance;
+import com.group.pbox.pvbs.model.acct.AccountMaster;
+import com.group.pbox.pvbs.persist.acct.AccountBalanceMapper;
 import com.group.pbox.pvbs.persist.acct.AcctMapper;
+import com.group.pbox.pvbs.persist.acct.AcctMasterMapper;
 import com.group.pbox.pvbs.util.ErrorCode;
 import com.group.pbox.pvbs.util.Utils;
 
@@ -16,10 +25,17 @@ public class AcctCreationServiceImpl implements IAcctCreationService
 {
     @Resource
     AcctMapper acctMapper;
-
+    @Resource
+    AcctMasterMapper acctMasterMapper;
+    @Resource
+    AccountBalanceMapper accountBalanceMapper;
+    
     public AcctRespModel addAcct(AcctReqModel acctRequest) throws Exception
     {
     	AcctRespModel acctResp = new AcctRespModel();
+    	AccountMaster accountMaster = new AccountMaster();
+    	AccountBalance accountBalance = new AccountBalance();
+    	
 		Account account = new Account();
 		account.setId(Utils.getUUID());
 		account.setAccountNumber(acctRequest.getAccountNumber());
@@ -62,9 +78,36 @@ public class AcctCreationServiceImpl implements IAcctCreationService
 		account.setRealAccountNumber(
 				account.getClearingCode() + account.getBranchNumber() + acct);
 		account.setStatus(0);
-		int addAcct = acctMapper.addAcct(account);
+        
+		accountMaster.setId(Utils.getUUID());
+		accountMaster.setAccountId(account.getId());
+		accountMaster.setCustomerName(acctRequest.getCustomerName());
+		accountMaster.setCustomerId(acctRequest.getCustomerId());
+		accountMaster.setAddress(acctRequest.getAddress());
+		accountMaster.setContactAddress(acctRequest.getContactAddress());
+		accountMaster.setContactNumber(acctRequest.getContactNumber());
+		String date = acctRequest.getDateOfBirth();
+		SimpleDateFormat format = new SimpleDateFormat("ddMMyyyy");
+		Date insertdate = format.parse(date);
+		accountMaster.setDateOfBirth(insertdate);
+		accountMaster.setWechatId(acctRequest.getWechatId());
+		accountMaster.setEmployment(acctRequest.getEmployment());
+        
+		accountBalance.setId(Utils.getUUID());
+		accountBalance.setAccountId(account.getId());
+		accountBalance.setCurrencyCode("RMB");
+		accountBalance.setBalance(0);
 		
-		if (addAcct > 0)
+		SimpleDateFormat timeFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date newDate = new Date();
+		newDate = timeFormater.parse(timeFormater.format(newDate));
+        accountBalance.setLastUpatedDate(newDate);
+
+		int addAcct = acctMapper.addAcct(account);
+		int addMaster = acctMasterMapper.insertAccountMaster(accountMaster);
+		int addBalance = accountBalanceMapper.insertAccountBalance(accountBalance);
+		
+		if (addAcct > 0 && addMaster > 0 && addBalance > 0)
 		{
 			acctResp.setResult(ErrorCode.RESPONSE_SUCCESS);
 			acctResp.getErrorCode().add(ErrorCode.ADD_ACCOUNT_SUCCESS);
@@ -100,4 +143,125 @@ public class AcctCreationServiceImpl implements IAcctCreationService
 		
         return acctResp;
     }
+    
+	
+	public AcctRespModel editAcct(AcctReqModel acctRequest) throws Exception{
+		AcctRespModel acctResp = new AcctRespModel();
+		AccountMaster accountMaster = new AccountMaster();
+		
+		accountMaster.setAccountId(acctRequest.getAccountId());
+		accountMaster.setAddress(acctRequest.getAddress());
+		accountMaster.setContactAddress(acctRequest.getContactAddress());
+		accountMaster.setContactNumber(acctRequest.getContactNumber());
+		accountMaster.setWechatId(acctRequest.getWechatId());
+		
+		int editAcctMaster = acctMasterMapper.editAcctMaster(accountMaster);
+		
+		if(editAcctMaster>0)
+		{
+			acctResp.setResult(ErrorCode.RESPONSE_SUCCESS);
+			acctResp.getErrorCode().add(ErrorCode.EDIT_ACCOUNT_MASTER_SUCCESS);
+			return acctResp;
+		}
+		acctResp.setResult(ErrorCode.RESPONSE_ERROR);
+		acctResp.getErrorCode().add(ErrorCode.EDIT_ACCOUNT_MASTER_FAILED);
+		return acctResp;
+		
+	}
+
+    public AcctRespModel closeAcct(AcctReqModel acctRequest) throws Exception
+    {
+    	Account account = new Account();
+    	AcctRespModel acctResp = new AcctRespModel();
+    	
+    	String realAccountNumber = acctRequest.getRealAccountNumber();
+    	account.setRealAccountNumber(realAccountNumber);
+    	int vaild = acctMapper.accountValidByRealNum(account);
+    	if(vaild == 0) {
+    		acctResp.setResult(ErrorCode.RESPONSE_ERROR);
+ 			acctResp.getErrorCode().add(ErrorCode.ACCOUNT_HAVE_NOT_FOUND);
+ 			return acctResp;
+    	}
+    	
+    	int status = acctMapper.fetchAcctStatus(account);
+    	 if( status == 1) {
+    		 
+    		acctResp.setResult(ErrorCode.RESPONSE_ERROR);
+ 			acctResp.getErrorCode().add(ErrorCode.ACCOUNT_HAVE_CLOSED);
+ 			return acctResp;
+    	 }
+    	
+    	double balance = accountBalanceMapper.getBalance(realAccountNumber);
+    	if(balance > 0.00) {
+    		acctResp.setResult(ErrorCode.RESPONSE_ERROR);
+ 			acctResp.getErrorCode().add(ErrorCode.ACCOUNT_BALANCE_NOT_ZERO);	
+ 			return acctResp;
+    	}
+    	
+    	int result = acctMapper.closeStatus(account);
+    	
+    	if(result > 0) {
+    		acctResp.setResult(ErrorCode.RESPONSE_SUCCESS);
+			acctResp.getErrorCode().add(ErrorCode.CLOSE_ACCOUNT_SUCCESS);
+			return acctResp;
+    	}
+    	
+    	acctResp.setResult(ErrorCode.RESPONSE_ERROR);
+		acctResp.getErrorCode().add(ErrorCode.CLOSE_ACCOUNT_FAILED);
+		
+		return acctResp;
+    		    	
+    	
+    }
+	
+	public AcctRespModel enquiryAcctInfo(AcctReqModel acctRequest) throws Exception{
+		 AcctRespModel acctResp = new AcctRespModel();
+		 String realAcctNum = acctRequest.getRealAccountNumber();
+		 
+		 Account account = new Account(); 
+		 account.setRealAccountNumber(acctRequest.getRealAccountNumber());
+		 
+		 int acctValid = acctMapper.realAcctNum(account);
+		 
+		 if(acctValid > 0){
+			List<AccountMaster> result = acctMasterMapper.enquiryAcctInfo(realAcctNum);
+			acctResp.setResult(ErrorCode.RESPONSE_SUCCESS);
+			acctResp.setListData(result);
+			return acctResp;
+		 }
+		 
+		 acctResp.setResult(ErrorCode.RESPONSE_ERROR);
+		 acctResp.getErrorCode().add(ErrorCode.ACCOUNT_HAVE_NOT_FOUND);
+		 return acctResp;
+	 }
+	 
+	 public AcctRespModel enquireBalance(AcctReqModel acctRequest) throws Exception {
+		AcctRespModel acctResp = new AcctRespModel();
+		Account account = new Account();
+		account.setRealAccountNumber(acctRequest.getRealAccountNumber());
+		int acctValid = acctMapper.accountValidByRealNum(account);
+		
+		if (acctValid == 0)
+		{
+			acctResp.setResult(ErrorCode.RESPONSE_ERROR);
+			acctResp.getErrorCode().add(ErrorCode.ACCOUNT_HAVE_NOT_FOUND);
+			return acctResp;
+		}
+		
+		//AccountBalance accountBalance = new AccountBalance();
+		//accountBalance = accountBalanceMapper.enquireAccountBalance(realAccountNumber);
+		List<AccountBalance> accountBalance = new ArrayList<AccountBalance>();
+		accountBalance = accountBalanceMapper.enquireAccountBalance(acctRequest.getRealAccountNumber());
+		
+		if(accountBalance == null){
+			acctResp.setResult(ErrorCode.RESPONSE_ERROR);
+			acctResp.getErrorCode().add(ErrorCode.ENQUIRE_BALANCE_FAILED);
+			return acctResp;
+		}
+		acctResp.setResult(ErrorCode.RESPONSE_SUCCESS);
+		acctResp.getErrorCode().add(ErrorCode.ENQUIRE_BALANCE_SUCCESS);
+		acctResp.setListData(accountBalance);
+		
+        return acctResp;
+	}
 }
