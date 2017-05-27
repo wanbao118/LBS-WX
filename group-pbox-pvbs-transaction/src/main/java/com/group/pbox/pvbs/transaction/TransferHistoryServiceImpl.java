@@ -71,7 +71,14 @@ public class TransferHistoryServiceImpl implements ITransferHistoryService
         {
             TransHisRespData transHisRespData = new TransHisRespData();
             BeanUtils.copyProperties(transHisRespData, tmp);
-
+            account.setId(tmp.getSourceAccountId());
+            account.setRealAccountNumber(null);
+            account = acctMapper.getAccountInfo(account);
+            transHisRespData.setSourceAccountNum(account.getRealAccountNumber());
+            account.setId(tmp.getTargetAccountId());
+            account.setRealAccountNumber(null);
+            account = acctMapper.getAccountInfo(account);
+            transHisRespData.setTargetAccountNum(account.getRealAccountNumber());
             listData.add(transHisRespData);
         }
         transHisRespModel.setListData(listData);

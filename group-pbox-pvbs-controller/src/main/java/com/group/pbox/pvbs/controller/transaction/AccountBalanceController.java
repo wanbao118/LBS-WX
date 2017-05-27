@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -105,7 +106,7 @@ public class AccountBalanceController
             }
 
             // check exceed limit
-            transactionRespModel = checkExcedLimit(transactionReqModel);
+            transactionRespModel = checkExcedLimit(request, transactionReqModel);
             if (StringUtils.equalsIgnoreCase(transactionRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
             {
                 return transactionRespModel;
@@ -184,25 +185,10 @@ public class AccountBalanceController
     private TransactionRespModel checkCurrencySurpport(TransactionReqModel transactionReqModel) throws Exception
     {
         TransactionRespModel transactionRespModel = new TransactionRespModel();
-        boolean result = false;
+
         List<String> errorList = new ArrayList<String>();
         // check currency surpport
-        SysConfReqModel sysConfReqModel = new SysConfReqModel();
-        List<SysConfRespData> listSysConfRespData = new ArrayList<SysConfRespData>();
-        sysConfReqModel.setItem("Support_Ccy");
-        SysConfRespModel supportCcyResp = sysConfService.getAllSysConfByParam(sysConfReqModel);
-        listSysConfRespData.addAll(supportCcyResp.getListData());
-        sysConfReqModel.setItem("Primary_Ccy_Code");
-        supportCcyResp = sysConfService.getAllSysConfByParam(sysConfReqModel);
-        listSysConfRespData.addAll(supportCcyResp.getListData());
-        for (SysConfRespData sysConfRespData : listSysConfRespData)
-        {
-            if (StringUtils.equalsIgnoreCase(sysConfRespData.getValue(), transactionReqModel.getCurrency()))
-            {
-                result = true;
-                break;
-            }
-        }
+        boolean result = checkCurrency(transactionReqModel);
         if (!result)
         {
             errorList.add(ErrorCode.CURRENCY_NOT_FOUND);
@@ -215,25 +201,9 @@ public class AccountBalanceController
     private TransHisRespModel checkCurrencySurpportForHis(TransactionReqModel transactionReqModel) throws Exception
     {
         TransHisRespModel transactionRespModel = new TransHisRespModel();
-        boolean result = false;
         List<String> errorList = new ArrayList<String>();
         // check currency surpport
-        SysConfReqModel sysConfReqModel = new SysConfReqModel();
-        List<SysConfRespData> listSysConfRespData = new ArrayList<SysConfRespData>();
-        sysConfReqModel.setItem("Support_Ccy");
-        SysConfRespModel supportCcyResp = sysConfService.getAllSysConfByParam(sysConfReqModel);
-        listSysConfRespData.addAll(supportCcyResp.getListData());
-        sysConfReqModel.setItem("Primary_Ccy_Code");
-        supportCcyResp = sysConfService.getAllSysConfByParam(sysConfReqModel);
-        listSysConfRespData.addAll(supportCcyResp.getListData());
-        for (SysConfRespData sysConfRespData : listSysConfRespData)
-        {
-            if (StringUtils.equalsIgnoreCase(sysConfRespData.getValue(), transactionReqModel.getCurrency()))
-            {
-                result = true;
-                break;
-            }
-        }
+        boolean result = checkCurrency(transactionReqModel);
         if (!result)
         {
             errorList.add(ErrorCode.CURRENCY_NOT_FOUND);
@@ -258,17 +228,25 @@ public class AccountBalanceController
 
     }
 
-    private TransactionRespModel checkExcedLimit(TransactionReqModel transactionRepModel) throws Exception
+    private TransactionRespModel checkExcedLimit(HttpServletRequest request, TransactionReqModel transactionRepModel) throws Exception
     {
         TransactionRespModel transactionRespModel = new TransactionRespModel();
         List<String> errorList = new ArrayList<String>();
-
-        java.util.Map<String, String> user = transactionRepModel.getParams();
+        HttpSession session = request.getSession();
+        Object userId = session.getAttribute("userId");
         UserReqModel userReqModel = new UserReqModel();
-        userReqModel.setUserId(user.get("userId"));
-        userReqModel.setUserPassword(user.get("userPassword"));
-        UserRespModel userRespModel = userService.accountValid(userReqModel);
-        UserRespData userData = (UserRespData) userRespModel.getListData().get(0);
+        if (null == userId)
+        {
+            java.util.Map<String, String> user = transactionRepModel.getParams();
+            userReqModel.setUserId(user.get("userId"));
+        }
+        else
+        {
+            userReqModel.setUserId((String) userId);
+        }
+
+        UserRespModel userRespModel = userService.fetchUserByUserId(userReqModel);
+        UserRespData userData = userRespModel.getListData().get(0);
         Double excedLimit = userData.getTransactionLimit();
         if (transactionRepModel.getAmount() > excedLimit)
         {
@@ -278,5 +256,27 @@ public class AccountBalanceController
         }
         return transactionRespModel;
 
+    }
+
+    private boolean checkCurrency(TransactionReqModel transactionReqModel) throws Exception
+    {
+        boolean result = false;
+        SysConfReqModel sysConfReqModel = new SysConfReqModel();
+        List<SysConfRespData> listSysConfRespData = new ArrayList<SysConfRespData>();
+        sysConfReqModel.setItem("Support_Ccy");
+        SysConfRespModel supportCcyResp = sysConfService.getAllSysConfByParam(sysConfReqModel);
+        listSysConfRespData.addAll(supportCcyResp.getListData());
+        sysConfReqModel.setItem("Primary_Ccy_Code");
+        supportCcyResp = sysConfService.getAllSysConfByParam(sysConfReqModel);
+        listSysConfRespData.addAll(supportCcyResp.getListData());
+        for (SysConfRespData sysConfRespData : listSysConfRespData)
+        {
+            if (StringUtils.equalsIgnoreCase(sysConfRespData.getValue(), transactionReqModel.getCurrency()))
+            {
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
 }

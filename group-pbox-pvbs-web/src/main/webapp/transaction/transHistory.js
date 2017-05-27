@@ -1,0 +1,142 @@
+$(document).ready(function() {
+	getSupportCode();
+	getPrimaryCode();
+	$("#sub_bt").on("click",function(){
+		enquiry();
+	});
+});
+
+Date.prototype.toLocaleString = function() {
+	var year = this.getFullYear();
+	var month = this.getMonth() + 1;
+    var date = this.getDate();
+    var hour = this.getHours();
+    var minute = this.getMinutes();
+    var second = this.getSeconds();
+    if (hour < 10){
+    	hour = "0" + hour;
+    }
+    if (minute < 10){
+    	minute = "0" + minute;
+    }
+    if (second < 10){
+    	second = "0" + second;
+    }
+	return  year+ "/" + month + "/" + date + "/ " + hour + ":" + minute + ":" + second;
+};
+
+function enquiry() {
+	var accountNumber = $("#accountNumber").val();
+	var currency = $("#currency").val();
+	var transferType = $("#transferType").val();
+	var acct = {
+		'accountNumber':accountNumber,
+		'currency' : currency,
+		'operationCode':'Q',
+		'params':{'Type':transferType},
+	};
+	
+	$.ajax({
+		url : contextPath+"/service/accountbalance/transHis",
+		type : "post",
+		contentType : "application/json",
+		dataType : "json",
+		data : JSON.stringify(acct),
+		success : function(response) {
+
+			if (response.result == 00000) {
+
+				var tr = $("#cloneTr");
+				$(".data").hide();
+				$("#cloneTr").show();
+				$.each(response.listData, function(index,item){                              
+                                                  
+                      var clonedTr = tr.clone();  
+                      var _index = index; 
+                      clonedTr.children("td").each(function(inner_index){
+                    	  switch(inner_index){  
+                          case(0):   
+                             $(this).html(item.sourceAccountNum);  
+                             break;  
+                          case(1):  
+                             $(this).html(item.targetAccountNum);  
+                             break;  
+                         case(2):  
+                             $(this).html(item.currency);  
+                             break;  
+                         case(3):  
+                        	 switch(item.transferType){
+                        	 case("D"):
+                        		 $(this).html("Deposit"); 
+                        	 	 break;
+                        	 
+	                         case("W"):
+	                    		 $(this).html("Withdraw"); 
+	                    	 	 break;
+                    	 
+	                         case("T"):
+                        		 $(this).html("Transfer"); 
+                        	 	 break;
+                        	 }
+                             break;  
+                         case(4):  
+                             $(this).html(item.transferAmount);  
+                             break;  
+                         case(5):
+                        	 $(this).html(new Date(item.createTime).toLocaleString());
+                    	  }                          
+                      });
+                      clonedTr.insertAfter(tr);  
+                });  
+				$("#cloneTr").hide();
+				$("#transferHistoryTable").show();  
+			}
+		},
+	error : function()
+    {
+        alert("net error");
+    }
+	});
+}
+function getPrimaryCode(){
+	var acct = {
+			"item":"Primary_Ccy_Code"		
+	}
+	$.ajax({
+		url : contextPath+"/service/sysconf/getSysConfList",
+		type : "post",
+		contentType : "application/json",
+		dataType : "json",
+		data : JSON.stringify(acct),
+		success : function(response) {
+			if (response.result == 00000) {			
+				for(var i = 0;i<response.listData.length;i++){
+					$("#currency").append("<option value='"+response.listData[i].value+"'>"+response.listData[i].value+"</option>");
+				}
+			} 
+
+		}
+	})
+}
+
+function getSupportCode(){
+	var acct = {
+			"item":"Support_Ccy"		
+	}
+	$.ajax({
+		url : contextPath+"/service/sysconf/getSysConfList",
+		type : "post",
+		contentType : "application/json",
+		dataType : "json",
+		data : JSON.stringify(acct),
+		success : function(response) {
+			if (response.result == 00000) {			
+				for(var i = 0;i<response.listData.length;i++){
+					$("#currency").append("<option value='"+response.listData[i].value+"'>"+response.listData[i].value+"</option>");
+				}
+			}
+		}
+	})
+}
+
+
