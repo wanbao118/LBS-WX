@@ -165,7 +165,14 @@ public class CcyExchangeRateController {
 		TransactionReqModel transactionReqModelSource = new TransactionReqModel();
 		transactionReqModelSource.setAccountNumber(ccyExchangeRateReqModel.getAcctNumber());
 		transactionReqModelSource.setAmount(ccyExchangeRateReqModel.getChangeAmount() / rate);
-		transactionReqModelSource.setCurrency("RMB");
+
+
+		SysConfReqModel sysConfReqModel = new SysConfReqModel();
+		sysConfReqModel.setItem("Primary_Ccy_Code");
+		SysConfRespModel sysConfRespModel = new SysConfRespModel();
+		sysConfRespModel = sysConfService.getAllSysConfByParam(sysConfReqModel);
+
+		transactionReqModelSource.setCurrency(sysConfRespModel.getListData().get(0).getValue());
 		transactionRespModelSource = accountBalanceService.withDrawal(transactionReqModelSource);
 
 		if (StringUtils.equalsIgnoreCase(transactionRespModelSource.getResult(), ErrorCode.RESPONSE_ERROR)) {
