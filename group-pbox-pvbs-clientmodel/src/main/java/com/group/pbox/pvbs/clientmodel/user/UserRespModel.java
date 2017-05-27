@@ -5,13 +5,13 @@ import java.util.List;
 import com.group.pbox.pvbs.common.model.BaseClientRespModel;
 
 public class UserRespModel extends BaseClientRespModel{
-    private List listData;
+    private List<UserRespData> listData;
 
-	public List getListData() {
+	public List<UserRespData> getListData() {
 		return listData;
 	}
 
-	public void setListData(List listData) {
+	public void setListData(List<UserRespData> listData) {
 		this.listData = listData;
 	}
 }
