@@ -22,19 +22,20 @@
 		 from t_transfer_history 
 		<where>  
               	1=1
-                <if test="transferType != null" >  
+                <if test="transferType != ''" >  
                 	and TRANSFER_TYPE = #{transferType} and SOURCE_ACCOUNT_ID = #{sourceAccountId}
-                	<if test="currency!=null">
+                	<if test="currency!= ''">
                 		and CURRENCY = #{currency}
                 	</if>  
                 </if>  
-                <if test="transferType == null" >  
+                <if test="transferType == ''" >  
                 	and ( SOURCE_ACCOUNT_ID = #{sourceAccountId} || TARGET_ACCOUNT_ID = #{sourceAccountId})
-                	<if test="currency!=null">
+                	<if test="currency!= ''">
                 		 and CURRENCY = #{currency}
                 	</if>
                 </if>  
-        </where>  
+        </where> 
+        order by  CREATE_TIME desc
 	</select>
 	<insert id="insertTransferHistory" parameterType="com.group.pbox.pvbs.model.acct.TransferHistory" >
 		insert into t_transfer_history (ID,SOURCE_ACCOUNT_ID,TARGET_ACCOUNT_ID, CURRENCY,CREATE_TIME,TRANSFER_AMOUNT,TRANSFER_TYPE)
