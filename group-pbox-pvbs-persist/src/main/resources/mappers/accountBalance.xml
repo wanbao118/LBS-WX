@@ -28,7 +28,20 @@
 	</insert>
 	<update id="updateAccountBalance" parameterType="com.group.pbox.pvbs.model.acct.AccountBalance">
 		update t_account_balance SET
-		BALANCE = #{balance}
+		BALANCE = #{balance},LAST_UPDATED_DATE = #{lastUpatedDate}
 		where ID=#{id}
 	</update>
+	
+	<select id="getBalance" parameterType="String"
+		resultType="double">
+		select BALANCE from t_account_balance t left join t_account a on t.ACCOUNT_ID=a.ID 
+		where a.REAL_ACCOUNT_NUMBER=#{realAccountNum}
+	</select>
+	<select id="enquireAccountBalance" parameterType="String"
+		resultType="com.group.pbox.pvbs.model.acct.AccountBalance">
+		select t.BALANCE AS balance, t.CURRENCY_CODE AS
+		currencyCode, t.LAST_UPDATED_DATE AS lastUpatedDate 
+		 from t_account_balance t left join t_account a on  t.ACCOUNT_ID=a.ID where
+		a.REAL_ACCOUNT_NUMBER=#{accountNum}
+	</select>
 </mapper>

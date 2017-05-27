@@ -15,8 +15,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.group.pbox.pvbs.model.acct.Account;
 import com.group.pbox.pvbs.model.acct.AccountBalance;
 import com.group.pbox.pvbs.persist.acct.AccountBalanceMapper;
+import com.group.pbox.pvbs.persist.acct.AcctMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:conf/spring-mybatis.xml" })
@@ -27,6 +29,9 @@ public class AccountBalanceMapperTest
     @Resource
     private AccountBalanceMapper accountBalanceMapper;
 
+    @Resource
+    private AcctMapper accountMapper;
+
     @Test
     public void getAccountBalanceTest()
     {
@@ -34,8 +39,7 @@ public class AccountBalanceMapperTest
         accountBalance.setAccountId("1");
         accountBalance.setAccountNum("001000100001");
         accountBalance.setCurrencyCode("RMB");
-        AccountBalance result = accountBalanceMapper
-                .getAccountBalance(accountBalance);
+        AccountBalance result = accountBalanceMapper.getAccountBalance(accountBalance);
         assertEquals(result.getAccountId(), accountBalance.getAccountId());
     }
 
@@ -61,6 +65,16 @@ public class AccountBalanceMapperTest
         }
 
         // assertEquals(result, 1);
+    }
+
+    @Test
+    public void getAccountTest()
+    {
+        Account account = new Account();
+        // account.setRealAccountNumber("001000100001");
+        account.setId("1");
+        account = accountMapper.getAccountInfo(account);
+        System.out.println(account.getId());
     }
 
 }

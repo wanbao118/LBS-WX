@@ -18,10 +18,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.group.pbox.pvbs.clientmodel.sysconf.SysConfReqModel;
 import com.group.pbox.pvbs.clientmodel.sysconf.SysConfRespData;
 import com.group.pbox.pvbs.clientmodel.sysconf.SysConfRespModel;
+import com.group.pbox.pvbs.clientmodel.transaction.TransHisRespModel;
 import com.group.pbox.pvbs.clientmodel.transaction.TransactionReqModel;
 import com.group.pbox.pvbs.clientmodel.transaction.TransactionRespModel;
+import com.group.pbox.pvbs.clientmodel.user.UserReqModel;
+import com.group.pbox.pvbs.clientmodel.user.UserRespData;
+import com.group.pbox.pvbs.clientmodel.user.UserRespModel;
 import com.group.pbox.pvbs.sysconf.ISysConfService;
 import com.group.pbox.pvbs.transaction.IAccountBalanceService;
+import com.group.pbox.pvbs.transaction.ITransferHistoryService;
+import com.group.pbox.pvbs.user.IUserService;
 import com.group.pbox.pvbs.util.ErrorCode;
 import com.group.pbox.pvbs.util.OperationCode;
 import com.group.pbox.pvbs.util.log.TransactionLog;
@@ -36,6 +42,48 @@ public class AccountBalanceController
     IAccountBalanceService accountBalanceService;
     @Resource
     ISysConfService sysConfService;
+    @Resource
+    ITransferHistoryService transferHistoryService;
+    @Resource
+    IUserService userService;
+
+    @RequestMapping(value = "/transHis", method = RequestMethod.POST, consumes = "application/json")
+    @ResponseBody
+    public Object transHis(final HttpServletRequest request, final HttpServletResponse response, @RequestBody TransactionReqModel transactionReqModel)
+    {
+        TransHisRespModel transHisRespModel = new TransHisRespModel();
+        List<String> errorList = new ArrayList<String>();
+
+        try
+        {
+            sysLogger.info("start transaction history module:" + transactionReqModel.getAccountNumber() + "|" + transactionReqModel.getCurrency() + "|" + transactionReqModel.getAmount() + "|"
+                    + transactionReqModel.getOperationCode());
+
+            // check currency code.
+            transHisRespModel = checkCurrencySurpportForHis(transactionReqModel);
+            if (StringUtils.equalsIgnoreCase(transHisRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
+            {
+                return transHisRespModel;
+            }
+
+            switch (transactionReqModel.getOperationCode())
+            {
+                case OperationCode.TRANS_HISTORY_QUERY:
+                    transHisRespModel = transactionHistory(transactionReqModel);
+                    break;
+            }
+            sysLogger.info("end transaction history module:" + transactionReqModel.getAccountNumber() + "|" + transactionReqModel.getCurrency() + "|" + transactionReqModel.getAmount() + "|"
+                    + transactionReqModel.getOperationCode());
+        }
+        catch (Exception e)
+        {
+            sysLogger.error("[com.group.pbox.pvbs.controller.transaction.AccountBalanceController.transHis(TransactionReqModel transactionReqModel)]", e);
+            errorList.add(ErrorCode.SYSTEM_OPERATION_ERROR);
+            transHisRespModel.setResult(ErrorCode.RESPONSE_ERROR);
+            transHisRespModel.setErrorCode(errorList);
+        }
+        return transHisRespModel;
+    }
 
     @RequestMapping(value = "/transaction", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
@@ -43,10 +91,26 @@ public class AccountBalanceController
     {
         TransactionRespModel transactionRespModel = new TransactionRespModel();
         List<String> errorList = new ArrayList<String>();
+
         try
         {
             sysLogger.info("start transaction:" + transactionReqModel.getAccountNumber() + "|" + transactionReqModel.getCurrency() + "|" + transactionReqModel.getAmount() + "|"
                     + transactionReqModel.getOperationCode());
+
+            // check currency code.
+            transactionRespModel = checkCurrencySurpport(transactionReqModel);
+            if (StringUtils.equalsIgnoreCase(transactionRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
+            {
+                return transactionRespModel;
+            }
+
+            // check exceed limit
+            transactionRespModel = checkExcedLimit(transactionReqModel);
+            if (StringUtils.equalsIgnoreCase(transactionRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
+            {
+                return transactionRespModel;
+            }
+
             switch (transactionReqModel.getOperationCode())
             {
                 case OperationCode.TRANS_DEPOSIT:
@@ -79,16 +143,13 @@ public class AccountBalanceController
     {
         TransactionLog.customerLog(businessLogger, "start transfer:" + transactionReqModel.getAccountNumber() + "|" + transactionReqModel.getCurrency() + "|" + transactionReqModel.getAmount() + "|"
                 + transactionReqModel.getOperationCode());
-        TransactionRespModel transactionRespModel = checkCurrencySurpport(transactionReqModel);
-        if (StringUtils.equalsIgnoreCase(transactionRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
-        {
-            return transactionRespModel;
-        }
-        // todo account not find
-        // todo exced limit
+        TransactionRespModel transactionRespModel = new TransactionRespModel();
+
         transactionRespModel = accountBalanceService.transfer(transactionReqModel);
+
         TransactionLog.customerLog(businessLogger, "end deposit:" + transactionReqModel.getAccountNumber() + "|" + transactionReqModel.getCurrency() + "|" + transactionReqModel.getAmount() + "|"
                 + transactionReqModel.getOperationCode());
+
         return transactionRespModel;
     }
 
@@ -96,16 +157,12 @@ public class AccountBalanceController
     {
         TransactionLog.customerLog(businessLogger, "start deposit:" + transactionReqModel.getAccountNumber() + "|" + transactionReqModel.getCurrency() + "|" + transactionReqModel.getAmount() + "|"
                 + transactionReqModel.getOperationCode());
-        TransactionRespModel transactionRespModel = checkCurrencySurpport(transactionReqModel);
-        if (StringUtils.equalsIgnoreCase(transactionRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
-        {
-            return transactionRespModel;
-        }
-        // todo account not find
-        // todo exced limit
+        TransactionRespModel transactionRespModel = new TransactionRespModel();
+
         transactionRespModel = accountBalanceService.deposit(transactionReqModel);
         TransactionLog.customerLog(businessLogger, "end deposit:" + transactionReqModel.getAccountNumber() + "|" + transactionReqModel.getCurrency() + "|" + transactionReqModel.getAmount() + "|"
                 + transactionReqModel.getOperationCode());
+
         return transactionRespModel;
     }
 
@@ -113,13 +170,10 @@ public class AccountBalanceController
     {
         TransactionLog.customerLog(businessLogger, "start withDrawal:" + transactionReqModel.getAccountNumber() + "|" + transactionReqModel.getCurrency() + "|" + transactionReqModel.getAmount() + "|"
                 + transactionReqModel.getOperationCode());
-        TransactionRespModel transactionRespModel = checkCurrencySurpport(transactionReqModel);
-        if (StringUtils.equalsIgnoreCase(transactionRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
-        {
-            return transactionRespModel;
-        }
-        // todo account not find
-        // todo exced limit
+
+        TransactionRespModel transactionRespModel = new TransactionRespModel();
+
+        // handler withDrawal
         transactionRespModel = accountBalanceService.withDrawal(transactionReqModel);
 
         TransactionLog.customerLog(businessLogger, "end withDrawal:" + transactionReqModel.getAccountNumber() + "|" + transactionReqModel.getCurrency() + "|" + transactionReqModel.getAmount() + "|"
@@ -158,4 +212,71 @@ public class AccountBalanceController
         return transactionRespModel;
     }
 
+    private TransHisRespModel checkCurrencySurpportForHis(TransactionReqModel transactionReqModel) throws Exception
+    {
+        TransHisRespModel transactionRespModel = new TransHisRespModel();
+        boolean result = false;
+        List<String> errorList = new ArrayList<String>();
+        // check currency surpport
+        SysConfReqModel sysConfReqModel = new SysConfReqModel();
+        List<SysConfRespData> listSysConfRespData = new ArrayList<SysConfRespData>();
+        sysConfReqModel.setItem("Support_Ccy");
+        SysConfRespModel supportCcyResp = sysConfService.getAllSysConfByParam(sysConfReqModel);
+        listSysConfRespData.addAll(supportCcyResp.getListData());
+        sysConfReqModel.setItem("Primary_Ccy_Code");
+        supportCcyResp = sysConfService.getAllSysConfByParam(sysConfReqModel);
+        listSysConfRespData.addAll(supportCcyResp.getListData());
+        for (SysConfRespData sysConfRespData : listSysConfRespData)
+        {
+            if (StringUtils.equalsIgnoreCase(sysConfRespData.getValue(), transactionReqModel.getCurrency()))
+            {
+                result = true;
+                break;
+            }
+        }
+        if (!result)
+        {
+            errorList.add(ErrorCode.CURRENCY_NOT_FOUND);
+            transactionRespModel.setResult(ErrorCode.RESPONSE_ERROR);
+            transactionRespModel.setErrorCode(errorList);
+        }
+        return transactionRespModel;
+    }
+
+    private TransHisRespModel transactionHistory(TransactionReqModel transactionReqModel) throws Exception
+    {
+        sysLogger.info("start transaction history inquiry:" + transactionReqModel.getAccountNumber() + "|" + transactionReqModel.getCurrency() + "|" + transactionReqModel.getAmount() + "|"
+                + transactionReqModel.getOperationCode());
+
+        TransHisRespModel transHisRespModel = new TransHisRespModel();
+
+        transHisRespModel = transferHistoryService.inquiryTransferHistory(transactionReqModel);
+
+        sysLogger.info("end transaction history inquiry:" + transactionReqModel.getAccountNumber() + "|" + transactionReqModel.getCurrency() + "|" + transactionReqModel.getAmount() + "|"
+                + transactionReqModel.getOperationCode());
+        return transHisRespModel;
+
+    }
+
+    private TransactionRespModel checkExcedLimit(TransactionReqModel transactionRepModel) throws Exception
+    {
+        TransactionRespModel transactionRespModel = new TransactionRespModel();
+        List<String> errorList = new ArrayList<String>();
+
+        java.util.Map<String, String> user = transactionRepModel.getParams();
+        UserReqModel userReqModel = new UserReqModel();
+        userReqModel.setUserId(user.get("userId"));
+        userReqModel.setUserPassword(user.get("userPassword"));
+        UserRespModel userRespModel = userService.accountValid(userReqModel);
+        UserRespData userData = (UserRespData) userRespModel.getListData().get(0);
+        Double excedLimit = userData.getTransactionLimit();
+        if (transactionRepModel.getAmount() > excedLimit)
+        {
+            errorList.add(ErrorCode.EXCEED_LIMIT);
+            transactionRespModel.setResult(ErrorCode.RESPONSE_ERROR);
+            transactionRespModel.setErrorCode(errorList);
+        }
+        return transactionRespModel;
+
+    }
 }
