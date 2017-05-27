@@ -185,25 +185,10 @@ public class AccountBalanceController
     private TransactionRespModel checkCurrencySurpport(TransactionReqModel transactionReqModel) throws Exception
     {
         TransactionRespModel transactionRespModel = new TransactionRespModel();
-        boolean result = false;
+
         List<String> errorList = new ArrayList<String>();
         // check currency surpport
-        SysConfReqModel sysConfReqModel = new SysConfReqModel();
-        List<SysConfRespData> listSysConfRespData = new ArrayList<SysConfRespData>();
-        sysConfReqModel.setItem("Support_Ccy");
-        SysConfRespModel supportCcyResp = sysConfService.getAllSysConfByParam(sysConfReqModel);
-        listSysConfRespData.addAll(supportCcyResp.getListData());
-        sysConfReqModel.setItem("Primary_Ccy_Code");
-        supportCcyResp = sysConfService.getAllSysConfByParam(sysConfReqModel);
-        listSysConfRespData.addAll(supportCcyResp.getListData());
-        for (SysConfRespData sysConfRespData : listSysConfRespData)
-        {
-            if (StringUtils.equalsIgnoreCase(sysConfRespData.getValue(), transactionReqModel.getCurrency()))
-            {
-                result = true;
-                break;
-            }
-        }
+        boolean result = checkCurrency(transactionReqModel);
         if (!result)
         {
             errorList.add(ErrorCode.CURRENCY_NOT_FOUND);
@@ -216,25 +201,9 @@ public class AccountBalanceController
     private TransHisRespModel checkCurrencySurpportForHis(TransactionReqModel transactionReqModel) throws Exception
     {
         TransHisRespModel transactionRespModel = new TransHisRespModel();
-        boolean result = false;
         List<String> errorList = new ArrayList<String>();
         // check currency surpport
-        SysConfReqModel sysConfReqModel = new SysConfReqModel();
-        List<SysConfRespData> listSysConfRespData = new ArrayList<SysConfRespData>();
-        sysConfReqModel.setItem("Support_Ccy");
-        SysConfRespModel supportCcyResp = sysConfService.getAllSysConfByParam(sysConfReqModel);
-        listSysConfRespData.addAll(supportCcyResp.getListData());
-        sysConfReqModel.setItem("Primary_Ccy_Code");
-        supportCcyResp = sysConfService.getAllSysConfByParam(sysConfReqModel);
-        listSysConfRespData.addAll(supportCcyResp.getListData());
-        for (SysConfRespData sysConfRespData : listSysConfRespData)
-        {
-            if (StringUtils.equalsIgnoreCase(sysConfRespData.getValue(), transactionReqModel.getCurrency()))
-            {
-                result = true;
-                break;
-            }
-        }
+        boolean result = checkCurrency(transactionReqModel);
         if (!result)
         {
             errorList.add(ErrorCode.CURRENCY_NOT_FOUND);
@@ -287,5 +256,27 @@ public class AccountBalanceController
         }
         return transactionRespModel;
 
+    }
+
+    private boolean checkCurrency(TransactionReqModel transactionReqModel) throws Exception
+    {
+        boolean result = false;
+        SysConfReqModel sysConfReqModel = new SysConfReqModel();
+        List<SysConfRespData> listSysConfRespData = new ArrayList<SysConfRespData>();
+        sysConfReqModel.setItem("Support_Ccy");
+        SysConfRespModel supportCcyResp = sysConfService.getAllSysConfByParam(sysConfReqModel);
+        listSysConfRespData.addAll(supportCcyResp.getListData());
+        sysConfReqModel.setItem("Primary_Ccy_Code");
+        supportCcyResp = sysConfService.getAllSysConfByParam(sysConfReqModel);
+        listSysConfRespData.addAll(supportCcyResp.getListData());
+        for (SysConfRespData sysConfRespData : listSysConfRespData)
+        {
+            if (StringUtils.equalsIgnoreCase(sysConfRespData.getValue(), transactionReqModel.getCurrency()))
+            {
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
 }
