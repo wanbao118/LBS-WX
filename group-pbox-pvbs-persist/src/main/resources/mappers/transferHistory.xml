@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group.pbox.pvbs.persist.acct.TransferHistoryMapper">
+	<resultMap id="transferHistoryMap" type="com.group.pbox.pvbs.model.acct.TransferHistory">
+		<id property="id" column="ID" javaType="String" />
+		<result property="sourceAccountId" column="SOURCE_ACCOUNT_ID" javaType="String" />
+		<result property="targetAccountId" column="TARGET_ACCOUNT_ID" javaType="String" />
+		<result property="currency" column="CURRENCY" javaType="String" />
+		<result property="createTime" column="CREATE_TIME" javaType="Date" />
+		<result property="transferAmount" column="TRANSFER_AMOUNT" javaType="Double" />
+		<result property="transferType" column="TRANSFER_TYPE" javaType="String" />			
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID AS id, SOURCE_ACCOUNT_ID AS sourceAccountId, TARGET_ACCOUNT_ID AS
+		targetAccountId, CURRENCY AS currency, CREATE_TIME AS createTime,TRANSFER_AMOUNT AS transferAmount,TRANSFER_TYPE AS transferType
+	</sql>
+	<select id="inquiryTransferHistory" parameterType="com.group.pbox.pvbs.model.acct.TransferHistory"
+		resultType="com.group.pbox.pvbs.model.acct.TransferHistory">
+		select
+		<include refid="Base_Column_List" />
+		 from t_transfer_history 
+		<where>  
+              	1=1
+                <if test="transferType != null" >  
+                	and TRANSFER_TYPE = #{transferType} and SOURCE_ACCOUNT_ID = #{sourceAccountId}
+                	<if test="currency!=null">
+                		and CURRENCY = #{currency}
+                	</if>  
+                </if>  
+                <if test="transferType == null" >  
+                	and ( SOURCE_ACCOUNT_ID = #{sourceAccountId} || TARGET_ACCOUNT_ID = #{sourceAccountId})
+                	<if test="currency!=null">
+                		 and CURRENCY = #{currency}
+                	</if>
+                </if>  
+        </where>  
+	</select>
+	<insert id="insertTransferHistory" parameterType="com.group.pbox.pvbs.model.acct.TransferHistory" >
+		insert into t_transfer_history (ID,SOURCE_ACCOUNT_ID,TARGET_ACCOUNT_ID, CURRENCY,CREATE_TIME,TRANSFER_AMOUNT,TRANSFER_TYPE)
+		values
+		(#{id},#{sourceAccountId},#{targetAccountId},#{currency},#{createTime},#{transferAmount},#{transferType})
+	</insert>
+	
+</mapper>

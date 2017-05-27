@@ -28,7 +28,7 @@
 	</insert>
 	<update id="updateAccountBalance" parameterType="com.group.pbox.pvbs.model.acct.AccountBalance">
 		update t_account_balance SET
-		BALANCE = #{balance}
+		BALANCE = #{balance},LAST_UPDATED_DATE = #{lastUpatedDate}
 		where ID=#{id}
 	</update>
 	
