@@ -1,1 +1,1 @@
-var contextPath='http://localhost:8080/group-pbox-pvbs-web';
+var contextPath='http://localhost:8080/vbs';

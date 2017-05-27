@@ -23,7 +23,6 @@ public class UserServiceImplTest
     @Test
     public void accountValidTest() throws Exception
     {
-        User user = new User();
         UserReqModel userRequestModel = new UserReqModel();
         userRequestModel.setUserId("0001");
         userRequestModel.setUserPassword("1");

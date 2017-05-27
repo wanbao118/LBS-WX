@@ -18,9 +18,12 @@ document.write(" 	 					<li><a href=\""+contextPath+"/admin/userCreation.html\">
 document.write(" 	 				</ul>");                            
 document.write(" 	 			</li>"); 
 document.write(" 				<li class=\"accordion\"><a href=\"#\"><i class=\"glyphicon glyphicon-plus\"></i><span>ExchangeRate</span></a>");                         
-document.write(" 	 				<ul class=\"nav nav-pills nav-stacked\">");                         
+document.write(" 	 				<ul class=\"nav nav-pills nav-stacked\">");
 document.write(" 	 					<li><a href=\""+contextPath+"/exchangeRate/queryExRate.html\">Exchange Rate</a></li>"); 
-document.write(" 	 					<li><a href=\""+contextPath+"/exchangeRate/userCreation.html\">User Add</a></li>"); 
+document.write(" 	 					<li><a href=\""+contextPath+"/exchangeRate/userCreation.html\">User Add</a></li>");
+document.write(" 	 					<li><a href=\""+contextPath+"/exchangerate/queryRate.html\">Search ExRate</a></li>"); 
+document.write(" 	 					<li><a href=\""+contextPath+"/exchangerate/buy.html\">Buy</a></li>");
+document.write(" 	 					<li><a href=\""+contextPath+"/exchangerate/sell.html\">Sell</a></li>");
 document.write(" 	 				</ul>");                            
 document.write(" 	 			</li>"); 
 
