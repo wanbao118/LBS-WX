@@ -1,10 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<!-- The styles -->
+<script src="../comm/config.js"></script>
+<script src="../comm/headerRef.js"></script>
 
+<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<style>
+.navbar-brand span {
+	font-size: initial;
+	font-family: Segoe Script;
+	font-size: 24px;
+	float: left;
+	display: inline-block;
+}
+</style>
+</head>
+<body onload="addOption()">
+
+	<!-- topbar starts -->
+	<script src="../comm/toolbar.js"></script>
+	<!-- topbar ends -->
+	<div class="ch-container">
+		<div class="row">
+			<!-- left menu starts -->
+			<script src="../comm/menu.js"></script>
+			<!-- left menu ends -->
+			<div id="content" class="col-lg-10 col-sm-10">
+				<!-- content starts -->
+
+				<div class="row">
+					<div class="box col-md-12">
+						<div class="box-inner">
+							<div class="box-header well" data-original-title="">
+								<h2>
+									<i class="glyphicon glyphicon-edit"></i>Buy
+								</h2>
+
+							</div>
+							<div class="box-content">
+							
+								<form id="buyForm" method="post" class="form-horizontal bv-form" style="width: 100%" action="target.php" novalidate="novalidate">
+                                    <div class="alert alert-success" style="display: none;"></div>
+                                    <div class="alert alert-warning" style="display: none;"></div>
+								
+									<div class="form-group">
+										<div class="group has-feedback">
+											<div class="group">
+												<label class="col-sm-2 control-label">Account Number</label>
+												<div class="col-sm-4">
+													<input type="text" class="form-control" name="accountNumber"
+														id="accountNumber"/>
+												</div>
+											</div>
+										</div>
+									</div>
+									<br>
+								<div class="form-group">
+									<div class="group has-feedback">
+										<div class="group">
+											<label class="col-sm-2 control-label">Amount </label>
+											<div class="col-sm-4">
+												<input type="text" class="form-control" name="amount"
+													id="amount"/>
+											</div>
+										</div>
+									</div>
+								</div>
+								<br>
+								<div class="form-group">
+									<div class="group">
+										<label class="col-sm-2 control-label">Currency</label>
+											<div class="col-sm-4">
+												<select href="#" class="form-control " name="currency"
+													data-bv-notempty data-bv-notempty-message="level"
+													id="currency" data-bv-group=".group">
+													<option value="">-- please choose currency--</option>
+													
+												</select>
+											</div>
+									</div>
+								</div>
+								<br>
+								<div class="form-group">
+										<div style="text-align: center; width: 50%; float: left">
+											<input type="submit" value="buy&nbsp;&nbsp;"
+												name="subscribe" id="sub_bt" href="#"
+												class="button btn btn-primary" data-dismiss="modal"
+												style="background-color: #aaa; border: 0 none; border-radius: 4px; color: #FFFFFF; cursor: pointer; display: inline-block; font-size: 15px; font-weight: bold; height: 32px; line-height: 32px; margin: 0 0px 10px 15px; padding: 0; text-align: center; text-decoration: none; vertical-align: top; white-space: nowrap; width: 100px; margin: auto;">
+										</div>
+								</div>
+								</form>
+								
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!--/row-->
+
+			</div>
+
+			<!-- content ends -->
+		</div>
+		<!--/#content.col-md-0-->
+	</div>
+	
+
+	<!--/fluid-row-->
+	<script src="../comm/foot.js"></script>
+	</div>
+	<!--/.fluid-container-->
+
+	<!-- external javascript -->
+	<script src="../comm/footRef.js"></script>
+	<!-- end external javascript -->
+		<script src="buy.js"></script>
 </body>
 </html>
+

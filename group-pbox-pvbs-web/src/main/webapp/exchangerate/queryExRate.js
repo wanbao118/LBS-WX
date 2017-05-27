@@ -40,9 +40,9 @@ function getExRate(){
 		data : JSON.stringify(currExRateReq),
 		success : function(response) {
 			if (response.result == 00000) {
-					$("#showRate").text("1 "+ response.listData[0].currencyCode + " = " + response.listData[0].exchangeRate + " RMB");
+					$("#showRate").text("1 "+ " RMB" + " = " + response.listData[0].exchangeRate + " " + response.listData[0].currencyCode);
 			} else {
-				
+					
 			}
 		}
 	});
