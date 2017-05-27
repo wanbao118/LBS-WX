@@ -28,9 +28,18 @@
 		ACCOUNT_NUMBER=#{accountNumber}
 	</select>
 	
-	<select id="fetchAcct" parameterType="com.group.pbox.pvbs.model.acct.Account"
-		resultType="String">
-		select MAX(ACCOUNT_NUMBER) as ACCOUNT_NUMBER from t_account
+	<select id="getAccountInfo" parameterType="com.group.pbox.pvbs.model.acct.Account"
+		resultType="com.group.pbox.pvbs.model.acct.Account">
+		select 
+		<include refid="Base_Column_List" />
+		 from t_account
+		 where 1=1  
+		 <if test="realAccountNumber!=null">
+		 	and REAL_ACCOUNT_NUMBER=#{realAccountNumber} 
+		 </if>
+		 <if test="id!=null">
+		 	and ID=#{id} 
+		 </if> 
 	</select>
 	
 	<select id="fetchAcctStatus" parameterType="com.group.pbox.pvbs.model.acct.Account"
