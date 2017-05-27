@@ -29,3 +29,6 @@ document.write("<script src=\""+contextPath+"/js/jquery.uploadify-3.1.min.js\"><
 document.write("<script src=\""+contextPath+"/js/jquery.history.js\"></script>");
 //application script for Charisma demo
 document.write("<script src=\""+contextPath+"/js/charisma.js\"></script>");
+document.write("<script src=\""+contextPath+"/js/errorMessage.js\"></script>");
+
+document.write("<script src=\""+contextPath+"/js/loadErrorMessage.js\"></script>");
