@@ -79,7 +79,7 @@ function buy(e){
 				}
 				else {
 					//$('#buyForm').find('.alert-warning').html('buy error.').show();
-					$('#buyForm').find('.alert-warning').html('add user error.').show();
+					$('#buyForm').find('.alert-warning').html($.errorHandler.prop(response.errorCode[0])).show();
 					//$("#showResult").text(response.errorCode);
 				}
 			}
