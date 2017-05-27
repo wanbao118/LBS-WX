@@ -4,73 +4,111 @@ import java.util.Date;
 
 public class TransHisRespData
 {
-	  private String id;
-	    
-	    private String sourceAccountId;
-	    
-	    private String targetAccountId;
+    private String id;
 
-	    private String currency;
+    private String sourceAccountId;
 
-	    private Date createTime;
-	    
-	    private double transferAmount;
-	    
-	    private String transferType;
+    private String targetAccountId;
 
-		public String getId() {
-			return id;
-		}
+    private String currency;
 
-		public void setId(String id) {
-			this.id = id;
-		}
+    private Date createTime;
 
-		public String getSourceAccountId() {
-			return sourceAccountId;
-		}
+    private double transferAmount;
 
-		public void setSourceAccountId(String sourceAccountId) {
-			this.sourceAccountId = sourceAccountId;
-		}
+    private String transferType;
 
-		public String getTargetAccountId() {
-			return targetAccountId;
-		}
+    private String sourceAccountNum;
 
-		public void setTargetAccountId(String targetAccountId) {
-			this.targetAccountId = targetAccountId;
-		}
+    private String targetAccountNum;
 
-		public String getCurrency() {
-			return currency;
-		}
+    public String getId()
+    {
+        return id;
+    }
 
-		public void setCurrency(String currency) {
-			this.currency = currency;
-		}
+    public void setId(String id)
+    {
+        this.id = id;
+    }
 
-		public Date getCreateTime() {
-			return createTime;
-		}
+    public String getSourceAccountId()
+    {
+        return sourceAccountId;
+    }
 
-		public void setCreateTime(Date createTime) {
-			this.createTime = createTime;
-		}
+    public void setSourceAccountId(String sourceAccountId)
+    {
+        this.sourceAccountId = sourceAccountId;
+    }
 
-		public double getTransferAmount() {
-			return transferAmount;
-		}
+    public String getTargetAccountId()
+    {
+        return targetAccountId;
+    }
 
-		public void setTransferAmount(double transferAmount) {
-			this.transferAmount = transferAmount;
-		}
+    public void setTargetAccountId(String targetAccountId)
+    {
+        this.targetAccountId = targetAccountId;
+    }
 
-		public String getTransferType() {
-			return transferType;
-		}
+    public String getCurrency()
+    {
+        return currency;
+    }
 
-		public void setTransferType(String transferType) {
-			this.transferType = transferType;
-		}
+    public void setCurrency(String currency)
+    {
+        this.currency = currency;
+    }
+
+    public Date getCreateTime()
+    {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime)
+    {
+        this.createTime = createTime;
+    }
+
+    public double getTransferAmount()
+    {
+        return transferAmount;
+    }
+
+    public void setTransferAmount(double transferAmount)
+    {
+        this.transferAmount = transferAmount;
+    }
+
+    public String getTransferType()
+    {
+        return transferType;
+    }
+
+    public void setTransferType(String transferType)
+    {
+        this.transferType = transferType;
+    }
+
+    public String getSourceAccountNum()
+    {
+        return sourceAccountNum;
+    }
+
+    public void setSourceAccountNum(String sourceAccountNum)
+    {
+        this.sourceAccountNum = sourceAccountNum;
+    }
+
+    public String getTargetAccountNum()
+    {
+        return targetAccountNum;
+    }
+
+    public void setTargetAccountNum(String targetAccountNum)
+    {
+        this.targetAccountNum = targetAccountNum;
+    }
 }
