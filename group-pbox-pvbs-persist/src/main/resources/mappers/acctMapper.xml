@@ -14,6 +14,7 @@
 		ID AS id, REAL_ACCOUNT_NUMBER AS realAccountNumber, CLEARING_CODE AS
 		clearingCode, BRANCH_NUMBER AS branchNumber, ACCOUNT_NUMBER AS accountNumber, STATUS AS status
 	</sql>
+
 	<insert id="addAcct" parameterType="com.group.pbox.pvbs.model.acct.Account">
 		insert into T_ACCOUNT
 		(ID,REAL_ACCOUNT_NUMBER,CLEARING_CODE,ACCOUNT_NUMBER,BRANCH_NUMBER,STATUS)
@@ -31,4 +32,27 @@
 		resultType="String">
 		select MAX(ACCOUNT_NUMBER) as ACCOUNT_NUMBER from t_account
 	</select>
+	
+	<select id="fetchAcctStatus" parameterType="com.group.pbox.pvbs.model.acct.Account"
+		resultType="int">
+		select STATUS from t_account 
+		where REAL_ACCOUNT_NUMBER=#{realAccountNumber}
+	</select>
+	
+	<select id="accountValidByRealNum" parameterType="String"
+		resultType="int">
+		select count(0) from T_ACCOUNT where
+		REAL_ACCOUNT_NUMBER=#{realAccountNumber}
+	</select>
+	
+	<update id="closeStatus" parameterType="com.group.pbox.pvbs.model.acct.Account">
+		update t_account set STATUS=1 where REAL_ACCOUNT_NUMBER=#{realAccountNumber}
+	
+	</update>
+	<select id="realAcctNum" parameterType="com.group.pbox.pvbs.model.acct.Account"
+		resultType="int">
+		select count(0) from T_ACCOUNT where
+		REAL_ACCOUNT_NUMBER=#{realAccountNumber} and STATUS=0
+	</select>
+	
 </mapper>

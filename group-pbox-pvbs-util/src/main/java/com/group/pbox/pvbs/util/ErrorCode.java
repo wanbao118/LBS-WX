@@ -11,7 +11,7 @@ public class ErrorCode
     // DB operation error.
     public static final String DB_OPERATION_ERROR = "00012";
 
-    public static final String SYSTEM_OPERATION_ERROR = "00012";
+    public static final String SYSTEM_OPERATION_ERROR = "00013";
     // 1-business level
     // Account Balance.
     // Currency Not Found
@@ -35,4 +35,18 @@ public class ErrorCode
     public static String ADD_ACCOUNT_SUCCESS = "10009";
     // Add Account Failed
     public static final String ADD_ACCOUNT_FAILED = "10010";
+    // Edit Account Mater Success
+    public static final String EDIT_ACCOUNT_MASTER_SUCCESS = "10011";
+    // Edit Account Mater Failed
+    public static final String EDIT_ACCOUNT_MASTER_FAILED = "10012";
+    //Close Account Success
+    public static final String CLOSE_ACCOUNT_SUCCESS = "10013";
+    //Close Account Fail
+    public static final String CLOSE_ACCOUNT_FAILED = "10014";
+    public static final String ACCOUNT_HAVE_CLOSED = "10015";
+	// Inquire Balance Failed
+    public static final String ENQUIRE_BALANCE_FAILED = "10016";
+    // Inquire Balance Success
+    public static final String ENQUIRE_BALANCE_SUCCESS = "10017";
+    
 }
