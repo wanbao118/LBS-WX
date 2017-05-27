@@ -37,15 +37,15 @@
 						<div class="box-inner">
 							<div class="box-header well" data-original-title="">
 								<h2>
-									<i class="glyphicon glyphicon-edit"></i>Withdraw
+									<i class="glyphicon glyphicon-edit"></i>Transfer
 								</h2>
 
 							</div>
 							<div class="box-content">
 
-								<form id="withDrawForm" method="post"
+								<form id="transferForm" method="post"
 									class="form-horizontal bv-form" style="width: 100%"
-									action="/service/accountbalance/transaction" novalidate="novalidate">
+									 novalidate="novalidate">
 									<button type="submit" class="bv-hidden-submit"
 										style="display: none; width: 0px; height: 0px;"></button>
 
@@ -53,35 +53,49 @@
 									<div  class="alert alert-warning" style="display: none;" ></div>
 
 									<br>
+									
 									<div class="form-group">
 										<div class="group has-feedback">
-											<div class="group">
-												<label class="col-sm-2 control-label">Account Number</label>
+										<div class="group">
+												<label class="col-sm-3 control-label">Source Account Number</label>
 												<div class="col-sm-4">
-													<input type="text" class="form-control" name="accountNumber"
-														id="accountNumber" />
+													<input type="text" class="form-control" name="sourceAccountNumber"
+														id="sourceAccountNumber" />
 												</div>
-											</div>
 										</div>
-										
+										</div>
 									</div>
 									<br>
 									<div class="form-group">
-									<div class="group has-feedback">
+										<div class="group has-feedback">
+											<div class="group">
+												<label class="col-sm-3 control-label">Target Account Number</label>
+												<div class="col-sm-4">
+													<input type="text" class="form-control" name="targetAccountNumber"
+														id="targetAccountNumber" />
+												</div>
+											</div>
+										</div>	
+									</div>
+									<br>
+									<div class="form-group">									
+										<div class="group has-feedback">
 										<div class="group">
-											<label class="col-sm-2 control-label">Currency Type</label>
+											<label class="col-sm-3 control-label">Currency</label>
 											<div class="col-sm-4">
-												<select class="form-control" name="currency" id="currency">
-												</select>
+											<select id="currency" class="form-control" name="currency">
+												  											
+											</select>
 											</div>
 										</div>
 										</div>
 									</div>
-									<br/>
+									<br>
+
 									<div class="form-group">
 										<div class="group has-feedback">
 										<div class="group">
-											<label class="col-sm-2 control-label">Withdraw Amount</label>
+											<label class="col-sm-3 control-label">Transfer Amount</label>
 											<div class="col-sm-4">
 												<input type="text" class="form-control" name="amount"
 													id="amount"/>
@@ -89,14 +103,14 @@
 											</div>
 										</div>
 									</div>
-									
+									<br/>
 									<div class="form-group">
-											<div style="text-align: center; width: 50%; float: center">
-											<input type="submit" value="Withdraw&nbsp;&nbsp;"
+										<div style="text-align: center; width: 50%; ">
+											<input type="submit" value="Transfer&nbsp;&nbsp;"
 												name="subscribe" id="sub_bt" href="#"
 												class="button btn btn-primary" data-dismiss="modal"
 												style="background-color: #aaa; border: 0 none; border-radius: 4px; color: #FFFFFF; cursor: pointer; display: inline-block; font-size: 15px; font-weight: bold; height: 32px; line-height: 32px; margin: 0 5px 10px 0; padding: 0; text-align: center; text-decoration: none; vertical-align: top; white-space: nowrap; width: 100px; margin: auto;">
-											</div>
+										</div>
 									</div>
 									
 									<br>
@@ -124,7 +138,7 @@
 	<!-- external javascript -->
 	<script src="../comm/footRef.js"></script>
 	<!-- end external javascript -->
-		<script src="withDraw.js"></script>
+		<script src="transfer.js"></script>
 </body>
 </html>
 

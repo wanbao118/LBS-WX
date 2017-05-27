@@ -1,82 +1,78 @@
 $(document).ready(function() {
 	getPrimaryCode();
 	getSupportCode();
-					$('#withDrawForm').bootstrapValidator(
+					$('#depositForm').bootstrapValidator(
 									{
 										message : 'This value is not valid',
-
 										feedbackIcons : {
 											valid : 'glyphicon glyphicon-ok',
 											invalid : 'glyphicon glyphicon-remove',
 											validating : 'glyphicon glyphicon-refresh'
 										},
 										fields : {
-											amount : {
+											accountNumber : {
 												group: '.group',
 												validators : {
 													notEmpty : {
-														message : 'please input Withdraw Amount!'
+														message : 'please input Account Number!'
 													},
 
-													regexp : {
-														regexp : '^[0-9]+(\\.[0-9]+)?$',
-														message : 'please input Withdraw Amount!'
-													}
-												}
-											},
-
-											accountNumber: {
-												validators : {
-													notEmpty : {
-														message : 'Please input Account Number!'
-													},
 													regexp : {
 														regexp : '^[0-9]{12}$',
-														message : 'Please input 12 numbers!'
+														message : 'Please input twelve number!'
+													}
+											}
+											},	
+											amount : {
+												validators : {
+													notEmpty : {
+														message : 'Please input deposit amount!'
 													},
+													
 												}
 											}
 										}
 									}).on('success.form.bv', function(e) {
 								// Prevent submit form
 								e.preventDefault();
-
 								var $form = $(e.target);
 								validator = $form.data('bootstrapValidator');
-								if (validator) {
-									withDraw(e.target);
+								if (validator) {									
+									creation(e.target);
 								}
-
 							});
-				});
+				
+})			
 
+function creation(e) {		
+	var accountNumber = $("#accountNumber").val();
+	var amount= $("#amount").val();	
+	var AdultObj = document.getElementById("currency");
+	var currency = AdultObj.options[AdultObj.selectedIndex].value;		
+	$('#depositForm').find('.alert-success').hide();
+	$('#depositForm').find('.alert-warning').hide();
+	var acct = {
+		'accountNumber' : accountNumber,
+		'currency' : currency,
+		'amount' :amount,
+		'operationCode' : 'D'
+	};	
 
-function withDraw(e) {
-	var accountNumber=$("#accountNumber").val();
-	var amount=$("#amount").val();
-	var currency=$("#currency").val();
-	var acct={
-			'accountNumber':accountNumber,
-			'amount':amount,
-			'currency':currency,
-			'operationCode' : 'W'
-	};
-	$('#withDrawForm').find('.alert-success').hide();
-	$('#withDrawForm').find('.alert-warning').hide();
-	$.ajax({
-		url : contextPath+"/service/accountbalance/transaction?date"+new Date(),
+	$.ajax({		
+		url : contextPath+"/service/accountbalance/transaction",		
 		type : "post",
 		contentType : "application/json",
 		dataType : "json",
-		data : JSON.stringify(acct),
-		success : function(response) {
-			if (response.result == 00000) {
-				$('#withDrawForm').find('.alert-success').html('Withdraw successfully!').show();
+	    data : JSON.stringify(acct),
+		success : function(response) {				
+		 if (response.result == 00000) {				
+			$('#depositForm').find('.alert-success').html('Deposit successfully!').show();
 			} else {
-				$('#withDrawForm').find('.alert-warning').html('Withdraw fail ! '+$.errorHandler.prop(response.errorCode[0])).show();
+				$('#depositForm').find('.alert-warning').html('Deposit Failed ! '+$.errorHandler.prop(response.errorCode[0])).show();
 			}
-		}
+	}
 	});
+		
 }
 function getPrimaryCode(){
 	var acct = {

@@ -5,6 +5,7 @@
 <script src="../comm/config.js"></script>
 <script src="../comm/headerRef.js"></script>
 
+
 <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -37,21 +38,18 @@
 						<div class="box-inner">
 							<div class="box-header well" data-original-title="">
 								<h2>
-									<i class="glyphicon glyphicon-edit"></i>Withdraw
+									<i class="glyphicon glyphicon-edit"></i>Account Deposit
 								</h2>
 
 							</div>
 							<div class="box-content">
-
-								<form id="withDrawForm" method="post"
-									class="form-horizontal bv-form" style="width: 100%"
-									action="/service/accountbalance/transaction" novalidate="novalidate">
-									<button type="submit" class="bv-hidden-submit"
+							<form id="depositForm" method="post"
+									class="form-horizontal bv-form" style="width: 100%;float: center"
+									 novalidate="novalidate">
+									<button id="id"type="submit" class="bv-hidden-submit"
 										style="display: none; width: 0px; height: 0px;"></button>
-
 									<div  class="alert alert-success" style="display: none;" ></div>
 									<div  class="alert alert-warning" style="display: none;" ></div>
-
 									<br>
 									<div class="form-group">
 										<div class="group has-feedback">
@@ -62,45 +60,44 @@
 														id="accountNumber" />
 												</div>
 											</div>
-										</div>
-										
+										</div>										
 									</div>
 									<br>
 									<div class="form-group">
-									<div class="group has-feedback">
-										<div class="group">
-											<label class="col-sm-2 control-label">Currency Type</label>
-											<div class="col-sm-4">
-												<select class="form-control" name="currency" id="currency">
-												</select>
-											</div>
-										</div>
-										</div>
-									</div>
-									<br/>
-									<div class="form-group">
 										<div class="group has-feedback">
 										<div class="group">
-											<label class="col-sm-2 control-label">Withdraw Amount</label>
+											<label class="col-sm-2 control-label">Currency</label>
+											<div class="col-sm-4">
+										     <select id="currency" class="form-control combobox">
+												</select>			
+											</div>
+											</div>
+										</div>										
+									</div>
+									<br>
+									<div class="form-group" >
+										<div class="group has-feedback">
+										<div class="group">
+											<label class="col-sm-2 control-label">Amount</label>
 											<div class="col-sm-4">
 												<input type="text" class="form-control" name="amount"
 													id="amount"/>
 											</div>
 											</div>
 										</div>
+										
 									</div>
-									
+									<br>								
 									<div class="form-group">
-											<div style="text-align: center; width: 50%; float: center">
-											<input type="submit" value="Withdraw&nbsp;&nbsp;"
-												name="subscribe" id="sub_bt" href="#"
+										<div style="text-align: center; width: 50%; float: center">
+											<input type="submit" value="Deposit&nbsp;&nbsp;"
+												name="subscribe" id="sub_bt" href="#" onclick="javascript:deposit()"
 												class="button btn btn-primary" data-dismiss="modal"
 												style="background-color: #aaa; border: 0 none; border-radius: 4px; color: #FFFFFF; cursor: pointer; display: inline-block; font-size: 15px; font-weight: bold; height: 32px; line-height: 32px; margin: 0 5px 10px 0; padding: 0; text-align: center; text-decoration: none; vertical-align: top; white-space: nowrap; width: 100px; margin: auto;">
-											</div>
+										</div>
 									</div>
-									
-									<br>
 								</form>
+							
 							</div>
 						</div>
 					</div>
@@ -113,9 +110,7 @@
 			<!-- content ends -->
 		</div>
 		<!--/#content.col-md-0-->
-	</div>
-	
-
+	</div>	
 	<!--/fluid-row-->
 	<script src="../comm/foot.js"></script>
 	</div>
@@ -124,7 +119,8 @@
 	<!-- external javascript -->
 	<script src="../comm/footRef.js"></script>
 	<!-- end external javascript -->
-		<script src="withDraw.js"></script>
+	<script src="deposit.js"></script>
 </body>
+
 </html>
 

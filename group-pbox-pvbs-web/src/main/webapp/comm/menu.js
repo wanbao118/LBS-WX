@@ -27,7 +27,10 @@ document.write(" 	 			</li>");
 
 document.write(" 				<li class=\"accordion\"><a href=\"#\"><i class=\"glyphicon glyphicon-plus\"></i><span>Transaction</span></a>");                         
 document.write(" 	 				<ul class=\"nav nav-pills nav-stacked\">");                         
-document.write(" 	 					<li><a href=\""+contextPath+"/transaction/withDraw.html\">Exchange Rate</a></li>"); 
+document.write(" 	 					<li><a href=\""+contextPath+"/transaction/withDraw.html\">Withdraw</a></li>"); 
+document.write(" 	 					<li><a href=\""+contextPath+"/transaction/deposit.html\">Deposit</a></li>"); 
+document.write(" 	 					<li><a href=\""+contextPath+"/transaction/transfer.html\">Transfer</a></li>"); 
+document.write(" 	 					<li><a href=\""+contextPath+"/transaction/transHistory.html\">Transfer History</a></li>");
 document.write(" 	 				</ul>");                            
 document.write(" 	 			</li>"); 
 

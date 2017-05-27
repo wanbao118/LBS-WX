@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	getPrimaryCode();
 	getSupportCode();
-					$('#withDrawForm').bootstrapValidator(
+					$('#transferForm').bootstrapValidator(
 									{
 										message : 'This value is not valid',
 
@@ -15,17 +15,34 @@ $(document).ready(function() {
 												group: '.group',
 												validators : {
 													notEmpty : {
-														message : 'please input Withdraw Amount!'
+														message : 'please input Transfer Amount!'
 													},
 
 													regexp : {
 														regexp : '^[0-9]+(\\.[0-9]+)?$',
-														message : 'please input Withdraw Amount!'
+														message : 'Please input Transfer Amount'
 													}
-												}
+												/*
+												 * remote: { url:
+												 * paths+'/service/employee/checkErExists',
+												 * message: '用戶名不存在', delay :
+												 * 2000,//per 2s send a request
+												 * type: 'POST' }
+												 */}
 											},
 
-											accountNumber: {
+											sourceAccountNumber: {
+												validators : {
+													notEmpty : {
+														message : 'Please input Account Number!'
+													},
+													regexp : {
+														regexp : '^[0-9]{12}$',
+														message : 'Please input 12 numbers!'
+													},
+												}
+											},
+											targetAccountNumber: {
 												validators : {
 													notEmpty : {
 														message : 'Please input Account Number!'
@@ -44,36 +61,42 @@ $(document).ready(function() {
 								var $form = $(e.target);
 								validator = $form.data('bootstrapValidator');
 								if (validator) {
-									withDraw(e.target);
+									creation(e.target);
 								}
 
 							});
 				});
 
-
-function withDraw(e) {
-	var accountNumber=$("#accountNumber").val();
+function creation(e) {
+	
+	var sourceAccountNumber=$("#sourceAccountNumber").val();
+	var targetAccountNumber=$("#targetAccountNumber").val();
 	var amount=$("#amount").val();
 	var currency=$("#currency").val();
+	$('#transferForm').find('.alert-success').hide();
+	$('#transferForm').find('.alert-warning').hide();
 	var acct={
-			'accountNumber':accountNumber,
+			'accountNumber':sourceAccountNumber,
 			'amount':amount,
 			'currency':currency,
-			'operationCode' : 'W'
+			'operationCode' : 'T',
+			'params':{
+				'targetAccountNum':targetAccountNumber
+			}
 	};
-	$('#withDrawForm').find('.alert-success').hide();
-	$('#withDrawForm').find('.alert-warning').hide();
+	
 	$.ajax({
-		url : contextPath+"/service/accountbalance/transaction?date"+new Date(),
+		url : contextPath+"/service/accountbalance/transaction",
 		type : "post",
 		contentType : "application/json",
 		dataType : "json",
 		data : JSON.stringify(acct),
 		success : function(response) {
 			if (response.result == 00000) {
-				$('#withDrawForm').find('.alert-success').html('Withdraw successfully!').show();
+				
+				$('#transferForm').find('.alert-success').html('Transfer successfully!').show();
 			} else {
-				$('#withDrawForm').find('.alert-warning').html('Withdraw fail ! '+$.errorHandler.prop(response.errorCode[0])).show();
+				$('#transferForm').find('.alert-warning').html('Transfer fail !  '+$.errorHandler.prop(response.errorCode[0])).show();
 			}
 		}
 	});
