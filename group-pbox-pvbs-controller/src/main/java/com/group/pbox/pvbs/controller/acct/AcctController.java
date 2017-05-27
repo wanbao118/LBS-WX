@@ -39,7 +39,7 @@ public class AcctController {
 		
 		try {
 
-			sysLogger.info("start acctCreation:" + acctRequest.getAccountNumber() + "|" + acctRequest.getBranchNumber() + "|" + acctRequest.getClearingCode() + "|"
+			sysLogger.info("start acctMaintenance:" + acctRequest.getAccountNumber() + "|" + acctRequest.getBranchNumber() + "|" + acctRequest.getClearingCode() + "|"
                     + acctRequest.getOperationCode());
 			
 			switch (acctRequest.getOperationCode()) {
@@ -47,15 +47,25 @@ public class AcctController {
 				// add
 				acctResp = acctCreationService.addAcct(acctRequest);
 				break;
+			case OperationCode.ACCT_ENQUIRY:
+				// enquiryAcctInfo
+				acctResp = acctCreationService.enquiryAcctInfo(acctRequest);
+				break;
 			case OperationCode.ACCT_MAINTENANCE:
 				// edit
+				acctResp = acctCreationService.editAcct(acctRequest);
 				break;
 			case OperationCode.ACCT_CLOSURE:
 				// delete
+				acctResp = acctCreationService.closeAcct(acctRequest);
+				break;
+			case OperationCode.ACCT_BALANCE_ENQUIRY:
+				// inquire balance
+				acctResp = acctCreationService.enquireBalance(acctRequest);
 				break;
 			}
 			
-			 sysLogger.info("end acctCreation:" + acctRequest.getAccountNumber() + "|" + acctRequest.getBranchNumber() + "|" + acctRequest.getClearingCode() + "|"
+			 sysLogger.info("end acctMaintenance:" + acctRequest.getAccountNumber() + "|" + acctRequest.getBranchNumber() + "|" + acctRequest.getClearingCode() + "|"
 	                    + acctRequest.getOperationCode());
 		} catch (Exception e) {
 			sysLogger.error(
