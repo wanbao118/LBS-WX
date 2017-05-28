@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.group.pbox.pvbs.clientmodel.acct.AcctReqModel;
 import com.group.pbox.pvbs.clientmodel.acct.AcctRespModel;
+import com.group.pbox.pvbs.clientmodel.sysconf.SysConfRespData;
 import com.group.pbox.pvbs.model.acct.Account;
 import com.group.pbox.pvbs.model.acct.AccountBalance;
 import com.group.pbox.pvbs.model.acct.AccountMaster;
@@ -30,7 +31,7 @@ public class AcctCreationServiceImpl implements IAcctCreationService
     @Resource
     AccountBalanceMapper accountBalanceMapper;
     
-    public AcctRespModel addAcct(AcctReqModel acctRequest) throws Exception
+    public AcctRespModel addAcct(AcctReqModel acctRequest, List<SysConfRespData> listSysConfRespData) throws Exception
     {
     	AcctRespModel acctResp = new AcctRespModel();
     	AccountMaster accountMaster = new AccountMaster();
@@ -76,7 +77,7 @@ public class AcctCreationServiceImpl implements IAcctCreationService
 		
 		account.setAccountNumber(acct);
 		account.setRealAccountNumber(
-				account.getClearingCode() + account.getBranchNumber() + acct);
+		account.getClearingCode() + account.getBranchNumber() + acct);
 		account.setStatus(0);
         
 		accountMaster.setId(Utils.getUUID());
@@ -92,20 +93,23 @@ public class AcctCreationServiceImpl implements IAcctCreationService
 		accountMaster.setDateOfBirth(insertdate);
 		accountMaster.setWechatId(acctRequest.getWechatId());
 		accountMaster.setEmployment(acctRequest.getEmployment());
-        
-		accountBalance.setId(Utils.getUUID());
-		accountBalance.setAccountId(account.getId());
-		accountBalance.setCurrencyCode("RMB");
-		accountBalance.setBalance(0);
-		
-		SimpleDateFormat timeFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date newDate = new Date();
-		newDate = timeFormater.parse(timeFormater.format(newDate));
-        accountBalance.setLastUpatedDate(newDate);
 
 		int addAcct = acctMapper.addAcct(account);
 		int addMaster = acctMasterMapper.insertAccountMaster(accountMaster);
-		int addBalance = accountBalanceMapper.insertAccountBalance(accountBalance);
+		int addBalance = 0;
+		
+		for (int i = 0; i < listSysConfRespData.size(); i++) {
+			accountBalance.setId(Utils.getUUID());
+			accountBalance.setAccountId(account.getId());
+			accountBalance.setCurrencyCode(listSysConfRespData.get(i).getValue());
+			accountBalance.setBalance(0);
+			SimpleDateFormat timeFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date newDate = new Date();
+			newDate = timeFormater.parse(timeFormater.format(newDate));
+	        accountBalance.setLastUpatedDate(newDate);
+	        
+			addBalance = accountBalanceMapper.insertAccountBalance(accountBalance);
+		}
 		
 		if (addAcct > 0 && addMaster > 0 && addBalance > 0)
 		{
@@ -157,7 +161,7 @@ public class AcctCreationServiceImpl implements IAcctCreationService
 		
 		int editAcctMaster = acctMasterMapper.editAcctMaster(accountMaster);
 		
-		if(editAcctMaster>0)
+		if(editAcctMaster > 0)
 		{
 			acctResp.setResult(ErrorCode.RESPONSE_SUCCESS);
 			acctResp.getErrorCode().add(ErrorCode.EDIT_ACCOUNT_MASTER_SUCCESS);
@@ -168,7 +172,26 @@ public class AcctCreationServiceImpl implements IAcctCreationService
 		return acctResp;
 		
 	}
-
+	
+	public AcctRespModel accountValidByRealNum(AcctReqModel acctRequest) throws Exception
+    {
+    	AcctRespModel acctResp = new AcctRespModel();
+    	Account account = new Account();
+		account.setRealAccountNumber(acctRequest.getRealAccountNumber());
+		int vaild = acctMapper.accountValidByRealNum(account);
+		
+		if(vaild == 0) {
+			acctResp.setResult(ErrorCode.RESPONSE_ERROR);
+			acctResp.getErrorCode().add(ErrorCode.ACCOUNT_HAVE_NOT_FOUND);
+			return acctResp;
+		}
+		
+		acctResp.setResult(ErrorCode.RESPONSE_SUCCESS);
+		acctResp.getErrorCode().add(ErrorCode.ACCOUNT_HAVE_FOUND);
+		
+        return acctResp;
+    }
+	
     public AcctRespModel closeAcct(AcctReqModel acctRequest) throws Exception
     {
     	Account account = new Account();

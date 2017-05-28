@@ -25,6 +25,8 @@ public class AccountMaster
 
     private String employment;
 
+	private Account account;
+    
     public String getId()
     {
         return id;
@@ -124,4 +126,12 @@ public class AccountMaster
     {
         this.employment = employment;
     }
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
 }

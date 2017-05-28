@@ -19,7 +19,7 @@
 }
 </style>
 </head>
-<body onload="addOption()">
+<body>
 
 	<!-- topbar starts -->
 	<script src="../comm/toolbar.js"></script>
@@ -44,7 +44,8 @@
 							<div class="box-content">
 							
 								<form id="sellForm" method="post" class="form-horizontal bv-form" style="width: 100%" action="target.php" novalidate="novalidate">
-								
+									<div class="alert alert-success" style="display: none;"></div>
+                                    <div class="alert alert-warning" style="display: none;"></div>
 									<div class="form-group">
 										<div class="group has-feedback">
 											<div class="group">
@@ -62,8 +63,8 @@
 										<div class="group">
 											<label class="col-sm-2 control-label">Amount </label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" name="customerName"
-													id="customerName"/>
+												<input type="text" class="form-control" name="amount"
+													id="amount"/>
 											</div>
 										</div>
 									</div>
@@ -73,11 +74,9 @@
 									<div class="group">
 										<label class="col-sm-2 control-label">Currency</label>
 											<div class="col-sm-4">
-												<select href="#" class="form-control " name="currency"
-													data-bv-notempty data-bv-notempty-message="level"
-													id="currency" data-bv-group=".group">
-													<option value="">-- please choose currency--</option>
-													
+												<select class="form-control combobox" name="currency"
+													id="currency">
+
 												</select>
 											</div>
 									</div>

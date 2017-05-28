@@ -1,3 +1,10 @@
+var primaryCcyCode;
+
+$(function(){
+	getPrimaryCcyCode();
+	addOption();
+});
+
 $(document).ready(function() {
     $('#sellForm').bootstrapValidator({
 		message: 'This value is not valid',
@@ -57,32 +64,52 @@ $(document).ready(function() {
 
         });
 });
+
+function getPrimaryCcyCode() {
+	var sysConfReq = {
+		'item' : 'Primary_Ccy_Code'
+	}
+
+	$.ajax({
+		url : contextPath+"/service/sysconf/getSysConfList",
+		type : "post",
+		async:false,
+		contentType : "application/json",
+		dataType : "json",
+		data : JSON.stringify(sysConfReq),
+		success : function(response) {
+			if (response.result == 00000) {
+				primaryCcyCode = response.listData[0].value;
+			} 
+		}
+	});
+
+}
+
 function sell(e){
 	$('#sellForm').find('.alert-success').hide();
 	$('#sellForm').find('.alert-warning').hide();
+	
 	var accountNumber = $("#accountNumber").val();
 	var amount = $("#amount").val();
 	var currency = $("#currency").val();
-	var json = {'operationCode':'S','accountNumber' : accountNumber, 'amount' : amount,'currency' : currency,'userId':'0001'};
+	var json = {'operationCode':'S','acctNumber': accountNumber, 'changeAmount' :amount,'currencyCode' : currency,'userId':'0001'};
+
 	$.ajax({
-			url : contextPath+"/service/currencyExchange/exchange",
-		//url : "http://172.168.0.139:8080/vbs/"+"service/currencyExchange/exchange",
+			url : contextPath+"/service/ccyExRate/getCcyExRate",
 			type : "post",
 			contentType: "application/json",
 			dataType : "json",
 			data : JSON.stringify(json),
 			success : function(response) {
-				
 				if (response.result=="00000") {
-					//$('#sellForm').find('.alert-success').html('sell success.').show();
-					//$("#showRate").text("1 "+ response.listData[0].currencyCode + " = " + response.listData[0].exchangeRate + " RMB");
-					//$("#showResult").text("success");
-					alert("You have sold successfully");
+					//$('#buyForm').find('.alert-success').html('buy success.').show();
+					$('#sellForm').find('.alert-success').html('You have sell successfully').show();
 				}
 				else {
-					//$('#sellForm').find('.alert-warning').html('sell error.').show();
+					//$('#buyForm').find('.alert-warning').html('buy error.').show();
+					$('#sellForm').find('.alert-warning').html($.errorHandler.prop(response.errorCode[0])).show();
 					//$("#showResult").text(response.errorCode);
-					alert("Sorry,the operation was failed");
 				}
 			}
 		});
@@ -94,16 +121,17 @@ function addOption(){
 		};
 	$.ajax({
 		url : contextPath+"/service/ccyExRate/getCcyExRate",
-		//url : "http://172.168.0.139:8080/vbs"+"/service/ccyExRate/getCcyExRate",
 		type : "post",
 		contentType : "application/json",
 		dataType : "json",
 		data : JSON.stringify(currency),
 		success : function(response) {
 			if (response.result == 00000) {			
-				for(var i = 0;i<response.listData.length;i++){
+				for(var i = 0; i<response.listData.length; i++){
 					$("#currency").append("<option value='"+response.listData[i].currencyCode+"'>"+response.listData[i].currencyCode+"</option>");
 				}
+
+				$("#currency option[value=" + primaryCcyCode + "]").remove();
 			} 
 		}
 	});
