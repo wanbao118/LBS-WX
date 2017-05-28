@@ -249,7 +249,7 @@ public class AccountBalanceServiceImpl implements IAccountBalanceService
         }
         else
         {
-            targetAccountBalance.setBalance(sourceAccountBalance.getBalance() + searchSourceAccountBalance.getBalance());
+            targetAccountBalance.setBalance(targetAccountBalance.getBalance() + searchSourceAccountBalance.getBalance());
             searchTargetAccountBalance.setLastUpatedDate(currentDate);
             result = accountBalanceMapper.updateAccountBalance(targetAccountBalance);
         }
@@ -261,6 +261,7 @@ public class AccountBalanceServiceImpl implements IAccountBalanceService
         }
 
         //// withdrawl
+        sourceAccountBalance = accountBalanceMapper.getAccountBalance(searchSourceAccountBalance);
         sourceAccountBalance.setBalance(sourceAccountBalance.getBalance() - searchTargetAccountBalance.getBalance());
         sourceAccountBalance.setLastUpatedDate(currentDate);
         int updateResult = accountBalanceMapper.updateAccountBalance(sourceAccountBalance);
