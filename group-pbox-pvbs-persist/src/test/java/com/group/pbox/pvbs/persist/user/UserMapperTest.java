@@ -27,4 +27,14 @@ public class UserMapperTest
         assertNotNull(userMapper.accountValid(user));
     }
 
+    @Test
+    public void queryUserByParamsTest()
+    {
+        User user = new User();
+        user.setUserId("0001");
+        user.setPageStartRow(1);
+        user.setPageRecorders(1);
+        System.out.println(userMapper.queryUserByParams(user).size());
+        System.out.println(userMapper.queryUserByParamsCount(user).size());
+    }
 }
