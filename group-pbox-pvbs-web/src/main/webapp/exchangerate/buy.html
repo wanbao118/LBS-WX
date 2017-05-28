@@ -19,7 +19,7 @@
 }
 </style>
 </head>
-<body onload="addOption()">
+<body>
 
 	<!-- topbar starts -->
 	<script src="../comm/toolbar.js"></script>
@@ -75,11 +75,8 @@
 									<div class="group">
 										<label class="col-sm-2 control-label">Currency</label>
 											<div class="col-sm-4">
-												<select href="#" class="form-control " name="currency"
-													data-bv-notempty data-bv-notempty-message="level"
-													id="currency" data-bv-group=".group">
-													<option value="">-- please choose currency--</option>
-													
+												<select class="form-control combobox" name="currency"
+													id="currency" >
 												</select>
 											</div>
 									</div>

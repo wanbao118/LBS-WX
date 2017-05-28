@@ -1,3 +1,5 @@
+var primaryCcyCode;
+
 $(document).ready(function() {
     $('#buyForm').bootstrapValidator({
 		message: 'This value is not valid',
@@ -57,6 +59,35 @@ $(document).ready(function() {
 
         });
 });
+
+
+$(function(){
+	getPrimaryCcyCode();
+	addOption();
+});
+
+function getPrimaryCcyCode() {
+	var sysConfReq = {
+		'item' : 'Primary_Ccy_Code'
+	}
+
+	$.ajax({
+		url : contextPath+"/service/sysconf/getSysConfList",
+		type : "post",
+		contentType : "application/json",
+		dataType : "json",
+		data : JSON.stringify(sysConfReq),
+		success : function(response) {
+			if (response.result == 00000) {
+				primaryCcyCode = response.listData[0].value;
+			} else {
+				
+			}
+		}
+	});
+
+}
+
 function buy(e){
 	$('#buyForm').find('.alert-success').hide();
 	$('#buyForm').find('.alert-warning').hide();
@@ -102,6 +133,8 @@ function addOption(){
 				for(var i = 0;i<response.listData.length;i++){
 					$("#currency").append("<option value='"+response.listData[i].currencyCode+"'>"+response.listData[i].currencyCode+"</option>");
 				}
+
+				$("#currency option[value=" + primaryCcyCode + "]").remove();
 			} 
 		}
 	});
