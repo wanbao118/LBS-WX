@@ -12,6 +12,8 @@ public class Constant {
 	
 	public static final int FIVE = 5;
 	
+	public static final int TWELVE = 12;
+	
 	public static final String PAGE_RECORDS = "pageRecorders";
 
 	public static final String PAGE_CURRENT = "currentPage";
