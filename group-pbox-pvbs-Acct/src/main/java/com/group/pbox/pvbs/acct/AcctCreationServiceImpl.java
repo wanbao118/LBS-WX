@@ -157,7 +157,7 @@ public class AcctCreationServiceImpl implements IAcctCreationService
 		
 		int editAcctMaster = acctMasterMapper.editAcctMaster(accountMaster);
 		
-		if(editAcctMaster>0)
+		if(editAcctMaster > 0)
 		{
 			acctResp.setResult(ErrorCode.RESPONSE_SUCCESS);
 			acctResp.getErrorCode().add(ErrorCode.EDIT_ACCOUNT_MASTER_SUCCESS);
@@ -168,7 +168,26 @@ public class AcctCreationServiceImpl implements IAcctCreationService
 		return acctResp;
 		
 	}
-
+	
+	public AcctRespModel accountValidByRealNum(AcctReqModel acctRequest) throws Exception
+    {
+    	AcctRespModel acctResp = new AcctRespModel();
+    	Account account = new Account();
+		account.setRealAccountNumber(acctRequest.getRealAccountNumber());
+		int vaild = acctMapper.accountValidByRealNum(account);
+		
+		if(vaild == 0) {
+			acctResp.setResult(ErrorCode.RESPONSE_ERROR);
+			acctResp.getErrorCode().add(ErrorCode.ACCOUNT_HAVE_NOT_FOUND);
+			return acctResp;
+		}
+		
+		acctResp.setResult(ErrorCode.RESPONSE_SUCCESS);
+		acctResp.getErrorCode().add(ErrorCode.ACCOUNT_HAVE_FOUND);
+		
+        return acctResp;
+    }
+	
     public AcctRespModel closeAcct(AcctReqModel acctRequest) throws Exception
     {
     	Account account = new Account();
