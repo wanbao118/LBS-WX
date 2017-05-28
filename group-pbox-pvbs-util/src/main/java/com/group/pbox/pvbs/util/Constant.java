@@ -15,4 +15,5 @@ public class Constant {
 	public static final String PAGE_RECORDS = "pageRecorders";
 
 	public static final String PAGE_CURRENT = "currentPage";
+	
 }
