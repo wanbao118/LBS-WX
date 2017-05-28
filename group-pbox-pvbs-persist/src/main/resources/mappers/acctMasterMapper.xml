@@ -41,7 +41,17 @@
 		<include refid="Base_Column_List1" />
 		from t_account_master m left join t_account t on m.ACCOUNT_ID=t.ID where
 		t.REAL_ACCOUNT_NUMBER=#{realAcctNum}
+		<if test="pageStartRow!=null and pageRecorders!=null">
+			LIMIT #{pageStartRow}, #{pageRecorders}
+		</if>
 	</select>
+	<select id="enquiryAcctInfoCount" parameterType="String"
+		resultMap="acctMasterMap">
+		select m.ID as id
+		 from t_account_master m left join t_account t on m.ACCOUNT_ID=t.ID where
+		t.REAL_ACCOUNT_NUMBER=#{realAcctNum}
+	</select>
+	
 	
 	<insert id="insertAccountMaster" parameterType="com.group.pbox.pvbs.model.acct.AccountMaster">
 		insert into t_account_master

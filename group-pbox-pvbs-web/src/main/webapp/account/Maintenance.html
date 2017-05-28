@@ -16,6 +16,15 @@
     		float: left;
     		display: inline-block;
     	}
+    	.acctInfo{
+    	}
+    	.acctNotExist{
+    		display: none;
+    		font-size: 18px;
+    		color: red;
+    		
+    	}
+    	
     </style>
 </head>
 
@@ -40,75 +49,48 @@
 							</div>
 							<div class="box-content">
 
-								<form id="empForm" method="post" class="form-horizontal"
-									style="width: 100%" action="target.php">
-									
-									
+								<form id="enquiryForm"  class="form-horizontal" style="width: 100%" >
 									<div class="form-group">
 										
 										<div class="group">
-											<label class="col-sm-3 control-label">Basic Account Function</label>
+											<label class="col-sm-3 control-label">Input Real Account Number</label>
 											<div class="col-sm-3">
-												<input type="text" class="form-control" name="er" id="er" />
+												<input type="text" class="form-control" name="realAcctNum" id="realAcctNum" />
 											</div>
-<!-- 											<input type="button" value="Enquiry&nbsp;&nbsp;" name="subscribe" -->
-<!-- 												id="sub_upd" href="#" class="button btn btn-primary" -->
-<!-- 												data-dismiss="modal" -->
-<!-- 												style="background-color: #aaa; border: 0 none; border-radius: 4px; color: #FFFFFF; cursor: pointer; display: inline-block; font-size: 15px; font-weight: bold; height: 32px; line-height: 32px; margin: 0 5px 10px 0; padding: 0; text-align: center; text-decoration: none; vertical-align: top; white-space: nowrap; width: 100px; margin: auto;" -->
-<!-- 												onclick="ViewCapability();"> -->
- 											<input type="submit" value=" Enquiry&nbsp;&nbsp;" name="subscribe"
+ 											<input type="submit" value=" Enquiry" name="subscribe"
  												id="sub_bt" href="#" class="button btn btn-primary"  
  												data-dismiss="modal" 
  												style="background-color: #aaa; border: 0 none; border-radius: 4px; color: #FFFFFF; cursor: pointer; display: inline-block; font-size: 15px; font-weight: bold; height: 32px; line-height: 32px; margin: 0 5px 10px 0; padding: 0; text-align: center; text-decoration: none; vertical-align: top; white-space: nowrap; width: 100px; margin: auto;"> 
 										</div>
 									</div>
-									
-									
+								</form>	
+								<!-- realAcctNum existed -->	
+								<div class="acctInfo">
 									<div>
-									<table id="EmployeeList"
-										class="table table-striped table-bordered">
-										<thead>
-											<tr>
-												<th>Er</th>
-												<th>Hr</th>
-												<th>中文名</th>
-												<th>英文名</th>
-												<th>交付部</th>
-												<th>项目</th>
-												<th>操作</th>
-											</tr>
-										</thead>
-										<tr>
-										   <td>Account Creation</td>
-											 <td>Account Information Maintenance</td>
-											 <td>Account Information Enquiry</td>
-											 <td>Account Balance Enquiry</td>
-											 <td>Account Closure</td>
-											 <td>
-									            <a class="btn btn-info" href="#">
-									                <i class="glyphicon glyphicon-edit icon-white"></i>
-									                Edit
-									            </a>
-									            <a class="btn btn-danger" href="#">
-									                <i class="glyphicon glyphicon-trash icon-white"></i>
-									                Delete
-									            </a></td>
-										</tr>
-									</table>
+										<table id="acctInfoList"
+											class="table table-striped table-bordered">
+											<thead>
+												<tr>
+													<th>Customer name</th>
+													<th>Customer ID</th>
+													<th>Date of Birth</th>
+													<th>Address</th>
+													<th>Contact Address</th>
+													<th>Contact Number</th>
+													<th>Wechat ID</th>
+													<th>Operation</th>
+												</tr>
+											</thead>
+											<tbody class="infoCon"></tbody>
+										</table>
 									</div>
-									<div>
-										<ul class="pagination pagination-centered">
-											<li><a href="#" id="fristPage" onclick="loadEmpList('frist')">首页</a></li>
-											<li><a href="#" id="previousPage" onclick="loadEmpList('previous')">上一页</a></li>
-											<li><a href="#" id="nextPage" onclick="loadEmpList('next')">下一页</a></li>
-											<li><a href="#" id="lastPage" onclick="loadEmpList('last')">末页</a></li>
+									<div style="float:left">
+										<ul class="pagination pagination-centered" id="pageInfo">
 										</ul>
-										<br>
-										共<span id="pageCount"></span>页   第<span id="currentPage"></span>页
 									</div>
-
-								</form>
-
+								</div>
+								<!-- realAcctNum doesn't exist -->
+								<div class="acctNotExist text-danger"></div>
 							</div>
 						</div>
 					</div>
@@ -130,7 +112,7 @@
 <!-- external javascript -->
 <script src="../comm/footRef.js"></script>
 <!-- end external javascript -->
-
+<script src="maintenance.js"></script>
 </body>
 </html>
 

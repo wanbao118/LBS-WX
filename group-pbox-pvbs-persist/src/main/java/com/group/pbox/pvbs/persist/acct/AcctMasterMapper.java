@@ -10,5 +10,6 @@ public interface AcctMasterMapper {
 
 	int insertAccountMaster(AccountMaster accountMaster);
 	int editAcctMaster(AccountMaster accountMaster);
-	List<AccountMaster> enquiryAcctInfo(@Param("realAcctNum")String realAcctNum);
+	List<AccountMaster> enquiryAcctInfo(@Param("realAcctNum")String realAcctNum, @Param("pageStartRow")int pageStartRow, @Param("pageRecorders")int pageRecorders);
+	List<AccountMaster> enquiryAcctInfoCount(@Param("realAcctNum")String realAcctNum, @Param("pageStartRow")int pageStartRow, @Param("pageRecorders")int pageRecorders);
 }

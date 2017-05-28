@@ -94,7 +94,7 @@ function creation(e) {
 				
 				$('#creationForm').find('.alert').html('User created successfully!').show();
 			} else {
-				$('#creationForm').find('.alert').html('User has existsed!').show();
+				$('#creationForm').find('.alert').html('User has existsed!'+$.errorHandler.prop(response.errorCode[0])).show();
 			}
 		}
 	});
