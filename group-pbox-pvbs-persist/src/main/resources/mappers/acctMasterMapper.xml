@@ -39,11 +39,18 @@
 		resultMap="acctMasterMap">
 		select 
 		<include refid="Base_Column_List1" />
-		from t_account_master m left join t_account t on m.ACCOUNT_ID=t.ID where
-		t.REAL_ACCOUNT_NUMBER=#{realAcctNum}
+		from t_account_master m left join t_account t on m.ACCOUNT_ID=t.ID
+		<where>
+		<if test="5==realAcctNum.toString().length()">
+			t.ACCOUNT_NUMBER=#{realAcctNum}
+		</if>
+		<if test="12==realAcctNum.toString().length()">
+			t.REAL_ACCOUNT_NUMBER=#{realAcctNum}
+		</if>
 		<if test="pageStartRow!=null and pageRecorders!=null">
 			LIMIT #{pageStartRow}, #{pageRecorders}
 		</if>
+		</where>
 	</select>
 	<select id="enquiryAcctInfoCount" parameterType="String"
 		resultMap="acctMasterMap">
