@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.group.pbox.pvbs.acct.IAcctCreationService;
 import com.group.pbox.pvbs.ccyEx.IExchangeRateService;
+import com.group.pbox.pvbs.clientmodel.acct.AcctReqModel;
+import com.group.pbox.pvbs.clientmodel.acct.AcctRespModel;
 import com.group.pbox.pvbs.clientmodel.ccyEx.CcyExchangeRateReqModel;
 import com.group.pbox.pvbs.clientmodel.ccyEx.CcyExchangeRateRespModel;
 import com.group.pbox.pvbs.clientmodel.sysconf.SysConfReqModel;
@@ -43,6 +46,8 @@ public class CcyExchangeRateController {
 	IUserService userService;
 	@Resource
 	IAccountBalanceService accountBalanceService;
+	@Resource
+	IAcctCreationService acctCreationService;
 
 	@RequestMapping(value = "/getCcyExRate")
 	@ResponseBody
@@ -90,6 +95,7 @@ public class CcyExchangeRateController {
 		}
 
 		//2.Check Account Num Record 12
+		ccyExchangeRateRespModel = checkAcctValid(ccyExchangeRateReqModel);
 
 		//3.check User ID and get limit
 		ccyExchangeRateRespModel = checkUserIdAndGetLimit(ccyExchangeRateReqModel);
@@ -144,6 +150,7 @@ public class CcyExchangeRateController {
 		}
 
 		//2.Check Account Num Record 12
+		ccyExchangeRateRespModel = checkAcctValid(ccyExchangeRateReqModel);
 
 		//3.check User ID and get limit
 		ccyExchangeRateRespModel = checkUserIdAndGetLimit(ccyExchangeRateReqModel);
@@ -221,20 +228,23 @@ public class CcyExchangeRateController {
 
 	}
 
-/*	private CcyExchangeRateRespModel checkAcctValid(CcyExchangeRateReqModel ccyExchangeRateReqModel) throws Exception {
+	private CcyExchangeRateRespModel checkAcctValid(CcyExchangeRateReqModel ccyExchangeRateReqModel) throws Exception {
 		CcyExchangeRateRespModel currencyExchangeRespModel = new CcyExchangeRateRespModel();
-		String oriAccountNum = ccyExchangeRateReqModel.getAcctNumber();
-		ccyExchangeRateReqModel.setAcctNumber(ccyExchangeRateReqModel.getAcctNumber().substring(7, 12));
-		currencyExchangeRespModel = currencyExchangeService.accountValid(currencyExchangeReqModel);
 
-		if (StringUtils.equalsIgnoreCase(currencyExchangeRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
-			return currencyExchangeRespModel;
+		AcctReqModel acctReqModel = new AcctReqModel();
+		acctReqModel.setRealAccountNumber(ccyExchangeRateReqModel.getAcctNumber());
+		AcctRespModel acctRespModel = new AcctRespModel();
+
+		acctRespModel = acctCreationService.accountValidByRealNum(acctReqModel);
+
+		if (StringUtils.equalsIgnoreCase(acctRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
+			currencyExchangeRespModel.setResult(ErrorCode.RESPONSE_ERROR);
+			currencyExchangeRespModel.setErrorCode(acctRespModel.getErrorCode());
 		}
 
-		// last5 -> 11
-		currencyExchangeReqModel.setAccountNumber(oriAccountNum);
+		return currencyExchangeRespModel;
 	}
-*/
+
 	private CcyExchangeRateRespModel checkUserIdAndGetLimit(CcyExchangeRateReqModel exchangeRateReqModel) {
 		CcyExchangeRateRespModel ccyExchangeRateRespModel = new CcyExchangeRateRespModel();
 		UserReqModel userReqModel = new UserReqModel();
