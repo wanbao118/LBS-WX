@@ -81,9 +81,7 @@ function getPrimaryCcyCode() {
 		success : function(response) {
 			if (response.result == 00000) {
 				primaryCcyCode = response.listData[0].value;
-			} else {
-				
-			}
+			} 
 		}
 	});
 
