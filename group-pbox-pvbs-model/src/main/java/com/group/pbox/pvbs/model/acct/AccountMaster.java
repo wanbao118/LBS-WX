@@ -2,7 +2,9 @@ package com.group.pbox.pvbs.model.acct;
 
 import java.util.Date;
 
-public class AccountMaster
+import com.group.pbox.pvbs.common.model.BasePage;
+
+public class AccountMaster extends BasePage
 {
 
     private String id;

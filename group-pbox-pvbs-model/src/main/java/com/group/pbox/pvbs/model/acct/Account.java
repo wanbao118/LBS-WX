@@ -1,6 +1,8 @@
 package com.group.pbox.pvbs.model.acct;
 
-public class Account {
+import com.group.pbox.pvbs.common.model.BasePage;
+
+public class Account extends BasePage{
 
 	private String id;
 	
