@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,10 @@ public class TransferHistoryServiceImpl implements ITransferHistoryService
     AcctMapper acctMapper;
 
     private static final String TYPE = "Type";
+
+    private static final String PAGE_RECORDS = "pageRecorders";
+
+    private static final String PAGE_CURRENT = "currentPage";
 
     @Override
     public TransHisRespModel inquiryTransferHistory(TransactionReqModel transactionReqModel) throws Exception
@@ -63,11 +68,24 @@ public class TransferHistoryServiceImpl implements ITransferHistoryService
         {
             transferHistory.setTransferType(frontParams.get(TYPE));
         }
-        List<TransferHistory> list = new ArrayList<TransferHistory>();
-        list = transferHistoryMapper.inquiryTransferHistory(transferHistory);
+
+        // get spereate page infor.
+        Map<String, String> params = transactionReqModel.getParams();
+        String currentPage = params.get(PAGE_CURRENT);
+        String pageRecords = params.get(PAGE_RECORDS);
+
+        // set query page infor.
+        if (StringUtils.isNotBlank(currentPage) && StringUtils.isNotBlank(pageRecords))
+        {
+            transferHistory.setQueryPageParams(Integer.parseInt(currentPage), Integer.parseInt(pageRecords));
+        }
+        List<TransferHistory> listdata = transferHistoryMapper.inquiryTransferHistoryByParams(transferHistory);
+        List<TransferHistory> listdataCount = transferHistoryMapper.inquiryTransferHistoryByParamsCount(transferHistory);
+        Map<String, String> respParams = transferHistory.setRespPageParams(listdata, listdataCount);
+        transHisRespModel.setParams(respParams);
         List<TransHisRespData> listData = new ArrayList<TransHisRespData>();
 
-        for (TransferHistory tmp : list)
+        for (TransferHistory tmp : listdata)
         {
             TransHisRespData transHisRespData = new TransHisRespData();
             BeanUtils.copyProperties(transHisRespData, tmp);
