@@ -1,5 +1,10 @@
 var primaryCcyCode;
 
+$(function(){
+	getPrimaryCcyCode();
+	enqueryExRate();
+});
+
 function enqueryExRate() {
 	var currExRateReq = {
 		'operationCode': 'FAC'
@@ -23,11 +28,6 @@ function enqueryExRate() {
 	});
 }
 
-$(function(){
-	getPrimaryCcyCode();
-	enqueryExRate();
-});
-
 function getPrimaryCcyCode() {
 	var sysConfReq = {
 		'item' : 'Primary_Ccy_Code'
@@ -36,12 +36,15 @@ function getPrimaryCcyCode() {
 	$.ajax({
 		url : contextPath+"/service/sysconf/getSysConfList",
 		type : "post",
+		async:false,
 		contentType : "application/json",
 		dataType : "json",
 		data : JSON.stringify(sysConfReq),
 		success : function(response) {
 			if (response.result == 00000) {
 				primaryCcyCode = response.listData[0].value;
+
+				$("#primaryCcyCode").append("<option value='"+primaryCcyCode+"'>"+primaryCcyCode+"</option>");
 			} else {
 				
 			}

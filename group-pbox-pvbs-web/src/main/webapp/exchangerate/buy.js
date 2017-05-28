@@ -74,6 +74,7 @@ function getPrimaryCcyCode() {
 	$.ajax({
 		url : contextPath+"/service/sysconf/getSysConfList",
 		type : "post",
+		async:false,
 		contentType : "application/json",
 		dataType : "json",
 		data : JSON.stringify(sysConfReq),
