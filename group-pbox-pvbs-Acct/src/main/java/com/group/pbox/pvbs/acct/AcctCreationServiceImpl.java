@@ -4,9 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.group.pbox.pvbs.clientmodel.acct.AcctReqModel;
@@ -18,6 +20,7 @@ import com.group.pbox.pvbs.model.acct.AccountMaster;
 import com.group.pbox.pvbs.persist.acct.AccountBalanceMapper;
 import com.group.pbox.pvbs.persist.acct.AcctMapper;
 import com.group.pbox.pvbs.persist.acct.AcctMasterMapper;
+import com.group.pbox.pvbs.util.Constant;
 import com.group.pbox.pvbs.util.ErrorCode;
 import com.group.pbox.pvbs.util.Utils;
 
@@ -247,7 +250,22 @@ public class AcctCreationServiceImpl implements IAcctCreationService
 		 int acctValid = acctMapper.realAcctNum(account);
 		 
 		 if(acctValid > 0){
-			List<AccountMaster> result = acctMasterMapper.enquiryAcctInfo(realAcctNum);
+			 
+	        // get spereate page infor.
+	        Map<String, String> params = acctRequest.getParams();
+	        String currentPage = params.get(Constant.PAGE_CURRENT);
+	        String pageRecords = params.get(Constant.PAGE_RECORDS);
+	        AccountMaster accountMaster = new AccountMaster();
+	        // set query page infor.
+	        if (StringUtils.isNotBlank(currentPage) && StringUtils.isNotBlank(pageRecords))
+	        {
+	        	accountMaster.setQueryPageParams(Integer.parseInt(currentPage), Integer.parseInt(pageRecords));
+	        }
+			List<AccountMaster> result = acctMasterMapper.enquiryAcctInfo(realAcctNum, accountMaster.getPageStartRow(), accountMaster.getPageRecorders());
+			List<AccountMaster> resultCount = acctMasterMapper.enquiryAcctInfoCount(realAcctNum,  accountMaster.getPageStartRow(), accountMaster.getPageRecorders());
+			Map<String, String> respParams = accountMaster.setRespPageParams(result, resultCount);
+			acctResp.setParams(respParams);
+			
 			acctResp.setResult(ErrorCode.RESPONSE_SUCCESS);
 			acctResp.setListData(result);
 			return acctResp;
@@ -271,8 +289,6 @@ public class AcctCreationServiceImpl implements IAcctCreationService
 			return acctResp;
 		}
 		
-		//AccountBalance accountBalance = new AccountBalance();
-		//accountBalance = accountBalanceMapper.enquireAccountBalance(realAccountNumber);
 		List<AccountBalance> accountBalance = new ArrayList<AccountBalance>();
 		accountBalance = accountBalanceMapper.enquireAccountBalance(acctRequest.getRealAccountNumber());
 		
