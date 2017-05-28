@@ -2,7 +2,9 @@ package com.group.pbox.pvbs.model.user;
 
 import java.io.Serializable;
 
-public class User implements Serializable
+import com.group.pbox.pvbs.common.model.BasePage;
+
+public class User extends BasePage implements Serializable
 {
 
     /**
@@ -19,15 +21,17 @@ public class User implements Serializable
     private String userPassword;
     private String userStatus;
 
-    public String getUserStatus() {
-		return userStatus;
-	}
+    public String getUserStatus()
+    {
+        return userStatus;
+    }
 
-	public void setUserStatus(String userStatus) {
-		this.userStatus = userStatus;
-	}
+    public void setUserStatus(String userStatus)
+    {
+        this.userStatus = userStatus;
+    }
 
-	public String getId()
+    public String getId()
     {
         return id;
     }
