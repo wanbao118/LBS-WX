@@ -1,6 +1,30 @@
 $(document).ready(function() {
 	getSupportCode();
 	getPrimaryCode();
+	$('#empForm').bootstrapValidator(
+			{
+				message : 'This value is not valid',
+
+				feedbackIcons : {
+					valid : 'glyphicon glyphicon-ok',
+					invalid : 'glyphicon glyphicon-remove',
+					validating : 'glyphicon glyphicon-refresh'
+				},
+				fields : {
+					accountNumber : {
+						group: '.group',
+						validators : {
+							notEmpty : {
+								message : 'Please Account Num!'
+							},
+							regexp : {
+								regexp : '^[0-9]{12}$',
+								message : 'Please input 12 numbers!'
+							}
+						}
+					}
+				}
+			});
 	$("#sub_bt").on("click",function(){
 		enquiry('1');
 	});
@@ -26,6 +50,7 @@ Date.prototype.toLocaleString = function() {
 };
 
 function enquiry(currentPage) {
+	$('.box-content').find('.alert-warning').hide();
 	var accountNumber = $("#accountNumber").val();
 	var currency = $("#currency").val();
 	var transferType = $("#transferType").val();
@@ -63,9 +88,6 @@ function enquiry(currentPage) {
                              $(this).html(item.targetAccountNum);  
                              break;  
                          case(2):  
-                             $(this).html(item.currency);  
-                             break;  
-                         case(3):  
                         	 switch(item.transferType){
                         	 case("D"):
                         		 $(this).html("Deposit"); 
@@ -80,8 +102,11 @@ function enquiry(currentPage) {
                         	 	 break;
                         	 }
                              break;  
+                         case(3):  
+                        	 $(this).html(item.transferAmount);  
+                             break;  
                          case(4):  
-                             $(this).html(item.transferAmount);  
+                        	 $(this).html(item.currency); 
                              break;  
                          case(5):
                         	 $(this).html(new Date(item.createTime).toLocaleString());
@@ -92,6 +117,8 @@ function enquiry(currentPage) {
 				$("#cloneTr").hide();
 				$("#transferHistoryTable").show();  
 				handlePageInfo(response.params);
+			}else{
+				$('.box-content').find('.alert-warning').html('Search Transfer History Error !  '+$.errorHandler.prop(response.errorCode[0])).show();
 			}
 		},
 	error : function()
