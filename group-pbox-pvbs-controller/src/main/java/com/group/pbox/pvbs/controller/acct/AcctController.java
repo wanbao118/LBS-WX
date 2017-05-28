@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.group.pbox.pvbs.acct.IAcctCreationService;
 import com.group.pbox.pvbs.clientmodel.acct.AcctReqModel;
 import com.group.pbox.pvbs.clientmodel.acct.AcctRespModel;
+import com.group.pbox.pvbs.clientmodel.sysconf.SysConfReqModel;
+import com.group.pbox.pvbs.clientmodel.sysconf.SysConfRespData;
+import com.group.pbox.pvbs.clientmodel.sysconf.SysConfRespModel;
+import com.group.pbox.pvbs.sysconf.ISysConfService;
 import com.group.pbox.pvbs.util.ErrorCode;
 import com.group.pbox.pvbs.util.OperationCode;
 
@@ -28,7 +33,9 @@ public class AcctController {
 
 	@Resource
 	IAcctCreationService acctCreationService;
-
+    @Resource
+    ISysConfService sysConfService;
+	
 	@RequestMapping(value = "/acctMaintenance ", method = RequestMethod.POST, consumes = "application/json")
 	@ResponseBody
 	public Object acctMaintenance(final HttpServletRequest request, final HttpServletResponse response,
@@ -45,7 +52,7 @@ public class AcctController {
 			switch (acctRequest.getOperationCode()) {
 			case OperationCode.ACCT_CREATION:
 				// add
-				acctResp = acctCreationService.addAcct(acctRequest);
+				acctResp = enquerySysConf(acctRequest);
 				break;
 			case OperationCode.ACCT_ENQUIRY:
 				// enquiryAcctInfo
@@ -78,4 +85,27 @@ public class AcctController {
 		
 		return acctResp;
 	}
+	
+	public AcctRespModel enquerySysConf(AcctReqModel acctRequest) throws Exception
+	{
+		AcctRespModel acctResp = new AcctRespModel();
+		SysConfReqModel sysConfReqModel = new SysConfReqModel();
+        List<SysConfRespData> listSysConfRespData = new ArrayList<SysConfRespData>();
+        sysConfReqModel.setItem("Support_Ccy");
+        SysConfRespModel supportCcyResp = sysConfService.getAllSysConfByParam(sysConfReqModel);
+        listSysConfRespData.addAll(supportCcyResp.getListData());
+        sysConfReqModel.setItem("Primary_Ccy_Code");
+        supportCcyResp = sysConfService.getAllSysConfByParam(sysConfReqModel);
+        listSysConfRespData.addAll(supportCcyResp.getListData());
+        
+        acctResp = acctCreationService.addAcct(acctRequest, listSysConfRespData);
+        
+		if (!StringUtils.equalsIgnoreCase(acctResp.getResult(), ErrorCode.RESPONSE_SUCCESS)) {
+			acctResp.setResult(ErrorCode.RESPONSE_ERROR);
+			acctResp.setErrorCode(acctResp.getErrorCode());
+			return acctResp;
+		}
+		return acctResp;
+	}
+	
 }
