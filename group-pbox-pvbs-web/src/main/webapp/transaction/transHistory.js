@@ -2,7 +2,7 @@ $(document).ready(function() {
 	getSupportCode();
 	getPrimaryCode();
 	$("#sub_bt").on("click",function(){
-		enquiry();
+		enquiry('1');
 	});
 });
 
@@ -25,7 +25,7 @@ Date.prototype.toLocaleString = function() {
 	return  year+ "/" + month + "/" + date + "/ " + hour + ":" + minute + ":" + second;
 };
 
-function enquiry() {
+function enquiry(currentPage) {
 	var accountNumber = $("#accountNumber").val();
 	var currency = $("#currency").val();
 	var transferType = $("#transferType").val();
@@ -33,7 +33,7 @@ function enquiry() {
 		'accountNumber':accountNumber,
 		'currency' : currency,
 		'operationCode':'Q',
-		'params':{'Type':transferType},
+		'params':{'Type':transferType,'pageRecorders':pageRecorders,'currentPage':currentPage}
 	};
 	
 	$.ajax({
@@ -45,9 +45,10 @@ function enquiry() {
 		success : function(response) {
 
 			if (response.result == 00000) {
-
+				
 				var tr = $("#cloneTr");
 				$(".data").hide();
+				 $("#pageInfo").empty();
 				$("#cloneTr").show();
 				$.each(response.listData, function(index,item){                              
                                                   
@@ -90,6 +91,7 @@ function enquiry() {
                 });  
 				$("#cloneTr").hide();
 				$("#transferHistoryTable").show();  
+				handlePageInfo(response.params);
 			}
 		},
 	error : function()
@@ -97,6 +99,22 @@ function enquiry() {
         alert("net error");
     }
 	});
+}
+function handlePageInfo(params){
+	var currentPage = new Number(params.currentPage);
+	var totalPage = new Number(params.totalPages);
+	$("#pageInfo").append("<li><a href=\"#\"  onclick=\"enquiry('1')\">First Page</a></li>");
+	if(currentPage>1){
+		$("#pageInfo").append("<li><a href=\"#\"  onclick=\"enquiry('"+(currentPage-1)+"')\">Previous Page</a></li>" );
+	}else{
+		$("#pageInfo").append("<li><a href=\"#\"  onclick=\"enquiry('1')\">Previous Page</a></li>");
+	}
+	if(totalPage>currentPage){
+		$("#pageInfo").append("<li><a href=\"#\"  onclick=\"enquiry('"+(currentPage+1)+"')\">Next Page</a></li>");
+	}else{
+		$("#pageInfo").append("<li><a href=\"#\"  onclick=\"enquiry('"+(totalPage)+"')\">Next Page</a></li>");
+	}
+	$("#pageInfo").append("<li><a href=\"#\"  onclick=\"enquiry('"+totalPage+"')\">Last Page</a></li>");
 }
 function getPrimaryCode(){
 	var acct = {

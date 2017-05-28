@@ -45,5 +45,21 @@
 		<include refid="Base_Column_List" />
 		from t_user where USER_ID = #{userId}
 	</select>
-
+	<select id="queryUserByParams" parameterType="com.group.pbox.pvbs.model.user.User"
+		resultType="com.group.pbox.pvbs.model.user.User">
+		select
+		<include refid="Base_Column_List" />
+		from t_user where USER_ID = #{userId}
+		<if test="pageStartRow!='' ">
+			LIMIT #{pageStartRow}, #{pageRecorders}
+		</if>
+	</select>
+	<select id="queryUserByParamsCount" parameterType="com.group.pbox.pvbs.model.user.User"
+		resultType="com.group.pbox.pvbs.model.user.User">
+		select ID as id 
+		from t_user where USER_ID = #{userId} 
+		<if test="pageStartRow!='' ">
+			LIMIT #{pageStartRow}, #{pageRecorders}
+		</if>
+	</select>
 </mapper>

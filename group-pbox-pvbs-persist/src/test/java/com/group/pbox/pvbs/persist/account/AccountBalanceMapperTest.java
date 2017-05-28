@@ -17,8 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.group.pbox.pvbs.model.acct.Account;
 import com.group.pbox.pvbs.model.acct.AccountBalance;
+import com.group.pbox.pvbs.model.acct.TransferHistory;
 import com.group.pbox.pvbs.persist.acct.AccountBalanceMapper;
 import com.group.pbox.pvbs.persist.acct.AcctMapper;
+import com.group.pbox.pvbs.persist.acct.TransferHistoryMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:conf/spring-mybatis.xml" })
@@ -31,6 +33,22 @@ public class AccountBalanceMapperTest
 
     @Resource
     private AcctMapper accountMapper;
+
+    @Resource
+    private TransferHistoryMapper transferHistoryMapper;
+
+    @Test
+    public void TransferHistoryTest()
+    {
+        TransferHistory user = new TransferHistory();
+        user.setSourceAccountId("1");
+        user.setPageStartRow(0);
+        user.setPageRecorders(1);
+        user.setTransferType("D");
+        user.setCurrency("RMB");
+        System.out.println(transferHistoryMapper.inquiryTransferHistoryByParams(user).size());
+        System.out.println(transferHistoryMapper.inquiryTransferHistoryByParamsCount(user).size());
+    }
 
     @Test
     public void getAccountBalanceTest()
