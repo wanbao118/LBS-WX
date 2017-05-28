@@ -2,9 +2,12 @@ package com.group.pbox.pvbs.user;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.group.pbox.pvbs.clientmodel.user.UserReqModel;
@@ -16,132 +19,168 @@ import com.group.pbox.pvbs.util.ErrorCode;
 import com.group.pbox.pvbs.util.Utils;
 
 @Service
-public class UserServiceImpl implements IUserService {
-	@Resource
-	UserMapper userMapper;
+public class UserServiceImpl implements IUserService
+{
+    @Resource
+    UserMapper userMapper;
 
-	public UserRespModel accountValid(UserReqModel userReqModel) {
-		UserRespModel userResponseModel = new UserRespModel();
+    private static final String PAGE_RECORDS = "pageRecorders";
 
-		User user = new User();
-		user.setUserId(userReqModel.getUserId());
-		user.setUserPassword(userReqModel.getUserPassword());
-		User returnUser = userMapper.accountValid(user);
-		if(returnUser!=null){
-			List<UserRespData> list = new ArrayList<UserRespData>();
-			UserRespData userRespData = new UserRespData();
-			userRespData.setId(returnUser.getId());
-			userRespData.setUserId(returnUser.getUserId());
-			userRespData.setUserName(returnUser.getUserName());
-			userRespData.setUserPassword(returnUser.getUserPassword());
-			userRespData.setUserPosition(returnUser.getUserPosition());
-			userRespData.setExchangeRateLimit(returnUser.getExchangeRateLimit());
-			userRespData.setTransactionLimit(returnUser.getTransactionLimit());
-			userRespData.setTermDepositeLimit(returnUser.getTermDepositeLimit());
-			userRespData.setUserStatus(returnUser.getUserStatus());
-			list.add(userRespData);
-			userResponseModel.setResult(ErrorCode.RESPONSE_SUCCESS);
-			userResponseModel.setListData(list);
-		}else{
-			userResponseModel.setResult(ErrorCode.RESPONSE_ERROR);
-			List<String> errorList = new ArrayList<String>();
-			errorList.add(ErrorCode.RECORD_NOT_FOUND);
-			userResponseModel.setErrorCode(errorList);
-		}
+    private static final String PAGE_CURRENT = "currentPage";
 
-		return userResponseModel;
-	}
+    public UserRespModel accountValid(UserReqModel userReqModel)
+    {
+        UserRespModel userResponseModel = new UserRespModel();
 
-	public UserRespModel addUser(UserReqModel userReqModel) {
-		UserRespModel userResponseModel = new UserRespModel();
-		User user = new User();
+        User user = new User();
+        user.setUserId(userReqModel.getUserId());
+        user.setUserPassword(userReqModel.getUserPassword());
+        User returnUser = userMapper.accountValid(user);
+        if (returnUser != null)
+        {
+            List<UserRespData> list = new ArrayList<UserRespData>();
+            UserRespData userRespData = new UserRespData();
+            BeanUtils.copyProperties(returnUser, userRespData);
+            list.add(userRespData);
+            userResponseModel.setResult(ErrorCode.RESPONSE_SUCCESS);
+            userResponseModel.setListData(list);
+        }
+        else
+        {
+            userResponseModel.setResult(ErrorCode.RESPONSE_ERROR);
+            List<String> errorList = new ArrayList<String>();
+            errorList.add(ErrorCode.RECORD_NOT_FOUND);
+            userResponseModel.setErrorCode(errorList);
+        }
 
-		user.setId(Utils.getUUID());
-		user.setUserId(userReqModel.getUserId());
-		user.setUserName(userReqModel.getUserName());
-		user.setUserPosition(userReqModel.getUserPosition());
-		user.setTransactionLimit(userReqModel.getTransactionLimit());
-		user.setTermDepositeLimit(userReqModel.getTermDepositeLimit());
-		user.setExchangeRateLimit(userReqModel.getExchangeRateLimit());
-		user.setUserPassword("1");
-		user.setUserStatus("Active");
+        return userResponseModel;
+    }
 
-		if (userMapper.addUser(user)) {
-			userResponseModel.setResult(ErrorCode.RESPONSE_SUCCESS);
-		} else {
-			userResponseModel.setResult(ErrorCode.RESPONSE_ERROR);
-		}
-		return userResponseModel;
-	}
+    public UserRespModel addUser(UserReqModel userReqModel)
+    {
+        UserRespModel userResponseModel = new UserRespModel();
+        User user = new User();
+        BeanUtils.copyProperties(userReqModel, user);
+        user.setId(Utils.getUUID());
+        user.setUserPassword("1");
+        user.setUserStatus("Active");
 
-	public UserRespModel updateUser(UserReqModel userReqModel) {
-		// TODO Auto-generated method stub
-		UserRespModel userResponseModel = new UserRespModel();
-		User user = userMapper.fetchUserDetlByUserId(userReqModel.getUserId());
+        if (userMapper.addUser(user))
+        {
+            userResponseModel.setResult(ErrorCode.RESPONSE_SUCCESS);
+        }
+        else
+        {
+            userResponseModel.setResult(ErrorCode.RESPONSE_ERROR);
+        }
+        return userResponseModel;
+    }
 
-		if (user != null) {
-			/*update user*/
-			user.setUserName(userReqModel.getUserName());
-			int recordNum = userMapper.updateUser(user);
+    public UserRespModel updateUser(UserReqModel userReqModel)
+    {
+        // TODO Auto-generated method stub
+        UserRespModel userResponseModel = new UserRespModel();
+        User user = userMapper.fetchUserDetlByUserId(userReqModel.getUserId());
 
-			if (recordNum > 0) {
-				userResponseModel.setResult(ErrorCode.RESPONSE_SUCCESS);
-			}
-			else {
-				userResponseModel.setResult(ErrorCode.RESPONSE_ERROR);
-			}
-		}
-		else {
-			List<String> errorList = new ArrayList<String>();
-			errorList.add(ErrorCode.RECORD_NOT_FOUND);
-			userResponseModel.setErrorCode(errorList);
-		}
+        if (user != null)
+        {
+            /* update user */
+            user.setUserName(userReqModel.getUserName());
+            int recordNum = userMapper.updateUser(user);
 
-		return userResponseModel;
-	}
+            if (recordNum > 0)
+            {
+                userResponseModel.setResult(ErrorCode.RESPONSE_SUCCESS);
+            }
+            else
+            {
+                userResponseModel.setResult(ErrorCode.RESPONSE_ERROR);
+            }
+        }
+        else
+        {
+            List<String> errorList = new ArrayList<String>();
+            errorList.add(ErrorCode.RECORD_NOT_FOUND);
+            userResponseModel.setErrorCode(errorList);
+        }
 
-	public User queryUserDetail(String userId) {
-		return userMapper.fetchUserDetlByUserId(userId);
-	}
+        return userResponseModel;
+    }
 
-	public List<User> fetchAllUser() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public User queryUserDetail(String userId)
+    {
+        return userMapper.fetchUserDetlByUserId(userId);
+    }
 
-	public int deleteUser(String userId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    public List<User> fetchAllUser()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public UserRespModel fetchUserByUserId(UserReqModel userReqModel) {
-		// TODO Auto-generated method stub
-		UserRespModel userResponseModel = new UserRespModel();
-		User user = userMapper.fetchUserDetlByUserId(userReqModel.getUserId());
-		UserRespData userRespData = new UserRespData();
-		List<UserRespData> userDataList = new ArrayList<UserRespData>();
+    public int deleteUser(String userId)
+    {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-		if (user != null) {
-			userRespData.setId(user.getId());
-			userRespData.setUserId(user.getUserId());
-			userRespData.setUserName(user.getUserName());
-			userRespData.setUserPassword(user.getUserPassword());
-			userRespData.setUserPosition(user.getUserPosition());
-			userRespData.setExchangeRateLimit(user.getExchangeRateLimit());
-			userRespData.setTransactionLimit(user.getTransactionLimit());
-			userRespData.setTermDepositeLimit(user.getTermDepositeLimit());
-			userRespData.setUserStatus(user.getUserStatus());
+    public UserRespModel fetchUserByUserId(UserReqModel userReqModel)
+    {
+        // TODO Auto-generated method stub
+        UserRespModel userResponseModel = new UserRespModel();
+        User user = userMapper.fetchUserDetlByUserId(userReqModel.getUserId());
+        UserRespData userRespData = new UserRespData();
+        List<UserRespData> userDataList = new ArrayList<UserRespData>();
 
-			userDataList.add(userRespData);
+        if (user != null)
+        {
+            BeanUtils.copyProperties(user, userRespData);
 
-			userResponseModel.setResult(ErrorCode.RESPONSE_SUCCESS);
-			userResponseModel.setListData(userDataList);
-		}
-		else {
-			userResponseModel.setResult(ErrorCode.RESPONSE_ERROR);
-		}
+            userDataList.add(userRespData);
 
-		return userResponseModel;
-	}
+            userResponseModel.setResult(ErrorCode.RESPONSE_SUCCESS);
+            userResponseModel.setListData(userDataList);
+        }
+        else
+        {
+            userResponseModel.setResult(ErrorCode.RESPONSE_ERROR);
+        }
+
+        return userResponseModel;
+    }
+
+    @SuppressWarnings("unchecked")
+    public UserRespModel queryUserByParams(UserReqModel userReqModel) throws Exception
+    {
+        UserRespModel userRespModel = new UserRespModel();
+        User user = new User();
+        BeanUtils.copyProperties(userReqModel, user);
+
+        // get spereate page infor.
+        Map<String, String> params = userReqModel.getParams();
+        String currentPage = params.get(PAGE_CURRENT);
+        String pageRecords = params.get(PAGE_RECORDS);
+
+        // set query page infor.
+        if (StringUtils.isNotBlank(currentPage) && StringUtils.isNotBlank(currentPage))
+        {
+            user.setQueryPageParams(Integer.parseInt(currentPage), Integer.parseInt(pageRecords));
+        }
+
+        List<User> listUser = userMapper.queryUserByParams(user);
+        List<UserRespData> listUserRespData = new ArrayList<UserRespData>();
+        for (User tmpUser : listUser)
+        {
+            UserRespData targetData = new UserRespData();
+            BeanUtils.copyProperties(tmpUser, targetData);
+            listUserRespData.add(targetData);
+        }
+        userRespModel.setListData(listUserRespData);
+        List<User> listCount = userMapper.queryUserByParamsCount(user);
+        Map<String, String> respParams = user.setRespPageParams(listUser, listCount);
+        userRespModel.setParams(respParams);
+        userRespModel.setResult(ErrorCode.RESPONSE_SUCCESS);
+        return userRespModel;
+    }
 
 }
