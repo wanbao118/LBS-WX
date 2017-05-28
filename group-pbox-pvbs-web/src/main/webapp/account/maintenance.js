@@ -18,8 +18,8 @@
 					},
 
 					regexp : {
-						regexp : '^[0-9]{12}$',
-						message : 'Please input twelve number!'
+						regexp : '^([0-9]{12})$|^([0-9]{5})$',
+						message : 'Please input five or twelve number!'
 					}
 				
 				}
