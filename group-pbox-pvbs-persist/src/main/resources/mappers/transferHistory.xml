@@ -35,7 +35,7 @@
                 	</if>
                 </if>  
         </where> 
-        order by  CREATE_TIME DESC
+        order by  CREATE_TIME ASC
         <if test="pageStartRow!=null and pageRecorders!=null">
 			LIMIT #{pageStartRow}, #{pageRecorders}
 		</if>

@@ -1,5 +1,8 @@
 package com.group.pbox.pvbs.controller.user;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +18,7 @@ import com.group.pbox.pvbs.clientmodel.user.UserReqModel;
 import com.group.pbox.pvbs.clientmodel.user.UserRespData;
 import com.group.pbox.pvbs.clientmodel.user.UserRespModel;
 import com.group.pbox.pvbs.user.IUserService;
+import com.group.pbox.pvbs.util.ErrorCode;
 import com.group.pbox.pvbs.util.OperationCode;
 
 @Controller
@@ -40,11 +44,14 @@ public class UserController
             {
                 UserRespData userRespData = userRespModel.getListData().get(0);
                 request.getSession().setAttribute("userId", userRespData.getUserId());
-                request.getSession().setAttribute("userPassword", userRespData.getUserPassword());
             }
         }
         catch (Exception e)
         {
+            userRespModel.setResult(ErrorCode.RESPONSE_ERROR);
+            List<String> errorList = new ArrayList<String>();
+            errorList.add(ErrorCode.SYSTEM_OPERATION_ERROR);
+            userRespModel.setErrorCode(errorList);
 
         }
 
