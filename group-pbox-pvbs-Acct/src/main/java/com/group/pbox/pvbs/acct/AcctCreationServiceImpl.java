@@ -246,8 +246,16 @@ public class AcctCreationServiceImpl implements IAcctCreationService
 		 
 		 Account account = new Account(); 
 		 account.setRealAccountNumber(acctRequest.getRealAccountNumber());
-		 
-		 int acctValid = acctMapper.realAcctNum(account);
+		 int acctValid = 0;
+		 if (account.getRealAccountNumber().length() == Constant.FIVE)
+		 {
+			 account.setAccountNumber(account.getRealAccountNumber());
+			 acctValid = acctMapper.accountValid(account);
+		 }
+		 if (account.getRealAccountNumber().length() == Constant.TWELVE)
+		 {
+			 acctValid = acctMapper.realAcctNum(account);
+		 }
 		 
 		 if(acctValid > 0){
 			 
