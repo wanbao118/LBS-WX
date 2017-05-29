@@ -72,7 +72,7 @@ public class UserController
             case OperationCode.ACCT_MAINT:
                 userRespModel = updateUser(userRequest);
                 break;
-            /* case OperationCode.ACCT_DETL: retutn deleteUser(userRequest); */ case OperationCode.FETCH_BY_USER_ID:
+            case OperationCode.FETCH_BY_USER_ID:
                 userRespModel = fetchUserDetlByUserId(userRequest);
         }
         return userRespModel;
