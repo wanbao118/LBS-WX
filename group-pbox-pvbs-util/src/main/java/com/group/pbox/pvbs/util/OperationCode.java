@@ -22,4 +22,8 @@ public class OperationCode
 
     public static final String FETCH_ALL_CCYEXRATE = "FAC";
     public static final String FETCH_BY_CURRENCY_CODE = "FBC";
+	public static final String TERM_CREATE = "TC";
+	public static final String TERM_ENQUIRY = "TQ";
+	public static final String TERM_DRAWDOWN = "TD";
+	public static final String TERM_RENEWAL = "TR";
 }
