@@ -1,6 +1,6 @@
 $(document).ready(function() {
-	getPrimaryCode();
 	getSupportCode();
+	getPrimaryCode();
 	$('#empForm').bootstrapValidator(
 			{
 				message : 'This value is not valid',
@@ -60,7 +60,7 @@ function enquiry(currentPage) {
 		'operationCode':'Q',
 		'params':{'Type':transferType,'pageRecorders':pageRecorders,'currentPage':currentPage}
 	};
-
+	
 	$.ajax({
 		url : contextPath+"/service/accountbalance/transHis",
 		type : "post",
@@ -68,59 +68,38 @@ function enquiry(currentPage) {
 		dataType : "json",
 		data : JSON.stringify(acct),
 		success : function(response) {
-
+			$("#data").empty();
+			 $("#pageInfo").empty();
 			if (response.result == 00000) {
 				if(response.listData.length==0){
 					$('.box-content').find('.alert-warning').html('No Record.').show();
 				}
-				var tr = $("#cloneTr");
-				$(".data").hide();
-				 $("#pageInfo").empty();
-				$("#cloneTr").show();
-				$.each(response.listData, function(index,item){                              
-                                                  
-                      var clonedTr = tr.clone();  
-                      var _index = index; 
-                      clonedTr.children("td").each(function(inner_index){
-                    	  switch(inner_index){  
-                          case(0):   
-                             $(this).html(item.sourceAccountNum);  
-                             break;  
-                          case(1):  
-                             $(this).html(item.targetAccountNum);  
-                             break;  
-                         case(2):  
-                        	 switch(item.transferType){
-                        	 case("D"):
-                        		 $(this).html("Deposit"); 
-                        	 	 break;
-                        	 
-	                         case("W"):
-	                    		 $(this).html("Withdraw"); 
-	                    	 	 break;
-                    	 
-	                         case("T"):
-                        		 $(this).html("Transfer"); 
-                        	 	 break;
-                        	 }
-                             break;  
-                         case(3):  
-                        	 $(this).html(item.transferAmount);  
-                             break;  
-                         case(4):  
-                        	 $(this).html(item.currency); 
-                             break;  
-                         case(5):
-                        	 $(this).html(new Date(item.createTime).toLocaleString());
-                    	  }                          
-                      });
-                      clonedTr.insertAfter(tr);  
+				$.each(response.listData, function(index,item){
+					var rec = "<div class=\"alert alert-info alert-dismissible alert-info-new\" role=\"alert\">";
+					rec = rec+"<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>";
+					rec = rec+"<i class=\"fa fa-info-circle\"></i>";
+					switch(item.transferType){
+	               	 	case("D"):
+	               	 		rec=rec+item.sourceAccountNum;
+	               	 		rec=rec+"  Deposit ";
+	               	 	 break;
+	                    case("W"):
+	                    	rec=rec+item.sourceAccountNum;
+	                    	rec=rec+"  Withdraw ";
+	               	 	 break;
+	                    case("T"):
+	                    	rec=rec+item.sourceAccountNum;
+	                    	rec=rec+"  Transfer to";
+	                    	rec=rec+" "+item.targetAccountNum;
+	               	 	 break;
+               	 	}
+						rec=rec+" "+item.transferAmount+"("+item.currency+")";
+						rec=rec+" at "+new Date(item.createTime).toLocaleString();
+						rec=rec+"</div>";
+					$("#data").append(rec); 
                 });  
-				$("#cloneTr").hide();
-				$("#transferHistoryTable").show();  
 				handlePageInfo(response.params);
 			}else{
-				$(".data").hide();
 				$('.box-content').find('.alert-warning').html('Search Transfer History Error !  '+$.errorHandler.prop(response.errorCode[0])).show();
 			}
 		},
@@ -133,7 +112,7 @@ function enquiry(currentPage) {
 function handlePageInfo(params){
 	var currentPage = new Number(params.currentPage);
 	var totalPage = new Number(params.totalPages);
-	$("#pageInfo").append("<li><a href=\"#\"  onclick=\"enquiry('1')\">First Page</a></li>");
+	//$("#pageInfo").append("<li><a href=\"#\"  onclick=\"enquiry('1')\">First Page</a></li>");
 	if(currentPage>1){
 		$("#pageInfo").append("<li><a href=\"#\"  onclick=\"enquiry('"+(currentPage-1)+"')\">Previous Page</a></li>" );
 	}else{
@@ -144,7 +123,7 @@ function handlePageInfo(params){
 	}else{
 		$("#pageInfo").append("<li><a href=\"#\"  onclick=\"enquiry('"+(totalPage)+"')\">Next Page</a></li>");
 	}
-	$("#pageInfo").append("<li><a href=\"#\"  onclick=\"enquiry('"+totalPage+"')\">Last Page</a></li>");
+	//$("#pageInfo").append("<li><a href=\"#\"  onclick=\"enquiry('"+totalPage+"')\">Last Page</a></li>");
 }
 function getPrimaryCode(){
 	var acct = {
