@@ -98,4 +98,13 @@ public class UserController
     {
         return userService.fetchUserByUserId(userRequest);
     }
+    
+    @RequestMapping("/logout")
+    public String logout(final HttpServletRequest request,
+            final HttpServletResponse response)
+    {
+        request.getSession().removeAttribute("userId");
+
+        return "loginCheck";
+    }
 }

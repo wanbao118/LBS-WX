@@ -216,11 +216,15 @@ function creation(e) {
 		data : JSON.stringify(acct),
 		success : function(response) {
 			if (response.result == 00000) {
-				
 				$('#creationForm').find('.alert').html('User created successfully!').show();
 			} else {
+				if (response.errorCode[0] == "10021")
+				{
+					location.href=contextPath+"/login.html";
+				}
 				$('#creationForm').find('.alert').html('User has existsed!'+$.errorHandler.prop(response.errorCode[0])).show();
 			}
+			
 		}
 	});
 }
