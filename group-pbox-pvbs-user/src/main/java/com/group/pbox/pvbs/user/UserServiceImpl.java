@@ -144,6 +144,9 @@ public class UserServiceImpl implements IUserService
         else
         {
             userResponseModel.setResult(ErrorCode.RESPONSE_ERROR);
+            List<String> errorList = new ArrayList<String>();
+            errorList.add(ErrorCode.USER_NOT_FOUND);
+            userResponseModel.setErrorCode(errorList);
         }
 
         return userResponseModel;
