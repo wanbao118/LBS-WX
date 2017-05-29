@@ -13,7 +13,7 @@ document.write("			<span class=\"icon-bar\"></span>");
 document.write("		</button>"); 
 var userId = sessionStorage.getItem("userId");
 var userName = sessionStorage.getItem("userName");
-document.write("		<a class=\"navbar-brand\" href=\""+contextPath+"/index.html\"> <img alt=\"Charisma Logo\" src=\""+contextPath+"/img/title_logo.png\" class=\"hidden-xs\"/><span>Virtual Banking System</span></a>"); 
+document.write("		<a class=\"navbar-brand\" href=\""+contextPath+"/index.html\"> <img alt=\"Charisma Logo\" src=\""+contextPath+"/img/title_logo.png\" class=\"hidden-xs\"/><span>VBS</span></a>"); 
 //<!-- user dropdown starts -->
 document.write(" 		<div class=\"btn-group pull-right\">"); 
 document.write("			<button class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\">"); 
