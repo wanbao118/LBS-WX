@@ -42,12 +42,12 @@
 				<div class="row">
 					<div class="box col-md-12">
 						<div class="box-inner">
-							<div class="box-header well" data-original-title="">
+							<div class="box-header well" data-original-title="" id="maintenance_header">
 								<h2>
 									<i class="glyphicon glyphicon-edit"></i> Maintenance
 								</h2>
 							</div>
-							<div class="box-content">
+							<div class="box-content" id="maintenance_content">
 
 								<form id="enquiryForm"  class="form-horizontal" style="width: 100%" >
 									<div class="form-group">
@@ -92,6 +92,162 @@
 								<!-- realAcctNum doesn't exist -->
 								<div class="acctNotExist text-danger"></div>
 							</div>
+
+                            <div class="box-header well" data-original-title="" id="edit_header" style="display: none" >
+                                <h2>
+                                    <i class="glyphicon glyphicon-edit"></i> Edit
+                                </h2>
+                            </div>
+
+                            <div class="box-content" id="edit_content" style="display: none" >
+                                <form id="editForm" method="post"
+                                      class="form-horizontal bv-form" style="width: 100%"
+                                      action="target.php" novalidate="novalidate">
+                                    <button type="submit" class="bv-hidden-submit"
+                                            style="display: none; width: 0px; height: 0px;"></button>
+
+                                    <div class="alert alert-success" style="display: none;"></div>
+
+                                    <br>
+                                    <div class="form-group">
+                                        <div class="group has-feedback">
+                                            <div class="group">
+                                                <label class="col-sm-2 control-label">Clearing Code</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" name="clearingCode"
+                                                           id="clearingCode" readonly />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="group has-feedback">
+                                            <div class="group">
+                                                <label class="col-sm-2 control-label">Branch Number</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" name="branchNumber"
+                                                           id="branchNumber" readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+
+                                    <div class="form-group">
+                                        <div class="group has-feedback">
+                                            <div class="group">
+                                                <label class="col-sm-2 control-label">Account Number</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" name="accountNumber"
+                                                           id="accountNumber" readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="group has-feedback">
+                                            <div class="group">
+                                                <label class="col-sm-2 control-label">Customer Name </label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" name="customerName"
+                                                           id="customerName" readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+
+                                    <div class="form-group">
+                                        <div class="group has-feedback">
+                                            <div class="group">
+                                                <label class="col-sm-2 control-label">Customer ID</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" name="customerId"
+                                                           id="customerId" readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="group has-feedback">
+                                            <div class="group">
+                                                <label class="col-sm-2 control-label">Date of Birth </label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" name="dateOfBirth"
+                                                           id="dateOfBirth" readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+
+                                    <div class="form-group">
+                                        <div class="group has-feedback">
+                                            <div class="group">
+                                                <label class="col-sm-2 control-label">Address</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" name="address"
+                                                           id="address"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="group has-feedback">
+                                            <div class="group">
+                                                <label class="col-sm-2 control-label">Contact Address
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control"
+                                                           name="contactAddress" id="contactAddress"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+
+                                    <div class="form-group">
+                                        <div class="group has-feedback">
+                                            <div class="group">
+                                                <label class="col-sm-2 control-label">Contact Number</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" name="contactNumber"
+                                                           id="contactNumber"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="group has-feedback">
+                                            <div class="group">
+                                                <label class="col-sm-2 control-label">WeChat ID </label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" name="wechatId"
+                                                           id="wechatId"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+
+                                    <div class="form-group">
+                                        <div class="group has-feedback">
+                                            <div class="group">
+                                                <label class="col-sm-2 control-label">Employment</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" name="employment"
+                                                           id="employment" readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div style=" width: 20%; float: right; padding-left: 5%">
+                                            <input type="button" value="confirm&nbsp;&nbsp;"
+                                                   name="subscribe" id="con_bt" href="javascript:void(0)" onclick="editSubmit()"
+                                                   class="button btn btn-primary" data-dismiss="modal"
+                                                   style="background-color: #aaa; border: 0 none; border-radius: 4px; color: #FFFFFF; cursor: pointer; display: inline-block; font-size: 15px; font-weight: bold; height: 32px; line-height: 32px; margin: 0 5px 10px 0; padding: 0; text-align: center; text-decoration: none; vertical-align: top; white-space: nowrap; width: 100px; margin: auto;">
+                                        </div>
+                                        <div style="text-align: center; width: 15%; float: right; ">
+                                            <input type="button" value="return&nbsp;&nbsp;"
+                                                   name="subscribe" id="ret_bt" href="javascript:void(0)" onclick="editReturn()"
+                                                   class="button btn btn-primary" data-dismiss="modal"
+                                                   style="background-color: #aaa; border: 0 none; border-radius: 4px; color: #FFFFFF; cursor: pointer; display: inline-block; font-size: 15px; font-weight: bold; height: 32px; line-height: 32px; margin: 0 5px 10px 0; padding: 0; text-align: center; text-decoration: none; vertical-align: top; white-space: nowrap; width: 100px; margin: auto;">
+                                        </div>
+                                    </div>
+                                </form>
+                                </div>
 						</div>
 					</div>
 				</div>
@@ -112,7 +268,9 @@
 <!-- external javascript -->
 <script src="../comm/footRef.js"></script>
 <!-- end external javascript -->
+<script src="edit.js"></script>
 <script src="maintenance.js"></script>
+
 </body>
 </html>
 

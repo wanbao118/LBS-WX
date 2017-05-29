@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+   <script src="../comm/config.js"></script>
+    <script src="../comm/headerRef.js"></script>
+    <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+     <style >
+    	.navbar-brand span {
+    		font-size: initial; 
+    		font-family: Segoe Script;
+    		font-size: 24px;
+    		float: left;
+    		display: inline-block;
+    	}
+    </style>
+</head>
+
+<body>
+    <!-- topbar starts -->
+    <script src="../comm/toolbar.js"></script>
+    <!-- topbar ends -->
+<div class="ch-container">
+    <div class="row">
+        <!-- left menu starts -->
+     		<script src="../comm/menu.js"></script>
+        <!-- left menu ends -->
+		<div id="content" class="col-lg-10 col-sm-10">
+				<!-- content starts -->
+				<div class="row">
+					<div class="box col-md-12">
+						<div class="box-inner">
+							<div class="box-header well" data-original-title="">
+								<h2>
+									<i class="glyphicon glyphicon-edit"></i> Balance
+								</h2>
+							</div>
+							<div class="box-content">								
+								<form id="balanceForm" method="post"
+									class="form-horizontal bv-form" style="width: 100%"
+									action="target.php" novalidate="novalidate">
+									
+									<button type="submit" class="bv-hidden-submit"
+										style="display: none; width: 0px; height: 0px;"></button>
+										
+									<div class="alert alert-success" id="tipbox" style="display: none;"></div>
+									
+									</br>								
+									<div class="form-group">	
+										<div class="group">
+											<label class="col-sm-3 control-label">Account Number</label>
+											<div class="col-sm-3">
+												<input type="text" class="form-control" name="realAccountNumber" id="realAccountNumber" />
+											</div>
+
+ 											<input type="submit" value=" Enquiry&nbsp;&nbsp;" name="subscribe" 
+ 												id="sub_bt" href="#" class="button btn btn-primary"  
+ 												data-dismiss="modal" 
+ 												style="background-color: #aaa; border: 0 none; border-radius: 4px; color: #FFFFFF; cursor: pointer; display: inline-block; font-size: 15px; font-weight: bold; height: 32px; line-height: 32px; margin: 0 5px 10px 0; padding: 0; text-align: center; text-decoration: none; vertical-align: top; white-space: nowrap; width: 100px; margin: auto;"> 
+										</div>
+									</div>
+								
+									
+									<div id="balanceShow">
+									
+									</div>
+								</form>
+									<div>
+										<ul class="pagination pagination-centered">
+											<li><a href="#" id="fristPage" onclick="loadEmpList('frist')">首页</a></li>
+											<li><a href="#" id="previousPage" onclick="loadEmpList('previous')">上一页</a></li>
+											<li><a href="#" id="nextPage" onclick="loadEmpList('next')">下一页</a></li>
+											<li><a href="#" id="lastPage" onclick="loadEmpList('last')">末页</a></li>
+										</ul>
+										<br>
+										共<span id="pageCount"></span>页   第<span id="currentPage"></span>页
+									</div>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--/row-->
+
+			</div>
+			<!--/#content.col-md-0-->
+</div>
+</div><!--/row-->
+
+    <!-- content ends -->
+    </div><!--/#content.col-md-0-->
+</div><!--/fluid-row-->
+
+     <script src="../comm/foot.js"></script> 
+
+</div><!--/.fluid-container-->
+<!-- external javascript -->
+<script src="../comm/footRef.js"></script>
+<!-- end external javascript -->
+<script src="balance.js"></script>
+
+</body>
+</html>
+
