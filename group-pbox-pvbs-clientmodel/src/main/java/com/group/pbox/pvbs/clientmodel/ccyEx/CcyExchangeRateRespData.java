@@ -33,6 +33,5 @@ public class CcyExchangeRateRespData {
 	public void setExchangeRate(BigDecimal exchangeRate) {
 		this.exchangeRate = exchangeRate;
 	}
-	
-	
+
 }
