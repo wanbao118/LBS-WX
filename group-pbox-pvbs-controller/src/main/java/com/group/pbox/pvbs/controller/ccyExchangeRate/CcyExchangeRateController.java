@@ -96,6 +96,9 @@ public class CcyExchangeRateController {
 
 		//2.Check Account Num Record 12
 		ccyExchangeRateRespModel = checkAcctValid(ccyExchangeRateReqModel);
+		if (StringUtils.equalsIgnoreCase(ccyExchangeRateRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
+			return ccyExchangeRateRespModel;
+		}
 
 		//3.check User ID and get limit
 		ccyExchangeRateRespModel = checkUserIdAndGetLimit(ccyExchangeRateReqModel);
@@ -151,6 +154,10 @@ public class CcyExchangeRateController {
 
 		//2.Check Account Num Record 12
 		ccyExchangeRateRespModel = checkAcctValid(ccyExchangeRateReqModel);
+
+		if (StringUtils.equalsIgnoreCase(ccyExchangeRateRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
+			return ccyExchangeRateRespModel;
+		}
 
 		//3.check User ID and get limit
 		ccyExchangeRateRespModel = checkUserIdAndGetLimit(ccyExchangeRateReqModel);
