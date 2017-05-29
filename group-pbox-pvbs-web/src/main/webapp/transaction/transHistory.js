@@ -60,7 +60,7 @@ function enquiry(currentPage) {
 		'operationCode':'Q',
 		'params':{'Type':transferType,'pageRecorders':pageRecorders,'currentPage':currentPage}
 	};
-	
+
 	$.ajax({
 		url : contextPath+"/service/accountbalance/transHis",
 		type : "post",
@@ -118,6 +118,7 @@ function enquiry(currentPage) {
 				$("#transferHistoryTable").show();  
 				handlePageInfo(response.params);
 			}else{
+				$(".data").hide();
 				$('.box-content').find('.alert-warning').html('Search Transfer History Error !  '+$.errorHandler.prop(response.errorCode[0])).show();
 			}
 		},
