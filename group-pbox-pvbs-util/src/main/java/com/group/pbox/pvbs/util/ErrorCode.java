@@ -55,4 +55,6 @@ public class ErrorCode
     public static final String ACCOUNT_TRANSFER_TARGET_NOT_FOUND = "10019";
     //User not found
     public static final String USER_NOT_FOUND = "10020";
+    //Session not found
+    public static final String SESSION_NOT_FOUND = "10021";
 }
