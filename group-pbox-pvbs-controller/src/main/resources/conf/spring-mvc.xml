@@ -40,6 +40,10 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/accountbalance/**" />
 			<mvc:mapping path="/user/**" />
+			<mvc:mapping path="/acct/**" />
+			<mvc:mapping path="/ccyExRate/**" />
+			<mvc:mapping path="/sysconf/**" />
+			<mvc:mapping path="/termDeposit/**" />  
 			<mvc:exclude-mapping path="/**/fonts/*" />
 			<mvc:exclude-mapping path="/**/*.css" />
 			<mvc:exclude-mapping path="/**/*.js" />
