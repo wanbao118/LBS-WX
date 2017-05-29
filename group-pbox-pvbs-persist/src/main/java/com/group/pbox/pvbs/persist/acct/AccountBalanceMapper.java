@@ -13,8 +13,8 @@ public interface AccountBalanceMapper {
 
 	int insertAccountBalance(AccountBalance accountBalance);
 
-	double getBalance(@Param("realAccountNum") String realAccountNum);
-
-	List<AccountBalance> enquireAccountBalance(@Param("accountNum") String accountNum);
+    List<AccountBalance> getBalance(@Param("realAccountNum")String realAccountNum);
+    
+	List<AccountBalance> enquireAccountBalance(@Param("accountNum")String accountNum);
 
 }
