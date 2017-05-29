@@ -3,7 +3,6 @@
 var accountId = "";
 
 function edit() {
-	alert($("#edit").val());
 	var list = $("#edit").val();
 	var acct = JSON.parse(list);
     $("#clearingCode").val(acct.account.clearingCode);
