@@ -50,9 +50,13 @@ function editSubmit(){
         success : function(response) {
             if (response.result == 00000) {
 
-                $('#editForm').find('.alert').html('Information edited successfully!').show();
+                $('#editForm').find('.alert-success').html('Information edited successfully!').show();
             } else {
-                $('#editForm').find('.alert').html('Information failed to be edited!').show();
+                if (response.errorCode[0] == "10021")
+				{
+					location.href=contextPath+"/login.html";
+				}
+				$('#editForm').find('.alert-warning').html('Information failed to be edited!'+$.errorHandler.prop(response.errorCode[0])).show();
             }
         }
     });
