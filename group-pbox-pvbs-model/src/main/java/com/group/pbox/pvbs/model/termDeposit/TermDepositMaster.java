@@ -1,27 +1,26 @@
 package com.group.pbox.pvbs.model.termDeposit;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class TermDepositMaster {
 
 	private String id;
-	
+
 	private String accountId;
-	
+
 	private String depositNumber;
-	
-	private BigDecimal depositAmount;
-	
+
+	private double depositAmount;
+
 	private String termPeriod;
-	
-	private BigDecimal termInterestRate;
-	
+
+	private double termInterestRate;
+
 	private Date maturityDate;
-	
-	private BigDecimal maturityInterest;
-	
-	private BigDecimal maturityAmount;
+
+	private double maturityInterest;
+
+	private double maturityAmount;
 
 	public String getId() {
 		return id;
@@ -47,11 +46,11 @@ public class TermDepositMaster {
 		this.depositNumber = depositNumber;
 	}
 
-	public BigDecimal getDepositAmount() {
+	public double getDepositAmount() {
 		return depositAmount;
 	}
 
-	public void setDepositAmount(BigDecimal depositAmount) {
+	public void setDepositAmount(double depositAmount) {
 		this.depositAmount = depositAmount;
 	}
 
@@ -63,11 +62,11 @@ public class TermDepositMaster {
 		this.termPeriod = termPeriod;
 	}
 
-	public BigDecimal getTermInterestRate() {
+	public double getTermInterestRate() {
 		return termInterestRate;
 	}
 
-	public void setTermInterestRate(BigDecimal termInterestRate) {
+	public void setTermInterestRate(double termInterestRate) {
 		this.termInterestRate = termInterestRate;
 	}
 
@@ -79,19 +78,19 @@ public class TermDepositMaster {
 		this.maturityDate = maturityDate;
 	}
 
-	public BigDecimal getMaturityInterest() {
+	public double getMaturityInterest() {
 		return maturityInterest;
 	}
 
-	public void setMaturityInterest(BigDecimal maturityInterest) {
+	public void setMaturityInterest(double maturityInterest) {
 		this.maturityInterest = maturityInterest;
 	}
 
-	public BigDecimal getMaturityAmount() {
+	public double getMaturityAmount() {
 		return maturityAmount;
 	}
 
-	public void setMaturityAmount(BigDecimal maturityAmount) {
+	public void setMaturityAmount(double maturityAmount) {
 		this.maturityAmount = maturityAmount;
 	}
 
