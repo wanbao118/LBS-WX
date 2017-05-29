@@ -173,7 +173,6 @@ public class CcyExchangeRateController {
 		transactionReqModelSource.setAccountNumber(ccyExchangeRateReqModel.getAcctNumber());
 		transactionReqModelSource.setAmount(ccyExchangeRateReqModel.getChangeAmount() / rate);
 
-
 		SysConfReqModel sysConfReqModel = new SysConfReqModel();
 		sysConfReqModel.setItem("Primary_Ccy_Code");
 		SysConfRespModel sysConfRespModel = new SysConfRespModel();
