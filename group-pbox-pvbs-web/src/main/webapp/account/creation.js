@@ -30,19 +30,144 @@ $(document)
 												 * type: 'POST' }
 												 */}
 											},
-
-											password : {
+											branchNumber : {
+												group: '.group',
 												validators : {
 													notEmpty : {
-														message : 'Please input password!'
+														message : 'please input branch number'
+													},
+
+													regexp : {
+														regexp : '^[0-9]{4}$',
+														message : 'Please input four number!'
+													}
+												
+												 }
+											},
+											accountNumber : {
+												group: '.group',
+												validators : {
+													notEmpty : {
+														message : 'please input account number'
+													},
+
+													regexp : {
+														regexp : '^[0-9]{5}$',
+														message : 'Please input five number!'
+													}
+												
+												 }
+											},
+											customerName : {
+												group: '.group',
+												validators : {
+													notEmpty : {
+														message : 'please input customer name'
+													},
+
+													regexp : {
+														regexp : '^[a-zA-Z\\s]{1,20}$',
+														message : 'Please input correct format of name!'
+													}
+													
+												 }
+											}, 				
+											customerId : {
+												group: '.group',
+												validators : {
+													notEmpty : {
+														message : 'please input customer ID'
+													},
+
+													regexp : {
+														regexp : '^[0-9]{14}$',
+														message : 'Please input customerID with 14 digitals!'
+													}
+													
+												 }
+											}, 											
+											dateOfBirth : {
+												group: '.group',
+												validators : {
+													notEmpty : {
+														message : 'please input date of birth'
+													},
+
+													regexp : {
+														regexp : '^[0-9]{8}$',
+														message : 'Please input the correct format:DDMMYY e.g.23051999!'
+													}
+													
+												 }
+											}, 
+											address : {
+												group: '.group',
+												validators : {
+													notEmpty : {
+														message : 'please input address'
+													},
+
+													regexp : {
+														regexp : '^[\\w\.,\\s]{1,140}$',
+														message : 'Please input the address less than 140 characters'
+													}
+													
+												 }
+											},
+											contactAddress : {
+												group: '.group',
+												validators : {
+													notEmpty : {
+														message : 'please input contact address'
+													},
+
+													regexp : {
+														regexp : '^[\\w\.,\\s]{1,140}$',
+														message : 'Please input the contact address less than 140 characters'
+													}
+													
+												 }
+											},		
+											contactNumber : {
+												group: '.group',
+												validators : {
+													notEmpty : {
+														message : 'please input contact number'
+													},
+
+													regexp : {
+														regexp : '^[0-9]{15}$',
+														message : 'Please input the correct format contact number with 15 digits'
+													}
+													
+												 }
+											},
+											wechatId : {
+												group: '.group',
+												validators : {
+													notEmpty : {
+														message : 'please input contact number'
 													},
 													stringLength : {
 														min : 1,
-														max : 15,
+														max : 30,
 														message : 'Please input password between one and fifteen!'
 													},
-												}
-											}
+													
+												 }
+											},
+											employment : {
+												group: '.group',
+												validators : {
+													notEmpty : {
+														message : 'please input employment '
+													},
+													regexp : {
+														regexp : '^[\\w\\s]{1,30}$',
+														message : 'Please input the employment with less than 30 characters'
+													}													
+												 }
+										}
 										}
 									}).on('success.form.bv', function(e) {
 								// Prevent submit form

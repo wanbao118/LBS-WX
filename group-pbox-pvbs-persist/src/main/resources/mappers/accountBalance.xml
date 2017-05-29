@@ -33,9 +33,16 @@
 	</update>
 	
 	<select id="getBalance" parameterType="String"
-		resultType="double">
+		resultType="com.group.pbox.pvbs.model.acct.AccountBalance">
 		select BALANCE from t_account_balance t left join t_account a on t.ACCOUNT_ID=a.ID 
-		where a.REAL_ACCOUNT_NUMBER=#{realAccountNum}
+		<where>
+		<if test="5==realAccountNum.toString().length()">
+			a.ACCOUNT_NUMBER=#{realAccountNum}
+		</if>
+		<if test="12==realAccountNum.toString().length()">
+			a.REAL_ACCOUNT_NUMBER=#{realAccountNum}
+		</if>
+		</where>
 	</select>
 	<select id="enquireAccountBalance" parameterType="String"
 		resultType="com.group.pbox.pvbs.model.acct.AccountBalance">

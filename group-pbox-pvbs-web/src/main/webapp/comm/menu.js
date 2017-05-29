@@ -8,7 +8,8 @@ document.write(" 				<li><a class=\"ajax-link\" href=\""+contextPath+"/index.htm
 document.write(" 				<li class=\"accordion\"><a href=\"#\"><i class=\"glyphicon glyphicon-plus\"></i><span>Account</span></a>");                         
 document.write(" 	 				<ul class=\"nav nav-pills nav-stacked\">");                         
 document.write(" 	 					<li><a href=\""+contextPath+"/account/Creation.html\">Creation</a></li>"); 
-document.write(" 	 					<li><a href=\""+contextPath+"/account/Maintenance.html\">Maintenance</a></li>");                          
+document.write(" 	 					<li><a href=\""+contextPath+"/account/Maintenance.html\">Maintenance</a></li>");
+document.write(" 	 					<li><a href=\""+contextPath+"/account/Balance.html\">Balance</a></li>"); 
 document.write(" 	 				</ul>");                            
 document.write(" 	 			</li>");  
 document.write(" 				<li class=\"accordion\"><a href=\"#\"><i class=\"glyphicon glyphicon-plus\"></i><span>Admin</span></a>");                         
