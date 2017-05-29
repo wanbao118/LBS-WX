@@ -96,7 +96,11 @@ function creation(e) {
 				
 				$('#transferForm').find('.alert-success').html('Transfer successfully!').show();
 			} else {
-				$('#transferForm').find('.alert-warning').html('Transfer fail !  '+$.errorHandler.prop(response.errorCode[0])).show();
+				if (response.errorCode[0] == "10021")
+				{
+					location.href=contextPath+"/login.html";
+				}
+				$('#transferForm').find('.alert-warning').html('Transfer fail ! '+$.errorHandler.prop(response.errorCode[0])).show();
 			}
 		}
 	});

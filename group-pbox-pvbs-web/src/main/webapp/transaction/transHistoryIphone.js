@@ -100,8 +100,11 @@ function enquiry(currentPage) {
                 });  
 				handlePageInfo(response.params);
 			}else{
-				$('.box-content').find('.alert-warning').html('Search Transfer History Error !  '+$.errorHandler.prop(response.errorCode[0])).show();
-			}
+				if (response.errorCode[0] == "10021")
+				{
+					location.href=contextPath+"/login.html";
+				}
+				$('.box-content').find('.alert-warning').html('Search Transfer History Error ! '+$.errorHandler.prop(response.errorCode[0])).show();			}
 		},
 	error : function()
     {

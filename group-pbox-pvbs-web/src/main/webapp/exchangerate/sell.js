@@ -110,6 +110,11 @@ function sell(e){
 					//$('#buyForm').find('.alert-warning').html('buy error.').show();
 					$('#sellForm').find('.alert-warning').html($.errorHandler.prop(response.errorCode[0])).show();
 					//$("#showResult").text(response.errorCode);
+					if (response.errorCode[0] == "10021")
+					{
+						location.href=contextPath+"/login.html";
+					}
+					$('#sellForm').find('.alert-warning').html($.errorHandler.prop(response.errorCode[0])).show();
 				}
 			}
 		});

@@ -109,8 +109,12 @@ function buy(e){
 				}
 				else {
 					//$('#buyForm').find('.alert-warning').html('buy error.').show();
-					$('#buyForm').find('.alert-warning').html($.errorHandler.prop(response.errorCode[0])).show();
 					//$("#showResult").text(response.errorCode);
+					if (response.errorCode[0] == "10021")
+					{
+						location.href=contextPath+"/login.html";
+					}
+					$('#buyForm').find('.alert-warning').html($.errorHandler.prop(response.errorCode[0])).show();
 				}
 			}
 		});

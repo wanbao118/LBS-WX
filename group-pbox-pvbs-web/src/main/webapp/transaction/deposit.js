@@ -68,6 +68,10 @@ function creation(e) {
 		 if (response.result == 00000) {				
 			$('#depositForm').find('.alert-success').html('Deposit successfully!').show();
 			} else {
+				if (response.errorCode[0] == "10021")
+				{
+					location.href=contextPath+"/login.html";
+				}
 				$('#depositForm').find('.alert-warning').html('Deposit Failed ! '+$.errorHandler.prop(response.errorCode[0])).show();
 			}
 	}
