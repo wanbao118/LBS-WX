@@ -53,5 +53,6 @@ public class ErrorCode
     public static final String ACCOUNT_TRANSFER_SOURCE_NOT_FOUND = "10018";
     // Account transfer traget not found
     public static final String ACCOUNT_TRANSFER_TARGET_NOT_FOUND = "10019";
-
+    //User not found
+    public static final String USER_NOT_FOUND = "10020";
 }
