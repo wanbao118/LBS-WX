@@ -65,10 +65,10 @@ public class CcyExchangeRateController {
 				ccyExchangeRateRespModel = getCcyExRateByCurrCode(ccyExchangeRateReqModel);
 				break;
 			case OperationCode.BUY_CURRENCY:
-				ccyExchangeRateRespModel = buyForEx(ccyExchangeRateReqModel);
+				ccyExchangeRateRespModel = buyForEx(ccyExchangeRateReqModel, request);;
 				break;
 			case OperationCode.SELL_CURRENCY:
-				ccyExchangeRateRespModel = sellForEx(ccyExchangeRateReqModel);
+				ccyExchangeRateRespModel = sellForEx(ccyExchangeRateReqModel, request);
 				break;
 			default:
 				break;
@@ -85,7 +85,7 @@ public class CcyExchangeRateController {
 		return ccyExchangeRateRespModel;
 	}
 
-	private CcyExchangeRateRespModel sellForEx(CcyExchangeRateReqModel ccyExchangeRateReqModel) throws Exception {
+	private CcyExchangeRateRespModel sellForEx(CcyExchangeRateReqModel ccyExchangeRateReqModel, HttpServletRequest request) throws Exception {
 		CcyExchangeRateRespModel ccyExchangeRateRespModel = new CcyExchangeRateRespModel();
 
 		//1.Check Currency Code
@@ -101,7 +101,7 @@ public class CcyExchangeRateController {
 		}
 
 		//3.check User ID and get limit
-		ccyExchangeRateRespModel = checkUserIdAndGetLimit(ccyExchangeRateReqModel);
+		ccyExchangeRateRespModel = checkUserIdAndGetLimit(ccyExchangeRateReqModel, request);
 		if (StringUtils.equalsIgnoreCase(ccyExchangeRateRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
 			return ccyExchangeRateRespModel;
 		}
@@ -143,7 +143,7 @@ public class CcyExchangeRateController {
 		return ccyExchangeRateRespModel;
 	}
 
-	private CcyExchangeRateRespModel buyForEx(CcyExchangeRateReqModel ccyExchangeRateReqModel) throws Exception {
+	private CcyExchangeRateRespModel buyForEx(CcyExchangeRateReqModel ccyExchangeRateReqModel, HttpServletRequest request) throws Exception {
 		CcyExchangeRateRespModel ccyExchangeRateRespModel = new CcyExchangeRateRespModel();
 
 		//1.Check Currency Code
@@ -160,7 +160,7 @@ public class CcyExchangeRateController {
 		}
 
 		//3.check User ID and get limit
-		ccyExchangeRateRespModel = checkUserIdAndGetLimit(ccyExchangeRateReqModel);
+		ccyExchangeRateRespModel = checkUserIdAndGetLimit(ccyExchangeRateReqModel, request);
 		if (StringUtils.equalsIgnoreCase(ccyExchangeRateRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
 			return ccyExchangeRateRespModel;
 		}
@@ -251,12 +251,14 @@ public class CcyExchangeRateController {
 		return currencyExchangeRespModel;
 	}
 
-	private CcyExchangeRateRespModel checkUserIdAndGetLimit(CcyExchangeRateReqModel exchangeRateReqModel) {
+	private CcyExchangeRateRespModel checkUserIdAndGetLimit(CcyExchangeRateReqModel exchangeRateReqModel,HttpServletRequest request) {
 		CcyExchangeRateRespModel ccyExchangeRateRespModel = new CcyExchangeRateRespModel();
 		UserReqModel userReqModel = new UserReqModel();
 
 		/*read userId from session*/
-		userReqModel.setUserId(exchangeRateReqModel.getUserId());
+		String userId = (String) request.getSession().getAttribute("userId");
+		userReqModel.setUserId(userId);
+
 		UserRespModel userRespModel = userService.fetchUserByUserId(userReqModel);
 
 		if (StringUtils.equalsIgnoreCase(userRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
