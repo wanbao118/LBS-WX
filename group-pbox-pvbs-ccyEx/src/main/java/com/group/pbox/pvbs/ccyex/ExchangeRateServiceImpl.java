@@ -19,8 +19,7 @@ public class ExchangeRateServiceImpl implements IExchangeRateService {
 
 	@Resource
 	CcyExchangeRateMapper ccyExchangeRateMapper;
-	
-	
+
 	public CcyExchangeRateRespModel getAllCcyExchangeRate() {
 		CcyExchangeRateRespModel ccyExchangeRateRespModel=new CcyExchangeRateRespModel();
 
@@ -41,10 +40,10 @@ public class ExchangeRateServiceImpl implements IExchangeRateService {
 			}
 
 			ccyExchangeRateRespModel.setListData(listData);
-			ccyExchangeRateRespModel.setResult(ErrorCode.RESPONSE_SUCCESS);			
+			ccyExchangeRateRespModel.setResult(ErrorCode.RESPONSE_SUCCESS);
 		}
 		else {
-			ccyExchangeRateRespModel.setResult(ErrorCode.RESPONSE_ERROR);	
+			ccyExchangeRateRespModel.setResult(ErrorCode.RESPONSE_ERROR);
 		}
 
 		return ccyExchangeRateRespModel;
@@ -53,11 +52,11 @@ public class ExchangeRateServiceImpl implements IExchangeRateService {
 
 	public CcyExchangeRateRespModel getCcyExRateByCurrCode(CcyExchangeRateReqModel ccyExchangeRateReqModel) throws Exception {
 		CcyExchangeRateRespModel ccyExchangeRateRespModel = new CcyExchangeRateRespModel();
-		List<String> errorList = new ArrayList<String>();
+
 		List<CcyExchangeRateRespData> listData = new ArrayList<CcyExchangeRateRespData>();
 		String currencyCode = ccyExchangeRateReqModel.getCurrencyCode();
 		CurrencyRate result = ccyExchangeRateMapper.getCcyExRateByCurrCode(currencyCode);
-		
+
 		if(result != null){
 			CcyExchangeRateRespData ccyExchangeRateRespData = new CcyExchangeRateRespData();
 			ccyExchangeRateRespData.setId(result.getId());
@@ -68,7 +67,7 @@ public class ExchangeRateServiceImpl implements IExchangeRateService {
 			ccyExchangeRateRespModel.setResult(ErrorCode.RESPONSE_SUCCESS);
 		}
 		else{
-			ccyExchangeRateRespModel.setResult(ErrorCode.RECORD_NOT_FOUND);
+			ccyExchangeRateRespModel.setResult(ErrorCode.CURRENCY_NOT_FOUND);
 		}
 		return ccyExchangeRateRespModel;
 	}
