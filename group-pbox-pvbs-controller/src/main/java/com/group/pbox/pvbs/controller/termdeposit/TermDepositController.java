@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.group.pbox.pvbs.acct.IAcctCreationService;
 import com.group.pbox.pvbs.clientmodel.acct.AcctReqModel;
 import com.group.pbox.pvbs.clientmodel.acct.AcctRespModel;
+
 import com.group.pbox.pvbs.clientmodel.sysconf.SysConfReqModel;
 import com.group.pbox.pvbs.clientmodel.sysconf.SysConfRespModel;
 import com.group.pbox.pvbs.clientmodel.termdeposit.TermDepositReqModel;
@@ -26,6 +28,12 @@ import com.group.pbox.pvbs.clientmodel.transaction.TransactionRespModel;
 import com.group.pbox.pvbs.sysconf.ISysConfService;
 import com.group.pbox.pvbs.termdeposit.ITermDepositService;
 import com.group.pbox.pvbs.transaction.IAccountBalanceService;
+import com.group.pbox.pvbs.clientmodel.termdeposit.TermDepositRateRespModel;
+import com.group.pbox.pvbs.clientmodel.user.UserReqModel;
+import com.group.pbox.pvbs.clientmodel.user.UserRespModel;
+import com.group.pbox.pvbs.termdeposit.ITermDepositRateService;
+import com.group.pbox.pvbs.user.IUserService;
+
 import com.group.pbox.pvbs.util.ErrorCode;
 import com.group.pbox.pvbs.util.OperationCode;
 
@@ -44,6 +52,12 @@ public class TermDepositController {
 	@Resource
 	ISysConfService sysConfService;
 
+	@Resource
+	ITermDepositRateService termDepositRateService;
+
+	@Resource
+	IUserService userSrvice;
+
 	@RequestMapping(value = "/termDepositDepatcher", method = RequestMethod.POST, consumes = "application/json")
 	@ResponseBody
 	public Object termDeposit(final HttpServletRequest request, final HttpServletResponse response,
@@ -56,7 +70,7 @@ public class TermDepositController {
 			switch (termDepositReqModel.getOperationCode()) {
 			case OperationCode.TERM_CREATE:
 
-				termDepositRespModel = createTermDeposit(termDepositReqModel);
+				termDepositRespModel = createTermDeposit(termDepositReqModel, request);
 				break;
 			case OperationCode.TERM_ENQUIRY:
 
@@ -70,6 +84,7 @@ public class TermDepositController {
 
 				termDepositRespModel = reNewal(termDepositReqModel);
 				break;
+
 			}
 
 		} catch (Exception e) {
@@ -79,6 +94,30 @@ public class TermDepositController {
 			termDepositRespModel.setErrorCode(errorList);
 		}
 		return termDepositRespModel;
+	}
+
+	@RequestMapping(value = "/termDepositRate", method = RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
+	public Object termDepositRate(final HttpServletRequest request, final HttpServletResponse response,
+			@RequestBody TermDepositReqModel termDepositReqModel) {
+
+		TermDepositRateRespModel termDepositRateRespModel = new TermDepositRateRespModel();
+		List<String> errorList = new ArrayList<String>();
+
+		try {
+			switch (termDepositReqModel.getOperationCode()) {
+			case OperationCode.FETCH_TD_RATE:
+					termDepositRateRespModel = termDepositRateService.inquiryAllTermDepositRate();
+			}
+
+		}catch (Exception e) {
+			sysLogger.error("", e);
+			errorList.add(ErrorCode.SYSTEM_OPERATION_ERROR);
+			termDepositRateRespModel.setResult(ErrorCode.RESPONSE_ERROR);
+			termDepositRateRespModel.setErrorCode(errorList);
+		}
+
+		return termDepositRateRespModel;
 	}
 
 	private TermDepositRespModel reNewal(TermDepositReqModel termDepositReqModel) {
@@ -142,9 +181,89 @@ public class TermDepositController {
 		return null;
 	}
 
-	private TermDepositRespModel createTermDeposit(TermDepositReqModel termDepositReqModel) {
-		// TODO Auto-generated method stub
-		return null;
+	private TermDepositRespModel createTermDeposit(TermDepositReqModel termDepositReqModel, HttpServletRequest request) throws Exception {
+		TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
+
+		//validate the transaction account number
+		termDepositRespModel = checkTransactionAcctValid(termDepositReqModel);
+		if (StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
+			return termDepositRespModel;
+		}
+
+		//validate the debit account number
+		termDepositRespModel = checkDebitAcctValid(termDepositReqModel);
+		if (StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
+			return termDepositRespModel;
+		}
+
+		//validate the exceedLimit from User table
+		termDepositRespModel = checkUserIdAndGetLimit(termDepositReqModel, request);
+		if (StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
+			return termDepositRespModel;
+		}
+
+		//Caculate the TD Maturity Interest
+		/*TODO*/termDepositReqModel.setMaturityInterset(
+			termDepositReqModel.getDepositAmount() * termDepositReqModel.getTermInterestRate());
+
+		termDepositRespModel = termDepositService.creatTermDeposit(termDepositReqModel);
+
+		return termDepositRespModel;
 	}
 
+	private TermDepositRespModel checkTransactionAcctValid(TermDepositReqModel termDepositReqModel) throws Exception {
+		TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
+
+		AcctReqModel acctReqModel = new AcctReqModel();
+		acctReqModel.setRealAccountNumber(termDepositReqModel.getTransAccountNum());
+		AcctRespModel acctRespModel = new AcctRespModel();
+
+		acctRespModel = acctCreationService.accountValidByRealNum(acctReqModel);
+
+		if (StringUtils.equalsIgnoreCase(acctRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
+			termDepositRespModel.setResult(ErrorCode.RESPONSE_ERROR);
+			termDepositRespModel.setErrorCode(acctRespModel.getErrorCode());
+		}
+
+		return termDepositRespModel;
+	}
+
+	private TermDepositRespModel checkDebitAcctValid(TermDepositReqModel termDepositReqModel) throws Exception {
+		TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
+
+		AcctReqModel acctReqModel = new AcctReqModel();
+		acctReqModel.setRealAccountNumber(termDepositReqModel.getAccountNumber());
+		AcctRespModel acctRespModel = new AcctRespModel();
+
+		acctRespModel = acctCreationService.accountValidByRealNum(acctReqModel);
+
+		if (StringUtils.equalsIgnoreCase(acctRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
+			termDepositRespModel.setResult(ErrorCode.RESPONSE_ERROR);
+			termDepositRespModel.setErrorCode(acctRespModel.getErrorCode());
+		} else {
+			//validate the primary ccy balance
+			/*TODO*/
+		}
+
+		return termDepositRespModel;
+	}
+	
+	private TermDepositRespModel checkUserIdAndGetLimit(TermDepositReqModel termDepositReqModel,HttpServletRequest request) {
+		TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
+		UserReqModel userReqModel = new UserReqModel();
+
+		/*read userId from session*/
+		String userId = (String) request.getSession().getAttribute("userId");
+		userReqModel.setUserId(userId);
+
+		UserRespModel userRespModel = userSrvice.fetchUserByUserId(userReqModel);
+
+		if (termDepositReqModel.getDepositAmount() > userRespModel.getListData().get(0).getTermDepositeLimit()) {
+			termDepositRespModel.setResult(ErrorCode.RESPONSE_ERROR);
+			termDepositRespModel.getErrorCode().add(ErrorCode.EXCEED_LIMIT);
+		}
+
+		return termDepositRespModel;
+	}
+	
 }
