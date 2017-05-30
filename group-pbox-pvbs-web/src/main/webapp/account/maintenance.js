@@ -79,10 +79,13 @@ var params;
 				else {
 					$(".acctNotExist").fadeIn();
 					$(".acctInfo").hide();
-					$('#enquiryForm').find('.alert').html('Account Not Exist!'+$.errorHandler.prop(response.errorCode[0])).show();
+					if (response.errorCode[0] == "10021")
+					{
+						location.href=contextPath+"/login.html";
+					}
+					$('#enquiryForm').find('.alert-warning').html('Account Not Exist!'+$.errorHandler.prop(response.errorCode[0])).show();
 				}
 				handlePageInfo(response.params);
-				
 			}
 		});
 	}

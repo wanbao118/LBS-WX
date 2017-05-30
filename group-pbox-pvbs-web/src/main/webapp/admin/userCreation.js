@@ -128,7 +128,11 @@ function addUser(e){
 					$('#userAddForm').find('.alert-success').html('add user success.').show();
 				}
 				else {
-					$('#userAddForm').find('.alert-warning').html('add user error.').show();
+					if (response.errorCode[0] == "10021")
+					{
+						location.href=contextPath+"/login.html";
+					}
+					$('#userAddForm').find('.alert').html('add user error.'+$.errorHandler.prop(response.errorCode[0])).show();
 				}
 			}
 		});

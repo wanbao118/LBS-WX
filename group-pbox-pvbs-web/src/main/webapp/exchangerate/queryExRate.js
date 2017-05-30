@@ -22,6 +22,10 @@ function enqueryExRate() {
 				}
 				$("#selectCurrency option[value=" + primaryCcyCode + "]").remove();
 			} else {
+				if (response.errorCode[0] == "10021")
+				{
+					location.href=contextPath+"/login.html";
+				}
 				$('#rateForm').find('.alert-warning').html($.errorHandler.prop(response.errorCode[0])).show();
 			}
 		}
@@ -46,7 +50,11 @@ function getPrimaryCcyCode() {
 
 				$("#primaryCcyCode").append("<option value='"+primaryCcyCode+"'>"+primaryCcyCode+"</option>");
 			} else {
-				
+				if (response.errorCode[0] == "10021")
+				{
+					location.href=contextPath+"/login.html";
+				}
+				$('#primaryCcyCode').find('.alert-warning').html($.errorHandler.prop(response.errorCode[0])).show();
 			}
 		}
 	});
@@ -68,7 +76,11 @@ function getExRate(){
 			if (response.result == 00000) {
 					$("#showRate").text("1 "+ primaryCcyCode + " = " + response.listData[0].exchangeRate + " " + response.listData[0].currencyCode);
 			} else {
-					
+				if (response.errorCode[0] == "10021")
+				{
+					location.href=contextPath+"/login.html";
+				}
+				$('#showRate').find('.alert-warning').html($.errorHandler.prop(response.errorCode[0])).show();
 			}
 		}
 	});

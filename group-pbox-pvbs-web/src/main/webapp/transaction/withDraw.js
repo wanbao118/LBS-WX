@@ -73,6 +73,10 @@ function withDraw(e) {
 			if (response.result == 00000) {
 				$('#withDrawForm').find('.alert-success').html('Withdraw successfully!').show();
 			} else {
+				if (response.errorCode[0] == "10021")
+				{
+					location.href=contextPath+"/login.html";
+				}
 				$('#withDrawForm').find('.alert-warning').html('Withdraw fail ! '+$.errorHandler.prop(response.errorCode[0])).show();
 			}
 		}
