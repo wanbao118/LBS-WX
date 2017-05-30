@@ -10,10 +10,12 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.group.pbox.pvbs.clientmodel.transaction.TransactionReqModel;
+import com.group.pbox.pvbs.clientmodel.transaction.TransactionRespData;
 import com.group.pbox.pvbs.clientmodel.transaction.TransactionRespModel;
 import com.group.pbox.pvbs.model.acct.Account;
 import com.group.pbox.pvbs.model.acct.AccountBalance;
@@ -302,6 +304,23 @@ public class AccountBalanceServiceImpl implements IAccountBalanceService
         String date = dateFormat.format(c.getTime());
         Date currentDate = (Date) dateFormat.parseObject(date);
         return currentDate;
+    }
+
+    @Override
+    public TransactionRespModel enquireAccountBalance(String accountNum) throws Exception
+    {
+        TransactionRespModel transactionRespModel = new TransactionRespModel();
+        List<AccountBalance> listAccountBalance = accountBalanceMapper.enquireAccountBalance(accountNum);
+        List<TransactionRespData> listData = new ArrayList<TransactionRespData>();
+        transactionRespModel.setResult(ErrorCode.RESPONSE_SUCCESS);
+        for (AccountBalance tmp : listAccountBalance)
+        {
+            TransactionRespData transactionRespData = new TransactionRespData();
+            BeanUtils.copyProperties(transactionRespData, tmp);
+            listData.add(transactionRespData);
+        }
+        transactionRespModel.setListData(listData);
+        return transactionRespModel;
     }
 
 }
