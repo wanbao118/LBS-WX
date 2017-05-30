@@ -26,4 +26,5 @@ public class OperationCode
 	public static final String TERM_ENQUIRY = "TQ";
 	public static final String TERM_DRAWDOWN = "TD";
 	public static final String TERM_RENEWAL = "TR";
+	public static final String UPDATE_USER = "U";
 }
