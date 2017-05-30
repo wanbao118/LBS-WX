@@ -10,7 +10,7 @@
 			javaType="String" />
 		<result property="transactionLimit" column="TRANSACTION_LIMIT"
 			javaType="String" />
-		<result property="termDepositeLimit" column="TD_LIMI" javaType="String" />
+		<result property="termDepositeLimit" column="TD_LIMIT" javaType="String" />
 		<result property="exchangeRateLimit" column="EXCH_LIMIT"
 			javaType="String" />
 		<result property="userPassword" column="USER_PASSWORD"
@@ -23,7 +23,7 @@
 		TD_LIMIT AS termDepositeLimit, EXCH_LIMIT AS exchangeRateLimit,
 		USER_PASSWORD AS userPassword, USER_STATUS AS userStatus
 	</sql>
-	<select id="accountValid" parameterType="com.group.pbox.pvbs.model.user.User" 
+	<select id="accountValid" parameterType="com.group.pbox.pvbs.model.user.User"
 		resultType="com.group.pbox.pvbs.model.user.User">
 		select
 		<include refid="Base_Column_List" />
@@ -45,6 +45,14 @@
 		<include refid="Base_Column_List" />
 		from t_user where USER_ID = #{userId}
 	</select>
+
+	<update id="updateUser" parameterType="com.group.pbox.pvbs.model.user.User">
+		update t_user SET
+		USER_NAME = #{userName}, USER_POSITION = #{userPosition}, TRANSACTION_LIMIT =
+		#{transactionLimit}, TD_LIMIT = #{termDepositeLimit}, EXCH_LIMIT = #{exchangeRateLimit}
+		where USER_ID = #{userId}
+	</update>
+
 	<select id="queryUserByParams" parameterType="com.group.pbox.pvbs.model.user.User"
 		resultType="com.group.pbox.pvbs.model.user.User">
 		select
@@ -56,8 +64,8 @@
 	</select>
 	<select id="queryUserByParamsCount" parameterType="com.group.pbox.pvbs.model.user.User"
 		resultType="com.group.pbox.pvbs.model.user.User">
-		select ID as id 
-		from t_user where USER_ID = #{userId} 
+		select ID as id
+		from t_user where USER_ID = #{userId}
 		<if test="pageStartRow!='' ">
 			LIMIT #{pageStartRow}, #{pageRecorders}
 		</if>
