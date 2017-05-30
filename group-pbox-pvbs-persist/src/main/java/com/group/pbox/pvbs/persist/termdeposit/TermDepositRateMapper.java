@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.group.pbox.pvbs.model.termdeposit.TermDepositRate;
 
-public interface ITermDepositRateMapper {
+public interface TermDepositRateMapper {
 	List<TermDepositRate> fetchAllTermDepositRate(); 
+	TermDepositRate fetchTermDepositRateByPeriod(String period);
 }
