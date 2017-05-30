@@ -28,7 +28,10 @@ $(document).ready(function() {
 													notEmpty : {
 														message : 'Please input deposit amount!'
 													},
-													
+													regexp : {
+														regexp : '^[0-9]+(\\.[0-9]+)?$',
+														message : 'Please input twelve number!'
+													}
 												}
 											}
 										}

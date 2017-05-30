@@ -35,6 +35,15 @@ document.write(" 	 					<li><a href=\""+contextPath+"/transaction/transHistory.h
 document.write(" 	 				</ul>");                            
 document.write(" 	 			</li>"); 
 
+document.write(" 				<li class=\"accordion\"><a href=\"#\"><i class=\"glyphicon glyphicon-plus\"></i><span>Term Deposit</span></a>");                         
+document.write(" 	 				<ul class=\"nav nav-pills nav-stacked\">");                         
+document.write(" 	 					<li><a href=\""+contextPath+"/termDeposit/create.html\">Create</a></li>"); 
+document.write(" 	 					<li><a href=\""+contextPath+"/termDeposit/drawDown.html\">DrawDown</a></li>"); 
+document.write(" 	 					<li><a href=\""+contextPath+"/termDeposit/renewal.html\">Renewal</a></li>"); 
+document.write(" 	 					<li><a href=\""+contextPath+"/termDeposit/enquiry.html\">Enquiry</a></li>");
+document.write(" 	 				</ul>");                            
+document.write(" 	 			</li>"); 
+
 document.write(" 	 		</ul>");                                
 document.write(" 	    </div>");                               
 document.write(" 	</div>");  
