@@ -4,7 +4,7 @@ import com.group.pbox.pvbs.common.model.BaseClientReqModel;
 
 public class UserReqModel extends BaseClientReqModel {
 
-	private String operation;
+	private String operationCode;
 	private String userId;
 	private String userName;
 	private String userPosition;
@@ -78,11 +78,11 @@ public class UserReqModel extends BaseClientReqModel {
 		this.userId = userId;
 	}
 
-	public String getOperation() {
-		return operation;
+	public String getOperationCode() {
+		return operationCode;
 	}
 
-	public void setOperation(String operation) {
-		this.operation = operation;
+	public void setOperationCode(String operationCode) {
+		this.operationCode = operationCode;
 	}
 }
