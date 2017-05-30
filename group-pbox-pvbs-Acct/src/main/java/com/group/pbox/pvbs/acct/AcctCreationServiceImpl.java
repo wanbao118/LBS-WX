@@ -8,10 +8,12 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.group.pbox.pvbs.clientmodel.acct.AcctReqModel;
+import com.group.pbox.pvbs.clientmodel.acct.AcctRespData;
 import com.group.pbox.pvbs.clientmodel.acct.AcctRespModel;
 import com.group.pbox.pvbs.clientmodel.sysconf.SysConfRespData;
 import com.group.pbox.pvbs.model.acct.Account;
@@ -310,6 +312,22 @@ public class AcctCreationServiceImpl implements IAcctCreationService {
 		acctResp.getErrorCode().add(ErrorCode.ENQUIRE_BALANCE_SUCCESS);
 		acctResp.setListData(accountBalance);
 
+		return acctResp;
+	}
+	
+	public AcctRespModel getAcctInfoByRealNum(AcctReqModel acctRequest) throws Exception
+	{
+		AcctRespModel acctResp = new AcctRespModel();
+		List<AcctRespData> acctDataList = new ArrayList<AcctRespData>();
+		List<Account> resultAccInfo = acctMapper.getAcctInfoByRealNum(acctRequest.getRealAccountNumber());
+		for (int i = 0; i < resultAccInfo.size(); i++) {
+			AcctRespData acctRespData = new AcctRespData();
+			BeanUtils.copyProperties(acctRespData,resultAccInfo.get(i));
+			acctDataList.add(acctRespData);
+		}
+		acctResp.setAcctData(acctDataList);
+		acctResp.setResult(ErrorCode.RESPONSE_SUCCESS);
+		
 		return acctResp;
 	}
 }
