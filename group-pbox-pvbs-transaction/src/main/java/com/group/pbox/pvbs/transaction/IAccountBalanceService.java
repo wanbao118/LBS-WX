@@ -10,4 +10,6 @@ public interface IAccountBalanceService
     public TransactionRespModel withDrawal(TransactionReqModel transactionReqModel) throws Exception;
 
     public TransactionRespModel transfer(TransactionReqModel transactionReqModel) throws Exception;
+
+    public TransactionRespModel enquireAccountBalance(String accountNum) throws Exception;
 }
