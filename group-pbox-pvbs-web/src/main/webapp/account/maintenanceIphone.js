@@ -2,6 +2,7 @@
  * Enquiry acct master info
  */
 var params;
+var current;
 (function(){
 	$('#enquiryForm').bootstrapValidator({
 		message : 'This value is not valid',
@@ -38,9 +39,14 @@ var params;
 
 	});
 	
-	//存储enquiry info返回的数据 +"<td><a class='btn btn-info' href='#'><i class='glyphicon glyphicon-edit icon-white' onclick='edit(list[i])'></i>Edit</a>&nbsp;&nbsp;"
+
+	
+})()
+
+	//存储enquiry info返回的数据 
 	var listData=[];
 	function enquiryInfo(e,currentPage){
+		current = currentPage;
 		var realAcctNum = $("#realAcctNum").val();
 		var json = {'realAccountNumber' : realAcctNum, 'operationCode' : 'B','params':{'pageRecorders':pageRecorders,'currentPage':currentPage}};
 		$.ajax({
@@ -63,8 +69,8 @@ var params;
 						rec = rec+"<i class=\"fa fa-info-circle\"></i>";
 						rec = rec+"<input type='hidden' id='"+list[i].id+"' value='"+JSON.stringify(list[i])+"'/>";
 						rec=rec+" "+list[i].customerName+"("+list[i].customerId+")";
+						rec=rec+"</div>";
 					}
-					rec=rec+"</div>";
 					$("#data").append(rec);
 				}
 				else {
@@ -80,8 +86,7 @@ var params;
 			}
 		});
 	}
-	
-})()
+
 function mousdown(realAccountNumber){
 		var  realAcctNum = realAccountNumber;
 		var json = {'realAccountNumber' : realAcctNum, 'operationCode' : 'D'};
@@ -93,8 +98,7 @@ function mousdown(realAccountNumber){
 			data : JSON.stringify(json),
 			success : function(response) {
 				if(response.result == 00000 ){
-					window.location.reload(); 
-					$('#enquiryForm').find('.alert').html('Close success!').show();
+					enquiryInfo(null,current); 
 				}
 				else {
 //					alert("Close fail! The balance is more than 0.Please check the balance.")
