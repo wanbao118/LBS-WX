@@ -2,7 +2,7 @@ package com.group.pbox.pvbs.persist.sysconf;
 
 import java.util.List;
 
-import com.group.pbox.pvbs.model.sysConf.SysConf;
+import com.group.pbox.pvbs.model.sysconf.SysConf;
 
 public interface SysConfMap
 {

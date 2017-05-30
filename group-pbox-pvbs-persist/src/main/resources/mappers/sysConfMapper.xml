@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.group.pbox.pvbs.persist.sysconf.SysConfMap">
-	<resultMap id="SysConfMapMap" type="com.group.pbox.pvbs.model.sysConf.SysConf">
+	<resultMap id="SysConfMapMap" type="com.group.pbox.pvbs.model.sysconf.SysConf">
 		<id property="id" column="ID" javaType="String" />
 		<result property="item" column="ITEM" javaType="String" />
 		<result property="value" column="VALUE" javaType="String" />
@@ -12,13 +12,13 @@
 	<sql id="Base_Column_List">
 		ID AS id, ITEM AS item, VALUE AS value,REMARK AS remark, SORT AS sort
 	</sql>
-	<select id="getAllSysConf" resultType="com.group.pbox.pvbs.model.sysConf.SysConf">
+	<select id="getAllSysConf" resultType="com.group.pbox.pvbs.model.sysconf.SysConf">
 		select
 		<include refid="Base_Column_List" />
 		 from t_sys_conf
 	</select>
-	<select id="getAllSysConfByParam" parameterType="com.group.pbox.pvbs.model.sysConf.SysConf"
-		resultType="com.group.pbox.pvbs.model.sysConf.SysConf">
+	<select id="getAllSysConfByParam" parameterType="com.group.pbox.pvbs.model.sysconf.SysConf"
+		resultType="com.group.pbox.pvbs.model.sysconf.SysConf">
 		select
 		<include refid="Base_Column_List" />
 		 from t_sys_conf where
