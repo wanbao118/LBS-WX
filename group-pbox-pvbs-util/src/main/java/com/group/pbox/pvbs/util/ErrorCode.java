@@ -57,4 +57,14 @@ public class ErrorCode
     public static final String USER_NOT_FOUND = "10020";
     //Session not found
     public static final String SESSION_NOT_FOUND = "10021";
+    //TD record has been pulled down
+    public static final String TD_HAS_DROPDOWN = "10022";
+    //Transaction is not mature
+    public static final String TRANSACTION_IS_NOT_MATURE = "10023";
+    //update status fail
+    public static final String UPDATE_STATUS_FAIL = "10024";
+    //Accept transaction
+    public static final String ACCEPT_TRANSACTION = "10024";
+    //update balance fail
+    public static final String UPDATE_BALANCE_FAIL = "10025";
 }
