@@ -144,19 +144,17 @@ public class TermDepositController {
 		sysConfReqModel.setItem("Primary_Ccy_Code");
 		SysConfRespModel sysConfRespModel = new SysConfRespModel();
 		sysConfRespModel = sysConfService.getAllSysConfByParam(sysConfReqModel);
-		
-		transactionRespModel = accountBalanceService.enquireAccountBalance(termDepositReqModel.getAccountNumber());
-		String currenyCode = transactionRespModel.getListData().get(0).getCurrencyCode();
 		String primaryCode = sysConfRespModel.getListData().get(0).getValue();
-		
-		if (!currenyCode.equals(primaryCode))
-		{
-			termDepositResp.setResult(ErrorCode.RESPONSE_ERROR);
-			termDepositResp.getErrorCode().add(ErrorCode.RECORD_NOT_FOUND);
-			return termDepositResp;
+		transactionRespModel = accountBalanceService.enquireAccountBalance(termDepositReqModel.getAccountNumber());
+		double acctBalance = 0;
+		for (int i = 0; i < transactionRespModel.getListData().size(); i++) {
+			if (primaryCode.equals(transactionRespModel.getListData().get(i).getCurrencyCode()))
+			{
+				acctBalance = transactionRespModel.getListData().get(i).getBalance();
+			}
 		}
+		
 		//update balance
-		double acctBalance = transactionRespModel.getListData().get(0).getBalance();
 		double maturityAmount = termDepositReqModel.getMaturityAmount();
 		transactionReqModel.setAccountNumber(termDepositReqModel.getAccountNumber());
 		transactionReqModel.setAmount(acctBalance+maturityAmount);
