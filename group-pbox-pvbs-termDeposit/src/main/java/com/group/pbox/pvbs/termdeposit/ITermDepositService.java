@@ -11,4 +11,6 @@ public interface ITermDepositService {
 	public TermDepositRespModel reNewal(TermDepositReqModel termDepositReqModel);
 
 	public TermDepositRespModel drawDown(TermDepositReqModel termDepositReqModel);
+	
+	public TermDepositRespModel updateStatus(TermDepositReqModel termDepositReqModel);
 }

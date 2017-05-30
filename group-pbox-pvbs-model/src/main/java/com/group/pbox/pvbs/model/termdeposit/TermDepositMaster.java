@@ -21,6 +21,8 @@ public class TermDepositMaster {
 	private double maturityInterest;
 
 	private double maturityAmount;
+	
+	private String maturityStatus;
 
 	public String getId() {
 		return id;
@@ -92,6 +94,14 @@ public class TermDepositMaster {
 
 	public void setMaturityAmount(double maturityAmount) {
 		this.maturityAmount = maturityAmount;
+	}
+
+	public String getMaturityStatus() {
+		return maturityStatus;
+	}
+
+	public void setMaturityStatus(String maturityStatus) {
+		this.maturityStatus = maturityStatus;
 	}
 
 }
