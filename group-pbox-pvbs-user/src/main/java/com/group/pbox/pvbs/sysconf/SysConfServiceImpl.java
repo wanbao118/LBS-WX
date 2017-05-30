@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.group.pbox.pvbs.clientmodel.sysconf.SysConfReqModel;
 import com.group.pbox.pvbs.clientmodel.sysconf.SysConfRespData;
 import com.group.pbox.pvbs.clientmodel.sysconf.SysConfRespModel;
-import com.group.pbox.pvbs.model.sysConf.SysConf;
+import com.group.pbox.pvbs.model.sysconf.SysConf;
 import com.group.pbox.pvbs.persist.sysconf.SysConfMap;
 import com.group.pbox.pvbs.util.ErrorCode;
 
