@@ -15,4 +15,5 @@ public interface IAcctCreationService
 	AcctRespModel enquiryAcctInfo(AcctReqModel acctRequest) throws Exception;
 	AcctRespModel enquireBalance(AcctReqModel acctRequest) throws Exception;
 	AcctRespModel accountValidByRealNum(AcctReqModel acctRequest) throws Exception;
+	AcctRespModel getAcctInfoByRealNum(AcctReqModel acctRequest) throws Exception;
 }
