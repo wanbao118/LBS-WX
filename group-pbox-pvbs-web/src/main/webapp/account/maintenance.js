@@ -39,58 +39,7 @@ var current;
 
 	});
 	
-	//存储enquiry info返回的数据 +"<td><a class='btn btn-info' href='#'><i class='glyphicon glyphicon-edit icon-white' onclick='edit(list[i])'></i>Edit</a>&nbsp;&nbsp;"
-	var listData=[];
-	function enquiryInfo(e,currentPage){
-		current = currentPage;
-		var realAcctNum = $("#realAcctNum").val();
-		var json = {'realAccountNumber' : realAcctNum, 'operationCode' : 'B','params':{'pageRecorders':pageRecorders,'currentPage':currentPage}};
-		$.ajax({
-			url : contextPath+"/service/acct/acctMaintenance",
-			type : "post",
-			contentType: "application/json",
-			dataType : "json",
-			data : JSON.stringify(json),
-			success : function(response) {
-				if (response.result==00000) {
-					$("#pageInfo").empty();
-					listData = response.listData;
-					var list = response.listData;
-					var len = list.length,html="";
-					for(var i = 0;i<len;i++){
-						params = list[i];
-						html+="<tr>"
-							+"<input type='hidden' id='"+list[i].id+"' value='"+JSON.stringify(list[i])+"'/>"
-							+"<td>"+list[i].customerName+"</td>"
-							+"<td>"+list[i].customerId+"</td>"
-							+"<td>"+list[i].dateOfBirth+"</td>"
-							+"<td>"+list[i].address+"</td>"
-							+"<td>"+list[i].contactAddress+"</td>"
-							+"<td>"+list[i].contactNumber+"</td>"
-							+"<td>"+list[i].wechatId+"</td>"
-//							+"<td><a class='btn btn-info' href='javascript:void(0);' onclick=\"edit(this)\"> <i mgf='maoguifeng' class='glyphicon glyphicon-edit icon-white'></i> Edit</a>&nbsp;&nbsp;"
-							+"<td><button type='button' class='btn btn-info' id='edit' onclick=\"edit('"+list[i].id+"')\"><i class='glyphicon glyphicon-edit icon-white'></i>Edit</button>"
-							+"<button type='button' class='btn btn-danger' data='"+list[i].account.realAccountNumber+"' id='closeAcct'><i class='glyphicon glyphicon-trash icon-white' ></i>Delete</button></td></tr>";
-							
-					}
-					$(".infoCon").html(html);
-					$(".acctNotExist").hide();
-					$("#acctInfoList").show();
-					$(".acctInfo").fadeIn();
-				}
-				else {
-					$(".acctNotExist").fadeIn();
-					$(".acctInfo").hide();
-					if (response.errorCode[0] == "10021")
-					{
-						location.href=contextPath+"/login.html";
-					}
-					$('#enquiryForm').find('.alert-warning').html('Account Not Exist!'+$.errorHandler.prop(response.errorCode[0])).show();
-				}
-				handlePageInfo(response.params);
-			}
-		});
-	}
+
 	
 	
 //	function a(){
@@ -123,6 +72,60 @@ var current;
 		
 	})
 })();
+
+//存储enquiry info返回的数据 
+var listData=[];
+function enquiryInfo(e,currentPage){
+	current = currentPage;
+	var realAcctNum = $("#realAcctNum").val();
+	var json = {'realAccountNumber' : realAcctNum, 'operationCode' : 'B','params':{'pageRecorders':pageRecorders,'currentPage':currentPage}};
+	$.ajax({
+		url : contextPath+"/service/acct/acctMaintenance",
+		type : "post",
+		contentType: "application/json",
+		dataType : "json",
+		data : JSON.stringify(json),
+		success : function(response) {
+			if (response.result==00000) {
+				$("#pageInfo").empty();
+				listData = response.listData;
+				var list = response.listData;
+				var len = list.length,html="";
+				for(var i = 0;i<len;i++){
+					params = list[i];
+					html+="<tr>"
+						+"<input type='hidden' id='"+list[i].id+"' value='"+JSON.stringify(list[i])+"'/>"
+						+"<td>"+list[i].customerName+"</td>"
+						+"<td>"+list[i].customerId+"</td>"
+						+"<td>"+list[i].dateOfBirth+"</td>"
+						+"<td>"+list[i].address+"</td>"
+						+"<td>"+list[i].contactAddress+"</td>"
+						+"<td>"+list[i].contactNumber+"</td>"
+						+"<td>"+list[i].wechatId+"</td>"
+//						+"<td><a class='btn btn-info' href='javascript:void(0);' onclick=\"edit(this)\"> <i mgf='maoguifeng' class='glyphicon glyphicon-edit icon-white'></i> Edit</a>&nbsp;&nbsp;"
+						+"<td><button type='button' class='btn btn-info' id='edit' onclick=\"edit('"+list[i].id+"')\"><i class='glyphicon glyphicon-edit icon-white'></i>Edit</button>"
+						+"<button type='button' class='btn btn-danger' data='"+list[i].account.realAccountNumber+"' id='closeAcct'><i class='glyphicon glyphicon-trash icon-white' ></i>Delete</button></td></tr>";
+						
+				}
+				$(".infoCon").html(html);
+				$(".acctNotExist").hide();
+				$("#acctInfoList").show();
+				$(".acctInfo").fadeIn();
+			}
+			else {
+				$(".acctNotExist").fadeIn();
+				$(".acctInfo").hide();
+				if (response.errorCode[0] == "10021")
+				{
+					location.href=contextPath+"/login.html";
+				}
+				$('#enquiryForm').find('.alert-warning').html('Account Not Exist!'+$.errorHandler.prop(response.errorCode[0])).show();
+			}
+			handlePageInfo(response.params);
+		}
+	});
+}
+
 function handlePageInfo(params){
 	var currentPage = new Number(params.currentPage);
 	var totalPage = new Number(params.totalPages);
