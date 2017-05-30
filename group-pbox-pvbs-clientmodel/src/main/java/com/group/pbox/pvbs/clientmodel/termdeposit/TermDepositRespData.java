@@ -1,96 +1,152 @@
 package com.group.pbox.pvbs.clientmodel.termdeposit;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
-public class TermDepositRespData {
-	private String id;
+public class TermDepositRespData
+{
+    private String id;
 
-	private String accountId;
+    private String accountId;
 
-	private String depositNumber;
+    private String accountNum;
 
-	private double depositAmount;
+    private String depositNumber;
 
-	private String termPeriod;
+    private double depositAmount;
 
-	private double termInterestRate;
+    private String termPeriod;
 
-	private Date maturityDate;
+    private double termInterestRate;
 
-	private double maturityInterest;
+    private Date maturityDate;
 
-	private double maturityAmount;
+    private double maturityInterest;
 
-	public String getId() {
-		return id;
-	}
+    private double maturityAmount;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    private String maturityStatus;
 
-	public String getAccountId() {
-		return accountId;
-	}
+    private Timestamp createTime;
 
-	public void setAccountId(String accountId) {
-		this.accountId = accountId;
-	}
+    public String getId()
+    {
+        return id;
+    }
 
-	public String getDepositNumber() {
-		return depositNumber;
-	}
+    public void setId(String id)
+    {
+        this.id = id;
+    }
 
-	public void setDepositNumber(String depositNumber) {
-		this.depositNumber = depositNumber;
-	}
+    public String getAccountId()
+    {
+        return accountId;
+    }
 
-	public double getDepositAmount() {
-		return depositAmount;
-	}
+    public void setAccountId(String accountId)
+    {
+        this.accountId = accountId;
+    }
 
-	public void setDepositAmount(double depositAmount) {
-		this.depositAmount = depositAmount;
-	}
+    public String getDepositNumber()
+    {
+        return depositNumber;
+    }
 
-	public String getTermPeriod() {
-		return termPeriod;
-	}
+    public void setDepositNumber(String depositNumber)
+    {
+        this.depositNumber = depositNumber;
+    }
 
-	public void setTermPeriod(String termPeriod) {
-		this.termPeriod = termPeriod;
-	}
+    public double getDepositAmount()
+    {
+        return depositAmount;
+    }
 
-	public double getTermInterestRate() {
-		return termInterestRate;
-	}
+    public void setDepositAmount(double depositAmount)
+    {
+        this.depositAmount = depositAmount;
+    }
 
-	public void setTermInterestRate(double termInterestRate) {
-		this.termInterestRate = termInterestRate;
-	}
+    public String getTermPeriod()
+    {
+        return termPeriod;
+    }
 
-	public Date getMaturityDate() {
-		return maturityDate;
-	}
+    public void setTermPeriod(String termPeriod)
+    {
+        this.termPeriod = termPeriod;
+    }
 
-	public void setMaturityDate(Date maturityDate) {
-		this.maturityDate = maturityDate;
-	}
+    public double getTermInterestRate()
+    {
+        return termInterestRate;
+    }
 
-	public double getMaturityInterest() {
-		return maturityInterest;
-	}
+    public void setTermInterestRate(double termInterestRate)
+    {
+        this.termInterestRate = termInterestRate;
+    }
 
-	public void setMaturityInterest(double maturityInterest) {
-		this.maturityInterest = maturityInterest;
-	}
+    public Date getMaturityDate()
+    {
+        return maturityDate;
+    }
 
-	public double getMaturityAmount() {
-		return maturityAmount;
-	}
+    public void setMaturityDate(Date maturityDate)
+    {
+        this.maturityDate = maturityDate;
+    }
 
-	public void setMaturityAmount(double maturityAmount) {
-		this.maturityAmount = maturityAmount;
-	}
+    public double getMaturityInterest()
+    {
+        return maturityInterest;
+    }
+
+    public void setMaturityInterest(double maturityInterest)
+    {
+        this.maturityInterest = maturityInterest;
+    }
+
+    public double getMaturityAmount()
+    {
+        return maturityAmount;
+    }
+
+    public void setMaturityAmount(double maturityAmount)
+    {
+        this.maturityAmount = maturityAmount;
+    }
+
+    public String getAccountNum()
+    {
+        return accountNum;
+    }
+
+    public void setAccountNum(String accountNum)
+    {
+        this.accountNum = accountNum;
+    }
+
+    public String getMaturityStatus()
+    {
+        return maturityStatus;
+    }
+
+    public void setMaturityStatus(String maturityStatus)
+    {
+        this.maturityStatus = maturityStatus;
+    }
+
+    public Timestamp getCreateTime()
+    {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime)
+    {
+        this.createTime = createTime;
+    }
 
 }
