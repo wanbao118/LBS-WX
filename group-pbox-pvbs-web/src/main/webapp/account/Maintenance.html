@@ -57,6 +57,7 @@
 											<div class="col-sm-3">
 												<input type="text" class="form-control" name="realAcctNum" id="realAcctNum" />
 											</div>
+											&nbsp;&nbsp;&nbsp;
  											<input type="submit" value=" Enquiry" name="subscribe"
  												id="sub_bt" href="#" class="button btn btn-primary"  
  												data-dismiss="modal" 
@@ -67,8 +68,9 @@
 								<!-- realAcctNum existed -->	
 								<div class="acctInfo">
 									<div>
+									<div class='panel-body' id='data'>
 										<table id="acctInfoList"
-											class="table table-striped table-bordered">
+											class="table table-striped table-bordered" style="display:none">
 											<thead>
 												<tr>
 													<th>Customer name</th>
@@ -83,6 +85,7 @@
 											</thead>
 											<tbody class="infoCon"></tbody>
 										</table>
+										</div>
 									</div>
 									<div style="float:left">
 										<ul class="pagination pagination-centered" id="pageInfo">
@@ -256,8 +259,13 @@
 <script src="../comm/footRef.js"></script>
 <!-- end external javascript -->
 <script src="edit.js"></script>
-<script src="maintenance.js"></script>
-
+<script type="text/javascript">
+if(IsPC()){
+	document.write('<scri'+'pt src="maintenance.js" type="text/javascript"></s'+'cript>');
+}else{
+	document.write('<scri'+'pt src="maintenanceIphone.js" type="text/javascript"></s'+'cript>');
+}
+</script>
 </body>
 </html>
 

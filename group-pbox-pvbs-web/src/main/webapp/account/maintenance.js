@@ -2,6 +2,7 @@
  * Enquiry acct master info
  */
 var params;
+var current;
 (function(){
 	$('#enquiryForm').bootstrapValidator({
 		message : 'This value is not valid',
@@ -41,6 +42,7 @@ var params;
 	//存储enquiry info返回的数据 +"<td><a class='btn btn-info' href='#'><i class='glyphicon glyphicon-edit icon-white' onclick='edit(list[i])'></i>Edit</a>&nbsp;&nbsp;"
 	var listData=[];
 	function enquiryInfo(e,currentPage){
+		current = currentPage;
 		var realAcctNum = $("#realAcctNum").val();
 		var json = {'realAccountNumber' : realAcctNum, 'operationCode' : 'B','params':{'pageRecorders':pageRecorders,'currentPage':currentPage}};
 		$.ajax({
@@ -54,12 +56,11 @@ var params;
 					$("#pageInfo").empty();
 					listData = response.listData;
 					var list = response.listData;
-					console.log(listData);
 					var len = list.length,html="";
 					for(var i = 0;i<len;i++){
 						params = list[i];
-						html+="<tr>" +"<input type='hidden' id='realAcct' value='"+list[i].account.realAccountNumber+"'/>"
-							+"<input type='hidden' id='edit' value='"+JSON.stringify(list[i])+"'/>"
+						html+="<tr>"
+							+"<input type='hidden' id='"+list[i].id+"' value='"+JSON.stringify(list[i])+"'/>"
 							+"<td>"+list[i].customerName+"</td>"
 							+"<td>"+list[i].customerId+"</td>"
 							+"<td>"+list[i].dateOfBirth+"</td>"
@@ -68,12 +69,13 @@ var params;
 							+"<td>"+list[i].contactNumber+"</td>"
 							+"<td>"+list[i].wechatId+"</td>"
 //							+"<td><a class='btn btn-info' href='javascript:void(0);' onclick=\"edit(this)\"> <i mgf='maoguifeng' class='glyphicon glyphicon-edit icon-white'></i> Edit</a>&nbsp;&nbsp;"
-							+"<td><button type='button' class='btn btn-info' id='edit' onclick=\"edit()\"><i class='glyphicon glyphicon-edit icon-white'></i>Edit</button>"
-							+"<button type='button' class='btn btn-danger' id='closeAcct'><i class='glyphicon glyphicon-trash icon-white'></i>Delete</button></td></tr>";
+							+"<td><button type='button' class='btn btn-info' id='edit' onclick=\"edit('"+list[i].id+"')\"><i class='glyphicon glyphicon-edit icon-white'></i>Edit</button>"
+							+"<button type='button' class='btn btn-danger' data='"+list[i].account.realAccountNumber+"' id='closeAcct'><i class='glyphicon glyphicon-trash icon-white' ></i>Delete</button></td></tr>";
 							
 					}
 					$(".infoCon").html(html);
 					$(".acctNotExist").hide();
+					$("#acctInfoList").show();
 					$(".acctInfo").fadeIn();
 				}
 				else {
@@ -97,7 +99,7 @@ var params;
 	
 	$("#acctInfoList").on("click","#closeAcct",function(){
 		//alert("hello");
-		var  realAcctNum =$("#realAcct").val();
+		var  realAcctNum =$(this).attr("data");
 		var json = {'realAccountNumber' : realAcctNum, 'operationCode' : 'D'};
 		$.ajax({
 			url : contextPath+"/service/acct/acctMaintenance",
@@ -107,11 +109,9 @@ var params;
 			data : JSON.stringify(json),
 			success : function(response) {
 				if(response.result == 00000 ){
-					window.location.reload(); 
-					$('#enquiryForm').find('.alert').html('Close success!').show();
+					enquiryInfo(null,current);
 				}
 				else {
-//					alert("Close fail! The balance is more than 0.Please check the balance.")
 					$('#enquiryForm').find('.alert').html('Close fail!'+$.errorHandler.prop(response.errorCode[0])).show();
 				}
 			},

@@ -55,29 +55,21 @@
 											<div class="col-sm-3">
 												<input type="text" class="form-control" name="realAccountNumber" id="realAccountNumber" />
 											</div>
-
- 											<input type="submit" value=" Enquiry&nbsp;&nbsp;" name="subscribe" 
+											&nbsp;&nbsp;&nbsp;
+ 											<input type="submit" value=" Enquiry" name="subscribe" 
  												id="sub_bt" href="#" class="button btn btn-primary"  
  												data-dismiss="modal" 
  												style="background-color: #aaa; border: 0 none; border-radius: 4px; color: #FFFFFF; cursor: pointer; display: inline-block; font-size: 15px; font-weight: bold; height: 32px; line-height: 32px; margin: 0 5px 10px 0; padding: 0; text-align: center; text-decoration: none; vertical-align: top; white-space: nowrap; width: 100px; margin: auto;"> 
 										</div>
 									</div>
 								
-									
-									<div id="balanceShow">
-									
-									</div>
+									<!-- data -->
+										<div id="balanceShow">
+											<div class='panel-body' id='data'>
+											</div>
+										</div>
 								</form>
-									<div>
-										<ul class="pagination pagination-centered">
-											<li><a href="#" id="fristPage" onclick="loadEmpList('frist')">首页</a></li>
-											<li><a href="#" id="previousPage" onclick="loadEmpList('previous')">上一页</a></li>
-											<li><a href="#" id="nextPage" onclick="loadEmpList('next')">下一页</a></li>
-											<li><a href="#" id="lastPage" onclick="loadEmpList('last')">末页</a></li>
-										</ul>
-										<br>
-										共<span id="pageCount"></span>页   第<span id="currentPage"></span>页
-									</div>
+
 
 
 							</div>
@@ -98,8 +90,14 @@
 <!-- external javascript -->
 <script src="../comm/footRef.js"></script>
 <!-- end external javascript -->
-<script src="balance.js"></script>
 
+<script type="text/javascript">
+if(IsPC()){
+	document.write('<scri'+'pt src="balance.js" type="text/javascript"></s'+'cript>');
+}else{
+	document.write('<scri'+'pt src="balanceIphone.js" type="text/javascript"></s'+'cript>');
+}
+</script>
 </body>
 </html>
 
