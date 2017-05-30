@@ -23,88 +23,81 @@ import com.group.pbox.pvbs.util.OperationCode;
 
 @Controller
 @RequestMapping("/user")
-public class UserController
-{
-    private static final Logger sysLogger = Logger.getLogger("customer");
+public class UserController {
+	private static final Logger sysLogger = Logger.getLogger("customer");
 
-    @Resource
-    IUserService userService;
+	@Resource
+	IUserService userService;
 
-    @RequestMapping(value = "/loginCheck", method = RequestMethod.POST, consumes = "application/json")
-    @ResponseBody
-    public Object loginCheck(final HttpServletRequest request, final HttpServletResponse response, @RequestBody UserReqModel userRequest)
-    {
+	@RequestMapping(value = "/loginCheck", method = RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
+	public Object loginCheck(final HttpServletRequest request, final HttpServletResponse response,
+			@RequestBody UserReqModel userRequest) {
 
-        UserRespModel userRespModel = new UserRespModel();
+		UserRespModel userRespModel = new UserRespModel();
 
-        try
-        {
-            userRespModel = userService.accountValid(userRequest);
-            if (userRespModel.getListData().size() == 1)
-            {
-                UserRespData userRespData = userRespModel.getListData().get(0);
-                request.getSession().setAttribute("userId", userRespData.getUserId());
-            }
-        }
-        catch (Exception e)
-        {
-            userRespModel.setResult(ErrorCode.RESPONSE_ERROR);
-            List<String> errorList = new ArrayList<String>();
-            errorList.add(ErrorCode.SYSTEM_OPERATION_ERROR);
-            userRespModel.setErrorCode(errorList);
+		try {
+			userRespModel = userService.accountValid(userRequest);
+			if (userRespModel.getListData().size() == 1) {
+				UserRespData userRespData = userRespModel.getListData().get(0);
+				request.getSession().setAttribute("userId", userRespData.getUserId());
+			}
+		} catch (Exception e) {
+			userRespModel.setResult(ErrorCode.RESPONSE_ERROR);
+			List<String> errorList = new ArrayList<String>();
+			errorList.add(ErrorCode.SYSTEM_OPERATION_ERROR);
+			userRespModel.setErrorCode(errorList);
 
-        }
+		}
 
-        return userRespModel;
-    }
+		return userRespModel;
+	}
 
-    @RequestMapping(value = "/userMaintain", method = RequestMethod.POST, consumes = "application/json")
-    @ResponseBody
-    public Object userMaintain(final HttpServletRequest request, final HttpServletResponse response, @RequestBody UserReqModel userRequest) throws Exception
-    {
-        UserRespModel userRespModel = new UserRespModel();
+	@RequestMapping(value = "/userMaintain", method = RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
+	public Object userMaintain(final HttpServletRequest request, final HttpServletResponse response,
+			@RequestBody UserReqModel userRequest) throws Exception {
+		UserRespModel userRespModel = new UserRespModel();
+		// String userId = (String) request.getSession().getAttribute("userId");
 
-        switch (userRequest.getOperation())
-        {
-            case OperationCode.ACCT_CREATION:
-                userRespModel = addUser(userRequest);
-                break;
-            case OperationCode.ACCT_MAINT:
-                userRespModel = updateUser(userRequest);
-                break;
-            case OperationCode.FETCH_BY_USER_ID:
-                userRespModel = fetchUserDetlByUserId(userRequest);
-        }
-        return userRespModel;
-    }
+		switch (userRequest.getOperationCode()) {
+		case OperationCode.ACCT_CREATION:
+			userRespModel = addUser(userRequest);
+			break;
+		case OperationCode.FETCH_BY_USER_ID:
+			userRespModel = fetchUserDetlByUserId(userRequest);
+			break;
+		case OperationCode.UPDATE_USER:
+			userRespModel = updateUser(userRequest);
 
-    private UserRespModel addUser(@RequestBody UserReqModel userRequest)
-    {
-        return userService.addUser(userRequest);
-    }
+		}
+		return userRespModel;
+	}
 
-    private UserRespModel updateUser(@RequestBody UserReqModel userRequest)
-    {
-        return userService.updateUser(userRequest);
-    }
+	private UserRespModel addUser(@RequestBody UserReqModel userRequest) {
+		return userService.addUser(userRequest);
+	}
 
-    /* private Object deleteUser(@RequestBody UserReqModel userRequest,
-     * UserRespModel resp) { String userId = userRequest.getUserId(); User user
-     * = userService.fetchUserByUserId(userId); user.setUserStatus("Inactive");
-     * int result = userService.updateUser(user); if (result > 0) {
-     * resp.setResult(ErrorCode.RESPONSE_SUCCESS); } else {
-     * resp.setResult(ErrorCode.RESPONSE_ERROR); } return resp; } */
-    private UserRespModel fetchUserDetlByUserId(@RequestBody UserReqModel userRequest)
-    {
-        return userService.fetchUserByUserId(userRequest);
-    }
-    
-    @RequestMapping("/logout")
-    public String logout(final HttpServletRequest request,
-            final HttpServletResponse response)
-    {
-        request.getSession().removeAttribute("userId");
+	private UserRespModel updateUser(@RequestBody UserReqModel userRequest) {
+		return userService.updateUser(userRequest);
+	}
 
-        return "loginCheck";
-    }
+	/*
+	 * private Object deleteUser(@RequestBody UserReqModel userRequest,
+	 * UserRespModel resp) { String userId = userRequest.getUserId(); User user
+	 * = userService.fetchUserByUserId(userId); user.setUserStatus("Inactive");
+	 * int result = userService.updateUser(user); if (result > 0) {
+	 * resp.setResult(ErrorCode.RESPONSE_SUCCESS); } else {
+	 * resp.setResult(ErrorCode.RESPONSE_ERROR); } return resp; }
+	 */
+	private UserRespModel fetchUserDetlByUserId(@RequestBody UserReqModel userRequest) {
+		return userService.fetchUserByUserId(userRequest);
+	}
+
+	@RequestMapping("/logout")
+	public String logout(final HttpServletRequest request, final HttpServletResponse response) {
+		request.getSession().removeAttribute("userId");
+
+		return "loginCheck";
+	}
 }
