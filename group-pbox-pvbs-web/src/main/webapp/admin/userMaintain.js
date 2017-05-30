@@ -40,7 +40,7 @@ function enquiry(currentPage) {
 	var userId = $("#userId").val();
 
 	var json = {
-		'operation' : 'FBU',
+		'operationCode' : 'FBU',
 		'userId' : userId,
 		'pageRecorders':pageRecorders,
 		'currentPage':currentPage
@@ -61,6 +61,7 @@ function enquiry(currentPage) {
 				$.each(response.listData, function(index, item) {
 					var clonedTr = tr.clone();
 					var _index = index;
+
 					clonedTr.children("td").each(
 							function(inner_index) {
 								switch (inner_index) {
@@ -80,11 +81,12 @@ function enquiry(currentPage) {
 									$(this).html(item.exchangeRateLimit);
 									break;
 								case (5):
-									$(this).html("<a class='btn btn-info' href='#'><i class='glyphicon glyphicon-edit icon-white'></i>Edit</a>&nbsp;&nbsp;"
-											+ "<a class='btn btn-danger' href='#'><i class='glyphicon glyphicon-trash icon-white'></i>Delete</a>");
+									$(this).html("<button type='button' class='btn btn-info' onclick=editTest('"+item.id+"')><i class='glyphicon glyphicon-edit icon-white'></i>Edit</button>"
+											+ "<button type='button' class='btn btn-danger' ><i class='glyphicon glyphicon-trash icon-white'></i>Delete</button>");
+									break;
 								}
-									
 							});
+					clonedTr.append("<input type='hidden' id='"+item.id+"' value='"+JSON.stringify(item)+"'/>");
 					clonedTr.insertAfter(tr);
 				});
 				$("#cloneTr").hide();
