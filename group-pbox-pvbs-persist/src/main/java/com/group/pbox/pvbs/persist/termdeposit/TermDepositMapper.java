@@ -13,4 +13,6 @@ public interface TermDepositMapper {
 
 	List<TermDepositMaster> enquiryTermDeposit(@Param("accountNum") String accountNum,
 		@Param("depositNumber") String depositNumber);
+	
+	String genereateMaxTDNum();
 }
