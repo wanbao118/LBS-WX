@@ -27,9 +27,13 @@
 		(#{id},#{accountId},#{depositNumber},#{depositAmount},#{termPeriod},#{termInterestRate},#{maturityDate},#{maturityInterest},#{maturityAmount},#{maturityStatus},#{createTime})
 	</insert>
 	<update id="updateTermDeposit" parameterType="com.group.pbox.pvbs.model.termdeposit.TermDepositMaster">
-		update t_td_master set MATURITY_STATUS=#{maturityStatus}
+		update t_td_master set MATURITY_STATUS='D'
 		<where>
-			ACCOUNT_ID = #{accountId}
+			DEPOSIT_NUMBER = #{depositNumber}
 		</where>
 	</update>
+	<select id="genereateMaxTDNum" parameterType="com.group.pbox.pvbs.model.termdeposit.TermDepositMaster"
+		resultType="String">
+		select MAX(DEPOSIT_NUMBER) as DEPOSIT_NUMBER from t_td_master
+	</select>
 </mapper>
