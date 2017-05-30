@@ -2,8 +2,8 @@
 
 var accountId = "";
 
-function edit() {
-	var list = $("#edit").val();
+function edit(id) {
+	var list = $("#"+id).val();
 	var acct = JSON.parse(list);
     $("#clearingCode").val(acct.account.clearingCode);
     $("#branchNumber").val(acct.account.branchNumber);
