@@ -1,6 +1,7 @@
 package com.group.pbox.pvbs.termdeposit;
 
 import java.util.Date;
+
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -14,6 +15,8 @@ import com.group.pbox.pvbs.persist.termdeposit.TermDepositMapper;
 import com.group.pbox.pvbs.util.ErrorCode;
 import com.group.pbox.pvbs.util.OperationCode;
 
+import com.group.pbox.pvbs.util.Utils;
+
 @Service
 public class TermDepositServiceImpl implements ITermDepositService {
 
@@ -22,7 +25,33 @@ public class TermDepositServiceImpl implements ITermDepositService {
 
 	public TermDepositRespModel creatTermDeposit(TermDepositReqModel termDepostReqModel) {
 		// TODO Auto-generated method stub
-		return null;
+		TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
+		String termDepositNumber = "";
+		Double maturityAmount = new Double(termDepostReqModel.getDepositAmount()
+				+ termDepostReqModel.getMaturityInterset());
+
+		Date maturityDate = new Date();
+		
+		
+		TermDepositMaster termDepositMaster = new TermDepositMaster();
+		termDepositMaster.setAccountId(""/*TODO*/);
+		termDepositMaster.setId(Utils.getUUID());
+		termDepositMaster.setDepositAmount(termDepostReqModel.getDepositAmount());
+		termDepositMaster.setDepositNumber(termDepositNumber/*TODO*/);
+		termDepositMaster.setMaturityAmount(maturityAmount);
+		termDepositMaster.setMaturityDate(maturityDate);
+		termDepositMaster.setMaturityInterest(termDepostReqModel.getMaturityInterset());
+		termDepositMaster.setTermInterestRate(termDepostReqModel.getTermInterestRate());
+		termDepositMaster.setTermPeriod(termDepostReqModel.getTermPeriod());
+
+		boolean result = termDepositMapper.addTermDeposit(termDepositMaster);
+		if (result) {
+			termDepositRespModel.setResult(ErrorCode.RESPONSE_SUCCESS);
+		} else {
+			termDepositRespModel.setResult(ErrorCode.RESPONSE_ERROR);
+		}
+
+		return termDepositRespModel;
 	}
 
 	public TermDepositRespModel inquiryTermDeposit(TermDepositReqModel termDepositReqModel) {
