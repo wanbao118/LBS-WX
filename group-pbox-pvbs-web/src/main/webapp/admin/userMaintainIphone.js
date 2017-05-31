@@ -30,7 +30,6 @@ $(document).ready(function() {
 		if (validator) {
 			enquiry('1');
 		}
-
 	});
 });
 
@@ -73,10 +72,10 @@ function enquiry(currentPage) {
 								case("T"):
 									userPositionName = "Teller";
 							}
-
+							
 							var rec = "<div class=\"alert alert-info alert-dismissible alert-info-new\" role=\"alert\">";
 							rec = rec
-									+ "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>";
+									+ "<button id=\"close\" type=\"button\" class=\"close\" aria-label=\"Close\"><span onclick=\"mousdown('"+item.id+"')\" aria-hidden=\"true\">&times;</span></button>";
 							rec = rec
 									+ "<i class=\"fa fa-info-circle\"></i>";
 
@@ -132,3 +131,76 @@ function handlePageInfo(params) {
 						+ "')\">Next Page</a></li>");
 	}
 }
+
+function mousdown(id){	
+	var list = $("#" + id).val();
+	var user = JSON.parse(list);
+	$("#userName").val(user.userName);
+	$("#userPosition").val(user.userPosition);
+	$("#transactionLimit").val(user.transactionLimit);
+	$("#exchangeLimit").val(user.exchangeRateLimit);
+	$("#termDepositLimit").val(user.termDepositeLimit);
+	
+	var userName = $("#userName").val();
+	var userPosition = $("#userPosition").val();
+	var transactionLimit = $("#transactionLimit").val();
+	var exchangeLimit = $("#exchangeLimit").val();
+	var tdLimit = $("#termDepositLimit").val();
+	
+	var userId = user.userId;
+
+	var editInfo = {
+		'userId' : userId,
+		'userName' : userName,
+		'userPosition' : userPosition,
+		'transactionLimit' : transactionLimit,
+		'exchangeRateLimit' : exchangeLimit,
+		'termDepositeLimit' : tdLimit,
+		'operationCode' : "DE"
+	}
+	
+	$.ajax({
+		url : contextPath+"/service/user/userMaintain",
+		type : "post",
+		contentType: "application/json",
+		dataType : "json",
+		data : JSON.stringify(editInfo),
+		success : function(response) {
+			if(response.result == 00000 ){
+				$('#userInfor').empty();
+				$('#userInfor').append("Close succeed!");
+			}
+			else {
+//				alert("Close fail! The balance is more than 0.Please check the balance.")
+				$('#userInfor').append("Close fail!");
+			}
+		},
+		error: function() {
+			$('#userInfor').append("Close fail!");
+		}
+	
+	});
+	
+}
+
+function editTest(id) {
+	var list = $("#" + id).val();
+	var user = JSON.parse(list);
+
+	$("#userName").val(user.userName);
+	$("#userPosition").val(user.userPosition);
+	$("#transactionLimit").val(user.transactionLimit);
+	$("#exchangeLimit").val(user.exchangeRateLimit);
+	$("#termDepositLimit").val(user.termDepositeLimit);
+
+	userId = user.userId;
+	document.getElementById("maintenance_header").style.display = 'none';
+	document.getElementById("maintenance_content").style.display = 'none';
+	document.getElementById("edit_header").style.display = 'block';
+	document.getElementById("edit_content").style.display = 'block';
+
+}
+
+
+
+
