@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.group.pbox.pvbs.clientmodel.user.UserReqModel;
 import com.group.pbox.pvbs.clientmodel.user.UserRespData;
 import com.group.pbox.pvbs.clientmodel.user.UserRespModel;
+import com.group.pbox.pvbs.model.user.User;
 import com.group.pbox.pvbs.user.IUserService;
 import com.group.pbox.pvbs.util.ErrorCode;
 import com.group.pbox.pvbs.util.OperationCode;
@@ -69,7 +70,11 @@ public class UserController {
 			break;
 		case OperationCode.UPDATE_USER:
 			userRespModel = updateUser(userRequest);
-
+			
+			
+			break;
+		case OperationCode.DEL_USER:
+			userRespModel = deleteUser(userRequest);
 		}
 		return userRespModel;
 	}
@@ -82,14 +87,11 @@ public class UserController {
 		return userService.updateUser(userRequest);
 	}
 
-	/*
-	 * private Object deleteUser(@RequestBody UserReqModel userRequest,
-	 * UserRespModel resp) { String userId = userRequest.getUserId(); User user
-	 * = userService.fetchUserByUserId(userId); user.setUserStatus("Inactive");
-	 * int result = userService.updateUser(user); if (result > 0) {
-	 * resp.setResult(ErrorCode.RESPONSE_SUCCESS); } else {
-	 * resp.setResult(ErrorCode.RESPONSE_ERROR); } return resp; }
-	 */
+	private UserRespModel deleteUser(@RequestBody UserReqModel userRequest) {
+		userRequest.setUserStatus("Inactive");
+		return userService.updateUser(userRequest);
+	}
+
 	private UserRespModel fetchUserDetlByUserId(@RequestBody UserReqModel userRequest) {
 		return userService.fetchUserByUserId(userRequest);
 	}
