@@ -180,6 +180,7 @@ public class AccountBalanceServiceImpl implements IAccountBalanceService
     {
         Account account = new Account();
         account.setRealAccountNumber(acctRealNum);
+        account.setStatus(0);
         Account resultAccount = acctMapper.getAccountInfo(account);
         return resultAccount;
     }
@@ -252,7 +253,7 @@ public class AccountBalanceServiceImpl implements IAccountBalanceService
         else
         {
             targetAccountBalance.setBalance(targetAccountBalance.getBalance() + searchSourceAccountBalance.getBalance());
-            searchTargetAccountBalance.setLastUpatedDate(currentDate);
+            targetAccountBalance.setLastUpatedDate(currentDate);
             result = accountBalanceMapper.updateAccountBalance(targetAccountBalance);
         }
         if (result == -1)
