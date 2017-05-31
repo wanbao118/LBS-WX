@@ -15,6 +15,8 @@
 			javaType="String" />
 		<result property="userPassword" column="USER_PASSWORD"
 			javaType="String" />
+		<result property="userStatus" column="USER_STATUS"
+			javaType="String" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		ID AS id, USER_ID AS userId, USER_NAME AS
@@ -49,7 +51,10 @@
 	<update id="updateUser" parameterType="com.group.pbox.pvbs.model.user.User">
 		update t_user SET
 		USER_NAME = #{userName}, USER_POSITION = #{userPosition}, TRANSACTION_LIMIT =
-		#{transactionLimit}, TD_LIMIT = #{termDepositeLimit}, EXCH_LIMIT = #{exchangeRateLimit}
+		#{transactionLimit}, TD_LIMIT = #{termDepositeLimit}, EXCH_LIMIT = #{exchangeRateLimit},
+		<if test="userStatus!=null"> 
+			USER_STATUS = #{userStatus} 
+		</if>
 		where USER_ID = #{userId}
 	</update>
 
