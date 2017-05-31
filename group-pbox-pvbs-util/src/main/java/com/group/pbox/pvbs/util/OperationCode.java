@@ -31,5 +31,7 @@ public class OperationCode
 	public static final String DROPDOWN = "D";
 
 	public static final String FETCH_TD_RATE = "FTR";
+	
+	public static final String DEL_USER = "DE";
 
 }
