@@ -1,5 +1,86 @@
 /** After click the edit button*/
+$(document)
+		.ready(
+				function() {
+					$('#editForm').bootstrapValidator(
+									{
+										message : 'This value is not valid',
 
+										feedbackIcons : {
+											valid : 'glyphicon glyphicon-ok',
+											invalid : 'glyphicon glyphicon-remove',
+											validating : 'glyphicon glyphicon-refresh'
+										},
+										fields : {
+											address : {
+												group: '.group',
+												validators : {
+													notEmpty : {
+														message : 'please input address'
+													},
+
+													regexp : {
+														regexp : '^[\\w\.,\\s]{1,140}$',
+														message : 'Please input the address less than 140 characters'
+													}
+													
+												 }
+											},
+											contactAddress : {
+												group: '.group',
+												validators : {
+													notEmpty : {
+														message : 'please input contact address'
+													},
+
+													regexp : {
+														regexp : '^[\\w\.,\\s]{1,140}$',
+														message : 'Please input the contact address less than 140 characters'
+													}
+													
+												 }
+											},		
+											contactNumber : {
+												group: '.group',
+												validators : {
+													notEmpty : {
+														message : 'please input contact number'
+													},
+
+													regexp : {
+														regexp : '^[0-9]{15}$',
+														message : 'Please input the correct format contact number with 15 digits'
+													}
+													
+												 }
+											},
+											wechatId : {
+												group: '.group',
+												validators : {
+													notEmpty : {
+														message : 'please input contact number'
+													},
+													stringLength : {
+														min : 1,
+														max : 30,
+														message : 'Please input password between one and fifteen!'
+													},
+													
+												 }
+											},
+										}
+									}).on('success.form.bv', function(e) {
+								// Prevent submit form
+								e.preventDefault();
+
+								var $form = $(e.target);
+								validator = $form.data('bootstrapValidator');
+								if (validator) {
+									creation(e.target);
+								}
+
+							});
+				});
 var accountId = "";
 
 function edit(id) {

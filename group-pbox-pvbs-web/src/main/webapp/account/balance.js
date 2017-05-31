@@ -43,7 +43,7 @@ function balance(e){
 	var realAccountNumber = $("#realAccountNumber").val();
 	
 	var tableDiv = document.getElementById("balanceShow");
-	var tipbox = document.getElementById("tipbox");
+	var tipboxwarn = document.getElementById("tipboxwarn");
 	
 	var acct = {
 			'realAccountNumber' : realAccountNumber,
@@ -57,14 +57,16 @@ function balance(e){
 		dataType : "json",
 		data : JSON.stringify(acct),
 		success: function(response){
-			if(response.result == "10008"){
-				$('#balanceForm').find('.alert').html('Account not exist!').show();
+			if(response.result != "00000"){
+				if(response.errorCode[0] == "10021")
+				{
+					location.href=contextPath+"/login.html";
+				}
+				$('#balanceForm').find('.alert-warning').html($.errorHandler.prop(response.errorCode[0])).show();
 				tableDiv.style.display = "none";
-			}else if(response.result == "00011"){
-				$('#balanceForm').find('.alert').html('Balance enquiry failed!').show();
-				tableDiv.style.display = "none";
-			}else{
-				tipbox.style.display = "none";
+			}
+			else{
+				tipboxwarn.style.display = "none";
 				tableDiv.style.display = "block";
 				var balanceTable = "<table id = 'EmployeeList'" +
 						"class='table table-striped table-bordered'>" +
