@@ -24,6 +24,16 @@ public class TermDepositMaster {
 	
 	private String maturityStatus;
 
+	private Date createDate;
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
 	public String getId() {
 		return id;
 	}
