@@ -24,6 +24,7 @@ import com.group.pbox.pvbs.clientmodel.sysconf.SysConfRespModel;
 import com.group.pbox.pvbs.clientmodel.termdeposit.TermDepositReqModel;
 import com.group.pbox.pvbs.clientmodel.termdeposit.TermDepositRespModel;
 import com.group.pbox.pvbs.clientmodel.transaction.TransactionReqModel;
+import com.group.pbox.pvbs.clientmodel.transaction.TransactionRespData;
 import com.group.pbox.pvbs.clientmodel.transaction.TransactionRespModel;
 import com.group.pbox.pvbs.sysconf.ISysConfService;
 import com.group.pbox.pvbs.termdeposit.ITermDepositService;
@@ -51,10 +52,8 @@ public class TermDepositController {
     IAccountBalanceService accountBalanceService;
 	@Resource
 	ISysConfService sysConfService;
-
 	@Resource
 	ITermDepositRateService termDepositRateService;
-
 	@Resource
 	IUserService userSrvice;
 
@@ -84,7 +83,6 @@ public class TermDepositController {
 
 				termDepositRespModel = reNewal(termDepositReqModel);
 				break;
-
 			}
 
 		} catch (Exception e) {
@@ -160,23 +158,26 @@ public class TermDepositController {
 		transactionReqModel.setAmount(acctBalance+maturityAmount);
 		transactionReqModel.setCurrency(primaryCode);
 		transactionRespModel = accountBalanceService.deposit(transactionReqModel);
-		
+
 		if (ErrorCode.RESPONSE_ERROR.equals(transactionRespModel.getResult()))
 		{
 			termDepositResp.setResult(ErrorCode.RESPONSE_ERROR);
 			termDepositResp.getErrorCode().add(ErrorCode.UPDATE_BALANCE_FAIL);
 			return termDepositResp;
 		}
-		
+
 		//edit status to 'D'
 		termDepositResp = termDepositService.updateStatus(termDepositReqModel);
-		
+
 		return termDepositResp;
 	}
 
 	private TermDepositRespModel enquiryTermDeposit(TermDepositReqModel termDepositReqModel) {
-		// TODO Auto-generated method stub
-		return null;
+
+		TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
+		termDepositRespModel = termDepositService.inquiryTermDeposit(termDepositReqModel);
+
+		return termDepositRespModel;
 	}
 
 	private TermDepositRespModel createTermDeposit(TermDepositReqModel termDepositReqModel, HttpServletRequest request) throws Exception {
@@ -187,6 +188,9 @@ public class TermDepositController {
 		if (StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
 			return termDepositRespModel;
 		}
+
+		//get AcctInfo
+		/*TODO*/
 
 		//validate the debit account number
 		termDepositRespModel = checkDebitAcctValid(termDepositReqModel);
@@ -221,6 +225,8 @@ public class TermDepositController {
 		if (StringUtils.equalsIgnoreCase(acctRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
 			termDepositRespModel.setResult(ErrorCode.RESPONSE_ERROR);
 			termDepositRespModel.setErrorCode(acctRespModel.getErrorCode());
+
+			return termDepositRespModel;
 		}
 
 		return termDepositRespModel;
@@ -229,18 +235,34 @@ public class TermDepositController {
 	private TermDepositRespModel checkDebitAcctValid(TermDepositReqModel termDepositReqModel) throws Exception {
 		TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
 
-		AcctReqModel acctReqModel = new AcctReqModel();
-		acctReqModel.setRealAccountNumber(termDepositReqModel.getAccountNumber());
-		AcctRespModel acctRespModel = new AcctRespModel();
+		TransactionRespModel transactionRespModel = new TransactionRespModel();
 
-		acctRespModel = acctCreationService.accountValidByRealNum(acctReqModel);
+		transactionRespModel = accountBalanceService.enquireAccountBalance(termDepositReqModel.getAccountNumber());
 
-		if (StringUtils.equalsIgnoreCase(acctRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
-			termDepositRespModel.setResult(ErrorCode.RESPONSE_ERROR);
-			termDepositRespModel.setErrorCode(acctRespModel.getErrorCode());
+		if (transactionRespModel.getListData().size() == 0) {
+			return termDepositRespModel;
 		} else {
 			//validate the primary ccy balance
-			/*TODO*/
+			SysConfReqModel sysConfReqModel = new SysConfReqModel();
+			sysConfReqModel.setItem("Primary_Ccy_Code");
+			SysConfRespModel sysConfRespModel = new SysConfRespModel();
+			sysConfRespModel = sysConfService.getAllSysConfByParam(sysConfReqModel);
+
+			if (sysConfRespModel.getListData().size() > 0) {
+				termDepositReqModel.setCcy(sysConfRespModel.getListData().get(0).getValue());
+
+				for (TransactionRespData transactionRespData : transactionRespModel.getListData()) {
+					if (transactionRespData.getCurrencyCode().equalsIgnoreCase(termDepositReqModel.getCcy())) {
+						if (transactionRespData.getBalance() < termDepositReqModel.getDepositAmount()) {
+							List<String> errorList = new ArrayList<String>();
+							errorList.add(ErrorCode.RESPONSE_ERROR);
+
+							termDepositRespModel.setResult(ErrorCode.RESPONSE_ERROR);
+							termDepositRespModel.setErrorCode(errorList);
+						}
+					}
+				}
+			}
 		}
 
 		return termDepositRespModel;
