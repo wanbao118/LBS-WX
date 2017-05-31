@@ -67,4 +67,6 @@ public class ErrorCode
     public static final String ACCEPT_TRANSACTION = "10024";
     //update balance fail
     public static final String UPDATE_BALANCE_FAIL = "10025";
+    //user already exists
+    public static final String USER_ALEARDY_EXISTS = "10026";
 }
