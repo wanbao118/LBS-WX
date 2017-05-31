@@ -8,6 +8,8 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.group.pbox.pvbs.clientmodel.user.UserRespModel;
 import com.group.pbox.pvbs.util.ErrorCode;
 
+import net.sf.json.JSONObject;
+
 public class PageInterceptor extends HandlerInterceptorAdapter
 {
     @Override
@@ -27,6 +29,8 @@ public class PageInterceptor extends HandlerInterceptorAdapter
             UserRespModel userResp = new UserRespModel();
             userResp.setResult(ErrorCode.RESPONSE_ERROR);
             userResp.getErrorCode().add(ErrorCode.SESSION_NOT_FOUND);
+            JSONObject userRespJson = JSONObject.fromObject(userResp);
+            response.getWriter().print(userRespJson);
             return false;
         }
 
