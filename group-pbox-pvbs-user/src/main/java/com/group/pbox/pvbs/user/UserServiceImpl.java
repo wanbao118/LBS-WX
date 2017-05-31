@@ -53,16 +53,25 @@ public class UserServiceImpl implements IUserService {
 
 	public UserRespModel addUser(UserReqModel userReqModel) {
 		UserRespModel userResponseModel = new UserRespModel();
-		User user = new User();
-		BeanUtils.copyProperties(userReqModel, user);
-		user.setId(Utils.getUUID());
-		user.setUserPassword("1");
-		user.setUserStatus("Active");
-
-		if (userMapper.addUser(user)) {
-			userResponseModel.setResult(ErrorCode.RESPONSE_SUCCESS);
-		} else {
+		//user exists
+		if(fetchUserByUserId(userReqModel).getResult() == ErrorCode.RESPONSE_SUCCESS){
 			userResponseModel.setResult(ErrorCode.RESPONSE_ERROR);
+			List<String> errorList = new ArrayList<String>();
+			errorList.add(ErrorCode.USER_ALEARDY_EXISTS);
+			userResponseModel.setErrorCode(errorList);
+		}
+		else{
+			User user = new User();
+			BeanUtils.copyProperties(userReqModel, user);
+			user.setId(Utils.getUUID());
+			user.setUserPassword("1");
+			user.setUserStatus("Active");
+			
+			if (userMapper.addUser(user)) {
+				userResponseModel.setResult(ErrorCode.RESPONSE_SUCCESS);
+			} else {
+				userResponseModel.setResult(ErrorCode.RESPONSE_ERROR);
+			}
 		}
 		return userResponseModel;
 	}

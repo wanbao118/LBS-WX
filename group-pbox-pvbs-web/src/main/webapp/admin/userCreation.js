@@ -132,7 +132,7 @@ function addUser(e){
 					{
 						location.href=contextPath+"/login.html";
 					}
-					$('#userAddForm').find('.alert').html('add user error.'+$.errorHandler.prop(response.errorCode[0])).show();
+					$('#userAddForm').find('.alert-warning').html($.errorHandler.prop(response.errorCode[0])).show();
 				}
 			}
 		});
