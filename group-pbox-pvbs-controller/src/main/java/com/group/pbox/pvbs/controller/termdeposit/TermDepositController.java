@@ -81,7 +81,7 @@ public class TermDepositController {
 				break;
 			case OperationCode.TERM_RENEWAL:
 
-				termDepositRespModel = reNewal(termDepositReqModel);
+				termDepositRespModel = reNewal(termDepositReqModel,request);
 				break;
 			}
 
@@ -118,10 +118,108 @@ public class TermDepositController {
 		return termDepositRateRespModel;
 	}
 
-	private TermDepositRespModel reNewal(TermDepositReqModel termDepositReqModel) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	private TermDepositRespModel reNewal(TermDepositReqModel termDepositReqModel, HttpServletRequest request) throws Exception
+    {
+        TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
+
+        // validate the transaction account number
+        termDepositRespModel = checkAcctValid(termDepositReqModel);
+        if (StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
+        {
+            termDepositRespModel.getErrorCode().add(ErrorCode.TRANS_ACCT_HAVE_NOT_FIND);
+            return termDepositRespModel;
+        }
+
+        // validate the exceedLimit from User table
+        termDepositRespModel = checkUserIdAndGetLimit(termDepositReqModel, request);
+        if (StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
+        {
+            return termDepositRespModel;
+        }
+
+        // validate the account balance and record have not find.
+        termDepositRespModel = checkInsufficientFunding(termDepositReqModel);
+        if (StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
+        {
+            return termDepositRespModel;
+        }
+        
+        
+        termDepositRespModel = drawDown(termDepositReqModel);
+        if (StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
+        {
+            return termDepositRespModel;
+        }
+        
+        termDepositRespModel = drawDown(termDepositReqModel);
+        if (StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
+        {
+            return termDepositRespModel;
+        }
+        
+        termDepositRespModel = createTermDeposit(termDepositReqModel, request);
+        if (StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
+        {
+            return termDepositRespModel;
+        }
+        termDepositRespModel.setResult(ErrorCode.RESPONSE_SUCCESS);
+        return termDepositRespModel;
+    }
+
+    /**
+     * check account balance
+     *
+     * @param termDepositReqModel
+     * @return
+     * @throws Exception
+     */
+    private TermDepositRespModel checkInsufficientFunding(TermDepositReqModel termDepositReqModel) throws Exception{
+
+        TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
+        TransactionRespModel transactionRespModel = new TransactionRespModel();
+        SysConfReqModel sysConfReqModel = new SysConfReqModel();
+        sysConfReqModel.setItem("Primary_Ccy_Code");
+        SysConfRespModel sysConfRespModel = new SysConfRespModel();
+        sysConfRespModel = sysConfService.getAllSysConfByParam(sysConfReqModel);
+        String primaryCode = sysConfRespModel.getListData().get(0).getValue();
+
+        transactionRespModel = accountBalanceService.enquireAccountBalance(termDepositReqModel.getTransAccountNum());
+        for (TransactionRespData tmp : transactionRespModel.getListData())
+        {
+            if (StringUtils.equalsIgnoreCase(primaryCode, tmp.getCurrencyCode()))
+            {
+                termDepositRespModel.setResult(ErrorCode.RESPONSE_SUCCESS);
+                if (tmp.getBalance() < termDepositReqModel.getDepositAmount())
+                {
+                    termDepositRespModel.setResult(ErrorCode.RESPONSE_ERROR);
+                    termDepositRespModel.getErrorCode().add(ErrorCode.INSUFFICIENT_FUNDING);
+                    break;
+                }
+            }
+        }
+        if (!StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_SUCCESS))
+        {
+            termDepositRespModel.setResult(ErrorCode.RESPONSE_ERROR);
+            termDepositRespModel.getErrorCode().add(ErrorCode.RECORD_NOT_FOUND);
+        }
+        return termDepositRespModel;
+    }
+    private TermDepositRespModel checkAcctValid(TermDepositReqModel termDepositReqModel) throws Exception {
+        TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
+
+        AcctReqModel acctReqModel = new AcctReqModel();
+        acctReqModel.setRealAccountNumber(termDepositReqModel.getTransAccountNum());
+        AcctRespModel acctRespModel = new AcctRespModel();
+
+        acctRespModel = acctCreationService.accountValidByRealNum(acctReqModel);
+
+        if (StringUtils.equalsIgnoreCase(acctRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
+        {
+            termDepositRespModel.setResult(ErrorCode.RESPONSE_ERROR);
+        }
+
+        return termDepositRespModel;
+    }
 
 	private TermDepositRespModel drawDown(TermDepositReqModel termDepositReqModel) throws Exception {
 		TermDepositRespModel termDepositResp = new TermDepositRespModel();

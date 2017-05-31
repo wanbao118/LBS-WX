@@ -53,20 +53,28 @@ public class ErrorCode
     public static final String ACCOUNT_TRANSFER_SOURCE_NOT_FOUND = "10018";
     // Account transfer traget not found
     public static final String ACCOUNT_TRANSFER_TARGET_NOT_FOUND = "10019";
-    //User not found
+    // User not found
     public static final String USER_NOT_FOUND = "10020";
-    //Session not found
+    // Session not found
     public static final String SESSION_NOT_FOUND = "10021";
-    //TD record has been pulled down
+    // TD record has been pulled down
     public static final String TD_HAS_DROPDOWN = "10022";
-    //Transaction is not mature
+    // Transaction is not mature
     public static final String TRANSACTION_IS_NOT_MATURE = "10023";
-    //update status fail
+    // update status fail
     public static final String UPDATE_STATUS_FAIL = "10024";
-    //Accept transaction
-    public static final String ACCEPT_TRANSACTION = "10024";
-    //update balance fail
-    public static final String UPDATE_BALANCE_FAIL = "10025";
+
+    // Accept transaction
+    public static final String ACCEPT_TRANSACTION = "10025";
+    // update balance fail
+    public static final String UPDATE_BALANCE_FAIL = "10026";
+    // Transaction Account NUmber Have not find
+    public static final String TRANS_ACCT_HAVE_NOT_FIND = "10027";
+    // Debit Account NUmber Have not find
+    public static final String DEBIT_ACCT_HAVE_NOT_FIND = "10028";
+    // Credit Account NUmber Have not find
+    public static final String CREDIT_ACCT_HAVE_NOT_FIND = "10029";
     //user already exists
-    public static final String USER_ALEARDY_EXISTS = "10026";
+    public static final String USER_ALEARDY_EXISTS = "10030";
+
 }
