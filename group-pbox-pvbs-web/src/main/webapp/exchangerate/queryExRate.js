@@ -16,11 +16,16 @@ function enqueryExRate() {
 		dataType : "json",
 		data : JSON.stringify(currExRateReq),
 		success : function(response) {
-			if (response.result == 00000) {			
-				for(var i = 0;i<response.listData.length;i++){
-					$("#selectCurrency").append("<option value='"+response.listData[i].currencyCode+"'>"+response.listData[i].currencyCode+"</option>");
+			if (response.result == 00000) {	
+				if(response.listData.length == 0){
+					$('#rateForm').find('.alert-warning').html("Currency not found").show();
 				}
-				$("#selectCurrency option[value=" + primaryCcyCode + "]").remove();
+				else{
+					for(var i = 0;i<response.listData.length;i++){
+						$("#selectCurrency").append("<option value='"+response.listData[i].currencyCode+"'>"+response.listData[i].currencyCode+"</option>");
+					}
+					$("#selectCurrency option[value=" + primaryCcyCode + "]").remove();
+				}
 			} else {
 				if (response.errorCode[0] == "10021")
 				{
