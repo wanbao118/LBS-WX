@@ -28,7 +28,7 @@ public class ExchangeRateServiceImpl implements IExchangeRateService {
 
 		List<CurrencyRate> list = ccyExchangeRateMapper.getAllExchangeRate();
 
-		if (list.size() > 0) {
+
 			for (CurrencyRate currencyRate : list) {
 				CcyExchangeRateRespData data = new CcyExchangeRateRespData();
 
@@ -41,10 +41,7 @@ public class ExchangeRateServiceImpl implements IExchangeRateService {
 
 			ccyExchangeRateRespModel.setListData(listData);
 			ccyExchangeRateRespModel.setResult(ErrorCode.RESPONSE_SUCCESS);
-		}
-		else {
-			ccyExchangeRateRespModel.setResult(ErrorCode.RESPONSE_ERROR);
-		}
+
 
 		return ccyExchangeRateRespModel;
 	}

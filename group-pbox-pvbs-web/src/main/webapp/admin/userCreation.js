@@ -115,7 +115,7 @@ function addUser(e){
 	var transactionLimit = $("#transactionLimit").val();
 	var termDepositeLimit = $("#termDepositeLimit").val();
 	var exchangeRateLimit = $("#exchangeRateLimit").val();
-	var json = {'operation':'A','userId' : userId, 'userName' : userName,'userPosition' : userPosition,
+	var json = {'operationCode':'A','userId' : userId, 'userName' : userName,'userPosition' : userPosition,
 			'transactionLimit' : transactionLimit,'termDepositeLimit' : termDepositeLimit,'exchangeRateLimit' : exchangeRateLimit};
 	$.ajax({
 			url : contextPath+"/service/user/userMaintain",
@@ -125,7 +125,7 @@ function addUser(e){
 			data : JSON.stringify(json),
 			success : function(response) {
 				if (response.result=="00000") {
-					$('#userAddForm').find('.alert-success').html('add user success.').show();
+					$('#userAddForm').find('.alert-success').html('Add user successfully.').show();
 				}
 				else {
 					if (response.errorCode[0] == "10021")
