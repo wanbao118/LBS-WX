@@ -61,11 +61,15 @@ var current;
 					enquiryInfo(null,current);
 				}
 				else {
-					$('#enquiryForm').find('.alert').html('Close fail!'+$.errorHandler.prop(response.errorCode[0])).show();
+					if (response.errorCode[0] == "10021")
+					{
+						location.href=contextPath+"/login.html";
+					}
+					$('#enquiryForm').find('.alert-warning').html($.errorHandler.prop(response.errorCode[0])).show();
 				}
 			},
 			error: function() {
-				$('#enquiryForm').find('.alert').html('Close fail!'+$.errorHandler.prop(response.errorCode[0])).show();
+				$('#enquiryForm').find('.alert-warning').html('Close fail!').show();
 			}
 		
 		});
@@ -78,6 +82,7 @@ var listData=[];
 function enquiryInfo(e,currentPage){
 	current = currentPage;
 	var realAcctNum = $("#realAcctNum").val();
+	var tipboxwarn = document.getElementById("tipboxwarn");
 	var json = {'realAccountNumber' : realAcctNum, 'operationCode' : 'B','params':{'pageRecorders':pageRecorders,'currentPage':currentPage}};
 	$.ajax({
 		url : contextPath+"/service/acct/acctMaintenance",
@@ -87,17 +92,25 @@ function enquiryInfo(e,currentPage){
 		data : JSON.stringify(json),
 		success : function(response) {
 			if (response.result==00000) {
+				tipboxwarn.style.display = "none";
 				$("#pageInfo").empty();
 				listData = response.listData;
 				var list = response.listData;
 				var len = list.length,html="";
 				for(var i = 0;i<len;i++){
 					params = list[i];
+					var birthDate =list[i].dateOfBirth;
+					var newDate = new Date(birthDate);
+					var year = newDate.getFullYear();
+					var month = newDate.getMonth()+1;
+					var date = newDate.getDate();
+					var showTime = year+"-"+add0(month)+"-"+add0(date);
 					html+="<tr>"
 						+"<input type='hidden' id='"+list[i].id+"' value='"+JSON.stringify(list[i])+"'/>"
 						+"<td>"+list[i].customerName+"</td>"
 						+"<td>"+list[i].customerId+"</td>"
-						+"<td>"+list[i].dateOfBirth+"</td>"
+						//format date
+						+"<td>"+showTime+"</td>"
 						+"<td>"+list[i].address+"</td>"
 						+"<td>"+list[i].contactAddress+"</td>"
 						+"<td>"+list[i].contactNumber+"</td>"

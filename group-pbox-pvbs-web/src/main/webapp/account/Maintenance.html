@@ -16,14 +16,6 @@
     		float: left;
     		display: inline-block;
     	}
-    	.acctInfo{
-    	}
-    	.acctNotExist{
-    		display: none;
-    		font-size: 18px;
-    		color: red;
-    		
-    	}
     	
     </style>
 </head>
@@ -50,6 +42,7 @@
 							<div class="box-content" id="maintenance_content">
 
 								<form id="enquiryForm"  class="form-horizontal" style="width: 100%" >
+								<div class="alert alert-warning" id="tipboxwarn" style="display: none;"></div>
 									<div class="form-group">
 										
 										<div class="group">
@@ -64,6 +57,7 @@
  												style="background-color: #aaa; border: 0 none; border-radius: 4px; color: #FFFFFF; cursor: pointer; display: inline-block; font-size: 15px; font-weight: bold; height: 32px; line-height: 32px; margin: 0 5px 10px 0; padding: 0; text-align: center; text-decoration: none; vertical-align: top; white-space: nowrap; width: 100px; margin: auto;"> 
 										</div>
 									</div>
+									
 								</form>	
 								<!-- realAcctNum existed -->	
 								<div class="acctInfo">
@@ -92,8 +86,6 @@
 										</ul>
 									</div>
 								</div>
-								<!-- realAcctNum doesn't exist -->
-								<div class="acctNotExist text-danger"></div>
 							</div>
 
                             <div class="box-header well" data-original-title="" id="edit_header" style="display: none" >

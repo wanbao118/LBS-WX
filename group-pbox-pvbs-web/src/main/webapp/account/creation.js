@@ -222,9 +222,8 @@ function creation(e) {
 				{
 					location.href=contextPath+"/login.html";
 				}
-				$('#creationForm').find('.alert-warning').html('User has existsed!'+$.errorHandler.prop(response.errorCode[0])).show();
+				$('#creationForm').find('.alert-warning').html($.errorHandler.prop(response.errorCode[0])).show();
 			}
-			
 		}
 	});
 }
