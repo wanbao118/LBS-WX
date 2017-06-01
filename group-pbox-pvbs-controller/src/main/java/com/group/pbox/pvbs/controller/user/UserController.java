@@ -42,6 +42,7 @@ public class UserController {
 			if (userRespModel.getListData().size() == 1) {
 				UserRespData userRespData = userRespModel.getListData().get(0);
 				request.getSession().setAttribute("userId", userRespData.getUserId());
+				request.getSession().setAttribute("userPosition", userRespData.getUserPosition());
 			}
 		} catch (Exception e) {
 			userRespModel.setResult(ErrorCode.RESPONSE_ERROR);
