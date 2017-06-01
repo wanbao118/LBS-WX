@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.group.pbox.pvbs.model.termdeposit.TermDepositRate">
+<mapper namespace="com.group.pbox.pvbs.persist.termdeposit.TermDepositRateMapper">
 	<resultMap id="termDepositeRate"
 		type="com.group.pbox.pvbs.model.termdeposit.TermDepositRate">
 		<id property="id" column="ID" javaType="String" />
@@ -11,20 +11,17 @@
 			javaType="BigDecimal" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		ID , TD_PERIOD , TD_INTEREST_RATE
+		ID as id , TD_PERIOD as  termDeposiPeriod , TD_INTEREST_RATE as termDeposiInterestRate
 	</sql>
-	<select id="fetchAllTermDepositRate"
-		resultType="com.group.pbox.pvbs.model.termdeposit.TermDepositRate">
+	<select id="fetchAllTermDepositRate" resultType="com.group.pbox.pvbs.model.termdeposit.TermDepositRate">
 		select
 		<include refid="Base_Column_List" />
 		from t_td_rate
 	</select>
-
 	<select id="fetchTermDepositRateByPeriod"
-		resultType="com.group.pbox.pvbs.model.termdeposit.TermDepositRate">
+		resultType="com.group.pbox.pvbs.model.termdeposit.TermDepositRate" parameterType="com.group.pbox.pvbs.model.termdeposit.TermDepositRate">
 		select
 		<include refid="Base_Column_List" />
 		from t_td_rate where TD_PERIOD = #{termDeposiPeriod}
 	</select>
-
 </mapper>

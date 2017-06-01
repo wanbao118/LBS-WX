@@ -26,8 +26,8 @@ public class TermDepositRateServiceImpl implements ITermDepositRateService {
 
 		TermDepositRate termDepositRate = new TermDepositRate();
 		String period = termDepositReqModel.getTermPeriod();
-
-		termDepositRate = termDepositRateMapper.fetchTermDepositRateByPeriod(period);
+		termDepositRate.setTermDeposiPeriod(period);
+		termDepositRate = termDepositRateMapper.fetchTermDepositRateByPeriod(termDepositRate);
 
 		if (termDepositRate != null) {
 			TermDepositRateRespData termDepositRateRespData = new TermDepositRateRespData();
