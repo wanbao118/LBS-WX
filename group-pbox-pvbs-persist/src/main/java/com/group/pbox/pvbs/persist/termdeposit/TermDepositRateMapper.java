@@ -6,5 +6,5 @@ import com.group.pbox.pvbs.model.termdeposit.TermDepositRate;
 
 public interface TermDepositRateMapper {
 	List<TermDepositRate> fetchAllTermDepositRate(); 
-	TermDepositRate fetchTermDepositRateByPeriod(String period);
+	TermDepositRate fetchTermDepositRateByPeriod(TermDepositRate termDepositRate);
 }

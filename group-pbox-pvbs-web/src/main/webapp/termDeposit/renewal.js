@@ -1,4 +1,6 @@
 $(document).ready(function() {
+	getPrimaryCode();
+	getTermPeriod();
 					$('#tdForm').bootstrapValidator(
 									{
 										message : 'This value is not valid',
@@ -129,4 +131,42 @@ function renewal(e) {
 			
 		}
 	});
+}
+function getPrimaryCode(){
+	var data = {
+			"item":"Primary_Ccy_Code"		
+	}
+	$.ajax({
+		url : contextPath+"/service/sysconf/getSysConfList",
+		type : "post",
+		contentType : "application/json",
+		dataType : "json",
+		data : JSON.stringify(data),
+		success : function(response) {
+			if (response.result == 00000) {			
+				for(var i = 0;i<response.listData.length;i++){
+					$("#ccy").append("<option value='"+response.listData[i].value+"'>"+response.listData[i].value+"</option>");
+				}
+			} 
+		}
+	})
+}
+function getTermPeriod(){
+	var data = {
+			"operationCode":"FTR"		
+	}
+	$.ajax({
+		url : contextPath+"/service/termDeposit/termDepositRate",
+		type : "post",
+		contentType : "application/json",
+		dataType : "json",
+		data : JSON.stringify(data),
+		success : function(response) {
+			if (response.result == 00000) {			
+				for(var i = 0;i<response.listData.length;i++){
+					$("#termPeriod").append("<option value='"+response.listData[i].termDeposiPeriod+"'>"+response.listData[i].termDeposiPeriod+" Months - "+response.listData[i].termDeposiInterestRate+""+"</option>");
+				}
+			} 
+		}
+	})
 }
