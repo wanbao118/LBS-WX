@@ -39,15 +39,15 @@
 	</appender>
     <!-- test -->
 	<root>
-		<priority value="debug" />
+		<priority value="error" />
 		<appender-ref ref="FILE" />
 	</root>
 	<category name="org.springframework">
-		<priority value="debug" />
+		<priority value="error" />
 		<appender-ref ref="FILE" />
 	</category>
 	<category name="com.group.pbox.pvbs">
-		<priority value="debug" />
+		<priority value="error" />
 		<appender-ref ref="FILE" />
 	</category>
 	<category name="com.group.pbox.pvbs.controller">
