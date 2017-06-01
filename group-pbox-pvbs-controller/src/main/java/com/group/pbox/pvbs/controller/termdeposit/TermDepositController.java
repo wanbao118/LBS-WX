@@ -22,6 +22,7 @@ import com.group.pbox.pvbs.clientmodel.acct.AcctRespModel;
 import com.group.pbox.pvbs.clientmodel.sysconf.SysConfReqModel;
 import com.group.pbox.pvbs.clientmodel.sysconf.SysConfRespModel;
 import com.group.pbox.pvbs.clientmodel.termdeposit.TermDepositReqModel;
+import com.group.pbox.pvbs.clientmodel.termdeposit.TermDepositRespData;
 import com.group.pbox.pvbs.clientmodel.termdeposit.TermDepositRespModel;
 import com.group.pbox.pvbs.clientmodel.transaction.TransactionReqModel;
 import com.group.pbox.pvbs.clientmodel.transaction.TransactionRespData;
@@ -275,7 +276,9 @@ public class TermDepositController {
 		}
 
 		termDepositRespModel = termDepositService.inquiryTermDeposit(termDepositReqModel);
-
+		for(TermDepositRespData tmp:termDepositRespModel.getListData()){
+		    tmp.setAccountNum(termDepositReqModel.getTransAccountNum());
+		}
 		return termDepositRespModel;
 	}
 
@@ -307,9 +310,6 @@ public class TermDepositController {
 			return termDepositRespModel;
 		}
 
-		// Caculate the TD Maturity Interest
-		/* TODO */termDepositReqModel.setMaturityInterset(
-				termDepositReqModel.getDepositAmount() * termDepositReqModel.getTermInterestRate());
 
 		termDepositRespModel = termDepositService.creatTermDeposit(termDepositReqModel);
 
