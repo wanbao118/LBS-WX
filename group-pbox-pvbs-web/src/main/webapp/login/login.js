@@ -69,11 +69,17 @@ function login(e) {
 			data : JSON.stringify(json),
 			success : function(response) {
 				if (response.result==00000) {
-					var userId = response.listData[0].userId;
-					var userName = response.listData[0].userName;
-					sessionStorage.setItem("userId", userId);
-					sessionStorage.setItem("userName", userName);
-					 window.location.href = contextPath+"/index.html";
+					if (response.listData[0].userStatus == "Active") {
+						var userId = response.listData[0].userId;
+						var userName = response.listData[0].userName;
+						sessionStorage.setItem("userId", userId);
+						sessionStorage.setItem("userName", userName);
+						window.location.href = contextPath+"/index.html";
+					}
+					else {
+						$("#loginAlert").html('Invalid UserName');
+						$("#loginAlert").css({color:"red"});
+					}
 				}
 				else {
 					//$("#loginAlert").width(500);
