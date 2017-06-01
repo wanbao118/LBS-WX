@@ -2,6 +2,7 @@ package com.group.pbox.pvbs.termdeposit;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -10,9 +11,11 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.group.pbox.pvbs.clientmodel.termdeposit.TermDepositReqModel;
+import com.group.pbox.pvbs.clientmodel.termdeposit.TermDepositRespData;
 import com.group.pbox.pvbs.clientmodel.termdeposit.TermDepositRespModel;
 import com.group.pbox.pvbs.model.termdeposit.TermDepositMaster;
 import com.group.pbox.pvbs.model.termdeposit.TermDepositRate;
@@ -111,9 +114,15 @@ public class TermDepositServiceImpl implements ITermDepositService {
 		String depositNum = termDepositReqModel.getDepositNumber();
 
 		List<TermDepositMaster> termDeposit = termDepositMapper.enquiryTermDeposit(accountId, depositNum);
-
+		List<TermDepositRespData> listData = new ArrayList<TermDepositRespData>();
 		if (termDeposit.size() > 0) {
 			termDepositRespModel.setResult(ErrorCode.RESPONSE_SUCCESS);
+			for(TermDepositMaster tmp : termDeposit){
+			    TermDepositRespData data = new TermDepositRespData();
+			    BeanUtils.copyProperties(tmp, data);
+			    listData.add(data);
+			}
+			termDepositRespModel.setListData(listData);
 		}
 		else {
 			termDepositRespModel.setResult(ErrorCode.RESPONSE_ERROR);

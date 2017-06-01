@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	getPrimaryCode();
 					$('#tdForm').bootstrapValidator(
 									{
 										message : 'This value is not valid',
@@ -28,6 +29,10 @@ $(document).ready(function() {
 													notEmpty : {
 														message : 'please input term deposit number!'
 													}
+												},
+												regexp : {
+													regexp : '^[0-9]{5}$',
+													message : 'Please input 12 numbers!'
 												}
 											},
 											accountNumber : {
@@ -105,4 +110,23 @@ function drawDown(e) {
 			
 		}
 	});
+}
+function getPrimaryCode(){
+	var data = {
+			"item":"Primary_Ccy_Code"		
+	}
+	$.ajax({
+		url : contextPath+"/service/sysconf/getSysConfList",
+		type : "post",
+		contentType : "application/json",
+		dataType : "json",
+		data : JSON.stringify(data),
+		success : function(response) {
+			if (response.result == 00000) {			
+				for(var i = 0;i<response.listData.length;i++){
+					$("#ccy").append("<option value='"+response.listData[i].value+"'>"+response.listData[i].value+"</option>");
+				}
+			} 
+		}
+	})
 }

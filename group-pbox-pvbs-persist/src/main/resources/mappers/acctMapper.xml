@@ -90,6 +90,5 @@
 		 <if test="realAccountNumber!=null">
 		 	and REAL_ACCOUNT_NUMBER=#{realAccountNumber} 
 		 </if>
-		 
 	</select>
 </mapper>
