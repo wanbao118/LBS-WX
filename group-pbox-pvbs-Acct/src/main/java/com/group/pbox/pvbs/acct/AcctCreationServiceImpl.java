@@ -47,6 +47,11 @@ public class AcctCreationServiceImpl implements IAcctCreationService {
 		String acct = null;
 
 		String maxAcctNumber = acctMapper.fetchAcct();
+		
+		if(StringUtils.isBlank(maxAcctNumber)){
+		    maxAcctNumber="0";
+		}
+		
 		Integer newAcctNumber = Integer.valueOf(maxAcctNumber) + 1;
 
 		switch (newAcctNumber.toString().length()) {
