@@ -130,7 +130,6 @@ function editSubmit(){
         data : JSON.stringify(editInfo),
         success : function(response) {
             if (response.result == 00000) {
-//            	window.location.reload();
             	enquiryInfo(null,1);
                 $('#editForm').find('.alert-success').html('Information edited successfully!').show();
             } else {
