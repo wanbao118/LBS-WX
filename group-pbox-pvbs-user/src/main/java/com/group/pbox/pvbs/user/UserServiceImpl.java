@@ -133,7 +133,7 @@ public class UserServiceImpl implements IUserService {
 		UserRespData userRespData = new UserRespData();
 		List<UserRespData> userDataList = new ArrayList<UserRespData>();
 
-		if (user != null) {
+		if (user != null && StringUtils.equalsIgnoreCase(user.getUserStatus(), "Active")) {
 			BeanUtils.copyProperties(user, userRespData);
 
 			userDataList.add(userRespData);
