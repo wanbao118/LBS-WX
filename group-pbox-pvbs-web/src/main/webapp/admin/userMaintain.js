@@ -82,7 +82,7 @@ function enquiry(currentPage) {
 									break;
 								case (5):
 									$(this).html("<button type='button' class='btn btn-info' onclick=editTest('"+item.id+"')><i class='glyphicon glyphicon-edit icon-white'></i>Edit</button>"
-											+ "<button type='button' class='btn btn-danger' ><i class='glyphicon glyphicon-trash icon-white'></i>Delete</button>");
+											+ "<button type='button' class='btn btn-danger' onclick=deleteUser('"+item.id+"')><i class='glyphicon glyphicon-trash icon-white'></i>Delete</button>");
 									break;
 								}
 							});
@@ -104,6 +104,57 @@ function enquiry(currentPage) {
 	    }
 	});
 }
+
+function deleteUser(id) {
+	var list = $("#" + id).val();
+	var user = JSON.parse(list);
+	$("#userName").val(user.userName);
+	$("#userPosition").val(user.userPosition);
+	$("#transactionLimit").val(user.transactionLimit);
+	$("#exchangeLimit").val(user.exchangeRateLimit);
+	$("#termDepositLimit").val(user.termDepositeLimit);
+
+	var userName = $("#userName").val();
+	var userPosition = $("#userPosition").val();
+	var transactionLimit = $("#transactionLimit").val();
+	var exchangeLimit = $("#exchangeLimit").val();
+	var tdLimit = $("#termDepositLimit").val();
+
+	var userId = user.userId;
+
+	var editInfo = {
+			'userId' : userId,
+			'userName' : userName,
+			'userPosition' : userPosition,
+			'transactionLimit' : transactionLimit,
+			'exchangeRateLimit' : exchangeLimit,
+			'termDepositeLimit' : tdLimit,
+			'operationCode' : "DE"
+		}
+
+	$.ajax({
+		url : contextPath+"/service/user/userMaintain",
+		type : "post",
+		contentType: "application/json",
+		dataType : "json",
+		data : JSON.stringify(editInfo),
+		success : function(response) {
+			if(response.result == 00000 ){
+				$("#cloneTr").hide();
+				$('#empForm').find('.alert-success').html("Delete User Successfully !").show();
+				$('#empForm').find('.alert-warning').hide();
+			}
+			else {
+				$('#empForm').find('.alert-warning').html($.errorHandler.prop(response.errorCode[0])).show();
+			}
+		},
+		error: function() {
+			$('#empForm').find('.alert-warning').html("Net Error").show();
+		}
+	
+	});
+}
+
 
 function handlePageInfo(params){
 	var currentPage = new Number(params.currentPage);

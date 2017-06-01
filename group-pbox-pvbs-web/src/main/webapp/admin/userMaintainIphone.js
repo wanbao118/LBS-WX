@@ -140,13 +140,13 @@ function mousdown(id){
 	$("#transactionLimit").val(user.transactionLimit);
 	$("#exchangeLimit").val(user.exchangeRateLimit);
 	$("#termDepositLimit").val(user.termDepositeLimit);
-	
+
 	var userName = $("#userName").val();
 	var userPosition = $("#userPosition").val();
 	var transactionLimit = $("#transactionLimit").val();
 	var exchangeLimit = $("#exchangeLimit").val();
 	var tdLimit = $("#termDepositLimit").val();
-	
+
 	var userId = user.userId;
 
 	var editInfo = {
@@ -200,9 +200,5 @@ function editTest(id) {
 	document.getElementById("maintenance_content").style.display = 'none';
 	document.getElementById("edit_header").style.display = 'block';
 	document.getElementById("edit_content").style.display = 'block';
-
 }
-
-
-
 
