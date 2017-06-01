@@ -101,6 +101,7 @@ function renewal(e) {
 	var maturityInterset = $("#maturityInterset").val();
 	var maturityAmount = $("#maturityAmount").val();
 	var termPeriod = $("#termPeriod").val();
+	var accountNumber = $("#accountNumber").val();
 	var data = {
 		'transAccountNum' : transAccountNum,
 		'ccy' : ccy,

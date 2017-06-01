@@ -141,7 +141,7 @@ public class TermDepositServiceImpl implements ITermDepositService {
 		TermDepositRespModel termDepositResp = new TermDepositRespModel();
 
 		List<TermDepositMaster> termDepositData = termDepositMapper
-				.enquiryTermDeposit(termDepositReqModel.getAccountNumber(), termDepositReqModel.getDepositNumber());
+				.enquiryTermDeposit(termDepositReqModel.getAccountId(), termDepositReqModel.getDepositNumber());
 
 		if (termDepositData.size() == 0) {
 			termDepositResp.setResult(ErrorCode.RESPONSE_ERROR);
@@ -157,14 +157,17 @@ public class TermDepositServiceImpl implements ITermDepositService {
 		}
 		
 		Date nowdate = new Date();
-		Date maturityDate = termDepositReqModel.getMaturityDate();
-		
-		if (maturityDate.getTime() > nowdate.getTime())
-		{
-			termDepositResp.setResult(ErrorCode.RESPONSE_ERROR);
-			termDepositResp.getErrorCode().add(ErrorCode.TRANSACTION_IS_NOT_MATURE);
-			return termDepositResp;
+		if(termDepositData.size()==1){
+		    Date maturityDate = termDepositData.get(0).getMaturityDate();
+		    termDepositReqModel.setDepositAmount(termDepositData.get(0).getMaturityAmount());
+	        if (maturityDate.getTime() > nowdate.getTime())
+	        {
+	            termDepositResp.setResult(ErrorCode.RESPONSE_ERROR);
+	            termDepositResp.getErrorCode().add(ErrorCode.TRANSACTION_IS_NOT_MATURE);
+	            return termDepositResp;
+	        }
 		}
+		
 		
 		return termDepositResp;
 	}
@@ -176,7 +179,7 @@ public class TermDepositServiceImpl implements ITermDepositService {
 		termDeposit.setDepositNumber(termDepositReqModel.getDepositNumber());
 		int dropDownStatus = termDepositMapper.updateTermDeposit(termDeposit);
 		
-		if (dropDownStatus > 0)
+		if (dropDownStatus <0)
 		{
 			termDepositResp.setResult(ErrorCode.RESPONSE_ERROR);
 			termDepositResp.getErrorCode().add(ErrorCode.UPDATE_STATUS_FAIL);

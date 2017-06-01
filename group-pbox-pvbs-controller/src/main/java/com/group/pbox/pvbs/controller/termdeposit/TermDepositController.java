@@ -123,7 +123,7 @@ public class TermDepositController {
 	private TermDepositRespModel reNewal(TermDepositReqModel termDepositReqModel, HttpServletRequest request)
 			throws Exception {
 		TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
-
+		double amount = termDepositReqModel.getDepositAmount();
 		// validate the transaction account number
 		termDepositRespModel = checkAcctValid(termDepositReqModel);
 		if (StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
@@ -148,11 +148,7 @@ public class TermDepositController {
 			return termDepositRespModel;
 		}
 
-		termDepositRespModel = drawDown(termDepositReqModel);
-		if (StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
-			return termDepositRespModel;
-		}
-
+		termDepositReqModel.setDepositAmount(amount);
 		termDepositRespModel = createTermDeposit(termDepositReqModel, request);
 		if (StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
 			return termDepositRespModel;
@@ -216,10 +212,9 @@ public class TermDepositController {
 		TermDepositRespModel termDepositResp = new TermDepositRespModel();
 		TransactionReqModel transactionReqModel = new TransactionReqModel();
 		TransactionRespModel transactionRespModel = new TransactionRespModel();
-		AcctReqModel acctRequest = new AcctReqModel();
-		acctRequest.setRealAccountNumber(termDepositReqModel.getAccountNumber());
-		AcctRespModel acctValid = acctCreationService.accountValidByRealNum(acctRequest);
-		if (acctValid.getResult().equals(ErrorCode.RESPONSE_ERROR)) {
+		
+		termDepositResp = getAcctInfoByRealAcctNum(termDepositReqModel);
+		if (termDepositResp.getResult().equals(ErrorCode.RESPONSE_ERROR)) {
 			termDepositResp.setResult(ErrorCode.RESPONSE_ERROR);
 			termDepositResp.getErrorCode().add(ErrorCode.RECORD_NOT_FOUND);
 			return termDepositResp;
@@ -239,9 +234,9 @@ public class TermDepositController {
 		}
 
 		// update balance
-		double maturityAmount = termDepositReqModel.getMaturityAmount();
+		double maturityAmount = termDepositReqModel.getDepositAmount();
 		transactionReqModel.setAccountNumber(termDepositReqModel.getAccountNumber());
-		transactionReqModel.setAmount(acctBalance + maturityAmount);
+		transactionReqModel.setAmount( maturityAmount);
 		transactionReqModel.setCurrency(primaryCode);
 		transactionRespModel = accountBalanceService.deposit(transactionReqModel);
 
