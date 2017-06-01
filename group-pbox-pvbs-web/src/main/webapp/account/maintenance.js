@@ -116,7 +116,7 @@ function enquiryInfo(e,currentPage){
 						+"<td>"+list[i].contactNumber+"</td>"
 						+"<td>"+list[i].wechatId+"</td>"
 //						+"<td><a class='btn btn-info' href='javascript:void(0);' onclick=\"edit(this)\"> <i mgf='maoguifeng' class='glyphicon glyphicon-edit icon-white'></i> Edit</a>&nbsp;&nbsp;"
-						+"<td><button type='button' class='btn btn-info' id='edit' onclick=\"edit('"+list[i].id+"')\"><i class='glyphicon glyphicon-edit icon-white'></i>Edit</button>"
+						+"<td><button type='button' class='btn btn-info' id='edit' onclick=\"edit('"+list[i].id+"')\"><i class='glyphicon glyphicon-edit icon-white'></i>Edit</button>&nbsp;&nbsp;"
 						+"<button type='button' class='btn btn-danger' data='"+list[i].account.realAccountNumber+"' id='closeAcct'><i class='glyphicon glyphicon-trash icon-white' ></i>Delete</button></td></tr>";
 						
 				}
@@ -154,4 +154,7 @@ function handlePageInfo(params){
 		$("#pageInfo").append("<li><a href=\"#\"  onclick=\"enquiryInfo(,'"+(totalPage)+"')\">Next Page</a></li>");
 	}
 	$("#pageInfo").append("<li><a href=\"#\"  onclick=\"enquiryInfo(,'"+totalPage+"')\">Last Page</a></li>");
+}
+function add0(m){
+	return m<10?'0'+m:m 
 }
