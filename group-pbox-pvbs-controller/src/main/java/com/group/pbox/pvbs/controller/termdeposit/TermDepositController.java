@@ -119,107 +119,6 @@ public class TermDepositController {
 		return termDepositRateRespModel;
 	}
 
-<<<<<<< Updated upstream
-	private TermDepositRespModel reNewal(TermDepositReqModel termDepositReqModel, HttpServletRequest request) throws Exception
-    {
-        TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
-
-        // validate the transaction account number
-        termDepositRespModel = checkAcctValid(termDepositReqModel);
-        if (StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
-        {
-            termDepositRespModel.getErrorCode().add(ErrorCode.TRANS_ACCT_HAVE_NOT_FIND);
-            return termDepositRespModel;
-        }
-
-        // validate the exceedLimit from User table
-        termDepositRespModel = checkUserIdAndGetLimit(termDepositReqModel, request);
-        if (StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
-        {
-            return termDepositRespModel;
-        }
-
-        // validate the account balance and record have not find.
-        termDepositRespModel = checkInsufficientFunding(termDepositReqModel);
-        if (StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
-        {
-            return termDepositRespModel;
-        }
-        
-        
-        termDepositRespModel = drawDown(termDepositReqModel);
-        if (StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
-        {
-            return termDepositRespModel;
-        }
-        
-        termDepositRespModel = drawDown(termDepositReqModel);
-        if (StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
-        {
-            return termDepositRespModel;
-        }
-        
-        termDepositRespModel = createTermDeposit(termDepositReqModel, request);
-        if (StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
-        {
-            return termDepositRespModel;
-        }
-        termDepositRespModel.setResult(ErrorCode.RESPONSE_SUCCESS);
-        return termDepositRespModel;
-    }
-
-    /**
-     * check account balance
-     *
-     * @param termDepositReqModel
-     * @return
-     * @throws Exception
-     */
-    private TermDepositRespModel checkInsufficientFunding(TermDepositReqModel termDepositReqModel) throws Exception{
-
-        TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
-        TransactionRespModel transactionRespModel = new TransactionRespModel();
-        String primaryCode = getPrimaryCurrency();
-
-        transactionRespModel = accountBalanceService.enquireAccountBalance(termDepositReqModel.getAccountNumber());
-        for (TransactionRespData tmp : transactionRespModel.getListData())
-        {
-            if (StringUtils.equalsIgnoreCase(primaryCode, tmp.getCurrencyCode()))
-            {
-                termDepositRespModel.setResult(ErrorCode.RESPONSE_SUCCESS);
-                if (tmp.getBalance() < termDepositReqModel.getDepositAmount())
-                {
-                    termDepositRespModel.setResult(ErrorCode.RESPONSE_ERROR);
-                    termDepositRespModel.getErrorCode().add(ErrorCode.INSUFFICIENT_FUNDING);
-                    break;
-                }
-            }
-        }
-        if (!StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_SUCCESS))
-        {
-            termDepositRespModel.setResult(ErrorCode.RESPONSE_ERROR);
-            termDepositRespModel.getErrorCode().add(ErrorCode.RECORD_NOT_FOUND);
-        }
-        return termDepositRespModel;
-    }
-
-    private TermDepositRespModel checkAcctValid(TermDepositReqModel termDepositReqModel) throws Exception {
-        TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
-
-        AcctReqModel acctReqModel = new AcctReqModel();
-        acctReqModel.setRealAccountNumber(termDepositReqModel.getTransAccountNum());
-        AcctRespModel acctRespModel = new AcctRespModel();
-
-        acctRespModel = acctCreationService.accountValidByRealNum(acctReqModel);
-
-        if (StringUtils.equalsIgnoreCase(acctRespModel.getResult(), ErrorCode.RESPONSE_ERROR))
-        {
-            termDepositRespModel.setResult(ErrorCode.RESPONSE_ERROR);
-        }
-
-        return termDepositRespModel;
-    }
-=======
 	private TermDepositRespModel reNewal(TermDepositReqModel termDepositReqModel, HttpServletRequest request)
 			throws Exception {
 		TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
@@ -311,7 +210,6 @@ public class TermDepositController {
 
 		return termDepositRespModel;
 	}
->>>>>>> Stashed changes
 
 	private TermDepositRespModel drawDown(TermDepositReqModel termDepositReqModel) throws Exception {
 		TermDepositRespModel termDepositResp = new TermDepositRespModel();
@@ -327,17 +225,10 @@ public class TermDepositController {
 		}
 
 		termDepositResp = termDepositService.drawDown(termDepositReqModel);
-<<<<<<< Updated upstream
-		//enquery balance
-		String primaryCode = getPrimaryCurrency();
-=======
+
 		// enquery balance
-		SysConfReqModel sysConfReqModel = new SysConfReqModel();
-		sysConfReqModel.setItem("Primary_Ccy_Code");
-		SysConfRespModel sysConfRespModel = new SysConfRespModel();
-		sysConfRespModel = sysConfService.getAllSysConfByParam(sysConfReqModel);
-		String primaryCode = sysConfRespModel.getListData().get(0).getValue();
->>>>>>> Stashed changes
+		String primaryCode = getPrimaryCurrency();
+
 		transactionRespModel = accountBalanceService.enquireAccountBalance(termDepositReqModel.getAccountNumber());
 		double acctBalance = 0;
 		for (int i = 0; i < transactionRespModel.getListData().size(); i++) {
@@ -365,20 +256,16 @@ public class TermDepositController {
 		return termDepositResp;
 	}
 
-
-    private String getPrimaryCurrency() throws Exception
-    {
-        SysConfReqModel sysConfReqModel = new SysConfReqModel();
+	private String getPrimaryCurrency() throws Exception {
+		SysConfReqModel sysConfReqModel = new SysConfReqModel();
 		sysConfReqModel.setItem("Primary_Ccy_Code");
 		SysConfRespModel sysConfRespModel = new SysConfRespModel();
 		sysConfRespModel = sysConfService.getAllSysConfByParam(sysConfReqModel);
 		String primaryCode = sysConfRespModel.getListData().get(0).getValue();
-        return primaryCode;
-    }
-
+		return primaryCode;
+	}
 
 	private TermDepositRespModel enquiryTermDeposit(TermDepositReqModel termDepositReqModel) throws Exception {
-
 
 		TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
 		termDepositRespModel = getAcctInfoByRealAcctNum(termDepositReqModel);
@@ -425,8 +312,8 @@ public class TermDepositController {
 				termDepositReqModel.getDepositAmount() * termDepositReqModel.getTermInterestRate());
 
 		termDepositRespModel = termDepositService.creatTermDeposit(termDepositReqModel);
-		
-		//withdraw
+
+		// withdraw
 		TransactionReqModel transactionReqModel = new TransactionReqModel();
 		TransactionRespModel transactionRespModel = new TransactionRespModel();
 		transactionReqModel.setAccountNumber(termDepositReqModel.getAccountNumber());
@@ -435,44 +322,30 @@ public class TermDepositController {
 		transactionReqModel.setAmount(termDepositReqModel.getDepositAmount());
 		transactionRespModel = withDrawal(transactionReqModel);
 		if (StringUtils.equalsIgnoreCase(transactionRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
-		    termDepositRespModel.setResult(ErrorCode.RESPONSE_ERROR);
-		    termDepositRespModel.getErrorCode().addAll(transactionRespModel.getErrorCode());
-            return termDepositRespModel;
-        }
-		
-		
+			termDepositRespModel.setResult(ErrorCode.RESPONSE_ERROR);
+			termDepositRespModel.getErrorCode().addAll(transactionRespModel.getErrorCode());
+			return termDepositRespModel;
+		}
+
 		termDepositRespModel.setResult(ErrorCode.RESPONSE_SUCCESS);
 		return termDepositRespModel;
 	}
-	
-	   private TermDepositRespModel getAcctInfoByRealAcctNum(TermDepositReqModel termDepositReqModel) throws Exception {
-	        TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
-	        AcctReqModel acctReqModel = new AcctReqModel();
-	        AcctRespModel acctRespModel = new AcctRespModel();
-	        acctReqModel.setRealAccountNumber(termDepositReqModel.getTransAccountNum());
-	        acctRespModel = acctCreationService.getAcctInfoByRealNum(acctReqModel);
-	        termDepositReqModel.setAccountId(acctRespModel.getAcctData().get(0).getId());
 
-	        if (StringUtils.endsWithIgnoreCase(acctRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
-	             termDepositRespModel.setResult(ErrorCode.RESPONSE_ERROR);
-	        }
-	        return termDepositRespModel;
-	    }
-	
-	private TransactionRespModel withDrawal(TransactionReqModel transactionReqModel) throws Exception
-    {
-        TransactionLog.customerLog(businessLogger, "start withDrawal:" + transactionReqModel.getAccountNumber() + "|" + transactionReqModel.getCurrency() + "|" + transactionReqModel.getAmount() + "|"
-                + transactionReqModel.getOperationCode());
+	private TransactionRespModel withDrawal(TransactionReqModel transactionReqModel) throws Exception {
+		TransactionLog.customerLog(businessLogger,
+				"start withDrawal:" + transactionReqModel.getAccountNumber() + "|" + transactionReqModel.getCurrency()
+						+ "|" + transactionReqModel.getAmount() + "|" + transactionReqModel.getOperationCode());
 
-        TransactionRespModel transactionRespModel = new TransactionRespModel();
+		TransactionRespModel transactionRespModel = new TransactionRespModel();
 
-        // handler withDrawal
-        transactionRespModel = accountBalanceService.withDrawal(transactionReqModel);
+		// handler withDrawal
+		transactionRespModel = accountBalanceService.withDrawal(transactionReqModel);
 
-        TransactionLog.customerLog(businessLogger, "end withDrawal:" + transactionReqModel.getAccountNumber() + "|" + transactionReqModel.getCurrency() + "|" + transactionReqModel.getAmount() + "|"
-                + transactionReqModel.getOperationCode());
-        return transactionRespModel;
-    }
+		TransactionLog.customerLog(businessLogger,
+				"end withDrawal:" + transactionReqModel.getAccountNumber() + "|" + transactionReqModel.getCurrency()
+						+ "|" + transactionReqModel.getAmount() + "|" + transactionReqModel.getOperationCode());
+		return transactionRespModel;
+	}
 
 	private TermDepositRespModel getAcctInfoByRealAcctNum(TermDepositReqModel termDepositReqModel) throws Exception {
 		TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
