@@ -49,7 +49,7 @@ var listData=[];
 function enquiryInfo(e,currentPage){
 	current = currentPage;
 	var transAccountNum = $("#transAccountNum").val();
-	var realAcctNum = $("#realAcctNum").val();
+	var depositNumber = $("#depositNumber").val();
 	var json = {'transAccountNum' : transAccountNum,'depositNumber' : depositNumber,'operationCode' : 'TQ','params':{'pageRecorders':pageRecorders,'currentPage':currentPage}};
 	$.ajax({
 		url : contextPath+"/service/termDeposit/termDepositDepatcher",
