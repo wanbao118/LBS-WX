@@ -183,7 +183,7 @@ public class TermDepositController {
         sysConfRespModel = sysConfService.getAllSysConfByParam(sysConfReqModel);
         String primaryCode = sysConfRespModel.getListData().get(0).getValue();
 
-        transactionRespModel = accountBalanceService.enquireAccountBalance(termDepositReqModel.getTransAccountNum());
+        transactionRespModel = accountBalanceService.enquireAccountBalance(termDepositReqModel.getAccountNumber());
         for (TransactionRespData tmp : transactionRespModel.getListData())
         {
             if (StringUtils.equalsIgnoreCase(primaryCode, tmp.getCurrencyCode()))
@@ -204,6 +204,7 @@ public class TermDepositController {
         }
         return termDepositRespModel;
     }
+
     private TermDepositRespModel checkAcctValid(TermDepositReqModel termDepositReqModel) throws Exception {
         TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
 
@@ -282,7 +283,7 @@ public class TermDepositController {
 		TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
 
 		//validate the transaction account number
-		termDepositRespModel = checkTransactionAcctValid(termDepositReqModel);
+		termDepositRespModel = checkAcctValid(termDepositReqModel);
 		if (StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
 			return termDepositRespModel;
 		}
@@ -291,7 +292,7 @@ public class TermDepositController {
 		/*TODO*/
 
 		//validate the debit account number
-		termDepositRespModel = checkDebitAcctValid(termDepositReqModel);
+		termDepositRespModel = checkInsufficientFunding(termDepositReqModel);
 		if (StringUtils.equalsIgnoreCase(termDepositRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
 			return termDepositRespModel;
 		}
@@ -311,61 +312,6 @@ public class TermDepositController {
 		return termDepositRespModel;
 	}
 
-	private TermDepositRespModel checkTransactionAcctValid(TermDepositReqModel termDepositReqModel) throws Exception {
-		TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
-
-		AcctReqModel acctReqModel = new AcctReqModel();
-		acctReqModel.setRealAccountNumber(termDepositReqModel.getTransAccountNum());
-		AcctRespModel acctRespModel = new AcctRespModel();
-
-		acctRespModel = acctCreationService.accountValidByRealNum(acctReqModel);
-
-		if (StringUtils.equalsIgnoreCase(acctRespModel.getResult(), ErrorCode.RESPONSE_ERROR)) {
-			termDepositRespModel.setResult(ErrorCode.RESPONSE_ERROR);
-			termDepositRespModel.setErrorCode(acctRespModel.getErrorCode());
-
-			return termDepositRespModel;
-		}
-
-		return termDepositRespModel;
-	}
-
-	private TermDepositRespModel checkDebitAcctValid(TermDepositReqModel termDepositReqModel) throws Exception {
-		TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
-
-		TransactionRespModel transactionRespModel = new TransactionRespModel();
-
-		transactionRespModel = accountBalanceService.enquireAccountBalance(termDepositReqModel.getAccountNumber());
-
-		if (transactionRespModel.getListData().size() == 0) {
-			return termDepositRespModel;
-		} else {
-			//validate the primary ccy balance
-			SysConfReqModel sysConfReqModel = new SysConfReqModel();
-			sysConfReqModel.setItem("Primary_Ccy_Code");
-			SysConfRespModel sysConfRespModel = new SysConfRespModel();
-			sysConfRespModel = sysConfService.getAllSysConfByParam(sysConfReqModel);
-
-			if (sysConfRespModel.getListData().size() > 0) {
-				termDepositReqModel.setCcy(sysConfRespModel.getListData().get(0).getValue());
-
-				for (TransactionRespData transactionRespData : transactionRespModel.getListData()) {
-					if (transactionRespData.getCurrencyCode().equalsIgnoreCase(termDepositReqModel.getCcy())) {
-						if (transactionRespData.getBalance() < termDepositReqModel.getDepositAmount()) {
-							List<String> errorList = new ArrayList<String>();
-							errorList.add(ErrorCode.RESPONSE_ERROR);
-
-							termDepositRespModel.setResult(ErrorCode.RESPONSE_ERROR);
-							termDepositRespModel.setErrorCode(errorList);
-						}
-					}
-				}
-			}
-		}
-
-		return termDepositRespModel;
-	}
-	
 	private TermDepositRespModel checkUserIdAndGetLimit(TermDepositReqModel termDepositReqModel,HttpServletRequest request) {
 		TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
 		UserReqModel userReqModel = new UserReqModel();
