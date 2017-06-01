@@ -8,7 +8,7 @@ public class TermDepositRate {
 	
 	private String termDeposiPeriod;
 	
-	private BigDecimal termDeposiInterestRate;
+	private double termDeposiInterestRate;
 
 	public String getId() {
 		return id;
@@ -26,11 +26,11 @@ public class TermDepositRate {
 		this.termDeposiPeriod = termDeposiPeriod;
 	}
 
-	public BigDecimal getTermDeposiInterestRate() {
+	public double getTermDeposiInterestRate() {
 		return termDeposiInterestRate;
 	}
 
-	public void setTermDeposiInterestRate(BigDecimal termDeposiInterestRate) {
+	public void setTermDeposiInterestRate(double termDeposiInterestRate) {
 		this.termDeposiInterestRate = termDeposiInterestRate;
 	}
 	

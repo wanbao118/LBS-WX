@@ -1,5 +1,6 @@
 package com.group.pbox.pvbs.termdeposit;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -8,12 +9,15 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.group.pbox.pvbs.clientmodel.termdeposit.TermDepositReqModel;
 import com.group.pbox.pvbs.clientmodel.termdeposit.TermDepositRespModel;
 import com.group.pbox.pvbs.model.termdeposit.TermDepositMaster;
+import com.group.pbox.pvbs.model.termdeposit.TermDepositRate;
 import com.group.pbox.pvbs.persist.termdeposit.TermDepositMapper;
+import com.group.pbox.pvbs.persist.termdeposit.TermDepositRateMapper;
 import com.group.pbox.pvbs.util.ErrorCode;
 import com.group.pbox.pvbs.util.OperationCode;
 
@@ -24,6 +28,9 @@ public class TermDepositServiceImpl implements ITermDepositService {
 
 	@Resource
 	TermDepositMapper termDepositMapper;
+	
+	@Resource
+    TermDepositRateMapper termDepositRateMapper;
 
 	public TermDepositRespModel creatTermDeposit(TermDepositReqModel termDepostReqModel) {
 		// TODO Auto-generated method stub
@@ -31,6 +38,9 @@ public class TermDepositServiceImpl implements ITermDepositService {
 
 		String termDepositNumber = "";
 		String maxTermDepositNumber = termDepositMapper.genereateMaxTDNum();
+		if(StringUtils.isBlank(maxTermDepositNumber)){
+		    maxTermDepositNumber ="0";
+		}
 		Integer termDepositNumberTemp = Integer.valueOf(maxTermDepositNumber) + 1;
 
 		switch (termDepositNumberTemp.toString().length()) {
@@ -56,24 +66,34 @@ public class TermDepositServiceImpl implements ITermDepositService {
 
 		Date createDate = new Date();
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");//格式化对象
-		Calendar calendar = Calendar.getInstance();//对象
-		calendar.setTime(createDate);//设置当前日期
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(createDate);
 		calendar.add(Calendar.MONTH, Integer.parseInt(termDepostReqModel.getTermPeriod()));
 
 		Date maturityDate = new Date(sdf.format(calendar.getTime()));
 
 		TermDepositMaster termDepositMaster = new TermDepositMaster();
-		termDepositMaster.setAccountId(""/*TODO*/);
+		
+		//get rate info.
+        TermDepositRate termDepositRate = new TermDepositRate();
+        termDepositRate.setTermDeposiPeriod(termDepostReqModel.getTermPeriod());
+        termDepositRate = termDepositRateMapper.fetchTermDepositRateByPeriod(termDepositRate);
+        termDepositMaster.setTermInterestRate(termDepositRate.getTermDeposiInterestRate());
+		
+		termDepositMaster.setAccountId(termDepostReqModel.getAccountId());
 		termDepositMaster.setId(Utils.getUUID());
 		termDepositMaster.setDepositAmount(termDepostReqModel.getDepositAmount());
 		termDepositMaster.setDepositNumber(termDepositNumber);
-		termDepositMaster.setMaturityAmount(maturityAmount);
+		termDepositMaster.setMaturityAmount(termDepostReqModel.getDepositAmount()*(termDepositRate.getTermDeposiInterestRate()+100)*0.01);
+		
+		
+		
 		termDepositMaster.setMaturityDate(maturityDate);
-		termDepositMaster.setMaturityInterest(termDepostReqModel.getMaturityInterset());
-		termDepositMaster.setTermInterestRate(termDepostReqModel.getTermInterestRate());
+		termDepositMaster.setMaturityInterest(termDepostReqModel.getDepositAmount()*termDepositRate.getTermDeposiInterestRate()*0.01);
+		termDepositMaster.setTermInterestRate(termDepositRate.getTermDeposiInterestRate());
 		termDepositMaster.setTermPeriod(termDepostReqModel.getTermPeriod());
-		termDepositMaster.setCreateDate(new Date());
+		termDepositMaster.setCreateTime(new Timestamp(new Date().getTime()));
 
 		boolean result = termDepositMapper.addTermDeposit(termDepositMaster);
 		if (result) {
