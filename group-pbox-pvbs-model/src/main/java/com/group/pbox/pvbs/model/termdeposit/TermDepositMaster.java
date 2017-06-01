@@ -1,5 +1,6 @@
 package com.group.pbox.pvbs.model.termdeposit;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class TermDepositMaster {
@@ -24,16 +25,9 @@ public class TermDepositMaster {
 	
 	private String maturityStatus;
 
-	private Date createDate;
+	private Timestamp createTime;
 
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-
+	
 	public String getId() {
 		return id;
 	}
@@ -113,5 +107,15 @@ public class TermDepositMaster {
 	public void setMaturityStatus(String maturityStatus) {
 		this.maturityStatus = maturityStatus;
 	}
+
+    public Timestamp getCreateTime()
+    {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime)
+    {
+        this.createTime = createTime;
+    }
 
 }
