@@ -107,15 +107,18 @@ public class TermDepositServiceImpl implements ITermDepositService {
 
 	public TermDepositRespModel inquiryTermDeposit(TermDepositReqModel termDepositReqModel) {
 		TermDepositRespModel termDepositRespModel = new TermDepositRespModel();
-		String accountNum = termDepositReqModel.getTransAccountNum();
+		String accountId = termDepositReqModel.getAccountId();
 		String depositNum = termDepositReqModel.getDepositNumber();
 
-		List<TermDepositMaster> termDeposit = termDepositMapper.enquiryTermDeposit(accountNum, depositNum);
+		List<TermDepositMaster> termDeposit = termDepositMapper.enquiryTermDeposit(accountId, depositNum);
 
 		if (termDeposit.size() > 0) {
 			termDepositRespModel.setResult(ErrorCode.RESPONSE_SUCCESS);
 		}
-
+		else {
+			termDepositRespModel.setResult(ErrorCode.RESPONSE_ERROR);
+		}
+		
 		return termDepositRespModel;
 	}
 

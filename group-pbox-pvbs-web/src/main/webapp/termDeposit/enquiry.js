@@ -88,7 +88,7 @@ function enquiryInfo(e,currentPage){
 				{
 					location.href=contextPath+"/login.html";
 				}
-				$('#enquiryForm').find('.alert-warning').html('Record Not Exist!'+$.errorHandler.prop(response.errorCode[0])).show();
+				$('#enquiryForm').find('.alert-warning').html('Record Not Exist!').show();
 			}
 			handlePageInfo(response.params);
 		}

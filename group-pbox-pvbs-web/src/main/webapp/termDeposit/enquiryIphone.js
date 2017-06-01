@@ -49,8 +49,9 @@ var listData=[];
 function enquiryInfo(e,currentPage){
 	current = currentPage;
 	var transAccountNum = $("#transAccountNum").val();
-	var realAcctNum = $("#realAcctNum").val();
-	var json = {'transAccountNum' : transAccountNum,'depositNumber' : depositNumber,'operationCode' : 'TQ','params':{'pageRecorders':pageRecorders,'currentPage':currentPage}};
+	var depositNum = $("#depositNumber").val();
+	
+	var json = {'transAccountNum' : transAccountNum,'depositNumber' : depositNum,'operationCode' :'TQ'};
 	$.ajax({
 		url : contextPath+"/service/termDeposit/termDepositDepatcher",
 		type : "post",
@@ -80,7 +81,7 @@ function enquiryInfo(e,currentPage){
 				{
 					location.href=contextPath+"/login.html";
 				}
-				$('#enquiryForm').find('.alert-warning').html('Record Not Exist!'+$.errorHandler.prop(response.errorCode[0])).show();
+				$('#enquiryForm').find('.alert-warning').html('Record Not Exist!').show();
 			}
 			handlePageInfo(response.params);
 		}

@@ -54,10 +54,10 @@
 		resultType="com.group.pbox.pvbs.model.termdeposit.TermDepositMaster">
 		select
 		<include refid="Base_Column_List" />
-		from t_td_master t left join t_account a on t.ACCOUNT_ID=a.ID
+		from t_td_master
 		where
-		a.REAL_ACCOUNT_NUMBER=#{0} AND
-		t.DEPOSIT_NUMBER=#{1}
+		ACCOUNT_ID=#{accountId} AND
+		DEPOSIT_NUMBER=#{depositNumber}
 	</select>
 
 	<select id="genereateMaxTDNum"
