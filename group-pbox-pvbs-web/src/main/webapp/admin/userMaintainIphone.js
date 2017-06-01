@@ -168,15 +168,17 @@ function mousdown(id){
 		success : function(response) {
 			if(response.result == 00000 ){
 				$('#userInfor').empty();
-				$('#userInfor').append("Close succeed!");
+				$('#userInfor').append("Delete User succeed!");
+				$('#userInfor').removeAttr("onclick");
 			}
 			else {
 //				alert("Close fail! The balance is more than 0.Please check the balance.")
-				$('#userInfor').append("Close fail!");
+				$('#userInfor').append("Delete User fail!");
+				$('#userInfor').removeAttr("onclick");
 			}
 		},
 		error: function() {
-			$('#userInfor').append("Close fail!");
+			$('#userInfor').append("Net Error!");
 		}
 	
 	});
