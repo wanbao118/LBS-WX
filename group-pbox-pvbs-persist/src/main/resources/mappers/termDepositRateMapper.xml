@@ -8,7 +8,7 @@
 		<result property="termDeposiPeriod" column="TD_PERIOD"
 			javaType="String" />
 		<result property="termDeposiInterestRate" column="TD_INTEREST_RATE"
-			javaType="BigDecimal" />
+			javaType="double" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		ID as id , TD_PERIOD as  termDeposiPeriod , TD_INTEREST_RATE as termDeposiInterestRate
