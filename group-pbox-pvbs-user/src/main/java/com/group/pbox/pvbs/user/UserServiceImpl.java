@@ -88,7 +88,14 @@ public class UserServiceImpl implements IUserService {
 			user.setExchangeRateLimit(userReqModel.getExchangeRateLimit());
 			user.setTermDepositeLimit(userReqModel.getTermDepositeLimit());
 			user.setTransactionLimit(userReqModel.getTransactionLimit());
-			user.setUserStatus(userReqModel.getUserStatus());
+
+			if (StringUtils.isBlank(userReqModel.getUserStatus())) {
+				user.setUserStatus(user.getUserStatus());
+			}
+			else {
+				user.setUserStatus(userReqModel.getUserStatus());
+			}
+			
 			int recordNum = userMapper.updateUser(user);
 
 			if (recordNum > 0) {
