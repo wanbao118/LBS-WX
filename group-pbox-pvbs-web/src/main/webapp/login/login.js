@@ -72,8 +72,11 @@ function login(e) {
 					if (response.listData[0].userStatus == "Active") {
 						var userId = response.listData[0].userId;
 						var userName = response.listData[0].userName;
+						var userPosition = response.listData[0].userPosition;
+						
 						sessionStorage.setItem("userId", userId);
 						sessionStorage.setItem("userName", userName);
+						sessionStorage.setItem("userPosition", userPosition);
 						window.location.href = contextPath+"/index.html";
 					}
 					else {
