@@ -48,6 +48,7 @@ var current;
 	function enquiryInfo(e,currentPage){
 		current = currentPage;
 		var realAcctNum = $("#realAcctNum").val();
+		var tipboxwarn = document.getElementById("tipboxwarn");
 		var json = {'realAccountNumber' : realAcctNum, 'operationCode' : 'B','params':{'pageRecorders':pageRecorders,'currentPage':currentPage}};
 		$.ajax({
 			url : contextPath+"/service/acct/acctMaintenance",
@@ -57,21 +58,24 @@ var current;
 			data : JSON.stringify(json),
 			success : function(response) {
 				if (response.result==00000) {
+					tipboxwarn.style.display = "none";
+					$("#data").empty();
 					$("#pageInfo").empty();
 					listData = response.listData;
 					var list = response.listData;
 					var len = list.length;
-					
+					var rec;
 					for(var i = 0;i<len;i++){
-						var rec = "<div class=\"alert alert-info alert-dismissible alert-info-new\" role=\"alert\"  onclick=\"edit('"+list[i].id+"')\">";
+						rec = "<div class=\"alert alert-info alert-dismissible alert-info-new\" role=\"alert\">";
 						
 						rec = rec+"<button id=\"closeAcct\" type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span onclick=\"mousdown('"+list[i].account.realAccountNumber+"')\" aria-hidden=\"true\">&times;</span></button>";
 						rec = rec+"<i class=\"fa fa-info-circle\"></i>";
+						rec = rec+"<div onclick=\"edit('"+list[i].id+"')\">";
 						rec = rec+"<input type='hidden' id='"+list[i].id+"' value='"+JSON.stringify(list[i])+"'/>";
 						rec=rec+" "+list[i].customerName+"("+list[i].customerId+")";
-						rec=rec+"</div>";
+						rec=rec+"</div></div>";
+						$("#data").append(rec);
 					}
-					$("#data").append(rec);
 				}
 				else {
 					$(".acctNotExist").fadeIn();
@@ -101,7 +105,6 @@ function mousdown(realAccountNumber){
 					enquiryInfo(null,current); 
 				}
 				else {
-//					alert("Close fail! The balance is more than 0.Please check the balance.")
 					$('#enquiryForm').find('.alert').html('Close fail!'+$.errorHandler.prop(response.errorCode[0])).show();
 				}
 			},

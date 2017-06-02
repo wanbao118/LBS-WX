@@ -66,11 +66,7 @@ function balance(e){
 			}else{
 				tipbox.style.display = "none";
 				tableDiv.style.display = "block";
-				var rec = "<div class=\"alert alert-info alert-dismissible alert-info-new\" role=\"alert\">";
-				rec = rec+"<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>";
-				rec = rec+"<i class=\"fa fa-info-circle\"></i>";
-				
-				
+				var rec;
 				var balanceList = response.listData;		
 				for(var i=0;i<balanceList.length;i++){
 					var currentBalance = balanceList[i];									
@@ -83,14 +79,16 @@ function balance(e){
 					var min = newDate.getMinutes();
 					var second = newDate.getSeconds();
 					var showTime = year+"-"+add0(month)+"-"+add0(date)+" "+add0(hour)+":"+add0(min)+":"+add0(second);
+					
+					rec = "<div class=\"alert alert-info alert-dismissible alert-info-new\" role=\"alert\">";
+					rec = rec+"<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>";
+					rec = rec+"<i class=\"fa fa-info-circle\"></i>";
 					rec = rec+ " " + realAccountNumber +" ";
 					rec = rec+ " " + currentBalance.balance + " " + currentBalance.currencyCode +" ";
 					rec = rec+ " at " +showTime + " ";
+					rec = rec+ "</div>";
+					$("#data").append(rec);
 				}
-				
-				rec = rec+ "</div>";
-				
-				$("#data").append(rec);
 						
 			}
 		},
