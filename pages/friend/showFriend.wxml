@@ -1,0 +1,98 @@
+<view class="page">
+  <view class="page__hd">
+    <!--page__hd end-->
+  </view>
+  <view class="page__bd">
+    <view class="weui-flex">
+      <view>
+        <image style="width: 130px; height: 130px;" src="http://www.qqleju.com/uploads/allimg/160622/22-101309_76.jpg" background-size="cover">
+        </image>
+      </view>
+      <view class="weui-flex__item">
+        <view class="weui-flex">
+          <view class="weui-flex__item" style="color:blue;font-weight:bold">{{person.userName}}
+          </view>
+          <view class="">
+            <image style="width: 16px; height: 16px;" src="{{person.sex ? '/images/nan.png' : '/images/nv.png'}}" background-size="cover">
+            </image>
+          </view>
+        </view>
+        <view class="weui-flex" style="color:red;">
+          <view class="weui-flex__item">Lv.{{person.level}}</view>
+          <view>信：{{person.creditLevel}}</view>
+        </view>
+        <!--<view class="weui-flex">
+          <view class="weui-flex__item">信用等级</view>
+          <view>三级</view>
+        </view>-->
+        <view class="weui-flex">
+          <view class="weui-flex__item">小熊币:</view>
+          <view>{{person.money}}</view>
+        </view>
+        
+        <view class="weui-flex">
+          <view class="weui-flex__item">加入日期:</view>
+          <view>{{person.createDate}}</view>
+        </view>
+
+        <view class="weui-flex">
+          <view wx:if="{{person.phoneCertify}}" class="weui-flex__item">
+        <image style="width: 24px; height: 24px;" src="/images/phone.png" background-size="cover">
+        </image>
+      </view>
+      <view wx:if="{{person.idcardCertify}}" class="weui-flex__item">
+        <image style="width: 24px; height: 24px;" src="/images/idcard.png" background-size="cover">
+        </image>
+      </view>
+      <view class="weui-flex__item">
+         
+      </view>
+      <view class="weui-flex__item">
+         
+      </view>
+        </view>
+      </view>
+    </view>
+    <view class="weui-flex">
+      <view wx:if="{{person.partner}}" class="weui-flex__item">
+        <button type="primary" size="mini" bindtap="btnPartner">陪</button>
+      </view>
+      <view wx:if="{{person.teacher}}" class="weui-flex__item">
+        <button type="primary" size="mini" bindtap="btnTeacher">教</button>
+      </view>
+      <view wx:if="{{person.shop}}" class="weui-flex__item">
+        <button type="primary" size="mini" bindtap="btnShop">店</button>
+      </view>
+      <view class="weui-flex__item">
+      </view>
+      <view class="weui-flex__item">
+      </view>
+      
+    </view>
+    <view class="weui-flex">
+    <view>爱好运动：</view>
+    <view class="weui-flex__item"><button type="default" size="mini" bindtap="">{{person.favType1}}</button></view>
+    <view class="weui-flex__item"><button type="default" size="mini" bindtap="">{{person.favType2}}</button></view>
+    <view class="weui-flex__item"><button type="default" size="mini" bindtap="">{{person.favType3}}</button></view>
+    </view>
+    <view class="weui-flex" style="color:blue;font-size:12px">
+      {{person.intro}}
+    </view>
+    <view class="weui-flex">
+      <view class="weui-flex__item">
+        <view class="weui-cells__title">运动信息</view>
+        <view class="weui-cells weui-cells_after-title">
+          <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd">参加的活动</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access">21</view>
+          </navigator>
+          <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd">熊友圈</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access">4</view>
+          </navigator>
+        </view>
+        
+      </view>
+    </view>
+  </view>
+</view>

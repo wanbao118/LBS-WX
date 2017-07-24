@@ -1,0 +1,4 @@
+/* pages/friend/partner.wxss */
+.bc_green{
+    background-color: green;
+}
