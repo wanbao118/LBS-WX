@@ -10,6 +10,15 @@ App({
     that.systemInfo();
     //that.userInfo();
 
+
+     
+  },
+  onLaunch: function () {
+    var that=this;
+    that.systemInfo();
+   that.userInfo();
+    
+
   },
 
   //获取用户信息
@@ -18,6 +27,7 @@ App({
     3. 调用微信接口wx.getUserInfo获取用户信息，并将前面获得的用户的openid加到用户信息里
     4. 将用户信息存到本机和远程数据库里（第一次登陆）。
    */
+
   //全局方法，index.js中调用
   userInfo: function () {
     var that=this;
@@ -67,6 +77,97 @@ App({
   //获取系统信息
   systemInfo: function () {
 
+
+ userInfo:function(){
+     
+      //调用登录接口
+      wx.login({
+          success: function(res){
+            // wx.login:success
+            var od;// 存储OpenId，微信用户唯一值
+            if(res.code){
+              //code 换成 openid 和 session_key, 
+              wx.request({
+                url: 'http://127.0.0.1:3000/users/wxlogin',
+                data: {
+                  code: res.code
+},
+                method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+                // header: {}, // 设置请求的 header
+                success: function(res){
+                  var a =JSON.parse(res.data)
+                   od = a.openid
+                },
+                fail: function(res) {
+                  // fail
+                },
+                complete: function(res) {
+                  // complete
+                }
+              })
+              //获取用户信息
+              wx.getUserInfo({
+                success: function(res){
+                  //将用户信息储存到本机
+                  //增加Openid
+                  res.userInfo.openid=od
+                 
+                  wx.setStorage({
+                    key: 'userInfo',
+                    data: res.userInfo
+,
+                    success: function(res){
+                      // success
+                    },
+                    fail: function(res) {
+                      // fail
+                    },
+                    complete: function(res) {
+                      // complete
+                    }
+                  })
+                  //将用户信息储存到mangoDB:lbs数据库
+                  wx.request({
+                    url: 'http://127.0.0.1:3000/users/addUser',
+                    data: res.userInfo,
+                    method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+                    // header: {}, // 设置请求的 header
+                    success: function(res){
+                      // success
+                    console.log(res.data);
+                    },
+                    fail: function(res) {
+                      // fail
+                    },
+                    complete: function(res) {
+                      // complete
+                    }
+                  })
+                },
+                fail: function(res) {
+                  // wx.getUserInfo:fail
+                },
+                complete: function(res) {
+                  // wx.getUserInfo:complete
+                }
+              })
+            }else{
+              console.log('获取用户登录态失败！' + res.errMsg);
+            }
+          },
+          fail: function(res) {
+            // wx.login:fail
+          },
+          complete: function(res) {
+            // wx.login:complete
+          }
+        })
+  },
+ 
+
+  //获取系统信息
+  systemInfo:function () {
+
     wx.getSystemInfo({
       success: function (res) {
         // success
@@ -85,6 +186,7 @@ App({
         })
       }
     })
+
   },
 
   //获取用户信息
@@ -143,7 +245,6 @@ App({
 
   
 
-
-
+  }
 
 })
