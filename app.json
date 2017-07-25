@@ -4,29 +4,21 @@
     "pages/action/actionList",
     "pages/action/createAction",
     "pages/action/selectAction",
-    "pages/discovery/discovery",
-    "pages/discovery/placeDetail",
+    "pages/action/placeList",
     "pages/friend/friend",
     "pages/friend/showFriend",
-    "pages/friend/showCycle",
-    "pages/friend/createCycle",
+    "pages/friend/showFriendAct",
     "pages/friend/clubMember",
-    "pages/friend/partner",
-    "pages/friend/teacher",
-    "pages/friend/shop",
+    "pages/friend/map",
     "pages/my/my",
-    "pages/users/partner",
-    
-     
-    "pages/maps/around",
-    "pages/maps/detail"
-    
-    
+    "pages/my/mySetting",
+    "pages/my/myActive",
+    "pages/my/myInfo"
     
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#9900cc",
+    "navigationBarBackgroundColor": "Purple",
     "navigationBarTitleText": "BearSports",
     "navigationBarTextStyle":"white"
   },
@@ -44,12 +36,6 @@
      "iconPath": "images/action_default.png", 
       "pagePath": "pages/action/actionList",
       "text": "活动"
-    },
-     {
-      "selectedIconPath": "images/discovery.png",
-     "iconPath": "images/discovery_default.png", 
-      "pagePath": "pages/discovery/discovery",
-      "text": "发现"
     },
     {
       "selectedIconPath": "images/cycle.png",  

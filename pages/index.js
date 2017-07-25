@@ -1,4 +1,5 @@
 //index.js
+var common = require('../common/common.js')
 var app = getApp();
 var bmap = require('../libs/bmap-wx.js'); 
 const ak= 'bfwtSbwjqSnIPWGIjKssrQdsPZn0Q87g';
@@ -39,8 +40,11 @@ Page({
 
   onLoad: function(options) {
      var that = this; 
-
-
+     var response={}
+     common.iRequest("9787115353528", {}, function (response){
+       console.log(response);
+     });
+     
  app.userInfo(function(userInfo){
       //更新数据
       that.setData({
