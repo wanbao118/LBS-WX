@@ -4,95 +4,81 @@
   </view>
   <view class="page__bd">
     <view class="weui-flex">
-      <view>
-        <image style="width: 130px; height: 130px;" src="http://www.qqleju.com/uploads/allimg/160622/22-101309_76.jpg" background-size="cover">
-        </image>
+      <view class="weui-flex__item" style="text-align:center">
+        <image class="userinfo-avatar" src="{{person.avatarUrl}}" background-size="cover"></image>
       </view>
-      <view class="weui-flex__item">
-        <view class="weui-flex">
-          <view class="weui-flex__item" style="color:blue;font-weight:bold">{{person.userName}}
-          </view>
-          <view class="">
-            <image style="width: 16px; height: 16px;" src="{{person.sex ? '/images/nan.png' : '/images/nv.png'}}" background-size="cover">
-            </image>
-          </view>
-        </view>
-        <view class="weui-flex" style="color:red;">
-          <view class="weui-flex__item">Lv.{{person.level}}</view>
-          <view>信：{{person.creditLevel}}</view>
-        </view>
-        <!--<view class="weui-flex">
-          <view class="weui-flex__item">信用等级</view>
-          <view>三级</view>
-        </view>-->
-        <view class="weui-flex">
-          <view class="weui-flex__item">小熊币:</view>
-          <view>{{person.money}}</view>
-        </view>
-        
-        <view class="weui-flex">
-          <view class="weui-flex__item">加入日期:</view>
-          <view>{{person.createDate}}</view>
-        </view>
+    </view>
+    <view class="weui-flex">
+      <view class="weui-flex__item" style="text-align:center">
+        <text class="userinfo-nickname">{{person.nickName}}</text>
+      </view>
+    </view>
 
-        <view class="weui-flex">
-          <view wx:if="{{person.phoneCertify}}" class="weui-flex__item">
-        <image style="width: 24px; height: 24px;" src="/images/phone.png" background-size="cover">
-        </image>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">加入时间：</view>
       </view>
-      <view wx:if="{{person.idcardCertify}}" class="weui-flex__item">
-        <image style="width: 24px; height: 24px;" src="/images/idcard.png" background-size="cover">
-        </image>
+      <view class="weui-cell__bd">
+        <input type="text" name="input" class="weui-input" value="{{person.firstLoginTime}}" />
       </view>
-      <view class="weui-flex__item">
-         
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">最近登陆：</view>
       </view>
-      <view class="weui-flex__item">
-         
+      <view class="weui-cell__bd">
+        <input type="text" name="input" class="weui-input" value="{{person.lastLoginTime}}" />
       </view>
+    </view>
+   
+    <view class="weui-panel weui-panel_access">
+      <!--<view class="weui-panel__hd">文字组合列表</view>-->
+      <view class="weui-panel__bd">
+        <view class="weui-media-box weui-media-box_text">
+          <view class="weui-media-box__title weui-media-box__title_in-text">自我介绍</view>
+          <view class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</view>
         </view>
       </view>
     </view>
-    <view class="weui-flex">
-      <view wx:if="{{person.partner}}" class="weui-flex__item">
-        <button type="primary" size="mini" bindtap="btnPartner">陪</button>
-      </view>
-      <view wx:if="{{person.teacher}}" class="weui-flex__item">
-        <button type="primary" size="mini" bindtap="btnTeacher">教</button>
-      </view>
-      <view wx:if="{{person.shop}}" class="weui-flex__item">
-        <button type="primary" size="mini" bindtap="btnShop">店</button>
-      </view>
-      <view class="weui-flex__item">
-      </view>
-      <view class="weui-flex__item">
-      </view>
-      
-    </view>
-    <view class="weui-flex">
-    <view>爱好运动：</view>
-    <view class="weui-flex__item"><button type="default" size="mini" bindtap="">{{person.favType1}}</button></view>
-    <view class="weui-flex__item"><button type="default" size="mini" bindtap="">{{person.favType2}}</button></view>
-    <view class="weui-flex__item"><button type="default" size="mini" bindtap="">{{person.favType3}}</button></view>
-    </view>
-    <view class="weui-flex" style="color:blue;font-size:12px">
-      {{person.intro}}
-    </view>
-    <view class="weui-flex">
+<view class="weui-flex">
       <view class="weui-flex__item">
         <view class="weui-cells__title">运动信息</view>
         <view class="weui-cells weui-cells_after-title">
-          <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view></view>
+          <navigator url="showFriendAct?openid={{person.openid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
             <view class="weui-cell__bd">参加的活动</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">21</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access">{{myActiveCount}}</view>
           </navigator>
-          <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd">熊友圈</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">4</view>
-          </navigator>
+           
+        </view>
+
+      </view>
+    </view>
+    <view class="weui-panel">
+      <!--<view class="weui-panel__hd">文字列表附来源</view>-->
+      <view class="weui-panel__bd">
+        <view class="weui-media-box weui-media-box_text">
+          <view class="weui-media-box__title weui-media-box__title_in-text"><view class="fa fa-commenting"></view></view>
+          <view class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</view>
+          <view class="weui-media-box__info">
+            <view class="weui-media-box__info__meta">文字来源</view>
+            <view class="weui-media-box__info__meta">时间</view>
+            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">其它信息</view>
+          </view>
+
+          <text>\n</text>
+        <view class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</view>
+          <view class="weui-media-box__info">
+            <view class="weui-media-box__info__meta">文字来源</view>
+            <view class="weui-media-box__info__meta">时间</view>
+            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">其它信息</view>
+          </view>
+        
         </view>
         
       </view>
     </view>
+    
   </view>
 </view>

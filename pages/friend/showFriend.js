@@ -2,37 +2,54 @@
 var app = getApp()
 Page({
   data:{
-   person:{userName:"我是美女",level:45,creditLevel:30,sex:0,money:3343,favType1:"羽球",favType2:"跑步",favType3:"足球",createDate:"2017/03/21",phoneCertify:1,idcardCertify:1,partner:1,teacher:1,shop:1,intro:"喜欢我就约我吧"},
+   person:[],
    userInfo: {},
    grids: [0, 1, 2, 3, 4, 5],
-   discuss:[
-        {id:"1",title:"大的负担",time:"2017/03/04 13:00",level:5,content:"大家好，很高兴认识大家"},
-        {id:"2",title:"我发生地方",time:"2017/02/04 21:00",level:4,content:"大；立刻接受对方"},
-        {id:"3",title:"斯蒂芬森",time:"2017/03/04 13:50",level:5,content:"大家好，很高兴认识大家"},
-        {id:"4",title:"文无定法",time:"2017/01/04 08:00",level:4,content:"大家好，很看见对方的"},
-        {id:"5",title:"让他热认同",time:"2017/03/04 13:00",level:7,content:"大家好，很高兴认识大家"},
-        {id:"6",title:"大噶规范",time:"2017/03/04 13:00",level:6,content:"的；为呃呃呃"},
-        {id:"7",title:"a发生过",time:"2017/03/04 13:00",level:9,content:"呃呃呃阿斯顿"}
-      ],
-
+   myActiveCount:0,
+   openid:''
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-    // 暂时取测试数据
-  //   this.setData({
-     
-  //    person:options,
-      
-  //  });
-   //调用应用实例的方法获取全局数据
-    app.getUserInfo(function(userInfo){
-      //更新数据
+  var that = this;  
+  that.setData({   
+    userInfo:options,    
+  });
+  //从storage获取openid
+  wx.getStorage({
+    key: 'userInfo',
+    success: function (res) {
       that.setData({
-        userInfo:userInfo
-      })
-    })
-     
-  },
+         openid :res.data.openid
+      });
+      console.log("oid:" + res.data.openid);
+      //获取参加活动数量信息
+      that.getActiveCount(); 
+    }
+  })
+
+ //获取用户信息
+  wx.request({
+          url: 'https://127.0.0.1:3000/user',
+          data: {_id:this.data.userInfo.id},
+          method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+          // header: {}, // 设置请求的 header
+          success: function(res){
+               
+             that.setData({ 
+                person:res.data[0] 
+               }); 
+            
+          },
+          fail: function(res) {
+            // fail
+          },
+          complete: function(res) {
+            // complete
+          }
+        })
+
+
+},
    
 
 
@@ -64,5 +81,28 @@ Page({
     wx.navigateTo({
           url: 'shop'
         })
-  }
+  },
+  //查询参加的活动数量
+  getActiveCount: function () {
+    var that=this;
+    console.log("oid111:" + that.data.openid);
+    wx.request({
+      url: 'https://localhost:3000/active/myActiveCount',
+      data: { openid: that.data.openid },
+      method: 'get',
+      success: function (res) {
+        console.log("count:" + res.data);
+        that.setData({
+          myActiveCount: res.data
+        })
+      },
+      fail: function (res) {
+        console.log("showfriend fail");
+      },
+      complete: function (res) {
+        // complete
+      
+      }
+    })
+  },
 })
