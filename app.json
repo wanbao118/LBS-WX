@@ -1,0 +1,54 @@
+{
+  "pages":[
+    "pages/index",
+    "pages/action/actionList",
+    "pages/action/createAction",
+    "pages/action/selectAction",
+    "pages/action/placeList",
+    "pages/friend/friend",
+    "pages/friend/showFriend",
+    "pages/friend/showFriendAct",
+    "pages/friend/clubMember",
+    "pages/friend/map",
+    "pages/my/my",
+    "pages/my/mySetting",
+    "pages/my/myActive",
+    "pages/my/myInfo"
+    
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "Purple",
+    "navigationBarTitleText": "BearSports",
+    "navigationBarTextStyle":"white"
+  },
+  "tabBar": {
+    
+    "list": [{
+    "selectedIconPath": "images/home.png",  
+     "iconPath": "images/home_default.png", 
+      "pagePath": "pages/index",
+      "text": "首页"
+    },
+    
+     {
+      "selectedIconPath": "images/action.png",
+     "iconPath": "images/action_default.png", 
+      "pagePath": "pages/action/actionList",
+      "text": "活动"
+    },
+    {
+      "selectedIconPath": "images/cycle.png",  
+     "iconPath": "images/cycle_default.png", 
+      "pagePath": "pages/friend/friend",
+      "text": "熊圈"
+    },
+    {
+      "selectedIconPath": "images/my.png",  
+     "iconPath": "images/my_default.png", 
+      "pagePath": "pages/my/my",
+      "text": "我的"
+    }
+    ]
+  }
+}

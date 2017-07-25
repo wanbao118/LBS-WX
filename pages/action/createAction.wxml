@@ -1,0 +1,142 @@
+
+<!--pages/action/createAction.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view  bindtap="bindViewTap" class="userinfo container">
+    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </view>
+    <view class="page__title">我要发起一个活动</view>
+  </view>
+  <view class="page__bd">
+     <form bindsubmit="formSubmit">
+     <view class="weui-cells__title">请输入活动介绍</view>
+        <view class="weui-cells weui-cells_after-title">
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">活动类型</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker id="actType" mode="selector" value="{{actTypeIndex}}" range="{{actTypes}}" bindchange="actTypeChange" name="actType">
+           
+            <view  class="weui-input">{{actTypes[actTypeIndex]}}</view>
+          </picker>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">运动类别</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker id="sprType" mode="selector" value="{{sprTypeIndex}}" range="{{sprTypes}}" bindchange="sprTypeChange" name="sprType">
+            <view  class="weui-input">{{sprTypes[sprTypeIndex]}}</view>
+           
+          </picker>
+        </view>
+      </view>
+
+     </view>
+     
+      
+    <view class="weui-cells weui-cells_after-title">
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">活动周期</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker id="actTerm" mode="selector" value="{{actTermIndex}}" range="{{actTerms}}" bindchange="actTermChange" disabled="{{actTermDisabled}}" name="actTerm">
+            <view name="actTerm" class="weui-input">{{actTerms[actTermIndex]}}</view>
+        
+          </picker>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">活动日期</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker id="actDate" mode="date" value="{{date}}" start="{{date}}"  bindchange="actDateChange" disabled="{{dateDisabled}}" name="actDate">
+            <view  class="weui-input">{{actDate}}</view>
+          </picker>
+        </view>
+      </view>
+
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">活动时间</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker id="actTime" mode="time" value="{{time}}" start="{{time}}" end="21:01" bindchange="actTimeChange" name="actTime">
+            <view  class="weui-input">{{actTime}}</view>
+          </picker>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">场地名称</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input name="areaName" class="weui-input" placeholder="请输入场地名称" value="{{areaName}}" focus="true"  bindinput="areaNameInput" /> 
+        </view>
+        <view class="weui-cell__ft" hidden="{{hideSearch}}">
+           <navigator url="./placeList?sprType={{sprTypes[sprTypeIndex]}}" hover-class="navigator-hover">
+              <image  src="/images/around_default.png" style="width: 20px; height: 20px;">
+        </image>
+           </navigator>
+          
+        </view>
+      </view>
+
+        <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">场地地址</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input name="areaAddress" class="weui-input" placeholder="请输入场地地址" value="{{areaAddress}}" focus="true"  bindinput="areaAddressInput"/>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">人数限制</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input name="planPeople" class="weui-input" type="number" bindinput="planPeopleInput"/>
+        </view>
+      </view>
+      
+       <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">费用类型</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker id="feeType" mode="selector" value="{{feeTypeIndex}}" range="{{feeTypes}}" bindchange="feeTypeChange" name="feeType">
+            <view name="feeType" class="weui-input">{{feeTypes[feeTypeIndex]}}</view>
+         
+          </picker>
+        </view>
+      </view>
+
+      <view class="weui-cell">
+            <view class="weui-cell__bd">
+            <textarea class="weui-textarea" placeholder="留言" style="height: 3.3em" bindblur="wordsInput" />
+            <view name="leaveMessage" class="weui-textarea-counter">0/50</view>
+          </view>
+        </view>
+
+      </view>
+     
+    
+  
+      <view class="weui-btn-area">
+      <button class="weui-btn" type="primary" bindtap="submitActive" formType="submit">确定</button>
+      </view>
+
+    </form>
+    </view><!--page__bd-->
+</view><!--page-->
