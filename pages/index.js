@@ -1,9 +1,5 @@
 //index.js
 var common = require('../common/common.js')
-var app = getApp();
-var bmap = require('../libs/bmap-wx.js'); 
-const ak= 'bfwtSbwjqSnIPWGIjKssrQdsPZn0Q87g';
-var wxMarkerData = []; 
 var app = getApp()
 //var hasMore=false;
 //var pageNum=0;
@@ -22,25 +18,18 @@ Page({
 
     inputShowed: false,
     inputVal: "",
-    arrayList: [],
-    markers: [], 
-    latitude: '', 
-    longitude: '', 
-      
-      
+    arrayList: [], 
     userInfo: {},
     cityName:"",
     grids: [0, 1, 2, 3, 4, 5, 6, 7, 8]
   }, 
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
-
+  
   onLoad: function(options) {
+    console.log("cityName:" + app.gData.cityName);
      var that = this; 
-      
+     that.setData({
+       cityName: app.gData.cityName
+     }); 
       
      
  app.userInfo(function(userInfo){
@@ -50,67 +39,10 @@ Page({
       })
     })
 
-//调用百度
- that.getCity();
+
 
  
        
   },
-  showInput: function () {
-        this.setData({
-            inputShowed: true
-        });
-    },
-    hideInput: function () {
-        this.setData({
-            inputVal: "",
-            inputShowed: false
-        });
-    },
-    clearInput: function () {
-        this.setData({
-            inputVal: ""
-        });
-    },
-    inputTyping: function (e) {
-        this.setData({
-            inputVal: e.detail.value
-        });
-    }, 
- 
-    //获取城市信息
-    getCity:function(){
-        var that = this; 
-          // 新建百度地图对象 
-        var BMap = new bmap.BMapWX({ 
-            ak: ak 
-        }); 
-        var fail = function(data) { 
-            console.log(data) 
-        }; 
-        var success = function(data) { 
-            wxMarkerData = data.wxMarkerData; 
-           
-             that.setData({ 
-                 markers: wxMarkerData 
-             }); 
-             that.setData({ 
-                 latitude: wxMarkerData[0].latitude 
-             }); 
-             that.setData({ 
-                 longitude: wxMarkerData[0].longitude 
-             }); 
-            that.setData({
-                cityName:wxMarkerData[0].city
-            });
-        } 
-         // 发起regeocoding检索请求 
-        BMap.regeocoding({ 
-            fail: fail, 
-            success: success, 
-          //  iconPath: '../../img/marker_red.png', 
-          //  iconTapPath: '../../img/marker_red.png' 
-        }); 
-       
-    },
+  
 })
