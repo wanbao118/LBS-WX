@@ -1,6 +1,6 @@
 //获取应用实例
 var app = getApp();
-var util = require('../../utils/util.js');
+var util = require('../../common/util.js');
 // pages/action/createAction.js
 var openid='';
 Page({
