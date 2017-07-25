@@ -7,8 +7,8 @@
 }
 
 .userinfo-avatar {
-  width: 150rpx;
-  height: 150rpx;
+  width: 250rpx;
+  height: 250rpx;
   margin: 10rpx;
   border-radius: 50%;
 }
