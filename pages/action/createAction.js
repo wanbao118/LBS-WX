@@ -2,40 +2,52 @@
 var app = getApp();
 var util = require('../../utils/util.js');
 // pages/action/createAction.js
-//var openId='';
+var openid='';
 Page({
   data:{
     subject:"",
-    date:"",
-    time:"",
+    actDate:"",
+    actTime:"",
     dateDisabled:false,
     userInfo: {},
-    actTypes: ["约战","陪练","教学","看比赛"],
+    actTypes: ["约战","陪练","看比赛"],
     actTypeIndex: 0,
-    sprTypes: ["跑步","足球","篮球","羽毛球","网球"],
+    sprTypes: ["跑步","足球","篮球","羽毛球"],
     sprTypeIndex: 0 ,
-    feeTypes: ["AA","我付","比赛决定"],
+    feeTypes: ["均摊","我请客","比赛决定"],
     feeTypeIndex: 0,
-    actTerms: ["每天","每周内","每周末","周一三五","周二四六"],
+    actTerms: ["只一次","每天","周一至周五","周末"],
     actTermIndex: 0,
-    acttermDisabled: true,
-    message:''
-
+    actTermDisabled: false,
+    message:'',
+    areaName:' ',
+    areaAddress:' ',
+    planPeople:'0',
+    words:'',
+    hideSearch: true,
   },
   
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-    console.log('createAction onLoad');
+   // console.log('createAction onLoad');
     var that = this
     //调用应用实例的方法获取全局数据
-      console.log("userInfo:"+app.globalData.userInfo);
+      wx.getStorage({
+        key: 'userInfo',
+        success: function(res) {
+         openid=res.data.openid;
+         } 
+      })
+      //获取nagative带来的参数
       that.setData({
-        userInfo:app.globalData.userInfo
-      }) 
-     // openId=app.globalData.openId;
-     // console.log("openId:"+openId);
+      areaName: options.areaName
+    })
+      that.setData({
+      areaAddress: options.areaAddress
+    })
     that.setDateAndTime()
   },
+
   onReady:function(){
     // 页面渲染完成
   },
@@ -53,132 +65,164 @@ Page({
     var that = this
     //设置当前日期和时间
     that.setData({
-      date: util.formatOnlyDate(new Date,'-'),
-      time: util.formatHourAndMinu(new Date,':')
+      actDate: util.formatOnlyDate(new Date,'-'),
+      actTime: util.formatHourAndMinu(new Date,':')
     });
     console.log('date:'+that.data.date+",time:"+that.data.time)
   },
 
-  switchChange: function (e){
-    if(e.currentTarget.id=="isSetTime"){
-      if(e.detail.value==true){
-        this.setData({
-          acttermDisabled:false,
-          dateDisabled:true
-        })
-      }else if(e.detail.value==false){
-        this.setData({
-          acttermDisabled:true,
-          dateDisabled:false
-        })
-      }
-    };
-  },
 
-  bindChange: function (e) {
-    if(e.currentTarget.id=="subject")
-    {
+//活动类型改变
+  actTypeChange:function(e){
     this.setData({
-      index: e.detail.value
-    })
-    };
-    if(e.currentTarget.id=="acttype")
-    {
-      this.setData({
       actTypeIndex: e.detail.value
     })
-    };
-    if(e.currentTarget.id=="sprtype")
-    {
-      this.setData({
+  },
+//运动类型改变
+  sprTypeChange:function(e){
+    this.setData({
       sprTypeIndex: e.detail.value
     })
-    };
-    if(e.currentTarget.id=="feetype")
-    {
+    console.log("choice:"+e.detail.value);
+    //查找按钮隐藏判断，跑步不用查找场馆
+    if (e.detail.value == 0) {
       this.setData({
-      feeTypeIndex: e.detail.value
-    })
-    };
-    if(e.currentTarget.id=="actterm")
-    {
+        hideSearch: true
+      })
+    } else {
       this.setData({
+        hideSearch: false
+      })
+    }
+  },
+//活动周期改变
+  actTermChange:function(e){
+    this.setData({
       actTermIndex: e.detail.value
     })
-    };
-    if(e.currentTarget.id=="date")
-    {
-      this.setData({
-      date: e.detail.value
-    })
-    };
-    if(e.currentTarget.id=="time")
-    {
-      this.setData({
-      time: e.detail.value
-    })
-    }
-    ;
+  },
 
-    try {
-    wx.setStorageSync(e.currentTarget.id,e.detail.value)
-} catch (e) {  
-  wx.showToast({
-  title: '失败',
-  icon: 'success',
-  duration: 2000
-})  
-}    
-
-    },
-  bindDateChange: function (e) {
-        this.setData({
-            date: e.detail.value
-        })
-    },
-    bindTimeChange: function (e) {
-        this.setData({
-            time: e.detail.value
-        })
-    },
-     formSubmit: function(e) {
-    var that=this;
-    // that.setData({
-    //   submitData:e.detail.value
-    // })
-    var datas=e.detail.value;
-    that.sendData(datas);
-    console.log('form发生了submit事件，携带数据为：', e.detail.value)
+//活动日期改变
+  actDateChange:function(e){
+    this.setData({
+      actDate: e.detail.value
+    })
+  },
+//活动时间改变
+  actTimeChange:function(e){
+    this.setData({
+      actTime: e.detail.value
+    })
+  },
+//输入场馆名称
+  areaNameInput: function (e) {
+    this.setData({
+      areaName: e.detail.value
+    })
+   
+  },
+//输入场馆地址
+  areaAddressInput: function (e) {
+    this.setData({
+      areaAddress: e.detail.value
+    })
+  },
+//计划人数
+  planPeopleInput:function(e){
+    this.setData({
+      planPeople: e.detail.value
+    })
+  },
+//费用类型改变
+  feeTypeChange:function(e){
+    this.setData({
+      feeTypeIndex: e.detail.value
+    })
+  },
+//留言输入
+  wordsInput:function(e){
+    this.setData({
+      words: e.detail.value
+    })
   },
 
 
-   submit: function (e) {
-     this.sendData(e);
-      wx.switchTab({
-        url: 'actionList',
-        complete:function(res){
-              console.log(res)
-          }
-      })
  
-    },
+    // addActiveFunction: function(e) {
+    // var that=this;
+    //     wx.request({
+    //         // url: 'http://59.110.165.245/Lbs_back/servlet/PositionInsert', //位置新增接口地址
+    //         url: 'http://localhost:3000/active/addActive' ,
+    //         data: {
+    //            // actTitle:datas.actTitle,
+    //           actTerm: that.data.actTerms[that.data.actTermIndex],
+    //           actType: that.data.actTypes[that.data.actTypeIndex],
+    //             areaName:datas.areaName,
+    //             areaAddress:datas.areaAddress,
+    //             feeType: that.data.feeTypes[that.data.feeTypeIndex],
+    //             planPeople:datas.planPeople,
+    //             sprType: that.data.sprTypes[that.data.sprTypeIndex],
+    //             sprDate:datas.actDate,
+    //             sprTime:datas.actTime,
+    //             openid:openid,    //后续添加ID标记发起用户
+    //             heat:1,           //活动人数，初始化为1
+    //             words: datas.words,
+    //         },
+    //         header: {
+    //             'content-type': 'application/json'
+    //         },
+    //         success: function(res) {
+    //             console.log(res.data)
+    //         }
+    //     })
+    // },
 
-    //发送数据请求
-    sendData: function(datas){
-        console.log(datas);
-        wx.request({
-            // url: 'http://59.110.165.245/Lbs_back/servlet/PositionInsert', //位置新增接口地址
-            url: 'http://localhost:9099/Lbs_back/servlet/PositionInsert' ,
-            data: {
-                cActInfo: datas ,
-               // openId:openId 后续添加ID标记发起用户
-            },
-            header: {
-                'content-type': 'application/json'
-            },
-            success: function(res) {
-                console.log(res.data)
-            }
-        })
-    },
+
+//点击提交后页面跳转
+   submitActive:function (e) {
+     var that = this;
+     wx.request({
+       // url: 'http://59.110.165.245/Lbs_back/servlet/PositionInsert', //位置新增接口地址
+       url: 'https://localhost:3000/active/addActive',
+       data: {
+         // actTitle:datas.actTitle,
+         actTerm: that.data.actTerms[that.data.actTermIndex],
+         actType: that.data.actTypes[that.data.actTypeIndex],
+         areaName: that.data.areaName,
+         areaAddress: that.data.areaAddress,
+         feeType: that.data.feeTypes[that.data.feeTypeIndex],
+         planPeople: that.data.planPeople,
+         sprType: that.data.sprTypes[that.data.sprTypeIndex],
+         actDate: that.data.actDate,
+         actTime: that.data.actTime,
+         openid: openid,    //后续添加ID标记发起用户
+         heat: 1,           //活动人数，初始化为1
+         words: that.data.words,
+       },
+       header: {
+         'content-type': 'application/json'
+       },
+       success: function (res) {
+        // console.log(res.data)
+        //活动成果后页面跳转
+         wx.switchTab({
+           url: 'actionList',
+           complete: function (res) {
+             console.log(res)
+           }
+         })
+      },
+      fail:function(res){
+        console.log('失败');
+      }
+       
+     })
+
+
+
+
+ 
+     },
+  
+
 })
