@@ -2,7 +2,7 @@
 App({
   globalData: {
     openId: "",
-    //后台服务器地址
+    //后台服务器地址！
     iServerUrl:"https://littlebearsports.com"
   },
   onLaunch: function (options) {
