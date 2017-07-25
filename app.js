@@ -34,17 +34,17 @@ App({
         if (res.code) {
           //code 换成 openid 和 session_key, 
           wx.request({
-            url: that.globalData.iServerUrl+'/user/wxlogin',
+            url: that.globalData.iServerUrl +'/bearsport/service/user/Login',
             data: {
               code: res.code
             },
-            method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+            method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
             header: { 'content-type': 'application/json'}, // 设置请求的 header
             success: function (res) {
               console.log("success:",res);
               //var a = JSON.parse(res.data)
-              openId = a.openid
-              that.getInfo(od);
+              openId = res.data.openid
+              that.getInfo(openId);
             },
             fail: function (res) {
               // fail
@@ -107,7 +107,7 @@ App({
         //增加Openid
         // console.log("wx.getUserInfo:" + res.data);
         res.userInfo.openid = wxid
-
+        res.userInfo.operationCode = 'AD'    
         wx.setStorage({
           key: 'userInfo',
           data: res.userInfo
@@ -125,9 +125,9 @@ App({
         })
         //将用户信息储存到后台数据库
         wx.request({
-          url: that.globalData.serverUrl + '/user/addUser',
+          url: that.globalData.iServerUrl +'/bearsport/service/user/userMaintain',
           data: res.userInfo,
-          method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+          method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
           // header: {}, // 设置请求的 header
           success: function (res) {
             // success

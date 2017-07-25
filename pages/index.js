@@ -40,10 +40,8 @@ Page({
 
   onLoad: function(options) {
      var that = this; 
-     var response={}
-     common.iRequest("9787115353528", {}, function (response){
-       console.log(response);
-     });
+      
+      
      
  app.userInfo(function(userInfo){
       //更新数据
