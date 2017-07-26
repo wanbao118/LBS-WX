@@ -113,7 +113,7 @@ App({
         //将用户信息储存到本机
         //增加Openid
         // console.log("wx.getUserInfo:" + res.data);
-        res.userInfo.openid = wxid
+        res.userInfo.openId = wxid
         res.userInfo.operationCode = 'AD'
         res.userInfo.location = {
           "latitude": that.gData.latitude,
