@@ -226,17 +226,20 @@ Page({
   getUsers: function (e) {
 
     var that = this;
+    var iData ={};
+    iData.operationCode = "UF"
     wx.request({
-      url: 'https://127.0.0.1:3000/user/',
-      data: {},
-      method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      url: app.gData.iServerUrl + '/bearsport/service/user/userMaintain',
+      data: iData,
+      method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
+      header: { 'content-type': 'application/json' },
       success: function (res) {
-
+        console.log("获取熊友列表信息：", res.data);
         that.setData({
-          friendList: res.data
+          friendList: res.data.listData
         });
-
+       console.log(that.data.friendList);
       },
       fail: function (res) {
         // fail
