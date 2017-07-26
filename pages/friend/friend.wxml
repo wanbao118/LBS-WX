@@ -1,4 +1,4 @@
-<import src="/utils/template.wxml" />
+<import src="/common/template.wxml" />
 <view class="page">
   <view class="page__hd">
     <view class="location ellipsis" bindtap="toNearby">
