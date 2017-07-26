@@ -22,7 +22,7 @@
 
             <view class="weui-flex">
               <view class="weui-flex__item">
-                <view class="placeholder">首次登陆时间:{{item.firstLoginTime}}</view>
+                <view class="placeholder">运动类型:羽毛球</view>
               </view>
             </view>
 
@@ -39,6 +39,13 @@
           </view>
         </view>
       </navigator>
+      <view class="weui-media-box__title">
+      
+      <view class="weui-flex">
+              <view class="weui-flex__item">自我介绍一句话自我介绍一句话自我介绍一句话</view>
+              
+            </view>
+      </view>
     </view>
   </view>
 </template>

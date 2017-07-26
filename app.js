@@ -18,9 +18,9 @@ App({
     console.log("***** App onLaunch:小程序开始运行");
     console.log("***** 入口参数options：", options);
 
-    this.getCity();
-    this.userInfo();
-    this.systemInfo();
+    //this.getCity();
+    //this.userInfo();
+    //this.systemInfo();
 
   },
 
@@ -139,6 +139,7 @@ App({
           }
         })
         //将用户信息储存到后台数据库
+        console.log("将用户信息储存到后台数据库");
         wx.request({
           url: that.gData.iServerUrl + '/bearsport/service/user/userMaintain',
           data: res.userInfo,
