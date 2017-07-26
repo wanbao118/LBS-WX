@@ -2,11 +2,10 @@
 
 <view class="page">
       <view class="page__hd">
-            <view class="weui-flex">
-                <view class="weui-flex__item" >{{cityName}}</view>
-                
-            </view> 
-            
+            <view class="location ellipsis">
+      <view class="fa fa-map-marker"></view>
+      {{cityName}}
+    </view>
       </view>
 
 
@@ -15,7 +14,7 @@
 <swiper indicator-dots="{{indicatorDots}}"
   autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
   <block wx:for-items="{{imgUrls}}">
-    <swiper-item>
+    <swiper-item style="text-align:center;width:100%">
       <image src="{{item}}"  width="55" height="50" mode="scaleToFill"/>
     </swiper-item>
   </block>
