@@ -10,6 +10,7 @@ Page({
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
+  console.log("页面接收参数：",options)
   var that = this;  
   that.setData({   
     userInfo:options,    
@@ -28,15 +29,18 @@ Page({
   })
 
  //获取用户信息
+  var iData = {};
+  iData.operationCode = "UFO";
+  iData.openId = this.data.userInfo.openId;
   wx.request({
-          url: 'https://127.0.0.1:3000/user',
-          data: {_id:this.data.userInfo.id},
-          method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+    url: app.gData.iServerUrl + '/bearsport/service/user/userMaintain',
+          data: iData,
+          method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
           // header: {}, // 设置请求的 header
           success: function(res){
-               
+             console.log("获取用户详情信息：",res);  
              that.setData({ 
-                person:res.data[0] 
+                person:res.data.listData[0] 
                }); 
             
           },

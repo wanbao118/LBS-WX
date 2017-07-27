@@ -10,6 +10,7 @@
     "pages/friend/showFriendAct",
     "pages/friend/clubMember",
     "pages/friend/map",
+    "pages/place/placeDetail",
     "pages/my/my",
     "pages/my/mySetting",
     "pages/my/myActive",

@@ -1,38 +1,38 @@
 <template name="tFindFriend">
   <view class="weui-panel weui-panel_access">
     <view class="weui-panel__bd">
-      <navigator url="showFriend?id={{item._id}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+      <navigator url="showFriend?openId={{item.openId}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
         <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
           <image class="weui-media-box__thumb" src="{{item.avatarUrl}}" />
         </view>
         <view class="wseui-media-box__bd weui-media-box__bd_in-appmsg">
           <view class="weui-media-box__title">
             <view class="weui-flex">
-              <view class="weui-flex__item" style="font-weight:bold">
-              <view wx:if="{{item.gender == 0}}" style="color:red;font-weight:bold" class = "fa fa-venus"></view>
-              <view wx:if="{{item.gender == 1}}" style="color:blue;font-weight:bold" class = "fa fa-venus"></view>
+              <view class="weui-flex__item" style="">
+              <view wx:if="{{item.gender == 0}}" style="color:Pink;" class = "fa fa-female"></view>
+              <view wx:if="{{item.gender == 1}}" style="color:SkyBlue;" class = "fa fa-male"></view>
               {{item.nickName}}</view>
               
-              <view style="color:gray;">4km</view>
-              <view style="color:gray;">:{{item.lastLoginTime}}</view>
+              <view style="color:Orange;font-size:28rpx">4km</view>
+              <view style="color:Orange;font-size:28rpx">:{{item.lastLoginTime}}</view>
             </view>
           </view>
-          <view class="weui-media-box__desc" style="color:black;">
+          <view class="weui-media-box__desc" style="">
 
           <view class="weui-flex">
               <view class="weui-flex__item">
-                <view class="placeholder">运动类型:羽毛球</view>
+                <view class="placeholder">羽毛球</view>
               </view>
             </view>
             <view class="weui-flex">
               <view class="weui-flex__item">
-                <view class="">Lv:{{item.level}}</view>
+                <view class="" style="background-color:DarkSlateGray;color:white;width:80rpx">Lv:{{item.level}}</view>
               </view>
-              <view class="weui-flex__item">
-                <view class="">等级分:{{item.level}}</view>
+              <view class="weui-flex__item" style="">
+                <view class="fa fa-flash" style=""></view> {{item.level}}
               </view>
-              <view class="weui-flex__item">
-                <view class="">信用分:{{item.creditLevel}}</view>
+              <view class="weui-flex__item" style="">
+                <view class="fa fa-vcard-o" style=""></view> {{item.creditLevel}}
               </view>              
             </view>
 
@@ -61,7 +61,7 @@
 </template>
 <template name="tPlaceList">
   <view class='place-container weui-panel weui-panel_access'>
-    <navigator url="placeDetail?id={{item.id}}&title={{item.title}}&address={{item.address}}&telephone={{item.telephone}}&price={{item.price}}&distance={{item.distance}}&overall_rating={{item.overall_rating}}&service_rating={{item.service_rating}}" class=" weui-media-box weui-media-box_appmsg "
+    <navigator url="../place/placeDetail?id={{item.id}}&title={{item.title}}&address={{item.address}}&telephone={{item.telephone}}&price={{item.price}}&distance={{item.distance}}&overall_rating={{item.overall_rating}}&service_rating={{item.service_rating}}" class=" weui-media-box weui-media-box_appmsg "
     hover-class="weui-cell_active ">
       <view class="weui-media-box__hd weui-media-box__hd_in-appmsg ">
         <image class="weui-media-box__thumb " src="http://pic.58pic.com/58pic/13/14/14/21s58PICdGy_1024.jpg " />
