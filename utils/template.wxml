@@ -8,13 +8,8 @@
         <view class="wseui-media-box__bd weui-media-box__bd_in-appmsg">
           <view class="weui-media-box__title">
             <view class="weui-flex">
-              <view class="weui-flex__item" style="color:blue;font-weight:bold">
-              <view wx:if="{{item.gender == 0}}" style="color:red;font-weight:bold" class = "fa fa-venus"></view>
-              <view wx:if="{{item.gender == 1}}" style="color:blue;font-weight:bold" class = "fa fa-venus"></view>
-              {{item.nickName}}</view>
-              
-              <view style="color:gray;">4KM</view>
-              <view style="color:gray;">-{{item.lastLoginTime}}</view>
+              <view class="weui-flex__item" style="color:blue;font-weight:bold">{{item.nickName}}</view>
+              <view style="color:gray;">4km</view>
             </view>
           </view>
           <view class="weui-media-box__desc">
@@ -27,13 +22,13 @@
 
             <view class="weui-flex">
               <view class="weui-flex__item">
-                <view class="placeholder">运动类型:羽毛球</view>
+                <view class="placeholder">首次登陆时间:{{item.firstLoginTime}}</view>
               </view>
             </view>
 
             <view class="weui-flex">
               <view class="weui-flex__item">
-                <!-- <view class="placeholder">上次登陆时间:{{item.lastLoginTime}}</view> -->
+                <view class="placeholder">上次登陆时间:{{item.lastLoginTime}}</view>
               </view>
             </view>
             <view class="weui-flex">
@@ -44,13 +39,6 @@
           </view>
         </view>
       </navigator>
-      <view class="weui-media-box__title">
-      
-      <view class="weui-flex">
-              <view class="weui-flex__item">自我介绍一句话自我介绍一句话自我介绍一句话</view>
-              
-            </view>
-      </view>
     </view>
   </view>
 </template>
