@@ -66,7 +66,7 @@ Page({
     that.getUsers();
     
     //调用百度
-    //that.getCity();
+    that.getCity();
     that.getLocationInfo();
     that.loadBaiDu();
   },
@@ -145,38 +145,12 @@ Page({
   },
   //获取城市信息
   getCity: function () {
-    var that = this;
-    // 新建百度地图对象 
-    var BMap = new bmap.BMapWX({
-      ak: ak
-    });
-    var fail = function (data) {
-      console.log("fail data:"+data)
-    };
-    var success = function (data) {
-      console.log("success data") + data;
-      wxMarkerData = data.wxMarkerData;
-      that.setData({
-        markers: wxMarkerData
-      });
-      that.setData({
-        latitude: wxMarkerData[0].latitude
-      });
-      that.setData({
-        longitude: wxMarkerData[0].longitude
-      });
+    
 
-      that.setData({
-        cityName: wxMarkerData[0].city
+      this.setData({
+        cityName: app.gData.cityName
       });
-    }
-    // 发起regeocoding检索请求 
-    BMap.regeocoding({
-      fail: fail,
-      success: success,
-      //  iconPath: '../../img/marker_red.png', 
-      //  iconTapPath: '../../img/marker_red.png' 
-    });
+   
 
   },
 

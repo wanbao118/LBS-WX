@@ -11,16 +11,16 @@ App({
     markers: [],
     latitude: '',
     longitude: '',
-    cityName: 'a'
+    cityName: ''
   },
   onLaunch: function (options) {
 
     console.log("***** App onLaunch:小程序开始运行");
     console.log("***** 入口参数options：", options);
 
-    //this.getCity();
+    this.getCity();
     //this.userInfo();
-    //this.systemInfo();
+    this.systemInfo();
 
   },
 
