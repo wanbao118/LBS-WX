@@ -2,6 +2,7 @@
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 // 引用百度地图微信小程序JSAPI模块 
 var bmap = require('../../libs/bmap-wx.js');
+var util = require('../../common/util.js');
 var wxMarkerData = [];
 const ak = 'bfwtSbwjqSnIPWGIjKssrQdsPZn0Q87g'
 var app = getApp()
@@ -31,7 +32,7 @@ Page({
     scrollTop: 0,
     scrollHeight: 0,
     selectFlag: false,
-
+    
     //测试数据，等后台服务准备好后替换
     friendList: [
 
@@ -61,12 +62,11 @@ Page({
       }
     });
 
-
     //获取熊友初始数据
     that.getUsers();
     
     //调用百度
-    that.getCity();
+    //that.getCity();
     that.getLocationInfo();
     that.loadBaiDu();
   },
@@ -145,12 +145,38 @@ Page({
   },
   //获取城市信息
   getCity: function () {
-    
-
-      this.setData({
-        cityName: app.gData.cityName
+    var that = this;
+    // 新建百度地图对象 
+    var BMap = new bmap.BMapWX({
+      ak: ak
+    });
+    var fail = function (data) {
+      console.log("fail data:"+data)
+    };
+    var success = function (data) {
+      console.log("success data") + data;
+      wxMarkerData = data.wxMarkerData;
+      that.setData({
+        markers: wxMarkerData
       });
-   
+      that.setData({
+        latitude: wxMarkerData[0].latitude
+      });
+      that.setData({
+        longitude: wxMarkerData[0].longitude
+      });
+
+      that.setData({
+        cityName: wxMarkerData[0].city
+      });
+    }
+    // 发起regeocoding检索请求 
+    BMap.regeocoding({
+      fail: fail,
+      success: success,
+      //  iconPath: '../../img/marker_red.png', 
+      //  iconTapPath: '../../img/marker_red.png' 
+    });
 
   },
 
@@ -210,9 +236,19 @@ Page({
       header: { 'content-type': 'application/json' },
       success: function (res) {
         console.log("获取熊友列表信息：", res.data);
+
+        for (var i = 0; i < res.data.listData.length; i++) {
+          res.data.listData[i].lastLoginTime =                util.formatTimestamp(res.data.listData[i].lastLoginTime);
+        }
+
         that.setData({
           friendList: res.data.listData
         });
+
+  //      that.setData({
+ //         formatTimestamp: util.formatTimestamp()
+ //       });
+
        console.log(that.data.friendList);
       },
       fail: function (res) {
