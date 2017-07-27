@@ -25,11 +25,11 @@ Page({
   }, 
   
   onLoad: function(options) {
-    console.log("cityName:" + app.gData.cityName);
-     var that = this; 
-     that.setData({
-       cityName: app.gData.cityName
-     }); 
+    var that = this;
+    console.log("cityName:" + app.gData.cityName); 
+    
+    that.getCity();
+    
       
      
  app.userInfo(function(userInfo){
@@ -43,6 +43,17 @@ Page({
 
  
        
+  },
+
+  //获取城市信息
+  getCity: function () {
+
+
+    this.setData({
+      cityName: app.gData.cityName
+    });
+
+
   },
   
 })

@@ -145,8 +145,6 @@ Page({
   },
   //获取城市信息
   getCity: function () {
-    
-
       this.setData({
         cityName: app.gData.cityName
       });

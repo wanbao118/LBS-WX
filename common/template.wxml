@@ -8,7 +8,7 @@
         <view class="wseui-media-box__bd weui-media-box__bd_in-appmsg">
           <view class="weui-media-box__title">
             <view class="weui-flex">
-              <view class="weui-flex__item" style="color:blue;font-weight:bold">
+              <view class="weui-flex__item" style="font-weight:bold">
               <view wx:if="{{item.gender == 0}}" style="color:red;font-weight:bold" class = "fa fa-venus"></view>
               <view wx:if="{{item.gender == 1}}" style="color:blue;font-weight:bold" class = "fa fa-venus"></view>
               {{item.nickName}}</view>
@@ -18,18 +18,25 @@
             </view>
           </view>
           <view class="weui-media-box__desc">
-            <view class="weui-flex">
-              <view class="weui-flex__item">
-                <view style="color:red ">等级分： {{item.level}}</view>
-              </view>
-              <view style="color:red ">信用分： {{item.creditLevel}}</view>
-            </view>
 
-            <view class="weui-flex">
+          <view class="weui-flex">
               <view class="weui-flex__item">
                 <view class="placeholder">运动类型:羽毛球</view>
               </view>
             </view>
+            <view class="weui-flex">
+              <view class="weui-flex__item">
+                <view class="levelLable-Gray">综合分： {{item.level}}</view>
+              </view>
+              <view class="weui-flex__item">
+                <view class="levelLable-DarkOliveGreen">等级分： {{item.level}}</view>
+              </view>
+              <view class="weui-flex__item">
+                <view class="levelLable-Purple">信用分： {{item.creditLevel}}</view>
+              </view>              
+            </view>
+
+            
 
             <view class="weui-flex">
               <view class="weui-flex__item">
