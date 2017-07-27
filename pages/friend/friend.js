@@ -211,7 +211,7 @@ Page({
         console.log("获取熊友列表信息：", res.data);
 
         for (var i = 0; i < res.data.listData.length; i++) {
-          res.data.listData[i].lastLoginTime =                util.formatTimestamp(res.data.listData[i].lastLoginTime);
+          res.data.listData[i].lastLoginTime =  util.formatTimestamp(res.data.listData[i].lastLoginTime);
         }
 
         that.setData({

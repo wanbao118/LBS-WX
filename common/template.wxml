@@ -13,11 +13,11 @@
               <view wx:if="{{item.gender == 1}}" style="color:blue;font-weight:bold" class = "fa fa-venus"></view>
               {{item.nickName}}</view>
               
-              <view style="color:gray;">4KM</view>
-              <view style="color:gray;">-{{item.lastLoginTime}}</view>
+              <view style="color:gray;">4km</view>
+              <view style="color:gray;">:{{item.lastLoginTime}}</view>
             </view>
           </view>
-          <view class="weui-media-box__desc">
+          <view class="weui-media-box__desc" style="color:black;">
 
           <view class="weui-flex">
               <view class="weui-flex__item">
@@ -26,17 +26,15 @@
             </view>
             <view class="weui-flex">
               <view class="weui-flex__item">
-                <view class="levelLable-Gray">综合分： {{item.level}}</view>
+                <view class="">Lv:{{item.level}}</view>
               </view>
               <view class="weui-flex__item">
-                <view class="levelLable-DarkOliveGreen">等级分： {{item.level}}</view>
+                <view class="">等级分:{{item.level}}</view>
               </view>
               <view class="weui-flex__item">
-                <view class="levelLable-Purple">信用分： {{item.creditLevel}}</view>
+                <view class="">信用分:{{item.creditLevel}}</view>
               </view>              
             </view>
-
-            
 
             <view class="weui-flex">
               <view class="weui-flex__item">
@@ -51,7 +49,7 @@
           </view>
         </view>
       </navigator>
-      <view class="weui-media-box__title">
+      <view class="weui-media-box__desc">
       
       <view class="weui-flex">
               <view class="weui-flex__item">自我介绍一句话自我介绍一句话自我介绍一句话</view>
