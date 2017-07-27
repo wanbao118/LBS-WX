@@ -67,3 +67,24 @@
 
 }
 
+.levelLable-DarkOliveGreen{
+  background-color:DarkOliveGreen;
+  padding-top:2px;
+	padding-bottom:2px;
+	padding-right:2px;
+	padding-left:2px;
+}
+.levelLable-Gray{
+  background-color:Gray;
+  padding-top:2px;
+	padding-bottom:2px;
+	padding-right:2px;
+	padding-left:2px;
+}
+.levelLable-Purple{
+  background-color:Purple;
+  padding-top:2px;
+	padding-bottom:2px;
+	padding-right:2px;
+	padding-left:2px;
+}
