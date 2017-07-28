@@ -59,6 +59,7 @@ function formatTimestamp(dateTimeStamp) {
     var now = new Date().getTime();
     var diffValue = now - dateTimeStamp;
     if(diffValue < 0){return;}
+    var  result="刚刚";
     var monthC =diffValue/month;
     var weekC =diffValue/(7*day);
     var dayC =diffValue/day;
@@ -78,10 +79,7 @@ function formatTimestamp(dateTimeStamp) {
     }
     else if(minC>=1){
       result=""+ parseInt(minC) +"分钟前";
-    }else{
-      result="刚刚";
     }
-    
     return result;
 }
 
