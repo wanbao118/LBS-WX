@@ -39,9 +39,17 @@ function formatNumber(n) {
   return n[1] ? n : '0' + n
 }
 
-// module.exports = {
-//   formatTime: formatTime
-// }
+function getLocalTime(now) {     
+  var d = new Date(now);
+  var Y = d.getFullYear();
+  var M = d.getMonth() + 1;
+  var day = d.getDate();
+  var hour = d.getHours();
+  var Min = d.getMinutes();
+
+  return Y + "-" + M + "-" + day + "  " + hour + ":" + Min;
+}      
+
 function formatTimestamp(dateTimeStamp) {
   	var minute = 1000 * 60;
     var hour = minute * 60;
@@ -83,3 +91,4 @@ module.exports.formatOnlyTime = formatOnlyTime;
 module.exports.formatHourAndMinu = formatHourAndMinu;
 module.exports.formatNumber = formatNumber;
 module.exports.formatTimestamp = formatTimestamp;
+module.exports.getLocalTime = getLocalTime;

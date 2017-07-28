@@ -1,5 +1,6 @@
 // pages/friend/showFriend.js
 var app = getApp()
+var util = require('../../common/util.js');
 Page({
   data:{
    person:[],
@@ -38,7 +39,10 @@ Page({
           method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
           // header: {}, // 设置请求的 header
           success: function(res){
-             console.log("获取用户详情信息：",res);  
+             console.log("获取用户详情信息：",res); 
+             res.data.listData[0].lastLoginTime=util.getLocalTime(res.data.listData[0].lastLoginTime);
+            res.data.listData[0].firstLoginTime=util.getLocalTime(res.data.listData[0].firstLoginTime);
+
              that.setData({ 
                 person:res.data.listData[0] 
                }); 
