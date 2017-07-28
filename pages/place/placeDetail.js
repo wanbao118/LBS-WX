@@ -29,7 +29,9 @@ Page({
 
   //点击添加活动
   addAction:function(){
-    console.log(this.data.place.address);
+    wx.navigateTo({
+      url: '../action/createAction?areaAddress=' + this.data.place.address + '&areaName=' + this.data.place.title
+    })
   }
 
   

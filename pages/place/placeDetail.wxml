@@ -13,50 +13,55 @@
     </view>
 
     <view class="weui-flex">
+
       <view class="weui-flex__item">
-        <image style="width: 100px; height: 100px; background-color: #eeeeee;" mode="aspectFit" src="http://www.qqleju.com/uploads/allimg/160622/22-101309_76.jpg">
-        </image>
-      </view>
-      <view class="weui-flex__item">
-        <view class="weui-flex">
-
-
-        </view>
-        <view class="weui-flex">
-          <view class="weui-flex__item">综合评分：{{place.overall_rating}}</view>
-
-        </view>
-        <view class="weui-flex">
-          <view class="weui-flex__item">距离：{{place.distance/1000}}公里</view>
-
-
-        </view>
-        <view class="weui-flex">
-          <view class="weui-flex__item">Tel：{{place.telephone}}</view>
-
-        </view>
-        <view class="weui-flex">
-          <view class="weui-flex__item">人均消费：{{place.price}}元</view>
-
-        </view>
-        <view class="weui-flex">
-          <view class="weui-flex__item">服务评分：{{place.service_rating}}/5</view>
-
-        </view>
+         综合评分：{{place.overall_rating}}
       </view>
     </view>
+
+      <view class="weui-flex">
+
+      <view class="weui-flex__item">
+         距离：{{place.distance/1000}}公里
+      </view>
+    </view>
+
+      <view class="weui-flex">
+
+      <view class="weui-flex__item">
+         Tel：{{place.telephone}}
+      </view>
+    </view>
+
     <view class="weui-flex">
-      <view class="weui-flex__item">地址：{{place.address}}</view>
+
+      <view class="weui-flex__item">
+         人均消费：{{place.price}}元
+      </view>
     </view>
 
+    <view class="weui-flex">
+      <view class="weui-flex__item">
+         服务评分：{{place.service_rating}}/5
+      </view>
+    </view>
+
+    <view class="weui-flex">
+      <view class="weui-flex__item">
+         地址：{{place.address}}
+      </view>
+    </view>
+
+    
 
     <view class="weui-flex">
       <!-- <button  size="mini"  disabled="true" > 场地预约 </button> -->
-      <navigator url="../action/createAction?sprTypes={{}}&areaAddress={{place.address}}&areaName={{place.title}}">
-        <button type="primary"> 发起活动 </button>
-      </navigator>
+      <!-- <navigator url="../action/createAction?sprTypes={{}}&areaAddress={{place.address}}&areaName={{place.title}}">
+        
+      </navigator> -->
 
     </view>
+    <button type="primary" bindtap="addAction"> 发起活动 </button>
   </view>
 
 

@@ -29,10 +29,10 @@
                 <view class="" style="background-color:DimGray;color:white;width:80rpx">Lv:{{item.level}}</view>
               </view>
               <view class="weui-flex__item" style="">
-                <view class="fa fa-flash" style=""></view> {{item.level}}
+                <view class="fa fa-flash" style="color:Purple"></view> {{item.level}}
               </view>
               <view class="weui-flex__item" style="">
-                <view class="fa fa-vcard-o" style=""></view> {{item.creditLevel}}
+                <view class="fa fa-vcard-o" style="color:Purple"></view> {{item.creditLevel}}
               </view>              
             </view>
 
