@@ -7,14 +7,13 @@
 
   <view class="page__bd">
     <view class="weui-flex">
-      <view class="weui-flex__item" style="background-color:yellow;text-align: center;font-size:60rpx">
+      <view class="weui-flex__item" style="color:white;background-color:OrangeRed;text-align: center;font-size:60rpx">
         {{place.title}}
       </view>
     </view>
 
     <view class="weui-flex">
       <view class="weui-flex__item">
-
         <image style="width: 100px; height: 100px; background-color: #eeeeee;" mode="aspectFit" src="http://www.qqleju.com/uploads/allimg/160622/22-101309_76.jpg">
         </image>
       </view>
@@ -51,13 +50,13 @@
     </view>
 
 
-<view class="weui-flex"> 
-        <!-- <button  size="mini"  disabled="true" > 场地预约 </button> -->
-        <navigator url="../action/createAction?sprTypes={{}}&areaAddress={{place.address}}&areaName={{place.title}}">
-            <button type="primary" > 发起活动 </button>
-        </navigator>
-        
-      </view>
+    <view class="weui-flex">
+      <!-- <button  size="mini"  disabled="true" > 场地预约 </button> -->
+      <navigator url="../action/createAction?sprTypes={{}}&areaAddress={{place.address}}&areaName={{place.title}}">
+        <button type="primary"> 发起活动 </button>
+      </navigator>
+
+    </view>
   </view>
 
 
