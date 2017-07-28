@@ -68,6 +68,13 @@ Page({
   //确认修改
   formSubmit: function(e){
     app.gData.editValue = e.detail.value
+    var pages = getCurrentPages();
+    var prevPage = pages[pages.length - 2];
+
+    //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+    prevPage.setData({
+      editValue: e.detail.value
+    })
     wx.navigateBack({
       delta: 1
     })

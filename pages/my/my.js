@@ -46,13 +46,20 @@ Page({
   },
 
   onShow: function () {
+    // var iData = this.data.userInfo
+    // console.log("app.gData.editValue:", app.gData.editValue);
+    // if (app.gData.editValue!=""){
+    //   iData.description = app.gData.editValue.value;
+    //   app.gData.editValue = ""
+    // }
+    if(this.data.editValue){
+      this.data.userInfo.description = this.data.editValue.value;
+      this.setData({
+        userInfo:this.data.userInfo
+      });
+    }
     
-    console.log("app.gData.editValue:", app.gData.editValue);
-    var iData = this.data.userInfo
-    iData.description = app.gData.editValue.value;
-    this.setData({
-      userInfo: iData
-    });
+    
       //this.data.userInfo.description = app.gData.editValue.value;
       
     
@@ -89,7 +96,7 @@ Page({
 
   editDescription:function(){
     wx.navigateTo({
-      url: '../common/editValue?value=' + this.data.userInfo.description+'&type=text&desc=请输入一句话的自我描述'
+      url: '../common/editValue?value=' + this.data.userInfo.description+'&type=text&desc=请设置你的签名：'
     })
   }
 })

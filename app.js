@@ -115,7 +115,7 @@ App({
         //增加Openid
         // console.log("wx.getUserInfo:" + res.data);
         res.userInfo.openId = wxid
-        res.userInfo.operationCode = 'AD'
+        
         res.userInfo.location = {
           "latitude": that.gData.latitude,
           "longitude": that.gData.longitude
@@ -139,6 +139,7 @@ App({
             // complete
           }
         })
+        res.userInfo.operationCode = 'AD'
         //将用户信息储存到后台数据库
         console.log("将用户信息储存到后台数据库");
         wx.request({

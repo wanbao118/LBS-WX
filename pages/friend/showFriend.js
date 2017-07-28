@@ -75,21 +75,7 @@ Page({
   onUnload:function(){
     // 页面关闭
   },
-  btnPartner:function(e){
-    wx.navigateTo({
-          url: 'partner'
-        })
-  },
-  btnTeacher:function(e){
-    wx.navigateTo({
-          url: 'teacher'
-        })
-  },
-  btnShop:function(e){
-    wx.navigateTo({
-          url: 'shop'
-        })
-  },
+   
   //查询参加的活动数量
   getActiveCount: function () {
     var that=this;
@@ -113,4 +99,10 @@ Page({
       }
     })
   },
+
+  addComment:function(){
+    wx.navigateTo({
+      url: '../common/editValue?value=' + this.data.userInfo.openId + '&type=text&desc=请留言'
+    })
+  }
 })
