@@ -54,11 +54,33 @@ Page({
     // }
     if(this.data.editValue){
       this.data.userInfo.description = this.data.editValue.value;
+      this.data.userInfo.operationCode = "UPD";
       this.setData({
         userInfo:this.data.userInfo
       });
+
+    wx.request({
+      url: app.gData.iServerUrl + '/bearsport/service/user/userMaintain',
+      data:  this.data.userInfo,
+      method: 'POST', 
+      // header: {}, // 设置请求的 header
+      success: function (res) {
+        console.log("获取用户详情信息：", res);
+
+        that.setData({
+          userInfo: res.data.listData[0]
+        });
+
+      },
+      fail: function (res) {
+        // fail
+      },
+      complete: function (res) {
+        // complete
+      }
+    })
     }
-    
+
     
       //this.data.userInfo.description = app.gData.editValue.value;
       
@@ -98,5 +120,8 @@ Page({
     wx.navigateTo({
       url: '../common/editValue?value=' + this.data.userInfo.description+'&type=text&desc=请设置你的签名：'
     })
+
+
+
   }
 })
