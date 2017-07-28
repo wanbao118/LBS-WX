@@ -11,7 +11,8 @@ App({
     markers: [],
     latitude: '',
     longitude: '',
-    cityName: ''
+    cityName: '',
+    editValue:''
   },
   onLaunch: function (options) {
 

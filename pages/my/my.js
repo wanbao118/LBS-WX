@@ -41,6 +41,55 @@ Page({
     this.setData({
                   userInfo:res
               });
-  
+
+    this.getUserInfo();
+  },
+
+  onShow: function () {
+    
+    console.log("app.gData.editValue:", app.gData.editValue);
+    var iData = this.data.userInfo
+    iData.description = app.gData.editValue.value;
+    this.setData({
+      userInfo: iData
+    });
+      //this.data.userInfo.description = app.gData.editValue.value;
+      
+    
+  },
+  //获取用户信息
+  getUserInfo:function(){
+    var that = this;
+    var iData = {};
+    iData.operationCode = "UFO";
+    iData.openId = this.data.userInfo.openId;
+    wx.request({
+      url: app.gData.iServerUrl + '/bearsport/service/user/userMaintain',
+      data: iData,
+      method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      // header: {}, // 设置请求的 header
+      success: function (res) {
+        console.log("获取用户详情信息：", res);
+        // res.data.listData[0].lastLoginTime = util.getLocalTime(res.data.listData[0].lastLoginTime);
+        // res.data.listData[0].firstLoginTime = util.getLocalTime(res.data.listData[0].firstLoginTime);
+
+        that.setData({
+          userInfo: res.data.listData[0]
+        });
+
+      },
+      fail: function (res) {
+        // fail
+      },
+      complete: function (res) {
+        // complete
+      }
+    })
+  },
+
+  editDescription:function(){
+    wx.navigateTo({
+      url: '../common/editValue?value=' + this.data.userInfo.description+'&type=text&desc=请输入一句话的自我描述'
+    })
   }
 })

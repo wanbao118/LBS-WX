@@ -11,7 +11,12 @@
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </view>
 </view>
-  
+<view class="weui-flex">
+    <view class="weui-flex__item" style="color:OrangeRed;text-align:center" bindtap="editDescription" >
+    
+    <view class="" style="color:Orange">{{userInfo.description}} <view class="fa fa-pencil-square-o" style="color:white"></view></view>  
+    </view>
+</view>  
 </view>
 <view class="page__bd">
 <view class="weui-cells__title"></view>

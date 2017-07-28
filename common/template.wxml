@@ -52,7 +52,7 @@
       <view class="weui-media-box__desc">
       
       <view class="weui-flex">
-              <view class="weui-flex__item">自我介绍一句话自我介绍一句话自我介绍一句话</view>
+              <view class="weui-flex__item">{{item.description}}</view>
               
             </view>
       </view>
