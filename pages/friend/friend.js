@@ -84,12 +84,33 @@ Page({
 
       wxMarkerData = data.wxMarkerData;
       //    that.sendData(wxMarkerData);
-      console.log(wxMarkerData[0]);
+      console.log(wxMarkerData);
       len = wxMarkerData.length;
+
       if (len === 0) {
         console.log("没有了");
         return;
       };
+
+      //场馆入库
+      wx.request({
+          url: app.gData.iServerUrl +   '/bearsport/service/venues/venuesAdd',
+          data:JSON.stringify(wxMarkerData),
+          header: {
+            'Content-Type': 'application/json'
+          },
+          method: 'POST',
+          success: function (res) {
+            // success 
+            console.log(res);
+          },
+          fail: function () {
+            // fail 
+          },
+          complete: function () {
+            // complete 
+          }
+        })
       //  app.globalDate.globalMarkers=wxMarkerData;
       that.setData({
         markers: wxMarkerData
