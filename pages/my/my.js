@@ -66,11 +66,6 @@ Page({
       // header: {}, // 设置请求的 header
       success: function (res) {
         console.log("获取用户详情信息：", res);
-
-        that.setData({
-          userInfo: res.data.listData[0]
-        });
-
       },
       fail: function (res) {
         // fail
