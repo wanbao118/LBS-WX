@@ -15,7 +15,8 @@
     "pages/my/mySetting",
     "pages/my/myActive",
     "pages/my/myInfo",
-    "pages/common/editValue"
+    "pages/common/editValue",
+    "pages/setup/setup"
     
   ],
   "window":{

@@ -18,11 +18,13 @@ App({
 
     console.log("***** App onLaunch:小程序开始运行");
     console.log("***** 入口参数options：", options);
-
+    
     this.getCity();
     //this.userInfo();
     this.systemInfo();
-
+    wx.navigateTo({
+      url: '/pages/setup/setup'
+    })
   },
 
 
