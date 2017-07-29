@@ -25,6 +25,7 @@ Page({
     planPeople:'0',
     words:'',
     hideSearch: true,
+    action:{}
   },
   
   onLoad:function(options){
@@ -60,6 +61,12 @@ Page({
   onUnload:function(){
     // 页面关闭
   },
+  
+//表单提交
+  formSubmit: function (e) {
+    console.log('form发生了submit事件，携带数据为：', e.detail.value)
+  },
+   
 
   setDateAndTime:function (){
     var that = this
@@ -145,8 +152,7 @@ Page({
       words: e.detail.value
     })
   },
-
-
+ 
  
     // addActiveFunction: function(e) {
     // var that=this;
