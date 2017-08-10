@@ -10,7 +10,7 @@
       <view class="weui-cells__title">请给你发起的活动设置一个标题</view>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
+          <view class="weui-cell__hd"> 
             <view class="weui-label">活动标题：</view>
           </view>
           <view class="weui-cell__bd">

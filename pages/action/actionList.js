@@ -1,7 +1,7 @@
 // pages/action/action.js
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 Page({
-  data:{
+  data:{ 
       tabs: [ "热门", "最新"],
       activeIndex: "0",
       sliderOffset: 0,

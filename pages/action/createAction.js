@@ -4,7 +4,7 @@ var util = require('../../common/util.js');
 // pages/action/createAction.js
 var openid='';
 Page({
-  data:{
+  data:{ 
    // subject:"",
     actDate:"",
     actTime:"",
