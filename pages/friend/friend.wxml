@@ -18,29 +18,29 @@
     </view>
     <view class="weui-flex">
     
-      <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight-80}}px" bindchange="bindChange">
+      <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight}}px" bindchange="bindChange">
         <swiper-item>
-          <scroll-view scroll-y style="height:{{winHeight-80}}px">
+          <scroll-view scroll-y style="height:{{winHeight}}px">
             <view class="page_list" wx:for="{{friendList}}">
               <template is="tFindFriend" data="{{item}}" />
             </view>
           </scroll-view>
         </swiper-item>
         <swiper-item>
-          <scroll-view scroll-y style="height:{{winHeight-80}}px">
+          <scroll-view scroll-y style="height:{{winHeight}}px">
             <view class="page_list" wx:for="{{friendList}}">
               <template is="tFriendCycleList" data="{{item}}" />
             </view>
           </scroll-view>
         </swiper-item>
         <swiper-item>
-          <scroll-view scroll-y style="height:{{winHeight-80}}px">陪练</scroll-view>
+          <scroll-view scroll-y style="height:{{winHeight}}px">陪练</scroll-view>
         </swiper-item>
         <swiper-item>
-          <scroll-view scroll-y style="height:{{winHeight-80}}px">教练</scroll-view>
+          <scroll-view scroll-y style="height:{{winHeight}}px">教练</scroll-view>
         </swiper-item>
         <swiper-item>
-          <scroll-view scroll-y style="height:{{winHeight-80}}px">
+          <scroll-view scroll-y style="height:{{winHeight}}px">
             <view class="page_list" wx:for="{{markers}}" wx:for-index="id">
               <template is="tPlaceList" data="{{item}}" />
             </view>

@@ -1,4 +1,5 @@
 /* pages/friend/friend.wxss */
+
 page,
 .page,
 .page__bd{
