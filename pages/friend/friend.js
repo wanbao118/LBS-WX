@@ -42,8 +42,7 @@ Page({
     // tab切换 
     currentTab: 0,
 
-    toView: 'h1',
-    tabColor:'red',
+     
     //测试数据，等后台服务准备好后替换
     friendList: [
 
@@ -64,12 +63,6 @@ Page({
     var that = this;
     wx.getSystemInfo({
       success: function (res) {
-        // that.setData({
-        //   sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2
-        // });
-        // that.setData({
-        //   scrollHeight: res.windowHeight
-        // });
         that.setData({
           winWidth: res.windowWidth,
           winHeight: res.windowHeight
@@ -324,24 +317,5 @@ Page({
       }
     })
   },
-  upper: function (e) {
-    console.log(e)
-  },
-  lower: function (e) {
-    console.log(e)
-  },
-  scroll: function (e) {
-    console.log(e)
-    console.log("toView:", this.data.toView);
-
-    for (var i = 0; i < order.length; i++) {
-      if (order[i] === this.data.toView) {
-        this.setData({
-          toView: order[i + 1]
-        })
-        break
-      }
-    }
-
-  }
+  
 })
