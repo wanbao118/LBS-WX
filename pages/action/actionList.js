@@ -7,11 +7,14 @@ Page({
       sliderOffset: 0,
       sliderLeft: 0,
       item1:"",
-      actObj: [{ _id: 34, nickName: '红太狼', sprType: '足球', actType: '挑战赛', address: "青青草原青青草原青青草原青青草原", actDate: '2017/08/01 下午5点', title: '高新附近的有木有？', feeType: '比赛决定' }, 
-        { _id:34,nickName: '红太狼', sprType: '羽毛篮球球', actType: '友谊赛', address: "青青草原青青草原青青草原青青草原", actDate:'2017/08/01 下午5点',title:'一个打球好无聊!',feeType:'AA制' }, 
-        { _id: 34, nickName: '红太狼', sprType: '羽毛球', actType: '友谊赛', address: "青青草原青青草原青青草原青青草原", actDate: '2017/08/01 下午5点', title: '中软国际的同学一起吧', feeType: 'AA制' }, { _id: 34, nickName: '红太狼', sprType: '桌球', actType: '陪练', address: "青青草原青青草原青青草原青青草原", actDate: '2017/08/01 下午5点', title: '高手来，初学者勿扰!', feeType: '我付' }, ]
-      },
-
+      // actObj: [{ _id: 34, nickName: '红太狼', sprType: '足球', actType: '挑战赛', address: "青青草原青青草原青青草原青青草原", actDate: '2017/08/01 下午5点', title: '高新附近的有木有？', feeType: '比赛决定' }, 
+      //   { _id:34,nickName: '红太狼', sprType: '羽毛篮球球', actType: '友谊赛', address: "青青草原青青草原青青草原青青草原", actDate:'2017/08/01 下午5点',title:'一个打球好无聊!',feeType:'AA制' }, 
+      //   { _id: 34, nickName: '红太狼', sprType: '羽毛球', actType: '友谊赛', address: "青青草原青青草原青青草原青青草原", actDate: '2017/08/01 下午5点', title: '中软国际的同学一起吧', feeType: 'AA制' }, { _id: 34, nickName: '红太狼', sprType: '桌球', actType: '陪练', address: "青青草原青青草原青青草原青青草原", actDate: '2017/08/01 下午5点', title: '高手来，初学者勿扰!', feeType: '我付' }, ]
+      actObj:{},
+      datas: {"operationCode": "FA"}
+       },
+      
+      
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
      var that = this;
@@ -57,17 +60,17 @@ Page({
   actionList:function(){
     var that = this;
     wx.request({
-       url: 'https://localhost:3000/active/', 
+      url: 'https://littlebearsports.com/bearsport/service/activity/activityMaintain', 
        data: {
-          activeIndex:that.data.activeIndex
+         "operationCode": "FA"
         },
         header: {
           'content-type': 'application/json'
          },
-         method: 'GET',
+        method: 'POST', 
         success: function(res) {
-          let actList = res.data;
-          // console.log("aa:"+actList[0])
+          let actList = res.data.listData;
+          console.log("aa:" + actList[0]);
            if(actList.length > 0){
                that.setData({ 
                 actObj: actList 

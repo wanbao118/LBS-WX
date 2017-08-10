@@ -14,7 +14,7 @@
             <view class="weui-label">活动标题：</view>
           </view>
           <view class="weui-cell__bd">
-            <input name="title" type="text" class="weui-input" placeholder="请输入活动标题" value="{{action.title}}" />
+            <input name="actSubject" type="text" class="weui-input" placeholder="请输入活动标题" value="{{action.actSubject}}" bindinput="actSubjectChange"/>
           </view>
         </view>
       </view>
@@ -62,7 +62,7 @@
           <view class="weui-cell__bd">
             <view class="weui-flex">
               <view class="weui-flex__item" style="">
-                <input name="fee" type="digit" class="weui-input" placeholder="请输入预计费用" value="{{action.title}}" />
+                <input name="feeEst" type="digit" class="weui-input" placeholder="请输入预计费用" value="{{action.feeEst}}" />
               </view>
             </view>
           </view>
@@ -272,7 +272,7 @@
 
 
       <view class="weui-btn-area">
-        <button class="weui-btn" type="primary" formType="submit">确定</button>
+        <button class="weui-btn" type="primary" formType="submit" bindtap="submitActive">确定</button>
 
       </view>
 

@@ -5,14 +5,14 @@ var util = require('../../common/util.js');
 var openid='';
 Page({
   data:{
-    subject:"",
+   // subject:"",
     actDate:"",
     actTime:"",
     dateDisabled:false,
     userInfo: {},
     actTypes: ["约战","陪练","看比赛"],
     actTypeIndex: 0,
-    sprTypes: ["跑步","足球","篮球","羽毛球"],
+    sprTypes: ["足球","篮球","羽毛球"],
     sprTypeIndex: 0 ,
     feeTypes: ["均摊","我请客","比赛决定"],
     feeTypeIndex: 0,
@@ -24,7 +24,7 @@ Page({
     areaAddress:' ',
     planPeople:'0',
     words:'',
-    hideSearch: true,
+    hideSearch: false,
     action:{}
   },
   
@@ -77,7 +77,12 @@ Page({
     });
     console.log('date:'+that.data.date+",time:"+that.data.time)
   },
-
+//输入活动标题时
+  actSubjectChange:function(e){
+    this.setData({
+      inputValue: e.detail.value
+    })
+  },
 
 //活动类型改变
   actTypeChange:function(e){
@@ -91,16 +96,16 @@ Page({
       sprTypeIndex: e.detail.value
     })
     console.log("choice:"+e.detail.value);
-    //查找按钮隐藏判断，跑步不用查找场馆
-    if (e.detail.value == 0) {
-      this.setData({
-        hideSearch: true
-      })
-    } else {
-      this.setData({
-        hideSearch: false
-      })
-    }
+    // //查找按钮隐藏判断，跑步不用查找场馆
+    // if (e.detail.value == 0) {
+    //   this.setData({
+    //     hideSearch: true
+    //   })
+    // } else {
+    //   this.setData({
+    //     hideSearch: false
+    //   })
+    // }
   },
 //活动周期改变
   actTermChange:function(e){
@@ -109,18 +114,18 @@ Page({
     })
   },
 
-//活动日期改变
-  actDateChange:function(e){
-    this.setData({
-      actDate: e.detail.value
-    })
-  },
-//活动时间改变
-  actTimeChange:function(e){
-    this.setData({
-      actTime: e.detail.value
-    })
-  },
+// //活动日期改变
+//   actDateChange:function(e){
+//     this.setData({
+//       actDate: e.detail.value
+//     })
+//   },
+// //活动时间改变
+//   actTimeChange:function(e){
+//     this.setData({
+//       actTime: e.detail.value
+//     })
+//   },
 //输入场馆名称
   areaNameInput: function (e) {
     this.setData({
@@ -134,12 +139,12 @@ Page({
       areaAddress: e.detail.value
     })
   },
-//计划人数
-  planPeopleInput:function(e){
-    this.setData({
-      planPeople: e.detail.value
-    })
-  },
+// //计划人数
+//   planPeopleInput:function(e){
+//     this.setData({
+//       planPeople: e.detail.value
+//     })
+//   },
 //费用类型改变
   feeTypeChange:function(e){
     this.setData({
@@ -187,27 +192,32 @@ Page({
 //点击提交后页面跳转
    submitActive:function (e) {
      var that = this;
+     console.log("action:" + that.data.action);
      wx.request({
        // url: 'http://59.110.165.245/Lbs_back/servlet/PositionInsert', //位置新增接口地址
-       url: 'https://localhost:3000/active/addActive',
+       url: 'https://littlebearsports.com/bearsport/service/activity/activityMaintain',
        data: {
-         // actTitle:datas.actTitle,
-         actTerm: that.data.actTerms[that.data.actTermIndex],
-         actType: that.data.actTypes[that.data.actTypeIndex],
-         areaName: that.data.areaName,
-         areaAddress: that.data.areaAddress,
-         feeType: that.data.feeTypes[that.data.feeTypeIndex],
-         planPeople: that.data.planPeople,
-         sprType: that.data.sprTypes[that.data.sprTypeIndex],
-         actDate: that.data.actDate,
-         actTime: that.data.actTime,
+         operationCode:'CA',
+         actSubject: that.data.actTitle,                             //活动标题
+         sprType: that.data.sprTypes[that.data.sprTypeIndex],        //活动类型
+         actType: that.data.actTypes[that.data.actTypeIndex],       //运动类型
+         feeType: that.data.feeTypes[that.data.feeTypeIndex],       //费用类型
+         feeEst : 1 ,                                               //费用预估
+         planPeople: that.data.planPeople,                          //人数限制
+         actDate: that.data.actDate,                                //活动日期
+         actTime: that.data.actTime,                                //活动时间
+        // actTerm: that.data.actTerms[that.data.actTermIndex],
+        
+         areaName: that.data.areaName,                              //场馆名称
+         areaAddress: that.data.areaAddress,                        //场馆地址
+         areaLocation: { "latitude": 34.34, "longitude": 108.94 },  //场馆坐标
          openid: openid,    //后续添加ID标记发起用户
-         heat: 1,           //活动人数，初始化为1
-         words: that.data.words,
+         wordsInput: that.data.words,                               //留言
        },
        header: {
          'content-type': 'application/json'
        },
+       method: 'POST', 
        success: function (res) {
         // console.log(res.data)
         //活动成果后页面跳转
