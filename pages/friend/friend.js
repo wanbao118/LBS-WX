@@ -13,6 +13,9 @@ var len = 0;
 var sports = ['羽毛球', '篮球', '网球'];
 var location = '';
 var query = '';
+// 滑动条选项
+var order = ['h1','h2','h3','h4','h5']
+
 Page({
   data: {
     markers: [],
@@ -32,7 +35,15 @@ Page({
     scrollTop: 0,
     scrollHeight: 0,
     selectFlag: false,
-    
+    // 页面配置  
+    winWidth: 0,
+    winHeight: 0, 
+
+    // tab切换 
+    currentTab: 0,
+
+    toView: 'h1',
+    tabColor:'red',
     //测试数据，等后台服务准备好后替换
     friendList: [
 
@@ -53,12 +64,17 @@ Page({
     var that = this;
     wx.getSystemInfo({
       success: function (res) {
+        // that.setData({
+        //   sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2
+        // });
+        // that.setData({
+        //   scrollHeight: res.windowHeight
+        // });
         that.setData({
-          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2
-        });
-        that.setData({
-          scrollHeight: res.windowHeight
-        });
+          winWidth: res.windowWidth,
+          winHeight: res.windowHeight
+        }); 
+
       }
     });
 
@@ -69,6 +85,22 @@ Page({
     //that.getCity();
     that.getLocationInfo();
     that.loadBaiDu();
+  },
+  // 滑动切换tab 
+  bindChange: function (e) {
+    var that = this;
+    that.setData({ currentTab: e.detail.current });
+  },
+  // 点击tab切换 
+  swichNav: function (e) {
+    var that = this;
+    if (this.data.currentTab === e.target.dataset.current) {
+      return false;
+    } else {
+      that.setData({
+        currentTab: e.target.dataset.current
+      })
+    }
   },
 
 
@@ -292,4 +324,24 @@ Page({
       }
     })
   },
+  upper: function (e) {
+    console.log(e)
+  },
+  lower: function (e) {
+    console.log(e)
+  },
+  scroll: function (e) {
+    console.log(e)
+    console.log("toView:", this.data.toView);
+
+    for (var i = 0; i < order.length; i++) {
+      if (order[i] === this.data.toView) {
+        this.setData({
+          toView: order[i + 1]
+        })
+        break
+      }
+    }
+
+  }
 })

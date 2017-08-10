@@ -7,7 +7,76 @@
     </view>
   </view>
   <view class="page__bd">
-    <view class="weui-tab">
+
+    <view class="swiper-tab">
+      <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">熊友</view>
+      <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">熊圈</view>
+      <view class="swiper-tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">陪练</view>
+      <view class="swiper-tab-list {{currentTab==3 ? 'on' : ''}}" data-current="3" bindtap="swichNav">教练</view>
+      <view class="swiper-tab-list {{currentTab==4 ? 'on' : ''}}" data-current="4" bindtap="swichNav">场馆</view>
+    </view>
+    <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 31}}px" bindchange="bindChange">
+      <swiper-item>
+        <view>
+          <view class="page_list" wx:for="{{friendList}}">
+            <template is="tFindFriend" data="{{item}}" />
+          </view>
+        </view>
+      </swiper-item>
+      <swiper-item>
+        <view>熊圈</view>
+      </swiper-item>
+      <swiper-item>
+        <view>陪练</view>
+      </swiper-item>
+      <swiper-item>
+        <view>教练</view>
+      </swiper-item>
+      <swiper-item>
+        <view>
+          <view class="page_list" wx:for="{{markers}}" wx:for-index="id">
+            <template is="tPlaceList" data="{{item}}" />
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+
+
+
+
+    <!-- <scroll-view class="scroll-view_H" scroll-x="true" scroll-into-view="{{toView}}" scroll-with-animation="true" bindscroll="scroll" style="width:100%">
+    
+      <view id="h1" class="scroll-view-item_H">1
+        <view class="page_list" wx:for="{{markers}}" wx:for-index="id">
+          <template is="tPlaceList" data="{{item}}" />
+        </view>
+      </view>
+      <view id="h2" class="scroll-view-item_H">2
+        <view class="page_list" wx:for="{{markers}}" wx:for-index="id">
+          <template is="tPlaceList" data="{{item}}" />
+        </view>
+      </view>
+      <view id="h3" class="scroll-view-item_H">3
+        <view class="page_list" wx:for="{{markers}}" wx:for-index="id">
+          <template is="tPlaceList" data="{{item}}" />
+        </view>
+      </view>
+      <view id="h4" class="scroll-view-item_H">4
+        <view class="page_list" wx:for="{{markers}}" wx:for-index="id">
+          <template is="tPlaceList" data="{{item}}" />
+        </view>
+      </view>
+      <view id="h5" class="scroll-view-item_H">5
+        <view class="page_list" wx:for="{{markers}}" wx:for-index="id">
+          <template is="tPlaceList" data="{{item}}" />
+        </view>
+      </view>
+
+    </scroll-view> -->
+
+
+
+    <!-- <view class="weui-tab">
       <view class="weui-navbar">
         <block wx:for-items="{{tabs}}" wx:key="{{index}}">
           <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
@@ -18,23 +87,22 @@
       </view>
       <view class="weui-tab__panel">
 
-        <!--找熊友-->
         <view class="" hidden="{{activeIndex != 0}}">
-           
+
 
           <view class="page_list" wx:for="{{friendList}}">
 
             <template is="tFindFriend" data="{{item}}" />
           </view>
         </view>
-        
+
         <view class="" hidden="{{activeIndex != 1}}">
-          
+
           <view class="page_list" wx:for="{{markers}}" wx:for-index="id">
             <template is="tPlaceList" data="{{item}}" />
           </view>
         </view>
       </view>
-    </view>
+    </view> -->
   </view>
 </view>

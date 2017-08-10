@@ -22,9 +22,9 @@ App({
     this.getCity();
     //this.userInfo();
     this.systemInfo();
-    wx.navigateTo({
-      url: '/pages/setup/setup'
-    })
+    // wx.navigateTo({
+    //   url: '/pages/setup/setup'
+    // })
   },
 
 
