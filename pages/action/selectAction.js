@@ -34,9 +34,10 @@ Page({
     console.log("a啊啊："+actId);
     var that = this;
        wx.request({
-            url: 'https://localhost:3000/active/selectActive' ,//活动明细查询接口地址
+         url: ' https://littlebearsports.com/bearsport/service/activity/activityMaintain' ,//活动明细查询接口地址
             data: {
-                _id: actId 
+              actId: actId ,
+              operationCode: "FAD"
              // sprType:"羽毛球"
             },
             header: {
