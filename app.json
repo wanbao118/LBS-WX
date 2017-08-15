@@ -11,6 +11,8 @@
     "pages/friend/clubMember",
     "pages/friend/map",
     "pages/place/placeDetail",
+    "pages/club/clubDetail",
+    "pages/club/clubCreate",
     "pages/my/my",
     "pages/my/mySetting",
     "pages/my/myActive",
