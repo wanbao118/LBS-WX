@@ -34,17 +34,19 @@ Page({
     console.log("a啊啊："+actId);
     var that = this;
        wx.request({
-         url: ' https://littlebearsports.com/bearsport/service/activity/activityMaintain' ,//活动明细查询接口地址
+         url: 'https://littlebearsports.com/bearsport/service/activity/activityMaintain' ,//活动明细查询接口地址
             data: {
               actId: actId ,
-              operationCode: "FAD"
+              "operationCode": "FAD"
              // sprType:"羽毛球"
             },
             header: {
                 'content-type': 'application/json'
             },
+            method: 'POST', 
             success: function(res) {
-              var result=res.data;
+              var result = res.data.listData;
+              console.log("message1",result);
                 console.log(result[0]);
                 that.setData({
                   activeInfo:result[0]
@@ -59,7 +61,7 @@ Page({
         key: 'userInfo',
         success: function(res) {
           storeData=res.data;
-          console.log("storeData:"+storeData);
+          console.log("storeData:",storeData);
         } 
       }),
 
@@ -71,17 +73,21 @@ Page({
         if (res.confirm) {
           //点击确认
              wx.request({
-             url: 'https://localhost:3000/active/joinAct',
+               url: 'https://littlebearsports.com/bearsport/service/userActivity/userActivityMaintain',
              data: {
                 actId:actId,
-                openid:storeData.openid,
-                joinner:storeData.nickName
+                userId :'0016',
+                joinDate:'2017-08-15',
+                joinTime:'23:40',
+                joinRemark:'',
+                operationCode:"ACA",
+                joinerName: storeData.nickName
               },
-             method: 'GET', 
+             method: 'POST', 
              success: function(res){
            
                 var results=res.data;
-                console.log("addACT:"+results);
+                console.log("addACT:",results);
                 if(results.length>0){
                  //操作成功提示
                    wx.showToast({

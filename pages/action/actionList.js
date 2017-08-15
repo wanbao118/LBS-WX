@@ -11,7 +11,6 @@ Page({
       //   { _id:34,nickName: '红太狼', sprType: '羽毛篮球球', actType: '友谊赛', address: "青青草原青青草原青青草原青青草原", actDate:'2017/08/01 下午5点',title:'一个打球好无聊!',feeType:'AA制' }, 
       //   { _id: 34, nickName: '红太狼', sprType: '羽毛球', actType: '友谊赛', address: "青青草原青青草原青青草原青青草原", actDate: '2017/08/01 下午5点', title: '中软国际的同学一起吧', feeType: 'AA制' }, { _id: 34, nickName: '红太狼', sprType: '桌球', actType: '陪练', address: "青青草原青青草原青青草原青青草原", actDate: '2017/08/01 下午5点', title: '高手来，初学者勿扰!', feeType: '我付' }, ]
       actObj:{},
-      datas: {"operationCode": "FA"}
        },
       
       
@@ -69,6 +68,7 @@ Page({
          },
         method: 'POST', 
         success: function(res) {
+          console.log("message", res.data);
           let actList = res.data.listData;
           console.log("aa:" + actList[0]);
            if(actList.length > 0){

@@ -13,7 +13,7 @@
 
     <view class="page_list" wx:for="{{actObj}}" wx:key="index">
       <view class='weui-panel weui-panel_access'>
-        <navigator url="selectAction?actId={{item._id}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+        <navigator url="selectAction?actId={{item.actId}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
           <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
              
             <image class="weui-media-box__thumb" src="http://pic.58pic.com/58pic/13/14/14/21s58PICdGy_1024.jpg" />
@@ -24,7 +24,7 @@
 
             <view class="weui-flex">
                 <view class="weui-flex__item" style="color:red">
-                  {{item.title}}
+                  {{item.actSubject}}
                 </view>{{item.sprType}}
               </view>
               
@@ -42,7 +42,7 @@
                   {{item.actType}}
                 </view>
                 <view class="weui-flex__item" style="color:blue">
-                  费用：36元
+                  费用： {{item. feeEst}}元
                 </view>
                 <view style="color:blue">
                   {{item.feeType}}
@@ -53,7 +53,7 @@
           </view>
           
         </navigator>
-        <view class="weui-media-box__desc">活动地址：{{item.address}}</view>
+        <view class="weui-media-box__desc">活动地址：{{item.areaAddress}}</view>
         <view class="weui-media-box__desc">活动时间：{{item.actDate}}</view>
       </view>
     </view>
