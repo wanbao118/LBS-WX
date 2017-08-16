@@ -48,7 +48,10 @@ Page({
 
     ],
     cycleList: [
-
+      {name:"朋友圈1",desc:"好好的",type:"足球",count:21,level:12,home:"XXX足球场"},
+      { name: "朋友圈2", desc: "飒飒的发生的", type: "足球", count: 34, level: 6, home: "国力足球场"},
+      { name: "朋友圈3", desc: "；垃圾似的", type: "桌球", count: 4, level: 7, home: "南门金狗桌球俱乐部"},
+      { name: "朋友圈4", desc: "哦阿桑地方", type: "羽毛球", count: 56, level: 18, home: "大寨路天龙羽毛球馆"}
     ],
 
   },

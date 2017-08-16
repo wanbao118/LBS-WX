@@ -1,0 +1,19 @@
+<import src="/utils/template.wxml" />
+<!--pages/friend/clubMember.wxml-->
+<view class="page">
+  <view class="page__hd">
+
+  </view>
+  <view class="page__bd">
+
+    <view class="page_list" wx:for="{{friendList}}">
+      <view class="weui-flex ">
+        <view class="weui-flex__item ">
+          <view>{{item.title}}</view>
+        </view>
+        <view>{{item.type}}</view>
+      </view>
+
+    </view>
+  </view>
+</view>

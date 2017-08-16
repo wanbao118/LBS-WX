@@ -70,7 +70,7 @@ Page({
         success: function(res) {
           console.log("message", res.data);
           let actList = res.data.listData;
-          console.log("aa:" + actList[0]);
+          console.log("aa:",actList[0]);
            if(actList.length > 0){
                that.setData({ 
                 actObj: actList 

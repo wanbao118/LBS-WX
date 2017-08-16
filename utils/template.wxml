@@ -87,7 +87,7 @@
             </view>
             <view class="weui-flex ">
               <view class="weui-flex__item ">
-                <view>熊友圈人数：{{item.sum}}</view>
+                <view>熊友圈人数：{{item.count}}</view>
               </view>
             </view>
           </view>

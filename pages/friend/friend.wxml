@@ -27,8 +27,8 @@
         </swiper-item>
         <swiper-item>
           <scroll-view scroll-y style="height:{{winHeight}}px">
-            <view class="page_list" wx:for="{{friendList}}">
-              <template is="tFriendCycleList" data="{{item}}" />
+            <view class="page_list" wx:for="{{cycleList}}">
+              <template is="tClubList" data="{{item}}" />
             </view>
           </scroll-view>
         </swiper-item>
