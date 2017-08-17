@@ -5,6 +5,7 @@ function formatTime(date) {
 
   var hour = date.getHours()
   var minute = date.getMinutes()
+
   var second = date.getSeconds()
 
 
@@ -46,6 +47,10 @@ function getLocalTime(now) {
   var day = d.getDate();
   var hour = d.getHours();
   var Min = d.getMinutes();
+
+  if (Min < 10) {
+    Min = "0" + Min;
+  }
 
   return Y + "-" + M + "-" + day + "  " + hour + ":" + Min;
 }      
