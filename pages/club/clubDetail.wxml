@@ -15,10 +15,10 @@
       <view class="weui-flex__item" style="text-align:center">
         <image class="userinfo-avatar" src="http://www.qqleju.com/uploads/allimg/160622/22-101309_76.jpg" background-size="cover"></image>
       </view>
-      <view>信：{{club.creditLevel}}</view>
+      <view>信:{{club.creditLevel}}</view>
     </view>
     <view class="weui-flex">
-      <view class="weui-flex__item" style="text-align:center;color:blue;font-weight:bold">
+      <view class="weui-flex__item" style="text-align:center;font-weight:bold">
         <text>{{club.name}}</text>
       </view>
     </view>

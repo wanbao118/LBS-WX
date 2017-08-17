@@ -11,7 +11,7 @@
         <view class="weui-flex__item ">
           <view>{{item.title}}</view>
         </view>
-        <view>{{item.type}}</view>
+        <view>{{item.intro}}</view>
       </view>
 
     </view>

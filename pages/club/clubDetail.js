@@ -2,7 +2,7 @@
 // pages/friend/showCycle.js
 Page({
   data: {
-    club: {},
+    club: { level:20, creditLevel:34, name: "大秦之都足球队", money: 1000, type: "足球", createDate:"20170818"},
     clubId: "",
     grids: [0, 1, 2, 3, 4, 5]
   },
