@@ -7,7 +7,12 @@ Page({
    userInfo: {},
    grids: [0, 1, 2, 3, 4, 5],
    myActiveCount:0,
-   openid:''
+   openid:'',
+   bbs:[{author:"老猫",content:"我阿里斯顿骄傲的",time:"2017/08/19 12:23:00"},
+     { author: "叨叨", content: " 大时代发生", time: "2017/08/19 12:23:00" },
+     {author: "达到", content: "；看；课件", time: "2017/08/19 12:23:00" },
+     {author: "的得分", content: "；可洁可净", time: "2017/08/19 12:23:00" },
+     {author: "逻辑", content: "；；课件；就", time: "2017/08/19 12:23:00" }]
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
@@ -41,7 +46,7 @@ Page({
           success: function(res){
              console.log("获取用户详情信息：",res); 
              res.data.listData[0].lastLoginTime=util.getLocalTime(res.data.listData[0].lastLoginTime);
-            res.data.listData[0].firstLoginTime=util.getLocalTime(res.data.listData[0].firstLoginTime);
+             res.data.listData[0].firstLoginTime=util.getLocalTime(res.data.listData[0].firstLoginTime);
 
              that.setData({ 
                 person:res.data.listData[0] 

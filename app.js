@@ -1,4 +1,5 @@
 //app.js
+var util = require('/common/util.js');
 var bmap = require('/libs/bmap-wx.js');
 const ak = 'bfwtSbwjqSnIPWGIjKssrQdsPZn0Q87g';
 var wxMarkerData = [];
@@ -210,7 +211,8 @@ App({
         // res.data.listData[0].firstLoginTime = util.getLocalTime(res.data.listData[0].firstLoginTime);
 
           that.gData.userInfo=res.data.listData[0]
-
+          that.gData.userInfo.lastLoginTime = util.getLocalTime(res.data.listData[0].lastLoginTime);
+          that.gData.userInfo.firstLoginTime = util.getLocalTime(res.data.listData[0].firstLoginTime);
       },
       fail: function (res) {
         // fail
