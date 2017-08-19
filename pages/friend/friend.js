@@ -74,8 +74,8 @@ Page({
       }
     });
 
-    //获取熊友初始数据
-    that.getUsers();
+    // //获取熊友初始数据
+    // that.getUsers();
     
     //调用百度
     //that.getCity();
@@ -207,6 +207,8 @@ Page({
   },
   onShow: function () {
     // 页面显示
+    //获取熊友初始数据
+    this.getUsers();
   },
   onHide: function () {
     // 页面隐藏

@@ -20,7 +20,7 @@
               <view class="weui-flex__item">
                 <!-- <view class="" style="background-color:DimGray;color:white;width:120rpx">Lv:{{item.level}}</view> -->
                 <view class="" style="">Lv:{{item.level}}</view>
-              </view>羽毛球
+              </view>{{item.favType1}}
               <!-- <view class="weui-flex__item" style="">
                 <view class="fa fa-flash" style="color:Purple"></view> {{item.level}}
               </view>

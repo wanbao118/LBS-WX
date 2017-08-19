@@ -17,6 +17,9 @@
     "pages/my/mySetting",
     "pages/my/myActive",
     "pages/my/myInfo",
+    "pages/my/editNickName",
+    "pages/my/editDesc",
+    "pages/my/editType",
     "pages/common/editValue",
     "pages/common/sportLevel",
     "pages/setup/setup"

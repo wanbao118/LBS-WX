@@ -1,4 +1,4 @@
-<import src="/utils/template.wxml" />
+<import src="/common/template.wxml" />
 <!--pages/friend/clubMember.wxml-->
 <view class="page">
   <view class="page__hd">
@@ -7,13 +7,13 @@
   <view class="page__bd">
 
     <view class="page_list" wx:for="{{friendList}}">
-      <view class="weui-flex ">
+      <!-- <view class="weui-flex ">
         <view class="weui-flex__item ">
           <view>{{item.title}}</view>
         </view>
         <view>{{item.intro}}</view>
-      </view>
-
+      </view> -->
+      <template is="tFindFriend" data="{{item}}" />
     </view>
   </view>
 </view>

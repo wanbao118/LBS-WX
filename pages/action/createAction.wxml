@@ -115,8 +115,9 @@
           </view>
           <view class="weui-cell__ft" hidden="{{hideSearch}}">
             <navigator url="./placeList?sprType={{sprTypes[sprTypeIndex]}}" hover-class="navigator-hover">
-              <image src="/images/around_default.png" style="width: 20px; height: 20px;">
-              </image>
+              <!-- <image src="/images/around_default.png" style="width: 20px; height: 20px;">
+              </image> 尽量少用图片文件-->
+              <view class="fa fa-search" style="color:purple"></view>
             </navigator>
 
           </view>

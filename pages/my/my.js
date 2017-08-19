@@ -36,13 +36,11 @@ Page({
   onLoad: function () {
     console.log('onLoad');
      
-    var res=wx.getStorageSync('userInfo');
+    
    
-    this.setData({
-                  userInfo:res
-              });
+    
 
-    this.getUserInfo();
+    //this.getUserInfo();
   },
 
   onShow: function () {
@@ -52,6 +50,10 @@ Page({
     //   iData.description = app.gData.editValue.value;
     //   app.gData.editValue = ""
     // }
+    this.setData({
+      userInfo: app.gData.userInfo
+    });
+
     if(this.data.editValue){
       this.data.userInfo.description = this.data.editValue.value;
       this.data.userInfo.operationCode = "UPD";
@@ -113,7 +115,7 @@ Page({
 
   editDescription:function(){
     wx.navigateTo({
-      url: '../common/editValue?value=' + this.data.userInfo.description+'&type=text&desc=请设置你的签名：'
+      url: 'editDesc'
     })
 
 

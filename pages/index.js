@@ -32,12 +32,12 @@ Page({
     
       
      
- app.userInfo(function(userInfo){
-      //更新数据
-      that.setData({
-        userInfo:userInfo
-      })
-    })
+//  app.userInfo(function(userInfo){
+//       //更新数据
+//       that.setData({
+//         userInfo:userInfo
+//       })
+//     })
 
 
 

@@ -1,4 +1,4 @@
-// pages/common/editValue.js
+// pages/my/editNickName.js
 var app = getApp();
 Page({
 
@@ -6,15 +6,17 @@ Page({
    * 页面的初始数据
    */
   data: {
-    parms:''
+    userInfo:""
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-     console.log(options);
-     this.setData({parms:options});
+    
+    this.setData({
+      userInfo: app.gData.userInfo
+    });
   },
 
   /**
@@ -66,18 +68,30 @@ Page({
   
   },
   //确认修改
-  formSubmit: function(e){
-    //app.gData.editValue = e.detail.value
-    var pages = getCurrentPages();
-    var prevPage = pages[pages.length - 2];
-
-    //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-    var field = this.data.parms.field
-    prevPage.setData({
-      field: e.detail.value
-    })
+  formSubmit: function (e) {
+     
+    app.gData.userInfo.nickName = e.detail.value.nickName;
+    var iData = app.gData.userInfo;
+    iData.operationCode = "UPD";
+    console.log("iData:",iData);
+    wx.request({
+      url: app.gData.iServerUrl + '/bearsport/service/user/userMaintain',
+      data: iData,
+      method: 'POST',
+      // header: {}, // 设置请求的 header
+      success: function (res) {
+        console.log("获取用户详情信息：", res);
+      },
+      fail: function (res) {
+        // fail
+      },
+      complete: function (res) {
+        // complete
+      }
+    }) 
     wx.navigateBack({
       delta: 1
     })
+    
   }
 })
