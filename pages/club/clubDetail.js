@@ -30,6 +30,12 @@ Page({
       url: 'clubCreate'
     })
   },
+
+  clubManage:function(){
+    wx.navigateTo({
+      url: 'clubManage',
+    })
+  },
   //获取熊友圈详情
   getClub: function () {
     var that = this;

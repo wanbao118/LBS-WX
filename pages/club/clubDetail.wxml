@@ -22,7 +22,7 @@
         <text>{{club.name}}</text>
       </view>
     </view>
-    <view class="weui-flex">
+    <view class="weui-flex" style="padding:10px">
       <view class="weui-flex__item">
         <view class="weui-flex" style="text-align:center;font-size:32px;color:Purple">
           <view class="weui-flex__item fa fa-bell"></view>
@@ -31,11 +31,11 @@
           <view class="weui-flex__item">议事厅</view>
         </view>
       </view>
-      <view class="weui-flex__item">
+      <view class="weui-flex__item" bindtap="clubManage">
         <view class="weui-flex" style="text-align:center;font-size:32px;color:Purple">
           <view class="weui-flex__item  fa fa-calendar"></view>
         </view>
-        <view class="weui-flex" style="text-align:center;font-size:12px">
+        <view class="weui-flex" style="text-align:center;font-size:12px" >
           <view class="weui-flex__item">圈日历</view>
         </view>
       </view>
