@@ -2,7 +2,7 @@
 var app = getApp();
 var util = require('../../common/util.js');
 // pages/action/createAction.js
-var openid='';
+var openId='';
 Page({
   data:{ 
    // subject:"",
@@ -36,7 +36,7 @@ Page({
       wx.getStorage({
         key: 'userInfo',
         success: function(res) {
-         openid=res.data.openid;
+          openId=res.data.openid;
          } 
       })
       //获取nagative带来的参数
@@ -65,6 +65,38 @@ Page({
 //表单提交
   formSubmit: function (e) {
     console.log('form发生了submit事件，携带数据为：', e.detail.value)
+    var that = this;
+    console.log("action:" + that.data.action);
+    var iData = e.detail.value;
+    iData.operationCode = 'CA'
+    iData.openId = app.gData.userInfo.openId
+    console.log("创建活动发送数据",iData);
+    wx.request({
+      // url: 'http://59.110.165.245/Lbs_back/servlet/PositionInsert', //位置新增接口地址
+      url: 'https://littlebearsports.com/bearsport/service/activity/activityMaintain',
+      data: iData,
+      header: {
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      success: function (res) {
+        console.log("创建活动返回信息", res.data)
+        //活动成果后页面跳转
+        wx.switchTab({
+          url: 'actionList',
+          complete: function (res) {
+            console.log(res)
+          }
+        })
+      },
+      fail: function (res) {
+        console.log('失败');
+      }
+
+    })
+
+
+
   },
    
 
@@ -114,18 +146,18 @@ Page({
     })
   },
 
-// //活动日期改变
-//   actDateChange:function(e){
-//     this.setData({
-//       actDate: e.detail.value
-//     })
-//   },
-// //活动时间改变
-//   actTimeChange:function(e){
-//     this.setData({
-//       actTime: e.detail.value
-//     })
-//   },
+//活动日期改变
+  actDateChange:function(e){
+    this.setData({
+      actDate: e.detail.value
+    })
+  },
+//活动时间改变
+  actTimeChange:function(e){
+    this.setData({
+      actTime: e.detail.value
+    })
+  },
 //输入场馆名称
   areaNameInput: function (e) {
     this.setData({
@@ -159,34 +191,7 @@ Page({
   },
  
  
-    // addActiveFunction: function(e) {
-    // var that=this;
-    //     wx.request({
-    //         // url: 'http://59.110.165.245/Lbs_back/servlet/PositionInsert', //位置新增接口地址
-    //         url: 'http://localhost:3000/active/addActive' ,
-    //         data: {
-    //            // actTitle:datas.actTitle,
-    //           actTerm: that.data.actTerms[that.data.actTermIndex],
-    //           actType: that.data.actTypes[that.data.actTypeIndex],
-    //             areaName:datas.areaName,
-    //             areaAddress:datas.areaAddress,
-    //             feeType: that.data.feeTypes[that.data.feeTypeIndex],
-    //             planPeople:datas.planPeople,
-    //             sprType: that.data.sprTypes[that.data.sprTypeIndex],
-    //             sprDate:datas.actDate,
-    //             sprTime:datas.actTime,
-    //             openid:openid,    //后续添加ID标记发起用户
-    //             heat:1,           //活动人数，初始化为1
-    //             words: datas.words,
-    //         },
-    //         header: {
-    //             'content-type': 'application/json'
-    //         },
-    //         success: function(res) {
-    //             console.log(res.data)
-    //         }
-    //     })
-    // },
+     
 
 
 //点击提交后页面跳转
@@ -211,7 +216,7 @@ Page({
          areaName: that.data.areaName,                              //场馆名称
          areaAddress: that.data.areaAddress,                        //场馆地址
          areaLocation: { "latitude": 34.34, "longitude": 108.94 },  //场馆坐标
-         openid: openid,    //后续添加ID标记发起用户
+         openId: openId,    //后续添加ID标记发起用户
          wordsInput: that.data.words,                               //留言
        },
        header: {
@@ -219,7 +224,7 @@ Page({
        },
        method: 'POST', 
        success: function (res) {
-        // console.log(res.data)
+      console.log("创建活动返回信息",res.data)
         //活动成果后页面跳转
          wx.switchTab({
            url: 'actionList',
