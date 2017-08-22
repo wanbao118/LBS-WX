@@ -131,14 +131,14 @@ Page({
      //发送请求查询参加人员信息
      var that = this;
            wx.request({
-             url: 'https://localhost:3000/active/selectJoiner',
+             url: 'https://littlebearsports.com/bearsport/service/userActivity/getActivityJoiners',
              data: { actId:actId },
-             method: 'GET', 
+             method: 'POST', 
       
              success: function(res){
             // success
                 var tt=res.data;
-                console.log("selectJoiner:"+tt[0]);
+                console.log("selectJoiner:", res);
                 that.setData({
                   joinners:res.data
                 });

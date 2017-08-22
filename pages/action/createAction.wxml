@@ -25,7 +25,7 @@
             <view class="weui-label">运动类型：</view>
           </view>
           <view class="weui-cell__bd">
-            <picker id="sprType" bindchange="sprTypeChange" mode="selector" value="{{sprTypeIndex}}" range="{{sprTypes}}" name="sprType">
+            <picker id="sprType" bindchange="sprTypeChange" mode="selector" value="{{sprTypes[sprTypeIndex]}}" range="{{sprTypes}}" name="sprType">
               <view class="weui-input">{{sprTypes[sprTypeIndex]}}</view>
             </picker>
           </view>
@@ -36,7 +36,7 @@
             <view class="weui-label">活动类型：</view>
           </view>
           <view class="weui-cell__bd">
-            <picker id="actType" mode="selector" value="{{actTypeIndex}}" range="{{actTypes}}" bindchange="actTypeChange" name="actType">
+            <picker id="actType" mode="selector" value="{{actTypes[actTypeIndex]}}" range="{{actTypes}}" bindchange="actTypeChange" name="actType">
               <view class="weui-input">{{actTypes[actTypeIndex]}}</view>
             </picker>
           </view>
@@ -47,7 +47,7 @@
             <view class="weui-label">费用类型</view>
           </view>
           <view class="weui-cell__bd">
-            <picker id="feeType" mode="selector" value="{{feeTypeIndex}}" range="{{feeTypes}}" bindchange="feeTypeChange" name="feeType">
+            <picker id="feeType" mode="selector" value="{{feeTypes[feeTypeIndex]}}" range="{{feeTypes}}" bindchange="feeTypeChange" name="feeType">
               <view name="feeType" class="weui-input">{{feeTypes[feeTypeIndex]}}</view>
 
             </picker>
