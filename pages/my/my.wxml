@@ -50,7 +50,7 @@
         <view class="weui-cell__bd">系统消息</view>
         <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
       </navigator>
-      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="getImgs">
+      <navigator url="../common/bbs" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="getImgs">
         <view class="weui-cell__hd">
           <view class="fa fa-commenting" style="margin-right:10px;"></view>
         </view>
