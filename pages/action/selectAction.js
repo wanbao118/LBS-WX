@@ -86,12 +86,12 @@ Page({
              method: 'POST', 
              success: function(res){
            
-                var results=res.data;
+                var results=res.data.errorCode;
                 console.log("addACT:",results);
-                if(results.length>0){
+                if(results[0] == "10000"){
                  //操作成功提示
                    wx.showToast({
-                      title: '已报名',
+                      title: '您已报名过该活动',
                       icon: 'success',
                       duration: 2000
                     })
@@ -138,9 +138,13 @@ Page({
              success: function(res){
             // success
                 var tt=res.data;
+                for (var i = 0; i < res.data.listData.length; i++) {
+                  res.data.listData[i].joinDate=util.formatOnlyDate(new Date(res.data.listData[i].joinDate),"-");
+
+                }
                 console.log("selectJoiner:", res);
                 that.setData({
-                  joinners:res.data
+                  joinners:res.data.listData
                 });
               },
               fail: function(res) {

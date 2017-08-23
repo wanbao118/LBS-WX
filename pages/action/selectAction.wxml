@@ -138,14 +138,14 @@
       </view>
       <block wx:for="{{joinners}}" wx:key="index">
         <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-          <view class="td">{{joinners[index].joinner}}</view>
-          <view class="td">{{joinners[index].feeType}}</view>
-          <view class="td">{{joinners[index].joninerLeave}}</view>
+          <view class="td">{{joinners[index].username}}</view>
+          <view class="td">{{joinners[index].joinDate}}</view>
+          <view class="td">{{joinners[index].remark}}</view>
         </view>
         <view class="tr" wx:else>
-          <view class="td">{{joinners[index].joinner}}</view>
-          <view class="td">{{joinners[index].feeType}}</view>
-          <view class="td">{{joinners[index].joninerLeave}}</view>
+          <view class="td">{{joinners[index].username}}</view>
+          <view class="td">{{joinners[index].joinDate}}</view>
+          <view class="td">{{joinners[index].remark}}</view>
         </view>
       </block>
     </view>
