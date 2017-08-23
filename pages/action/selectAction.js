@@ -46,6 +46,7 @@ Page({
             method: 'POST', 
             success: function(res) {
               var result = res.data.listData;
+              result[0].actDate = util.formatOnlyDate(new Date(result[0].actDate), "-")
               console.log("message1",result);
                 console.log(result[0]);
                 that.setData({
