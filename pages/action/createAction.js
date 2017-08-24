@@ -72,7 +72,7 @@ Page({
     var iData = e.detail.value;
     iData.operationCode = 'CA'
     iData.nickName = app.gData.userInfo.nickName
-    iData.openId = storage.openId
+    iData.openId = app.gData.userInfo.openId
     console.log("创建活动发送数据",iData);
     wx.request({
       // url: 'http://59.110.165.245/Lbs_back/servlet/PositionInsert', //位置新增接口地址
