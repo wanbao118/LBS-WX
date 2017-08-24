@@ -47,31 +47,7 @@ Page({
   createClub: function (e) {
 
     console.log("createClub:", e);
-    // wx.request({
-    //   url: 'http://localhost:3000/club/addClub',
-    //   data: this.data.club,
-    //   method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-    //   // header: {}, // 设置请求的 header
-    //   success: function (res) {
-    //     // success
-    //     wx.showToast({
-    //       title: '创建成功！',
-    //       icon: 'success',
-    //       duration: 2000
-    //     })
-    //   },
-    //   fail: function (res) {
-    //     // fail
-    //     wx.showToast({
-    //       title: '创建失败！',
-    //       icon: 'success',
-    //       duration: 2000
-    //     })
-    //   },
-    //   complete: function (res) {
-    //     // complete
-    //   }
-    // })
+   
   },
 
 })
