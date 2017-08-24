@@ -1,5 +1,6 @@
 // pages/action/action.js
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
+var util = require('../../common/util.js')
 Page({
   data:{ 
       tabs: [ "热门", "最新"],
@@ -70,6 +71,9 @@ Page({
         success: function(res) {
           console.log("message", res.data);
           let actList = res.data.listData;
+          for (var i = 0; i < actList.length; i++) {
+            actList[i].actDate = util.formatOnlyDate(new Date(actList[i].actDate),"-")
+          }
           console.log("aa:",actList[0]);
            if(actList.length > 0){
                that.setData({ 
