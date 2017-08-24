@@ -4,10 +4,9 @@ var util = require('../../common/util.js');
 Page({
   data:{
    person:[],
-   userInfo: {},
    grids: [0, 1, 2, 3, 4, 5],
    myActiveCount:0,
-   openid:'',
+   openId:'',
    bbs:[{author:"老猫",content:"我阿里斯顿骄傲的",time:"2017/08/19 12:23:00"},
      {author: "逻辑", content: "；；课件；就", time: "2017/08/19 12:23:00" }]
   },
@@ -16,25 +15,15 @@ Page({
   console.log("页面接收参数：",options)
   var that = this;  
   that.setData({   
-    userInfo:options,    
+    openId:options.openId,
   });
-  //从storage获取openid
-  wx.getStorage({
-    key: 'userInfo',
-    success: function (res) {
-      that.setData({
-         openid :res.data.openid
-      });
-      console.log("oid:" + res.data.openid);
-      //获取参加活动数量信息
-      that.getActiveCount(); 
-    }
-  })
-
+  
+  that.getActiveCount(); 
+   
  //获取用户信息
   var iData = {};
   iData.operationCode = "UFO";
-  iData.openId = this.data.userInfo.openId;
+  iData.openId = this.data.openId;
   wx.request({
     url: app.gData.iServerUrl + '/bearsport/service/user/userMaintain',
           data: iData,
@@ -81,10 +70,10 @@ Page({
   //查询参加的活动数量
   getActiveCount: function () {
     var that=this;
-    console.log("oid111:" + that.data.openid);
+    console.log("oid111:" + that.data.openId);
     wx.request({
       url: 'https://localhost:3000/active/myActiveCount',
-      data: { openid: that.data.openid },
+      data: { openId: that.data.openId },
       method: 'get',
       success: function (res) {
         console.log("count:" + res.data);
@@ -102,22 +91,28 @@ Page({
     })
   },
 
-  addComment:function(){
-    wx.navigateTo({
-      url: '../common/editValue?value=' + this.data.userInfo.openId + '&type=text&desc=请留言'
-    })
-  },
   submit:function(){
 
     wx.showActionSheet({
-      itemList: ['留言', '约运动', '邀入群'],
+      itemList: ['加好友','留言', '约运动', '邀入群'],
       success: function (res) {
-        console.log(res.tapIndex)
-        if(res.tapIndex==0){
-          wx.navigateTo({
-            url: '../common/bbs?value=' + app.gData.userInfo.openId + '&type=text&desc=请留言'
-          })
+        
+        switch (res.tapIndex) {
+          case 0:
+            break;
+          case 1:
+            wx.navigateTo({
+              url: '../common/bbs?value=' + app.gData.userInfo.openId + '&type=text&desc=请留言'
+            })
+            break;
+          case 2:
+            break;
+          case 3:
+            break;
+          default:
+            
         }
+        
       },
       fail: function (res) {
         console.log(res.errMsg)
