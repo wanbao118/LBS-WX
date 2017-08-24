@@ -82,7 +82,7 @@ Page({
                 joinTime:'23:40',
                 joinRemark:'',
                 operationCode:"ACA",
-                joinerName: storeData.nickName
+                joinerName: app.gData.userInfo.nickName
               },
              method: 'POST', 
              success: function(res){

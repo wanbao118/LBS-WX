@@ -3,6 +3,7 @@ var app = getApp();
 var util = require('../../common/util.js');
 // pages/action/createAction.js
 var openId='';
+var storage = {};
 Page({
   data:{ 
    // subject:"",
@@ -37,6 +38,7 @@ Page({
         key: 'userInfo',
         success: function(res) {
           openId=res.data.openid;
+          storage = res.data;
          } 
       })
       //获取nagative带来的参数
@@ -69,7 +71,8 @@ Page({
     console.log("action:" + that.data.action);
     var iData = e.detail.value;
     iData.operationCode = 'CA'
-    iData.openId = app.gData.userInfo.openId
+    iData.nickName = app.gData.userInfo.nickName
+    iData.openId = storage.openId
     console.log("创建活动发送数据",iData);
     wx.request({
       // url: 'http://59.110.165.245/Lbs_back/servlet/PositionInsert', //位置新增接口地址
