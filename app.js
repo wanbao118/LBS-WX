@@ -213,6 +213,7 @@ App({
           that.gData.userInfo=res.data.listData[0]
           that.gData.userInfo.lastLoginTime = util.getLocalTime(res.data.listData[0].lastLoginTime);
           that.gData.userInfo.firstLoginTime = util.getLocalTime(res.data.listData[0].firstLoginTime);
+          that.gData.userInfo.userId = res.data.listData[0].userId;
       },
       fail: function (res) {
         // fail
