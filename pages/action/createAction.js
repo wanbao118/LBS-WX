@@ -73,6 +73,7 @@ Page({
     iData.operationCode = 'CA'
     iData.nickName = app.gData.userInfo.nickName
     iData.openId = app.gData.userInfo.openId
+    iData.userId = app.gData.userInfo.userId
     console.log("创建活动发送数据",iData);
     wx.request({
       // url: 'http://59.110.165.245/Lbs_back/servlet/PositionInsert', //位置新增接口地址
@@ -215,7 +216,6 @@ Page({
          actDate: that.data.actDate,                                //活动日期
          actTime: that.data.actTime,                                //活动时间
         // actTerm: that.data.actTerms[that.data.actTermIndex],
-        
          areaName: that.data.areaName,                              //场馆名称
          areaAddress: that.data.areaAddress,                        //场馆地址
          areaLocation: { "latitude": 34.34, "longitude": 108.94 },  //场馆坐标

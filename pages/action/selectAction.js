@@ -77,7 +77,7 @@ Page({
                url: 'https://littlebearsports.com/bearsport/service/userActivity/userActivityMaintain',
              data: {
                 actId:actId,
-                userId :'0016',
+                userId :app.gData.userInfo.userId,
                 joinDate:'2017-08-15',
                 joinTime:'23:40',
                 joinRemark:'',
