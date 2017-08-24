@@ -22,6 +22,7 @@
     "pages/my/editType",
     "pages/common/editValue",
     "pages/common/sportLevel",
+    "pages/common/bbs",
     "pages/setup/setup"
     
   ],

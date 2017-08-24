@@ -9,9 +9,6 @@ Page({
    myActiveCount:0,
    openid:'',
    bbs:[{author:"老猫",content:"我阿里斯顿骄傲的",time:"2017/08/19 12:23:00"},
-     { author: "叨叨", content: " 大时代发生", time: "2017/08/19 12:23:00" },
-     {author: "达到", content: "；看；课件", time: "2017/08/19 12:23:00" },
-     {author: "的得分", content: "；可洁可净", time: "2017/08/19 12:23:00" },
      {author: "逻辑", content: "；；课件；就", time: "2017/08/19 12:23:00" }]
   },
   onLoad:function(options){
@@ -108,6 +105,23 @@ Page({
   addComment:function(){
     wx.navigateTo({
       url: '../common/editValue?value=' + this.data.userInfo.openId + '&type=text&desc=请留言'
+    })
+  },
+  submit:function(){
+
+    wx.showActionSheet({
+      itemList: ['留言', '约运动', '邀入群'],
+      success: function (res) {
+        console.log(res.tapIndex)
+        if(res.tapIndex==0){
+          wx.navigateTo({
+            url: '../common/bbs?value=' + app.gData.userInfo.openId + '&type=text&desc=请留言'
+          })
+        }
+      },
+      fail: function (res) {
+        console.log(res.errMsg)
+      }
     })
   }
 })

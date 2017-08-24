@@ -92,7 +92,7 @@
     </scroll-view>
     
 <view class="btn-area">
-        <button type="primary" form-type="submit">邀约</button>
+        <button type="primary" bindtap="submit">邀约</button>
       </view>
   </view>
 </view>
