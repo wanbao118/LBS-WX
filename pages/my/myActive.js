@@ -5,7 +5,7 @@ var util = require('../../common/util.js')
 var actId = ''
 var storeData={};
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
-var openid='';
+var openId='';
 Page({
   data:{
    // MenlistFlag:true,
@@ -20,48 +20,35 @@ Page({
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
     var that = this
-    
+    that.selectMyActive();
         wx.getSystemInfo({
             success: function(res) {
                 that.setData({
                     sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2
+                
                 });
             }
-        }); 
-//获取缓存中openid
-    wx.getStorage({
-      key: 'userInfo',
-      success: function(res){
-      
-          openid=res.data.openid;
-        console.log("openid1:"+res.data.openid);
-        console.log("openid2:"+openid);
-        //查询参加的活动
-        that.selectMyActive()
-      },
-      fail: function(res) {
-        // fail
-      },
-     
-    })
- 
- 
+        });  
   },
 //查询发起的活动
   selectMyActive: function () {
     var that = this;
-     console.log("selectMyActive openid:"+openid);
        wx.request({
-            url: 'http://localhost:3000/active/selectMyActive' ,//活动明细查询接口地址
+            url: 'https://littlebearsports.com/bearsport/service/activity/activityMaintain' ,//活动明细查询接口地址
             data: {
-                openid:openid
+                openId:app.gData.userInfo.openId,
+                operationCode:"AFO"
             },
             header: {
                 'content-type': 'application/json'
             },
+            method: 'POST',
             success: function(res) {
-              var result=res.data;
-                console.log(result[0]);
+              var result=res.data.listData;
+          for (var i = 0; i < result.length; i++) {
+            result[i].actDate = util.formatOnlyDate(new Date(result[i].actDate),"-")
+          }
+              console.log(result[0]);
                that.setData({
                  activeInfo:result
                });
@@ -76,7 +63,7 @@ Page({
     wx.request({
       url: 'http://localhost:3000/active/selectMyJoin',//活动明细查询接口地址
       data: {
-        openid: openid
+        openid: app.gData.userInfo.openId
       },
       header: {
         'content-type': 'application/json'
