@@ -7,13 +7,26 @@
   <view class="page__bd">
 
     <view class="page_list" wx:for="{{friendList}}">
-      <!-- <view class="weui-flex ">
-        <view class="weui-flex__item ">
-          <view>{{item.title}}</view>
+       
+      <view class="weui-panel">
+            
+            <view class="weui-panel__bd">
+                <view class="weui-media-box weui-media-box_small-appmsg">
+                    <view class="weui-cells weui-cells_in-small-appmsg">
+                        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                            <view class="weui-cell__hd"><image src="http://www.qqleju.com/uploads/allimg/160622/22-101309_76.jpg" style="width: 20px;height: 20px;margin-right: 5px" /></view>
+                            <view class="weui-cell__bd weui-cell_primary">
+                                <view>{{item.nickName}}</view>
+                            </view>
+                            <view class="weui-cell__ft weui-cell__ft_in-access">{{item.level}}</view>
+                        </navigator>
+                         
+                    </view>
+                </view>
+            </view>
         </view>
-        <view>{{item.intro}}</view>
-      </view> -->
-      <template is="tFindFriend" data="{{item}}" />
     </view>
+
+    sdasdf
   </view>
 </view>

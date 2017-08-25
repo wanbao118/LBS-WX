@@ -1,9 +1,11 @@
 <!--pages/club/clubManage.wxml-->
 <view class="page">
   <view class="page__hd">
-   
+
   </view>
   <view class="page__bd">
-   哈哈哈
+    <view class="weui-flex">
+      <view class="weui-flex__item"></view>
+    </view>
   </view>
 </view>
