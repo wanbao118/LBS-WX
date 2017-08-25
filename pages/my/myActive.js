@@ -59,11 +59,11 @@ Page({
   //查询参加的活动
   selectJoinActive: function () {
     var that = this;
-    console.log("selectJoinActive openid:" + openid);
+    console.log("selectJoinActive openid:" + openId);
     wx.request({
       url: 'http://localhost:3000/active/selectMyJoin',//活动明细查询接口地址
       data: {
-        openid: app.gData.userInfo.openId
+        openId: app.gData.userInfo.openId
       },
       header: {
         'content-type': 'application/json'
