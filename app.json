@@ -27,10 +27,10 @@
     
   ],
   "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "Purple",
+    "backgroundTextStyle":"dark",
+    "navigationBarBackgroundColor": "purple",
     "navigationBarTitleText": "BearSports",
-    "navigationBarTextStyle":"white"
+    "navigationBarTextStyle":"black"
   },
   "tabBar": {
     

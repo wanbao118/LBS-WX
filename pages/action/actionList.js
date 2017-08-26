@@ -44,6 +44,11 @@ Page({
     // 页面关闭
   },
 
+  onPullDownRefresh:function(){
+    this.actionList();
+    wx.stopPullDownRefresh();
+  }, 
+
   tabClick: function (e) {
       this.setData({
           sliderOffset: e.currentTarget.offsetLeft,
