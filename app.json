@@ -9,6 +9,7 @@
     "pages/friend/showFriend",
     "pages/friend/showFriendAct",
     "pages/friend/map",
+    "pages/friend/bearFriend/bearFriend",
     "pages/place/placeDetail",
     "pages/club/clubDetail",
     "pages/club/clubCreate",
