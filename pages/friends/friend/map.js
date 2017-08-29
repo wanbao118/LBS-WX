@@ -1,4 +1,4 @@
-var bmap = require('../../libs/bmap-wx.js');
+var bmap = require('../../../libs/bmap-wx.js');
 var wxMarkerData = [];
 Page({
   data: {

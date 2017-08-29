@@ -1,8 +1,8 @@
 // pages/friend/friend.js
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 // 引用百度地图微信小程序JSAPI模块 
-var bmap = require('../../libs/bmap-wx.js');
-var util = require('../../common/util.js');
+var bmap = require('../../../libs/bmap-wx.js');
+var util = require('../../../common/util.js');
 var wxMarkerData = [];
 const ak = 'bfwtSbwjqSnIPWGIjKssrQdsPZn0Q87g'
 var app = getApp()

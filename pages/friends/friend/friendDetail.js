@@ -1,14 +1,15 @@
 // pages/friend/showFriend.js
 var app = getApp()
-var util = require('../../common/util.js');
+var util = require('../../../common/util.js');
 Page({
   data:{
    person:[],
    grids: [0, 1, 2, 3, 4, 5],
    myActiveCount:0,
    openId:'',
-   bbs:[{author:"老猫",content:"我阿里斯顿骄傲的",time:"2017/08/19 12:23:00"},
-     {author: "逻辑", content: "；；课件；就", time: "2017/08/19 12:23:00" }]
+   friends: [{ name: "老猫", actParticipate: 100, avatarUrl:"http://www.qqleju.com/uploads/allimg/160622/22-101309_76.jpg"},
+     { name: "猪八戒", actParticipate: 80, avatarUrl: "http://www.qqleju.com/uploads/allimg/160622/22-101309_76.jpg" }, 
+     { name: "沙和尚", actParticipate: 50, avatarUrl: "http://www.qqleju.com/uploads/allimg/160622/22-101309_76.jpg" },]
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
@@ -50,15 +51,11 @@ Page({
 
 },
    
-
-
   onReady:function(){
     // 页面渲染完成
   },
   onShow:function(){
     // 页面显示
-     
-
   },
   onHide:function(){
     // 页面隐藏

@@ -1,0 +1,83 @@
+<import src="/common/template.wxml" />
+<view class="page">
+  <view class="page__hd" style="color:Orange;">
+    <view class="weui-flex">
+      <view class="weui-flex__item" style="text-align:center">
+        <image class="userinfo-avatar" src="http://www.qqleju.com/uploads/allimg/160622/22-101309_76.jpg" background-size="cover"></image>
+      </view>
+    </view>
+    <view class="weui-flex">
+      <view class="weui-flex__item" style="text-align:center;color:white;">
+        中软国际HSBC业务线
+      </view>
+    </view>
+    <view class="weui-flex">
+      <view class="weui-flex__item" style="text-align:center">
+        89
+      </view>
+      <view class="weui-flex__item" style="text-align:center">
+        4
+      </view>
+      <view class="weui-flex__item" style="text-align:center">
+        34
+      </view>
+    </view>
+    <view class="weui-flex">
+      <view class="weui-flex__item" style="text-align:center">
+        排名
+      </view>
+      <view class="weui-flex__item" style="text-align:center">
+        成员数
+      </view>
+      <view class="weui-flex__item" style="text-align:center">
+        活跃度
+      </view>
+    </view>
+  </view>
+  <view class="page__bd">
+
+    <view class="weui-flex">
+      <view class="weui-flex__item" style="text-align:center">
+        创建者：孙悟空
+      </view>
+      <view class="weui-flex__item" style="text-align:center">
+        建立日期：2017-08-19
+      </view>
+    </view>
+    <view class="weui-flex line">
+      <view class="weui-flex__item">
+        招新，快来，活动多多，健康多多，朋友多多！招新，快来，活动多多，健康多多，朋友多多！招新，快来，活动多多，健康多多，朋友多多！
+      </view>
+    </view>
+    <view class="weui-flex line" style="font-weight:bold">
+        <view class="weui-flex__item">
+成员
+        </view>
+        <view class="weui-flex__item">
+
+        </view>
+        <view class="weui-flex__item" style="text-align:left">
+活跃度
+        </view>
+      </view>
+      <view class="page_list" wx:for="{{friends}}">
+      <view class="weui-flex line">
+        <view>
+<image class="userinfo-avatar" src="{{item.avatarUrl}}" background-size="cover" style="width:16px;height:16px;text-align:right"></image>
+        </view>
+        <view class="weui-flex__item" style="text-align:left">
+{{item.name}}
+        </view>
+        <view class="weui-flex__item" style="text-align:center">
+{{item.actParticipate}}
+        </view>
+      </view>
+
+    </view>
+
+
+    <view class="btn-area">
+      <button type="primary" bindtap="submit">邀约</button>
+    </view>
+  </view>
+</view>

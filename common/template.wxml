@@ -1,7 +1,7 @@
-<template name="tFindFriend">
+<template name="tUserList">
   <view class="weui-panel weui-panel_access">
     <view class="weui-panel__bd">
-      <navigator url="showFriend?openId={{item.openId}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" style="padding:5px">
+      <navigator url="userDetail?openId={{item.openId}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" style="padding:5px">
         <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
           <image class="weui-media-box__thumb" src="{{item.avatarUrl}}" />
         </view>
@@ -71,10 +71,10 @@
     </navigator>
   </view>
 </template>
-<template name="tClubList">
+<template name="tFriendList">
   <view class='place-container weui-panel weui-panel_access'>
     <view class="weui-panel__bd ">
-      <navigator url="../club/clubDetail?id={{item._id}}" class="weui-media-box weui-media-box_appmsg " hover-class="weui-cell_active " style="padding:5px">
+      <navigator url="../../friends/friend/friendDetail?id={{item._id}}" class="weui-media-box weui-media-box_appmsg " hover-class="weui-cell_active " style="padding:5px">
         <view class="weui-media-box__hd weui-media-box__hd_in-appmsg ">
           <image class="weui-media-box__thumb " src="http://www.qqleju.com/uploads/allimg/160622/22-101309_76.jpg " />
         </view>

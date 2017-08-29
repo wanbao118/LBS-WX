@@ -48,6 +48,19 @@
     font-size: 14px;
 }
 
+.line{
+  border-Top-style:solid;
+  border-width:1px;
+  border-color:lightgray;
+  padding-top: 10px;
+}
+.inline{
+  border-Top-style:solid;
+  border-width:1px;
+  border-color:lightgray;
+  padding-top: 10px;
+}
+
 .icon{font-family: 'FontAwesome';}
 .address-book{font-size: 80rpx;}
 .address-book:after{
@@ -88,3 +101,4 @@
 	padding-right:2px;
 	padding-left:2px;
 }
+

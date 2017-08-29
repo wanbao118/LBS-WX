@@ -1,7 +1,7 @@
 <import src="/common/template.wxml" />
 <view class="page">
   <view class="page__hd">
-    <!--page__hd end-->
+    
   </view>
   <view class="page__bd">
     <view class="weui-flex">
