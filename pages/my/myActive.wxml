@@ -22,12 +22,12 @@
         <view class="weui-cells weui-cells_after-title">
             <view class="page_list" wx:for="{{activeInfo}}" wx:for-index="index">
               <view class='place-container weui-panel weui-panel_access'>
-                <navigator url="../action/selectAction?actId={{activeInfo[index]._id}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+                <navigator url="../action/selectAction?actId={{activeInfo[index].actId}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
                   <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
                     <image class="weui-media-box__thumb" src="http://pic.58pic.com/58pic/13/14/14/21s58PICdGy_1024.jpg" />
                   </view>
                   <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-                    <view class="weui-cell__bd" hidden="false">{{activeInfo[index]._id}}</view>
+                    <view class="weui-cell__bd" hidden="false">{{activeInfo[index].actId}}</view>
                     <view class="weui-media-box__title">{{activeInfo[index].sprType}}  |  {{activeInfo[index].areaName}}</view>
                     <view class="weui-media-box__desc">{{activeInfo[index].actType}}  -  {{activeInfo[index].areaAddress}}</view>
                     <view class="weui-media-box__desc">{{activeInfo[index].actDate}}  |  {{activeInfo[index].actTime}}</view>
