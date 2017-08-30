@@ -7,9 +7,9 @@ Page({
    grids: [0, 1, 2, 3, 4, 5],
    myActiveCount:0,
    openId:'',
-   friends: [{ name: "老猫", actParticipate: 100, avatarUrl:"http://www.qqleju.com/uploads/allimg/160622/22-101309_76.jpg"},
-     { name: "猪八戒", actParticipate: 80, avatarUrl: "http://www.qqleju.com/uploads/allimg/160622/22-101309_76.jpg" }, 
-     { name: "沙和尚", actParticipate: 50, avatarUrl: "http://www.qqleju.com/uploads/allimg/160622/22-101309_76.jpg" },]
+   friends: [{ name: "老猫", actParticipate: 100,level:4,avatarUrl:"http://www.qqleju.com/uploads/allimg/160622/22-101309_76.jpg"},
+     { name: "猪八戒", actParticipate: 80 ,level:7,avatarUrl: "http://www.qqleju.com/uploads/allimg/160622/22-101309_76.jpg" }, 
+     { name: "沙和尚", actParticipate: 50, level:2,avatarUrl: "http://www.qqleju.com/uploads/allimg/160622/22-101309_76.jpg" },]
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
@@ -91,7 +91,7 @@ Page({
   submit:function(){
 
     wx.showActionSheet({
-      itemList: ['加好友','留言', '约运动', '邀入群'],
+      itemList: ['留言', '约战', '申请入圈'],
       success: function (res) {
         
         switch (res.tapIndex) {

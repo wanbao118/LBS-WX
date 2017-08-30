@@ -76,20 +76,33 @@
       </view>
     </view>
     <view class="weui-flex line lineB" style="font-weight:bold;padding-bottom:10rpx">
-        <view class="weui-flex__item" style="text-align:center">
+        <view class="weui-flex__item">
 成员
         </view>       
-        <view class="weui-flex__item" style="text-align:center">
+        <view class="weui-flex__item" style="text-align:center;">
 活跃度
+        </view>
+        <view class="weui-flex__item" style="text-align:center;">
+等级
+        </view>
+        <view class="weui-flex__item" style="text-align:center;">
+
         </view>
       </view>
       <view class="page_list lineB" wx:for="{{friends}}">
       <view class="weui-flex">
         <view class="weui-flex__item">
-<image class="" src="{{item.avatarUrl}}" background-size="cover" style="width:18px;height:18px;text-align:right;border-radius:50%;"></image><text style="margin:20rpx;">{{item.name}}</text>
+<image class="" src="{{item.avatarUrl}}" background-size="cover" style="width:20px;height:20px;text-align:right;border-radius:20%;"></image><text style="margin:20rpx;">{{item.name}}</text>
         </view> 
-        <view class="weui-flex__item" style="text-align:left;">
+         
+        <view class="weui-flex__item" style="text-align:center;">
 {{item.actParticipate}}
+        </view>
+        <view class="weui-flex__item" style="text-align:center;">
+{{item.level}}
+        </view>
+        <view class="weui-flex__item" style="text-align:center;">
+<view class="fa fa-user-circle"></view>
         </view>
       </view>
     </view>
