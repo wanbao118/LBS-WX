@@ -77,9 +77,7 @@ Page({
                url: 'https://littlebearsports.com/bearsport/service/userActivity/userActivityMaintain',
              data: {
                 actId:actId,
-                userId :app.gData.userInfo.userId,
-                joinDate:'2017-08-15',
-                joinTime:'23:40',
+                openId :app.gData.userInfo.openId,
                 joinRemark:'',
                 operationCode:"ACA",
                 joinerName: app.gData.userInfo.nickName
