@@ -7,7 +7,7 @@ var wxMarkerData = [];
 App({
   gData: {
     openId: "",
-    //后台服务器地址！
+    //后台的服务器地址！
     iServerUrl: "https://littlebearsports.com",
     markers: [],
     latitude: '',
