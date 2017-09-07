@@ -9,14 +9,9 @@
     "pages/friends/friend/friendDetail",
     "pages/friends/friend/friendAct",
     "pages/friends/friend/map",
-    "pages/friends/bearFriend/bearFriend",
-    "pages/friends/club/clubDetail",
-    "pages/friends/club/clubCreate",
-    "pages/friends/club/clubMember",
-    "pages/friends/club/clubManage",
     "pages/users/user/userList",
     "pages/users/user/userDetail",
-    "pages/users/partner/partner",
+     
     "pages/place/placeDetail",
     "pages/my/my",
     "pages/my/myActive",
@@ -34,7 +29,7 @@
     "backgroundTextStyle":"dark",
     "navigationBarBackgroundColor": "purple",
     "navigationBarTitleText": "BearSports",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle":"white"
   },
   "tabBar": {
     
@@ -55,7 +50,7 @@
       "selectedIconPath": "images/cycle.png",  
      "iconPath": "images/cycle_default.png", 
       "pagePath": "pages/users/user/userList",
-      "text": "熊圈"
+      "text": "发现"
     },
     {
       "selectedIconPath": "images/my.png",  
