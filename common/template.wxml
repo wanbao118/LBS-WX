@@ -62,7 +62,8 @@
       </view>
       <view class="weui-media-box__bd weui-media-box__bd_in-appmsg ">
         <view class="weui-media-box__title ">{{item.title}}</view>
-        <view class="weui-media-box__desc ">{{item.distance/1000}} 千米</view>
+         <view class="weui-media-box__desc " wx:if="{{item.distance<1000}}">{{item.distance}}米</view>
+        <view class="weui-media-box__desc " wx:else>{{item.distance/1000}} 千米</view>
         <view class="weui-media-box__desc ">地址：{{item.address}}</view>
       </view>
     </navigator>
