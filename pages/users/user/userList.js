@@ -248,9 +248,10 @@ Page({
     var iData ={};
     iData.operationCode = "UF"
     wx.request({
-      url: app.gData.iServerUrl + '/bearsport/service/user/userMaintain',
+      url: app.gData.iServerUrl + '/bearsport/service/friend/friends',      
       data: iData,
-      method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      //method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      method: 'GET',
       // header: {}, // 设置请求的 header
       header: { 'content-type': 'application/json' },
       success: function (res) {
