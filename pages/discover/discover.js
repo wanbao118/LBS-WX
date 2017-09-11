@@ -1,8 +1,8 @@
 // pages/friend/friend.js
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 // 引用百度地图微信小程序JSAPI模块 
-var bmap = require('../../../libs/bmap-wx.js');
-var util = require('../../../common/util.js');
+var bmap = require('../../libs/bmap-wx.js');
+var util = require('../../common/util.js');
 var wxMarkerData = [];
 const ak = 'bfwtSbwjqSnIPWGIjKssrQdsPZn0Q87g'
 var app = getApp()
@@ -83,7 +83,7 @@ Page({
     that.setData({ currentTab: e.detail.current });
   },
   // 点击tab切换 
-  swichNav: function (e) {
+  swichNavi: function (e) {
     var that = this;
     if (this.data.currentTab === e.target.dataset.current) {
       return false;
@@ -192,7 +192,6 @@ Page({
 
       this.setData({
         cityName: app.gData.cityName
-
       })
 
   },
@@ -251,7 +250,7 @@ Page({
       url: app.gData.iServerUrl + '/bearsport/service/friend/friends',      
       data: iData,
       //method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      method: 'GET',
+      method: 'POST',
       // header: {}, // 设置请求的 header
       header: { 'content-type': 'application/json' },
       success: function (res) {

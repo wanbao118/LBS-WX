@@ -9,7 +9,7 @@
     "pages/friends/friend/friendDetail",
     "pages/friends/friend/friendAct",
     "pages/friends/friend/map",
-    "pages/users/user/userList",
+    "pages/discover/discover",
     "pages/users/user/userDetail",
      
     "pages/place/placeDetail",
@@ -49,7 +49,7 @@
     {
       "selectedIconPath": "images/cycle.png",  
      "iconPath": "images/cycle_default.png", 
-      "pagePath": "pages/users/user/userList",
+      "pagePath": "pages/discover/discover",
       "text": "发现"
     },
     {
