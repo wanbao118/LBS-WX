@@ -27,15 +27,15 @@
         <view class="weui-cells__title">等级信息</view>
         <view class="weui-cells weui-cells_after-title">
           <view></view>
-          <navigator url="../common/sportLevel" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <navigator url="../../common/sportLevel" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
             <view class="weui-cell__bd">Lv.</view>
             <view class="weui-cell__ft weui-cell__ft_in-access">{{person.level}}</view>
           </navigator>
-          <navigator url="../common/sportLevel" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <navigator url="../../common/sportLevel" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
             <view class="weui-cell__bd fa fa-flash"> 运动等级</view>
             <view class="weui-cell__ft weui-cell__ft_in-access">{{person.level}}</view>
           </navigator>
-          <navigator url="../common/sportLevel" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <navigator url="../../common/sportLevel" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
             <view class="weui-cell__bd fa fa-vcard-o"> 信用等级</view>
             <view class="weui-cell__ft weui-cell__ft_in-access">{{person.level}}</view>
           </navigator>
