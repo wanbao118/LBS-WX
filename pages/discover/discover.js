@@ -14,7 +14,8 @@ var sports = ['羽毛球', '篮球', '网球'];
 var location = '';
 var query = '';
 // 滑动条选项
-var order = ['h1','h2','h3','h4','h5']
+var order = ['h1','h2','h3','h4','h5'];
+var rst=[];   //与好友的距离计算结果
 
 Page({
   data: {
@@ -268,7 +269,7 @@ Page({
  //         formatTimestamp: util.formatTimestamp()
  //       });
 
-       console.log(that.data.friendList);
+       console.log("friend",that.data.friendList);
       },
       fail: function (res) {
         // fail
@@ -277,6 +278,9 @@ Page({
         // complete
       }
     })
+
+    //计算自己与好友间的距离
+    that.getdistance()
   },
 
   getLocationInfo: function () {
@@ -317,5 +321,32 @@ Page({
       }
     })
   },
+  //ܱ根据经纬度计算距离
+  getdistance: function () {
+
+    wx.request({
+      url: 'http://api.map.baidu.com/routematrix/v2/driving?',
+      data: {
+        output: "json",
+        origins: "40.45,116.34",    //坐标格式为：lat<纬度>,lng<经度>|lat<纬度>,lng<经度>  多个用|分开,最多传50个点，且起终点乘积不超过50
+        destinations: "40.34,116.45|40.35,116.46", // 同上
+        ak: "x01RzuY9Guop6j45QvMhQGO7YqTlUp1i",
+      },
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: function (res) {
+        // success 
+        console.log("ret", res.data);
+        var status = res.data.status;
+        rst = res.data.result;
+        console.log("dddd", rst[0].distance.text);
+      },
+      fail: function () { },
+      complete: function () { }
+    })
+  },
+
+
   
 })
