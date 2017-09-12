@@ -56,7 +56,7 @@ page,
 .swiper-tab-list{
   font-size: 30rpx; 
   display: inline-block; 
-  width: 20%; 
+  width: 40%; 
   color: #777777; 
 }
 .on{

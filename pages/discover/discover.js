@@ -247,7 +247,7 @@ Page({
     var iData ={};
     iData.operationCode = "UF"
     wx.request({
-      url: app.gData.iServerUrl + '/bearsport/service/friend/friends',      
+      url: app.gData.iServerUrl + '/bearsport/service/user/userMaintain',      
       data: iData,
       //method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       method: 'POST',
