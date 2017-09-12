@@ -30,7 +30,8 @@ Page({
     
     that.getCity();
     
-      
+
+      //that.getdistance();
      
 //  app.userInfo(function(userInfo){
 //       //更新数据
@@ -55,5 +56,6 @@ Page({
 
 
   },
+
   
 })

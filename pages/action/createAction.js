@@ -26,12 +26,14 @@ Page({
     planPeople:'0',
     words:'',
     hideSearch: false,
-    action:{}
+    action:{},
+    latitude:"",
+    longitude:""
   },
   
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-   // console.log('createAction onLoad');
+   // console.log('createAction onLoad', options);
     var that = this
     //调用应用实例的方法获取全局数据
       wx.getStorage({
@@ -47,6 +49,12 @@ Page({
     })
       that.setData({
       areaAddress: options.areaAddress
+    })
+      that.setData({
+        latitude: options.latitude
+      })
+    that.setData({
+      longitude:options.longitude
     })
     that.setDateAndTime()
   },
@@ -74,6 +82,8 @@ Page({
     iData.nickName = app.gData.userInfo.nickName
     iData.openId = app.gData.userInfo.openId
     iData.userId = app.gData.userInfo.userId
+   // iData.areaLocation.latitude = this.data.latitude
+   // iData.areaLocation.longitude = this.data.longitude
     console.log("创建活动发送数据",iData);
     wx.request({
       // url: 'http://59.110.165.245/Lbs_back/servlet/PositionInsert', //位置新增接口地址
