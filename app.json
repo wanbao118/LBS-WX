@@ -8,6 +8,7 @@
     "pages/friends/friend/friendList",
     "pages/friends/friend/friendDetail",
     "pages/friends/friend/friendAct",
+    "pages/friends/friend/applyFriend",
     "pages/friends/friend/map",
     "pages/discover/discover",
     "pages/users/user/userDetail",
