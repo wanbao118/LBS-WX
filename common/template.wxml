@@ -12,7 +12,7 @@
               <view wx:if="{{item.gender == 0}}" style="color:Pink;" class = "fa fa-female"></view>
               <view wx:if="{{item.gender == 1}}" style="color:SkyBlue;" class = "fa fa-male"></view>
               {{item.nickName}}</view>              
-              <view style="">4km</view>
+              <view style="">{{item.distance.text}}</view>
               <view style="color:red;">:{{item.lastLoginTime}}</view>
             </view>
              

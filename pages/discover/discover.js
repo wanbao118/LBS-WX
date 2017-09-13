@@ -15,7 +15,6 @@ var location = '';
 var query = '';
 // 滑动条选项
 var order = ['h1','h2','h3','h4','h5'];
-var rst=[];   //与好友的距离计算结果
 
 Page({
   data: {
@@ -39,17 +38,11 @@ Page({
     // 页面配置  
     winWidth: 0,
     winHeight: 0, 
-
     // tab切换 
     currentTab: 0,
-
-     
     //测试数据，等后台服务准备好后替换
-    friendList: [
-
-    ],
+    friendList: [],
     
-
   },
 
   toNearby:function(){
@@ -323,7 +316,7 @@ Page({
   },
   //ܱ根据经纬度计算距离
   getdistance: function () {
-
+    var that= this;
     wx.request({
       url: 'http://api.map.baidu.com/routematrix/v2/driving?',
       data: {
@@ -339,8 +332,18 @@ Page({
         // success 
         console.log("ret", res.data);
         var status = res.data.status;
-        rst = res.data.result;
-        console.log("dddd", rst[0].distance.text);
+        var rst = res.data.result;
+        console.log("rst",rst);
+        var listData = that.data.friendList;
+
+        for(var i=0;i<rst.length;i++){
+          listData[i].distance = rst[i].distance;
+        }
+
+        console.log("listData111", listData);
+        that.setData({
+          friendList: listData
+        });
       },
       fail: function () { },
       complete: function () { }
