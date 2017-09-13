@@ -17,7 +17,18 @@
     <view class="weui-flex">
       <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight}}px" bindchange="bindChange">
         <swiper-item>
-          我的好友
+          <scroll-view scroll-y style="height:{{winHeight}}px">
+            <view class="page_list" wx:for="{{friendInfo}}" wx:key="openId">
+              <view class="weui-flex lineB">
+              <view>
+              <view class="fa fa-bullhorn" style="color:purple"></view> {{item.nickName}}:
+              </view>
+              <view class="weui-flex__item">
+              {{item.message}}
+              </view>
+              </view>
+            </view>
+          </scroll-view>
         </swiper-item>
         <swiper-item>
           <scroll-view scroll-y style="height:{{winHeight}}px">

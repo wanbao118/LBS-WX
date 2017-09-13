@@ -5,14 +5,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+   applyOpenId:""
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    this.data.applyOpenId = options.openId
+    console.log("applyOpenId", this.data.applyOpenId);
   },
 
   /**

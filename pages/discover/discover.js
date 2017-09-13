@@ -42,7 +42,9 @@ Page({
     currentTab: 0,
     //测试数据，等后台服务准备好后替换
     friendList: [],
-    
+    friendInfo:[{nickName:"ddd",message:"asdl;ksdl"},
+      { nickName: "fad", message: "asdl;ksdl" },
+      { nickName: "erwe", message: "asdl;ksdl" }]
   },
 
   toNearby:function(){
