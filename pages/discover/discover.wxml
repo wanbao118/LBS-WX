@@ -1,9 +1,9 @@
 <import src="/common/template.wxml" />
 <view class="page">
   <view class="page__hd">
-    <view class="location ellipsis" bindtap="toNearby">
+    <view class="location ellipsis" >
       <view class="fa fa-map-marker"></view>
-      {{cityName}}(切换地图模式)
+      {{cityName}}
     </view>
   </view>
   <view class="page__bd">

@@ -70,10 +70,14 @@ Page({
     // //获取熊友初始数据
     // that.getUsers();
     
-    //调用百度
+    //从全局变量获取城市信息和经纬度
     that.getCity();
-    that.getLocationInfo();
-    //that.loadBaiDu();
+
+    that.getUsers();
+
+   
+ //  that.getLocationInfo();
+ 
   },
   // 滑动切换tab 
   bindChange: function (e) {
@@ -91,78 +95,6 @@ Page({
       })
     }
   },
-
-
-  //调用百度api获取数据
-  loadBaiDu: function (pageNum, query) {
-    var that = this;
-    // 新建百度地图对象 
-    var BMap = new bmap.BMapWX({ ak: ak });
-    var fail = function (data) {
-      console.log("loadBaiDu:"+data)
-    };
-    var success = function (data) {
-
-      wxMarkerData = data.wxMarkerData;
-      //    that.sendData(wxMarkerData);
-      console.log(wxMarkerData);
-      len = wxMarkerData.length;
-
-      if (len === 0) {
-        console.log("没有了");
-        return;
-      };
-
-      //场馆入库
-      wx.request({
-          url: app.gData.iServerUrl +   '/bearsport/service/venues/venuesAdd',
-          data:JSON.stringify(wxMarkerData),
-          header: {
-            'Content-Type': 'application/json'
-          },
-          method: 'POST',
-          success: function (res) {
-            // success 
-            console.log(res);
-          },
-          fail: function () {
-            // fail 
-          },
-          complete: function () {
-            // complete 
-          }
-        })
-      //  app.globalDate.globalMarkers=wxMarkerData;
-      that.setData({
-        markers: wxMarkerData
-      });
-      that.setData({
-        latitude: wxMarkerData[0].latitude
-      });
-      that.setData({
-        longitude: wxMarkerData[0].longitude
-      });
-
-
-    }
-
-    // 发起POI检索请求 
-    //console.log(location);
-    BMap.search({
-      //"query": query || '羽毛球' || '桌球'|| '蓝球',
-      "location": '34.329605,34.329605',
-      fail: fail,
-      success: success,
-      // 此处需要在相应路径放置图片文件 
-      iconPath: '../../img/marker_red.png',
-      // 此处需要在相应路径放置图片文件 
-      iconTapPath: '../../img/marker_red.png',
-      page_num: pageNum
-    });
-
-  },
-
-
 
   //上拉获取更多
   loadMore: function () {
@@ -191,7 +123,9 @@ Page({
       this.setData({
         cityName: app.gData.cityName
       })
-
+      this.setData({
+        origins: app.gData.latitude + "," + app.gData.longitude
+      });
   },
 
   onReady: function () {
@@ -239,7 +173,7 @@ Page({
 
   },
 
-  //获取熊友初始数据
+  //获取熊友初始数据  -- 计算距离
   getUsers: function (e) {
 
     var that = this;
@@ -255,15 +189,17 @@ Page({
       header: { 'content-type': 'application/json' },
       success: function (res) {
         console.log("获取熊友列表信息：", res.data);
-        var rlt = res.data.listData;  //result
-        console.log("rlt", rlt);
+        //var rlt = res.data.listData;  //result
+        //console.log("rlt", rlt);
         if (res.data.result=="00000"){
-        for (var i = 0; i < rlt.length; i++) {
+
+          for (var i = 0; i < res.data.listData.length; i++) {
+
           res.data.listData[i].lastLoginTime =  util.formatTimestamp(res.data.listData[i].lastLoginTime);
           if (dest!=""){
             dest = dest+"|"
           }
-          dest = dest+rlt[i].location.latitude + "," + rlt[i].location.longitude
+          dest = dest + res.data.listData[i].location.latitude + "," + res.data.listData[i].location.longitude
            }
         }
         console.log("location345", dest);
@@ -287,53 +223,8 @@ Page({
         // complete
       }
     })
-
-
   },
 
-  getLocationInfo: function () {
-    var that = this;
-    wx.getLocation({
-      type: 'wgs84',
-      success: function (res) {
-        var latitude = res.latitude
-        var longitude = res.longitude
-        var speed = res.speed
-        var accuracy = res.accuracy
-        console.log("latitue:" + latitude);
-        console.log("longitude:" + longitude);
-        console.log("speed:" + speed);
-        console.log("accuracy:" + accuracy);
-        that.setData({
-          origins: latitude + "," + longitude
-        });
-        wx.request({
-          url: 'https://api.map.baidu.com/geocoder/v2/?ak=bfwtSbwjqSnIPWGIjKssrQdsPZn0Q87g&location=' + latitude + ',' + longitude + '&output=json',
-          data: {},
-          header: {
-            'Content-Type': 'application/json'
-          },
-          success: function (res) {
-            // success 
-            console.log(res);
-            var city = res.data.result.addressComponent.city;
-            that.setData({ cityName: city });
-            that.getUsers();
-          },
-
-        
-          fail: function () {
-            // fail 
-          },
-          complete: function () {
-            // complete 
-          }
-
-
-        })
-      }
-    })
-  },
   //ܱ根据经纬度计算距离
   getdistance: function () {
     var that= this;
