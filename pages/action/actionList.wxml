@@ -1,0 +1,62 @@
+<!--pages/action/action.wxml-->
+<view class="page">
+  <view class="page__hd"> 
+    <view class="weui-flex">
+      <view class="weui-flex__item"></view>
+      <view class="weui-flex__item"></view>
+      <view class="weui-flex__item">
+        <button type="primary" size="mini" bindtap="primary">发起活动</button>
+      </view>
+    </view>
+  </view>
+  <view class="page__bd">
+
+    <view class="page_list" wx:for="{{actObj}}" wx:key="index">
+      <view class='weui-panel weui-panel_access'>
+        <navigator url="selectAction?actId={{item.actId}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+          <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+             
+            <image class="weui-media-box__thumb" src="http://pic.58pic.com/58pic/13/14/14/21s58PICdGy_1024.jpg" />
+            
+          </view>
+          <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+            <view class="weui-media-box__title">
+
+            <view class="weui-flex">
+                <view class="weui-flex__item" style="color:red">
+                  {{item.actSubject}}
+                </view>{{item.sprType}}
+              </view>
+              
+
+            </view>
+            <view class="weui-media-box__desc">
+            <view class="weui-flex">
+                <view class="weui-flex__item" style="">
+                  发起人：{{item.nickName}}
+                </view>
+                报名人数：{{item.enrPeople}}/{{item.planPeople}}
+              </view>
+            <view class="weui-flex">
+                <view class="weui-flex__item" style="">
+                  {{item.actType}}
+                </view>
+                <view class="weui-flex__item" style="color:blue">
+                  费用： {{item. feeEst}}元
+                </view>
+                <view style="color:blue">
+                  {{item.feeType}}
+                </view>
+              </view>
+            
+            </view>
+          </view>
+          
+        </navigator>
+        <view class="weui-media-box__desc">{{item.areaAddress}}</view>
+
+          <view class="weui-media-box__desc">{{item.actDate}} | {{item.actTime}}</view>
+      </view>
+    </view>
+  </view>
+</view>
