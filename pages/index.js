@@ -108,5 +108,9 @@ Page({
 
   },
 
-  
+  library: function (e) {
+    wx.navigateTo({
+      url: './library/library'
+    })
+  },
 })

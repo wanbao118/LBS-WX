@@ -41,7 +41,7 @@
 
     <view class="weui-flex" style="padding:10px">
       <view class="weui-flex__item">
-        <view class="weui-flex" style="text-align:center;font-size:32px;color:Purple">
+        <view class="weui-flex" style="text-align:center;font-size:48px;color:Purple">
           <view class="weui-flex__item fa fa-bell"></view>
         </view>
         <view class="weui-flex" style="text-align:center;font-size:12px">
@@ -49,65 +49,37 @@
         </view>
       </view>
       <view class="weui-flex__item" bindtap="clubManage">
-        <view class="weui-flex" style="text-align:center;font-size:32px;color:Purple">
+        <view class="weui-flex" style="text-align:center;font-size:48px;color:Purple">
           <view class="weui-flex__item  fa fa-calendar"></view>
         </view>
         <view class="weui-flex" style="text-align:center;font-size:12px">
           <view class="weui-flex__item">圈日历</view>
         </view>
       </view>
+      
+    </view>
+
+    <view class="weui-flex" style="padding:10px">
+      
       <view class="weui-flex__item">
-        <view class="weui-flex" style="text-align:center;font-size:32px;color:Purple">
+        <view class="weui-flex" style="text-align:center;font-size:48px;color:Purple">
           <view class="weui-flex__item fa fa-flag"></view>
         </view>
         <view class="weui-flex" style="text-align:center;font-size:12px">
           <view class="weui-flex__item">圈活动</view>
         </view>
       </view>
-      <view class="weui-flex__item">
-        <view class="weui-flex" style="text-align:center;font-size:32px;color:Purple">
-          <view class="weui-flex__item fa fa-photo"></view>
+      <view class="weui-flex__item" bindtap="library">
+        <view class="weui-flex" style="text-align:center;font-size:48px;color:Purple">
+          <view class="weui-flex__item fa fa-university"></view>
         </view>
         <view class="weui-flex" style="text-align:center;font-size:12px">
-          <view class="weui-flex__item">圈相册</view>
+          <view class="weui-flex__item">资料室</view>
         </view>
       </view>
     </view>
 
-    <view class="weui-flex" style="padding:10px">
-      <view class="weui-flex__item">
-        <view class="weui-flex" style="text-align:center;font-size:32px;color:Purple">
-          <view class="weui-flex__item fa fa-bell"></view>
-        </view>
-        <view class="weui-flex" style="text-align:center;font-size:12px">
-          <view class="weui-flex__item">议事厅</view>
-        </view>
-      </view>
-      <view class="weui-flex__item" bindtap="clubManage">
-        <view class="weui-flex" style="text-align:center;font-size:32px;color:Purple">
-          <view class="weui-flex__item  fa fa-calendar"></view>
-        </view>
-        <view class="weui-flex" style="text-align:center;font-size:12px">
-          <view class="weui-flex__item">圈日历</view>
-        </view>
-      </view>
-      <view class="weui-flex__item">
-        <view class="weui-flex" style="text-align:center;font-size:32px;color:Purple">
-          <view class="weui-flex__item fa fa-flag"></view>
-        </view>
-        <view class="weui-flex" style="text-align:center;font-size:12px">
-          <view class="weui-flex__item">圈活动</view>
-        </view>
-      </view>
-      <view class="weui-flex__item">
-        <view class="weui-flex" style="text-align:center;font-size:32px;color:Purple">
-          <view class="weui-flex__item fa fa-photo"></view>
-        </view>
-        <view class="weui-flex" style="text-align:center;font-size:12px">
-          <view class="weui-flex__item">圈相册</view>
-        </view>
-      </view>
-    </view>
+    
     <!-- <view class="weui-flex">
       <view class="weui-flex__item card_v">
         <view class="card_header_v">资料</view>

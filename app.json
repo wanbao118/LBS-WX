@@ -23,7 +23,9 @@
     "pages/common/editValue",
     "pages/common/sportLevel",
     "pages/common/bbs",
-    "pages/setup/setup"
+    "pages/setup/setup",
+    "pages/library/library"
+    
     
   ],
   "window":{
