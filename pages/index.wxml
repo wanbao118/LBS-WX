@@ -1,68 +1,60 @@
 <!--index.wxml-->
 
 <view class="page">
-      <view class="page__hd">
-            <view class="location ellipsis">
+  <view class="page__hd">
+    <view class="location ellipsis">
       <view class="fa fa-map-marker"></view>
       {{cityName}}
     </view>
+  </view>
+
+
+  <view class="page__bd">
+
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for-items="{{imgUrls}}" wx:key="{{*this}}">
+        <swiper-item style="text-align:center;width:100%">
+          <image src="{{item}}" width="55" height="50" mode="scaleToFill" />
+        </swiper-item>
+      </block>
+
+    </swiper>
+    <!-- <view class="fa fa-bullhorn" style="color:purple">
+      <text style="color:black;font-weight:bold"> : 恍惚在西高新发起了活动！</text>
+    </view> -->
+
+    <view class="weui-flex line lineB">
+      <view class="" style="color:OrangeRed;font-weight:bold;font-size:10px">
+        <view class="weui-flex">小熊</view>
+        <view class="weui-flex">公告</view>
       </view>
+      <view class="weui-flex__item" style="margin-left:12px">
+        <swiper autoplay="true" interval="4000" duration="3000" style="height:50rpx" vertical="true">
+          <block wx:for-items="{{toutiao}}" wx:key="{{*this}}">
+            <swiper-item style="width:100%">
+              <text style="white-space:pre-wrap;font-size:12px">{{item}}</text>
+            </swiper-item>
+          </block>
+
+        </swiper>
+      </view>
+    </view>
+
+    <view class="weui-flex">
+      <view class="weui-flex__item card">
+        <view class="card_header">发起</view>
+
+      </view>
+    </view>
 
 
-      <view class="page__bd">
-   
-<swiper indicator-dots="{{indicatorDots}}"
-  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-  <block wx:for-items="{{imgUrls}}" wx:key="{{*this}}">
-    <swiper-item style="text-align:center;width:100%">
-      <image src="{{item}}"  width="55" height="50" mode="scaleToFill"/>
-    </swiper-item>
-  </block>
-  
-</swiper>
+    <view class="weui-flex">
+      <view class="weui-flex__item card">
+        <view class="card_header">资料</view>
 
- <view class="weui-grids">
-            <block wx:for-items="{{grids}}" wx:key="{{index}}">
-                <navigator url="" class="weui-grid" hover-class="weui-grid_active">
-                    <!-- <image class="weui-grid__icon" src="/images/my_choice.png" /> -->
-                    <view class="fa fa-paw" style="color:purple;"></view>
-                    <view class="weui-grid__label">广告或栏目入口</view>
-                </navigator>
-            </block>
-        </view>
-  </view> 
-<view class="weui-cells__title">带图标、说明、跳转的列表项</view>
-  <view class="weui-cells weui-cells_after-title">
-            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__hd">
-                    <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
-                </view>
-                <view class="weui-cell__bd">cell standard</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
-            </navigator>
-            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__hd">
-                    <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
-                </view>
-                <view class="weui-cell__bd">cell standard</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
-            </navigator>
-            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__hd">
-                    <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
-                </view>
-                <view class="weui-cell__bd">cell standard</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
-            </navigator>
-            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__hd">
-                    <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
-                </view>
-                <view class="weui-cell__bd">cell standard</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
-            </navigator>
-        </view>
+      </view>
+    </view>
+  </view>
+
 
 </view>
-
-
