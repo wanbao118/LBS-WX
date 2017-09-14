@@ -40,6 +40,8 @@ Page({
     winHeight: 0, 
     // tab切换 
     currentTab: 0,
+    destinations:'',
+    origins:'',
     //测试数据，等后台服务准备好后替换
     friendList: [],
     friendInfo:[{nickName:"ddd",message:"asdl;ksdl"},
@@ -64,14 +66,14 @@ Page({
 
       }
     });
-
+  
     // //获取熊友初始数据
     // that.getUsers();
     
     //调用百度
-    //that.getCity();
+    that.getCity();
     that.getLocationInfo();
-    that.loadBaiDu();
+    //that.loadBaiDu();
   },
   // 滑动切换tab 
   bindChange: function (e) {
@@ -196,9 +198,10 @@ Page({
     // 页面渲染完成
   },
   onShow: function () {
+
     // 页面显示
     //获取熊友初始数据
-    this.getUsers();
+   // this.getUsers();
   },
   onHide: function () {
     // 页面隐藏
@@ -240,6 +243,7 @@ Page({
   getUsers: function (e) {
 
     var that = this;
+    var dest = "";
     var iData ={};
     iData.operationCode = "UF"
     wx.request({
@@ -251,19 +255,29 @@ Page({
       header: { 'content-type': 'application/json' },
       success: function (res) {
         console.log("获取熊友列表信息：", res.data);
-
-        for (var i = 0; i < res.data.listData.length; i++) {
+        var rlt = res.data.listData;  //result
+        console.log("rlt", rlt);
+        if (res.data.result=="00000"){
+        for (var i = 0; i < rlt.length; i++) {
           res.data.listData[i].lastLoginTime =  util.formatTimestamp(res.data.listData[i].lastLoginTime);
+          if (dest!=""){
+            dest = dest+"|"
+          }
+          dest = dest+rlt[i].location.latitude + "," + rlt[i].location.longitude
+           }
         }
+        console.log("location345", dest);
 
+        that.setData({
+          destinations: dest
+        });
         that.setData({
           friendList: res.data.listData
         });
 
-  //      that.setData({
- //         formatTimestamp: util.formatTimestamp()
- //       });
-
+        //计算自己与好友间的距离
+        that.getdistance()
+       
        console.log("friend",that.data.friendList);
       },
       fail: function (res) {
@@ -274,8 +288,7 @@ Page({
       }
     })
 
-    //计算自己与好友间的距离
-    that.getdistance()
+
   },
 
   getLocationInfo: function () {
@@ -291,7 +304,9 @@ Page({
         console.log("longitude:" + longitude);
         console.log("speed:" + speed);
         console.log("accuracy:" + accuracy);
-
+        that.setData({
+          origins: latitude + "," + longitude
+        });
         wx.request({
           url: 'https://api.map.baidu.com/geocoder/v2/?ak=bfwtSbwjqSnIPWGIjKssrQdsPZn0Q87g&location=' + latitude + ',' + longitude + '&output=json',
           data: {},
@@ -303,7 +318,10 @@ Page({
             console.log(res);
             var city = res.data.result.addressComponent.city;
             that.setData({ cityName: city });
+            that.getUsers();
           },
+
+        
           fail: function () {
             // fail 
           },
@@ -319,12 +337,14 @@ Page({
   //ܱ根据经纬度计算距离
   getdistance: function () {
     var that= this;
+    console.log("aaa", that.data.destinations);
+    console.log("bbb", that.data.origins)
     wx.request({
       url: 'http://api.map.baidu.com/routematrix/v2/driving?',
       data: {
         output: "json",
-        origins: "40.45,116.34",    //坐标格式为：lat<纬度>,lng<经度>|lat<纬度>,lng<经度>  多个用|分开,最多传50个点，且起终点乘积不超过50
-        destinations: "40.34,116.45|40.35,116.46", // 同上
+        origins: that.data.origins,    //坐标格式为：lat<纬度>,lng<经度>|lat<纬度>,lng<经度>  多个用|分开,最多传50个点，且起终点乘积不超过50
+        destinations: that.data.destinations, // 同上
         ak: "x01RzuY9Guop6j45QvMhQGO7YqTlUp1i",
       },
       header: {
