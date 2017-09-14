@@ -11,10 +11,10 @@
 
   <view class="page__bd">
 
-    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" style="height:200rpx">
       <block wx:for-items="{{imgUrls}}" wx:key="{{*this}}">
         <swiper-item style="text-align:center;width:100%">
-          <image src="{{item}}" width="55" height="50" mode="scaleToFill" />
+          <image src="{{item}}" mode="scaleToFill" />
         </swiper-item>
       </block>
 
@@ -35,26 +35,39 @@
               <text style="white-space:pre-wrap;font-size:12px">{{item}}</text>
             </swiper-item>
           </block>
-
         </swiper>
       </view>
     </view>
 
-    <view class="weui-flex">
-      <view class="weui-flex__item card">
-        <view class="card_header">发起</view>
 
+    <!-- <view class="weui-flex">
+      <view class="weui-flex__item card_v">
+        <view class="card_header_v">资料</view>
+        <view class="card_footer_v">一起运动起来吧</view>
+      </view>
+      <view class="weui-flex__item card_v">
+        <view class="card_header_v">资料</view>
+        <view class="card_footer_v">一起运动起来吧</view>
+      </view>
+      <view class="weui-flex__item card_v">
+        <view class="card_header_v">资料</view>
+        <view class="card_footer_v">一起运动起来吧</view>
       </view>
     </view>
-
-
     <view class="weui-flex">
-      <view class="weui-flex__item card">
-        <view class="card_header">资料</view>
-
+      <view class="weui-flex__item card_v">
+        <view class="card_header_v">资料</view>
+        <view class="card_footer_v">一起运动起来吧</view>
       </view>
-    </view>
+      <view class="weui-flex__item card_v">
+        <view class="card_header_v">资料</view>
+        <view class="card_footer_v">一起运动起来吧</view>
+      </view>
+      <view class="weui-flex__item card_v">
+        <view class="card_header_v">资料</view>
+        <view class="card_footer_v">一起运动起来吧</view>
+      </view>
+    </view> -->
+
   </view>
-
-
 </view>
