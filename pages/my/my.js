@@ -4,7 +4,8 @@ var app = getApp()
 Page({
   data: {
     motto: 'Hello World',
-    userInfo: {}
+    userInfo: {},
+    currentTab:0
 
   },
   //事件处理函数
@@ -52,7 +53,29 @@ Page({
       userInfo: app.gData.userInfo
     }); 
   },
-  
+  // 滑动切换tab 
+  bindChange: function (e) {
+    var that = this;
+    that.setData({ currentTab: e.detail.current });
+  },
+  // 点击tab切换 
+  swichNavi: function (e) {
+    var that = this;
+    if (this.data.currentTab === e.target.dataset.current) {
+      return false;
+    } else {
+      that.setData({
+        currentTab: e.target.dataset.current
+      })
+    }
+  },
+  tabClick: function (e) {
+    this.setData({
+      sliderOffset: e.currentTarget.offsetLeft,
+      activeIndex: e.currentTarget.id
+    });
+  },
+
   editDescription:function(){
     wx.navigateTo({
       url: 'editDesc'
