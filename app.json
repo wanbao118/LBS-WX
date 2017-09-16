@@ -30,7 +30,7 @@
     
   ],
   "window":{
-    "backgroundTextStyle":"dark",
+    "backgroundTextStyle":"white",
     "navigationBarBackgroundColor": "purple",
     "navigationBarTitleText": "BearSports",
     "navigationBarTextStyle":"white"
@@ -38,7 +38,7 @@
   "tabBar": {
     "list": [
      {
-      "selectedIconPath": "images/action.png",
+      "selectedIconPath": "images/home.png",
      "iconPath": "images/home_default.png", 
       "pagePath": "pages/action/actionList",
       "text": "运动"

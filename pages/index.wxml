@@ -56,11 +56,11 @@
           <view class="weui-flex__item">圈日历</view>
         </view>
       </view>
-      
+
     </view>
 
     <view class="weui-flex" style="padding:10px">
-      
+
       <view class="weui-flex__item">
         <view class="weui-flex" style="text-align:center;font-size:48px;color:Purple">
           <view class="weui-flex__item fa fa-flag"></view>
@@ -79,7 +79,7 @@
       </view>
     </view>
 
-    
+
     <!-- <view class="weui-flex">
       <view class="weui-flex__item card_v">
         <view class="card_header_v">资料</view>
