@@ -44,6 +44,7 @@ Page({
     origins: '',
     //测试数据，等后台服务准备好后替换
     friendList: [],
+    friendRequestList:[],
   },
 
   toNearby: function () {
@@ -76,7 +77,7 @@ Page({
     //  that.getLocationInfo();
 
   },
-  
+
   //上拉获取更多
   loadMore: function () {
     var that = this;
@@ -113,24 +114,46 @@ Page({
     // 页面渲染完成
   },
   onShow: function () {
-
-    // 页面显示
-    //获取熊友初始数据
-    // this.getUsers();
-  },
+ },
   onHide: function () {
     // 页面隐藏
   },
   onUnload: function () {
     // 页面关闭
   },
-  tabClick: function (e) {
-    this.setData({
-      sliderOffset: e.currentTarget.offsetLeft,
-      activeIndex: e.currentTarget.id
-    });
-  },
+ 
+  approveRequest: function (e) {
+   var that = this;
 
+    wx.request({
+      // url: 'http://59.110.165.245/Lbs_back/servlet/PositionInsert', //位置新增接口地址
+      url: 'https://littlebearsports.com/bearsport/service/friend/friendRequestApproval',
+      data:{
+        
+        "params": {
+          "friendOpenId": e.target.dataset.openid,
+          "relationshipStatus": "1",
+          "openId": app.gData.userInfo.openId
+        }
+      
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      success: function (res) {
+        var page = getCurrentPages().pop();
+        if (page == undefined || page == null) return;
+        page.onLoad();
+      
+        console.log(res);
+      },
+      fail: function (res) {
+        console.log('失败');
+      }
+
+    })
+  },
 
   selectMore: function (e) {
 
@@ -154,7 +177,7 @@ Page({
 
   },
 
-  //获取熊友初始数据  -- 计算距离
+  //好友审批
   getUsers: function (e) {
 
     var that = this;
@@ -162,7 +185,7 @@ Page({
     var iData = {};
     iData.operationCode = "UF"
     wx.request({
-      url: app.gData.iServerUrl + '/bearsport/service/friend/friends?currentUserId='+ app.gData.userInfo.openId,
+      url: app.gData.iServerUrl + '/bearsport/service/friend/friendRequestList?currentUserId=' + app.gData.userInfo.openId,
       //method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       method: 'GET',
       // header: {}, // 设置请求的 header
@@ -195,6 +218,7 @@ Page({
         that.getdistance()
 
         console.log("friend", that.data.friendList);
+
       },
       fail: function (res) {
         // fail

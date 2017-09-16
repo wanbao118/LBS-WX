@@ -79,7 +79,7 @@
             <view class="weui-media-box__title">
               <view class="weui-flex">
                 <view class="weui-flex__item" style="font-size:15px">
-                  发起人：{{item.nickName}}
+                  {{item.nickName}}
                 </view>{{item.sprType}}
               </view>
             </view>
@@ -105,7 +105,7 @@
 
         </navigator>
         <view class="weui-media-box__desc actDesc">
-          {{item.actDate}} | {{item.actTime}}        --       {{item.areaAddress}}
+          {{item.actDate}} | {{item.actTime}}-{{item.areaAddress}}
         </view>
       </view>
     </view>
