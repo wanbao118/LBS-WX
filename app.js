@@ -17,13 +17,33 @@ App({
     userInfo: {}
   },
   onLaunch: function (options) {
-
+    var that = this;
     console.log("***** App onLaunch:小程序开始运行");
     console.log("***** 入口参数options：", options);
+    // 获取登录位置坐标
+    console.log("获取登录位置坐标");
+    wx.getLocation({
+      success: function (res) {
+        // success    
+        that.gData.longitude = res.longitude
+        that.gData.latitude = res.latitude
 
-    this.getCity();
-    this.login();
-    this.systemInfo();
+        console.log("longitude:", that.gData.longitude);
+        console.log(" latitude:", that.gData.latitude);
+       // that.loadCity(longitude, latitude)
+      },
+      fail: function (res) {
+        console.log("fail:", res)
+      },
+      complete: function (res) {
+        console.log("complete:", res)
+      }
+    })
+  // 获取城市信息
+  console.log("获取登录城市信息")
+    that.getCity();
+    that.login();
+    that.systemInfo();
     // wx.navigateTo({
     //   url: '/pages/setup/setup'
     // })
@@ -53,10 +73,10 @@ App({
             method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
             header: { 'content-type': 'application/json' }, // 设置请求的 header
             success: function (res) {
-              console.log("openId:",res);
+              console.log("openId:", res);
               openId = res.data.params.openId;
               that.gData.userInfo.openId = openId;
-              
+
               //存储用户信息
               that.getInfo(openId);
             },
@@ -129,8 +149,8 @@ App({
         res.userInfo.loginCity = that.gData.cityName
 
         console.log("登录用户信息：", res.userInfo);
-        
-        
+
+
 
         res.userInfo.operationCode = 'AD'
         //将用户信息储存到后台数据库
@@ -142,10 +162,10 @@ App({
           // header: {}, // 设置请求的 header
           success: function (res) {
             // success
-           
-           that.getUser();
-           
-           
+
+            that.getUser();
+
+
           },
           fail: function (res) {
             // fail
@@ -165,31 +185,35 @@ App({
   },
   //获取城市信息
   getCity: function () {
+    console.log("***** 获取用户登录位置信息");
     var that = this;
-    // 新建百度地图对象 
-    var BMap = new bmap.BMapWX({
-      ak: ak
-    });
-    var fail = function (data) {
-      console.log(data)
-    };
-    var success = function (data) {
-      wxMarkerData = data.wxMarkerData;
 
-      that.gData.markers = wxMarkerData;
-      console.log("登录地理信息:", that.gData.markers);
 
-      that.gData.latitude = wxMarkerData[0].latitude
-      that.gData.longitude = wxMarkerData[0].longitude
-      that.gData.cityName = wxMarkerData[0].city
-    }
-    // 发起regeocoding检索请求 
-    BMap.regeocoding({
-      fail: fail,
-      success: success,
-      //  iconPath: '../../img/marker_red.png', 
-      //  iconTapPath: '../../img/marker_red.png' 
-    });
+
+    // // 新建百度地图对象 
+    // var BMap = new bmap.BMapWX({
+    //   ak: ak
+    // });
+    // var fail = function (data) {
+    //   console.log("获取百度地图对象失败：",data)
+    // };
+    // var success = function (data) {
+    //   wxMarkerData = data.wxMarkerData;
+
+    //   that.gData.markers = wxMarkerData;
+    //   console.log("登录地理信息:", that.gData.markers);
+
+    //   that.gData.latitude = wxMarkerData[0].latitude
+    //   that.gData.longitude = wxMarkerData[0].longitude
+    //   that.gData.cityName = wxMarkerData[0].city
+    // }
+    // // 发起regeocoding检索请求 
+    // BMap.regeocoding({
+    //   fail: fail,
+    //   success: success,
+    //   //  iconPath: '../../img/marker_red.png', 
+    //   //  iconTapPath: '../../img/marker_red.png' 
+    // });
 
   },
 
@@ -199,7 +223,7 @@ App({
     var iData = {};
     iData.operationCode = "UFO";
     iData.openId = that.gData.userInfo.openId;
-    console.log("iData:",iData);
+    console.log("iData:", iData);
     wx.request({
       url: that.gData.iServerUrl + '/bearsport/service/user/userMaintain',
       data: iData,
@@ -210,10 +234,10 @@ App({
         // res.data.listData[0].lastLoginTime = util.getLocalTime(res.data.listData[0].lastLoginTime);
         // res.data.listData[0].firstLoginTime = util.getLocalTime(res.data.listData[0].firstLoginTime);
 
-          that.gData.userInfo=res.data.listData[0]
-          that.gData.userInfo.lastLoginTime = util.getLocalTime(res.data.listData[0].lastLoginTime);
-          that.gData.userInfo.firstLoginTime = util.getLocalTime(res.data.listData[0].firstLoginTime);
-          that.gData.userInfo.userId = res.data.listData[0].userId;
+        that.gData.userInfo = res.data.listData[0]
+        that.gData.userInfo.lastLoginTime = util.getLocalTime(res.data.listData[0].lastLoginTime);
+        that.gData.userInfo.firstLoginTime = util.getLocalTime(res.data.listData[0].firstLoginTime);
+        that.gData.userInfo.userId = res.data.listData[0].userId;
       },
       fail: function (res) {
         // fail
@@ -221,6 +245,27 @@ App({
       complete: function (res) {
         // complete
       }
+    })
+  },
+
+  loadCity: function (longitude, latitude) {
+    var that = this
+    wx.request({
+      url: 'https://api.map.baidu.com/geocoder/v2/?ak=' + ak + '&location=' + latitude + ',' + longitude + '&output=json',
+      data: {},
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: function (res) {
+        // success    
+        console.log(res);
+        var city = res.data.result.addressComponent.city;
+        that.setData({ cityName: city });
+      },
+      fail: function () {
+        that.setData({ cityName: "获取定位失败" });
+      },
+
     })
   }
 })
