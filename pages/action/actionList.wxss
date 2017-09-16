@@ -11,3 +11,12 @@ page,
     padding-top: 60px;
      
 }
+.actDesc{
+  padding-left: 15px;
+  line-height: 2.0;
+  color:slategray
+}
+.actTitle{
+  padding-left:15px;
+  color:gray
+}

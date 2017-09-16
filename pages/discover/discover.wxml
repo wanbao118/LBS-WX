@@ -11,7 +11,7 @@
       <view class="swiper-tab">
         <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNavi">好友动态</view>
         <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNavi">附近的人</view>
-         
+
       </view>
     </view>
     <view class="weui-flex">
