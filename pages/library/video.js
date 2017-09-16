@@ -25,7 +25,8 @@ Page({
       text: '第 3s 出现的弹幕',
       color: '#ff00ff',
       time: 3
-    }]
+    }],
+    videoList:{url:""}
   },
   bindInputBlur: function (e) {
     this.inputValue = e.detail.value
@@ -53,10 +54,5 @@ Page({
     console.log('视频错误信息:')
     console.log(e.detail.errMsg)
   }
-,
-  video: function (e) {
-    wx.navigateTo({
-      url: 'video'
-    })
-  },
+
 })

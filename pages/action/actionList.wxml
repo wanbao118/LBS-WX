@@ -11,6 +11,31 @@
   </view>
   <view class="page__bd">
 
+<swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" style="height:300rpx">
+      <block wx:for-items="{{imgUrls}}" wx:key="{{*this}}">
+        <swiper-item style="text-align:center;width:100%">
+          <image src="{{item}}" mode="scaleToFill" />
+        </swiper-item>
+      </block>
+
+    </swiper>
+
+<view class="weui-flex line lineB">
+      <view class="" style="color:OrangeRed;font-weight:bold;font-size:10px">
+        <view class="weui-flex">小熊</view>
+        <view class="weui-flex">公告</view>
+      </view>
+      <view class="weui-flex__item" style="margin-left:12px">
+        <swiper autoplay="true" interval="4000" duration="3000" style="height:50rpx" vertical="true">
+          <block wx:for-items="{{toutiao}}" wx:key="{{*this}}">
+            <swiper-item style="width:100%">
+              <text style="white-space:pre-wrap;font-size:12px">{{item}}</text>
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+    </view>
+
     <view class="page_list" wx:for="{{actObj}}" wx:key="index">
       <view class='weui-panel weui-panel_access'>
         <navigator url="selectAction?actId={{item.actId}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">

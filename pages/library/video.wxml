@@ -6,28 +6,7 @@
   <view class="page__bd">
     <view class="weui-flex">
       <view class="weui-flex__item lineB"  style="margin:30rpx;font-size:50rpx;font-weight:bold;text-align:center" >
-               小熊资料室
-      </view>
-    </view>
-
-    <view class="weui-flex">
-      <view class="weui-flex__item card">
-        <view class="card_header">体育竞技规则</view>
-        <view class="card_footer">足球 篮球 羽毛球</view>
-      </view>
-    </view>
-
-    <view class="weui-flex" bindtap='video'>
-      <view class="weui-flex__item card">
-        <view class="card_header">体育教学</view>
-        <view class="card_footer">专业化学习</view>
-      </view>
-    </view>
-
-    <view class="weui-flex">
-      <view class="weui-flex__item card">
-        <view class="card_header">精品资料</view>
-        <view class="card_footer">来分享吧</view>
+               贝克汉姆教你踢足球
       </view>
     </view>
 
@@ -49,6 +28,25 @@
       </view>
     </view>
 
+<view class="weui-flex">
+      <view class="weui-flex__item card">
+        <view class="card_header">体育竞技规则</view>
+        <view class="card_footer">足球 篮球 羽毛球</view>
+      </view>
+    </view>
 
+    <view class="weui-flex">
+      <view class="weui-flex__item card">
+        <view class="card_header">体育教学</view>
+        <view class="card_footer">专业化学习</view>
+      </view>
+    </view>
+
+    <view class="weui-flex">
+      <view class="weui-flex__item card">
+        <view class="card_header">精品资料</view>
+        <view class="card_footer">来分享吧</view>
+      </view>
+    </view>
   </view>
 </view>

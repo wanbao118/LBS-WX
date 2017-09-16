@@ -1,6 +1,6 @@
 {
   "pages":[
-    "pages/index",
+    
     "pages/action/actionList",
     "pages/action/createAction",
     "pages/action/selectAction",
@@ -24,7 +24,8 @@
     "pages/common/sportLevel",
     "pages/common/bbs",
     "pages/setup/setup",
-    "pages/library/library"
+    "pages/library/library",
+    "pages/library/video"
     
     
   ],
@@ -35,19 +36,12 @@
     "navigationBarTextStyle":"white"
   },
   "tabBar": {
-    
-    "list": [{
-    "selectedIconPath": "images/home.png",  
-     "iconPath": "images/home_default.png", 
-      "pagePath": "pages/index",
-      "text": "首页"
-    },
-    
+    "list": [
      {
       "selectedIconPath": "images/action.png",
-     "iconPath": "images/action_default.png", 
+     "iconPath": "images/home_default.png", 
       "pagePath": "pages/action/actionList",
-      "text": "活动"
+      "text": "运动"
     },
     {
       "selectedIconPath": "images/cycle.png",  
