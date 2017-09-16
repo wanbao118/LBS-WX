@@ -1,4 +1,6 @@
 // pages/friends/friend/applyFriend.js
+var app = getApp();
+
 Page({
 
   /**
@@ -14,6 +16,26 @@ Page({
   onLoad: function (options) {
     this.data.applyOpenId = options.openId
     console.log("applyOpenId", this.data.applyOpenId);
+  },
+
+  formSubmit: function(e){
+    console.log(e);
+    wx.request({
+      url: app.gData.iServerUrl + '/bearsport/service/friend/makeFriend',
+      method: 'POST',
+      data: {
+        "params": {
+          "friendOpenId": this.data.applyOpenId,
+          "openId": app.gData.userInfo.openId
+        }
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        console.log(res.data)
+      }
+    })
   },
 
   /**
