@@ -2,7 +2,9 @@
 <view class="page">
   <view class="page__hd">
     <view class="weui-flex">
-      <view class="weui-flex__item"></view>
+      <view class="weui-flex__item location ellipsis">
+      <view class="fa fa-map-marker"></view>
+      {{cityName}}{{district}}</view>
       <view class="weui-flex__item"></view>
       <view class="weui-flex__item">
         <button type="primary" size="mini" bindtap="primary">发起活动</button>

@@ -13,6 +13,7 @@ App({
     latitude: '',
     longitude: '',
     cityName: '',
+    district:'',
     editValue: '',
     userInfo: {}
   },
@@ -20,27 +21,10 @@ App({
     var that = this;
     console.log("***** App onLaunch:小程序开始运行");
     console.log("***** 入口参数options：", options);
-    // 获取登录位置坐标
-    console.log("获取登录位置坐标");
-    wx.getLocation({
-      success: function (res) {
-        // success    
-        that.gData.longitude = res.longitude
-        that.gData.latitude = res.latitude
+    
 
-        console.log("longitude:", that.gData.longitude);
-        console.log(" latitude:", that.gData.latitude);
-       // that.loadCity(longitude, latitude)
-      },
-      fail: function (res) {
-        console.log("fail:", res)
-      },
-      complete: function (res) {
-        console.log("complete:", res)
-      }
-    })
-  // 获取城市信息
-  console.log("获取登录城市信息")
+    // 获取城市信息
+
     that.getCity();
     that.login();
     that.systemInfo();
@@ -188,7 +172,23 @@ App({
     console.log("***** 获取用户登录位置信息");
     var that = this;
 
+    wx.getLocation({
+      success: function (res) {
+        // success    
+        that.gData.longitude = res.longitude
+        that.gData.latitude = res.latitude
 
+        console.log("longitude:", that.gData.longitude);
+        console.log(" latitude:", that.gData.latitude);
+        that.loadCity(that.gData.longitude, that.gData.latitude)
+      },
+      fail: function (res) {
+        console.log("fail:", res)
+      },
+      complete: function (res) {
+        console.log("complete:", res)
+      }
+    })
 
     // // 新建百度地图对象 
     // var BMap = new bmap.BMapWX({
@@ -249,6 +249,7 @@ App({
   },
 
   loadCity: function (longitude, latitude) {
+    console.log("获取登录城市信息")
     var that = this
     wx.request({
       url: 'https://api.map.baidu.com/geocoder/v2/?ak=' + ak + '&location=' + latitude + ',' + longitude + '&output=json',
@@ -258,12 +259,14 @@ App({
       },
       success: function (res) {
         // success    
-        console.log(res);
+        console.log("百度定位信息",res);
         var city = res.data.result.addressComponent.city;
-        that.setData({ cityName: city });
+        var district = res.data.result.addressComponent.district;
+        that.gData.cityName = city;
+        that.gData.district = district;
       },
       fail: function () {
-        that.setData({ cityName: "获取定位失败" });
+        that.gData.cityName = "获取定位失败";
       },
 
     })
