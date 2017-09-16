@@ -16,6 +16,8 @@
     "pages/place/placeDetail",
     "pages/my/my",
     "pages/my/myActive",
+    "pages/my/myFriends",
+    "pages/my/myNewFriends",
     "pages/my/myInfo",
     "pages/my/editNickName",
     "pages/my/editDesc",
