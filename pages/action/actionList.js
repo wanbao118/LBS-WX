@@ -3,14 +3,26 @@ var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 var util = require('../../common/util.js')
 Page({
   data:{ 
+
+    imgUrls: [
+      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+    ],
+    toutiao: [
+      '乘风破浪，开张大吉！',
+      '合作伙伴招募,乘风破浪，开张大吉！新人大礼包，速速领取！',
+      '合作伙伴招募'
+    ],
+    indicatorDots: true,
+    autoplay: true,
+    interval: 3000,
+    duration: 1000,
       tabs: [ "热门", "最新"],
       activeIndex: "0",
       sliderOffset: 0,
       sliderLeft: 0,
       item1:"",
-      // actObj: [{ _id: 34, nickName: '红太狼', sprType: '足球', actType: '挑战赛', address: "青青草原青青草原青青草原青青草原", actDate: '2017/08/01 下午5点', title: '高新附近的有木有？', feeType: '比赛决定' }, 
-      //   { _id:34,nickName: '红太狼', sprType: '羽毛篮球球', actType: '友谊赛', address: "青青草原青青草原青青草原青青草原", actDate:'2017/08/01 下午5点',title:'一个打球好无聊!',feeType:'AA制' }, 
-      //   { _id: 34, nickName: '红太狼', sprType: '羽毛球', actType: '友谊赛', address: "青青草原青青草原青青草原青青草原", actDate: '2017/08/01 下午5点', title: '中软国际的同学一起吧', feeType: 'AA制' }, { _id: 34, nickName: '红太狼', sprType: '桌球', actType: '陪练', address: "青青草原青青草原青青草原青青草原", actDate: '2017/08/01 下午5点', title: '高手来，初学者勿扰!', feeType: '我付' }, ]
       actObj:{},
        },
       
