@@ -67,13 +67,12 @@
           <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
 
             <image class="weui-media-box__thumb" src="http://pic.58pic.com/58pic/13/14/14/21s58PICdGy_1024.jpg" />
-
           </view>
           <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
             <view class="weui-media-box__title">
               <view class="weui-flex">
                 <view class="weui-flex__item" style="">
-                  发起人：{{item.nickName}}
+                  {{item.nickName}}
                 </view>{{item.sprType}}
               </view>
             </view>
@@ -85,7 +84,7 @@
                 报名人数：{{item.enrPeople}}/{{item.planPeople}}
               </view>
               <view class="weui-flex">
-               
+
                 <view class="weui-flex__item" style="">
                   预估费用： {{item. feeEst}}元
                 </view>
