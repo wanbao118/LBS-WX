@@ -70,8 +70,8 @@
                     {{item.nickName}}
                   </view>
                   <view class="">
-                    <button class="weui-btn mini-btn" type="primary" size="mini">
-                    接受</button>
+                    <button disabled="{{applyBtn}}" class="weui-btn mini-btn" type="primary" size="mini" bindtap="apply">
+                    {{newFriends.applyStatus?"已接受":"接受"}}</button>
                   </view>
                   
                 </view>

@@ -43,9 +43,10 @@ Page({
     origins: '',
     //测试数据，等后台服务准备好后替换
     friendList: [],
-    newFriends:[{nickName:"张三",applyMessage:"我是张三",time:"2017/09/17"},
-      {nickName:"李四", applyMessage:"我是李四", time:"2017/09/17"},
-  {nickName: "王二麻子", applyMessage: "赶紧的，加我", time: "2017/09/10"
+    newFriends: [{ nickName: "张三", applyMessage: "我是张三", time: "2017/09/17", applyStatus:false},
+      { nickName: "李四", applyMessage: "我是李四", time: "2017/09/17", applyStatus: false},
+      {
+        nickName: "王二麻子", applyMessage: "赶紧的，加我", time: "2017/09/10", applyStatus: false
 },]
   },
 
@@ -216,4 +217,9 @@ Page({
       })
     }
   },
+
+  apply: function(e)
+  {
+    console.log("接受按钮");  
+  }
 })
