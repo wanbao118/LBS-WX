@@ -1,56 +1,8 @@
-  <view class="weui-panel weui-panel_access">
-    <view class="weui-panel__bd">
- <view class="page_list" wx:for="{{friendList}}" wx:key="openId">
-        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-          <image class="weui-media-box__thumb" src="{{item.avatarUrl}}" />
-        </view>
-        <view class="wseui-media-box__bd weui-media-box__bd_in-appmsg">
-          <view class="weui-media-box__title">
-            <view class="weui-flex">
-              <view class="weui-flex__item" style="">
-              <view wx:if="{{item.gender == 0}}" style="color:Pink;" class = "fa fa-female"></view>
-              <view wx:if="{{item.gender == 1}}" style="color:SkyBlue;" class = "fa fa-male"></view>
-              {{item.nickName}}</view>              
-              <view style="">{{item.distance.text}}</view>
-              <view style="color:red;">:{{item.lastLoginTime}}</view>
-            </view>
-             
-            <view class="weui-flex">
-              <view class="weui-flex__item">
-                <!-- <view class="" style="background-color:DimGray;color:white;width:120rpx">Lv:{{item.level}}</view> -->
-                <view class="" style="">Lv:{{item.level}}
-                 <button class="weui-btn"  data-openId="{{item.openId}}" bindtap="approveRequest">同意</button>
-                </view>
-              </view>{{item.favType1}}
-              <!-- <view class="weui-flex__item" style="">
-                <view class="fa fa-flash" style="color:Purple"></view> {{item.level}}
-              </view>
-              <view class="weui-flex__item" style="">
-                <view class="fa fa-vcard-o" style="color:Purple"></view> {{item.creditLevel}}
-              </view>               -->
-            </view>
-
-            <view class="weui-flex">
-              <view class="weui-flex__item">
-                <!-- <view class="placeholder">上次登陆时间:{{item.lastLoginTime}}</view> -->
-              </view>
-            </view>
-            <view class="weui-flex">
-              <view class="weui-flex__item">
-                <view class="placeholder">{{item.desc}}</view>
-              </view>
-            </view>
-          </view>
-          </view>
-          <view class="weui-media-box__desc" style=""> 
-        </view>
-      
-      <view class="weui-media-box__desc">
-      
-      <view class="weui-flex">
-              <view class="weui-flex__item">{{item.description}}</view>        
-            </view>
-      </view>
-    </view>
+<view class="page">
+  <view class="page__hd">
   </view>
+  <view class="page__bd">
   </view>
+  <view class="page__ft">
+  </view>
+</view>

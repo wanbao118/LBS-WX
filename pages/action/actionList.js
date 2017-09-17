@@ -26,42 +26,48 @@ Page({
     sliderLeft: 0,
     item1: "",
     actObj: {},
-    cityName: app.gData.cityName,
+    city:"",
     district: ""
   },
 
 
   onLoad: function (options) {
+    var that = this;
     // 页面初始化 options为页面跳转所带来的参数
     console.log("actionList-全局变量：", app.gData);
-  
-    this.setData(
+
+    that.setData(
       {
-        cityName: app.gData.cityName,
+        city: app.gData.cityName,
         district: app.gData.district
       })
+    
+    // wx.getSystemInfo({
+    //   success: function (res) {
+    //     this.setData({
+    //       sliderLeft: (res.windowWidth / this.data.tabs.length - sliderWidth) / 2
+    //     });
+    //   }
+    // });
 
-    wx.getSystemInfo({
-      success: function (res) {
-        this.setData({
-          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2
-        });
-
-        //查询活动清单
-        this.actionList();
-      }
-    });
+    //查询活动清单
+    that.actionList();
   },
 
   onReady: function () {
     // 页面渲染完成
+    this.setData(
+      {
+        city: app.gData.cityName,
+        district: app.gData.district
+      })
   },
   onShow: function () {
     // 页面显示,从后台j进入前台时刷新页面
-    
+
     this.setData(
       {
-        cityName: app.gData.cityName,
+        city: app.gData.cityName,
         district: app.gData.district
       })
 

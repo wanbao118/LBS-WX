@@ -10,11 +10,10 @@ var hasMore = false;
 var hidden = false;
 var pageNum = 0;
 var len = 0;
-var sports = ['羽毛球', '篮球', '网球'];
+
 var location = '';
 var query = '';
-// 滑动条选项
-var order = ['h1', 'h2', 'h3', 'h4', 'h5'];
+
 
 Page({
   data: {
@@ -44,13 +43,12 @@ Page({
     origins: '',
     //测试数据，等后台服务准备好后替换
     friendList: [],
+    newFriends:[{nickName:"张三",applyMessage:"我是张三",time:"2017/09/17"},
+      {nickName:"李四", applyMessage:"我是李四", time:"2017/09/17"},
+  {nickName: "王二麻子", applyMessage: "赶紧的，加我", time: "2017/09/10"
+},]
   },
 
-  toNearby: function () {
-    wx.navigateTo({
-      url: 'map'
-    })
-  },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
     var that = this;
@@ -76,28 +74,8 @@ Page({
     //  that.getLocationInfo();
 
   },
-  
-  //上拉获取更多
-  loadMore: function () {
-    var that = this;
-    that.setData({
-      hasMore: true
-    });
-    pageNum = pageNum + 1;
-    this.loadBaiDu(pageNum, query);
-    that.setData({
-      hasMore: false
-    });
-    console.log("down" + pageNum);
-  },
-  //下拉刷新
-  doFresh: function () {
 
-    (pageNum == 0) ? pageNum = 0 : pageNum = pageNum - 1;
-    this.loadBaiDu(pageNum, query);
-    console.log("up" + pageNum);
 
-  },
   //获取城市信息
   getCity: function () {
 
@@ -124,35 +102,13 @@ Page({
   onUnload: function () {
     // 页面关闭
   },
-  tabClick: function (e) {
-    this.setData({
-      sliderOffset: e.currentTarget.offsetLeft,
-      activeIndex: e.currentTarget.id
-    });
-  },
 
-
-  selectMore: function (e) {
-
-    if (this.data.selectFlag == false) {
-      this.setData({
-        selectFlag: true
-      });
-    }
-    else {
-      this.setData({
-        selectFlag: false
-      });
-    }
-  },
-  selectOk: function (e) {
-
-    this.setData({
-      selectFlag: false
-    });
-
-
-  },
+  // tabClick: function (e) {
+  //   this.setData({
+  //     sliderOffset: e.currentTarget.offsetLeft,
+  //     activeIndex: e.currentTarget.id
+  //   });
+  // },
 
   //获取熊友初始数据  -- 计算距离
   getUsers: function (e) {
@@ -162,7 +118,7 @@ Page({
     var iData = {};
     iData.operationCode = "UF"
     wx.request({
-      url: app.gData.iServerUrl + '/bearsport/service/friend/friends?currentUserId='+ app.gData.userInfo.openId,
+      url: app.gData.iServerUrl + '/bearsport/service/friend/friends?currentUserId=' + app.gData.userInfo.openId,
       //method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       method: 'GET',
       // header: {}, // 设置请求的 header
@@ -244,5 +200,20 @@ Page({
   },
 
 
-
+  // 滑动切换tab 
+  bindChange: function (e) {
+    var that = this;
+    that.setData({ currentTab: e.detail.current });
+  },
+  // 点击tab切换 
+  swichNavi: function (e) {
+    var that = this;
+    if (this.data.currentTab === e.target.dataset.current) {
+      return false;
+    } else {
+      that.setData({
+        currentTab: e.target.dataset.current
+      })
+    }
+  },
 })

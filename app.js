@@ -6,7 +6,6 @@ var wxMarkerData = [];
 
 App({
   gData: {
-    openId: "",
     //后台的服务器地址！
     iServerUrl: "https://littlebearsports.com",
     markers: [],
@@ -57,7 +56,7 @@ App({
             method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
             header: { 'content-type': 'application/json' }, // 设置请求的 header
             success: function (res) {
-              console.log("openId:", res);
+              
               openId = res.data.params.openId;
               that.gData.userInfo.openId = openId;
 
@@ -133,8 +132,6 @@ App({
         res.userInfo.loginCity = that.gData.cityName
 
         console.log("登录用户信息：", res.userInfo);
-
-
 
         res.userInfo.operationCode = 'AD'
         //将用户信息储存到后台数据库
