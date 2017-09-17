@@ -87,6 +87,35 @@ function formatTimestamp(dateTimeStamp) {
     }
     return result;
 }
+//评论模板用
+var ossAliyuncs = "http://soupu.oss-cn-shanghai.aliyuncs.com";
+
+function formatTime2(date) {
+  var year = date.getFullYear()
+  var month = date.getMonth() + 1
+  var day = date.getDate()
+
+  var hour = date.getHours()
+  var minute = date.getMinutes()
+  var second = date.getSeconds()
+
+
+  return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+}
+
+function formatDate(date) {
+  var year = date.getFullYear()
+  var month = date.getMonth() + 1
+  var day = date.getDate()
+
+  return [year, month, day].map(formatNumber).join('-')
+}
+
+function formatNumber(n) {
+  n = n.toString()
+  return n[1] ? n : '0' + n
+}
+
 
 module.exports.formatTime = formatTime;
 module.exports.formatOnlyDate = formatOnlyDate;
@@ -95,3 +124,6 @@ module.exports.formatHourAndMinu = formatHourAndMinu;
 module.exports.formatNumber = formatNumber;
 module.exports.formatTimestamp = formatTimestamp;
 module.exports.getLocalTime = getLocalTime;
+module.exports.formatTime2 = formatTime2;
+module.exports.formatDate = formatDate;
+module.exports.ossAliyuncs = ossAliyuncs;
