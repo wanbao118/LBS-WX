@@ -13,7 +13,7 @@ var len = 0;
 
 var location = '';
 var query = '';
-
+var newFriendList = [];
 
 Page({
   data: {
@@ -43,11 +43,12 @@ Page({
     origins: '',
     //测试数据，等后台服务准备好后替换
     friendList: [],
-    newFriends: [{ nickName: "张三", applyMessage: "我是张三", time: "2017/09/17", applyStatus:false},
+/**    newFriends: [{ nickName: "张三", applyMessage: "我是张三", time: "2017/09/17", applyStatus:false},
       { nickName: "李四", applyMessage: "我是李四", time: "2017/09/17", applyStatus: false},
       {
         nickName: "王二麻子", applyMessage: "赶紧的，加我", time: "2017/09/10", applyStatus: false
-},]
+},]**/
+    newFriends:[]
   },
 
   onLoad: function (options) {
@@ -71,6 +72,7 @@ Page({
 
     that.getUsers();
 
+    that.getMyFriendsList();
 
     //  that.getLocationInfo();
 
@@ -110,6 +112,43 @@ Page({
   //     activeIndex: e.currentTarget.id
   //   });
   // },
+  //ܱ根据经纬度计算距离
+  getdistance: function () {
+    var that = this;
+    console.log("aaa", that.data.destinations);
+    console.log("bbb", that.data.origins)
+    wx.request({
+      url: 'http://api.map.baidu.com/routematrix/v2/driving?',
+      data: {
+        output: "json",
+        origins: that.data.origins,    //坐标格式为：lat<纬度>,lng<经度>|lat<纬度>,lng<经度>  多个用|分开,最多传50个点，且起终点乘积不超过50
+        destinations: that.data.destinations, // 同上
+        ak: "x01RzuY9Guop6j45QvMhQGO7YqTlUp1i",
+      },
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: function (res) {
+        // success 
+        console.log("ret", res.data);
+        var status = res.data.status;
+        var rst = res.data.result;
+        console.log("rst", rst);
+        var listData = that.data.friendList;
+
+        for (var i = 0; i < rst.length; i++) {
+          listData[i].distance = rst[i].distance;
+        }
+
+        console.log("listData111", listData);
+        that.setData({
+          friendList: listData
+        });
+      },
+      fail: function () { },
+      complete: function () { }
+    })
+  },
 
   //获取熊友初始数据  -- 计算距离
   getUsers: function (e) {
@@ -162,44 +201,80 @@ Page({
     })
   },
 
-  //ܱ根据经纬度计算距离
-  getdistance: function () {
+  //好友审批
+  getMyFriendsList: function (e) {
+
     var that = this;
-    console.log("aaa", that.data.destinations);
-    console.log("bbb", that.data.origins)
     wx.request({
-      url: 'http://api.map.baidu.com/routematrix/v2/driving?',
-      data: {
-        output: "json",
-        origins: that.data.origins,    //坐标格式为：lat<纬度>,lng<经度>|lat<纬度>,lng<经度>  多个用|分开,最多传50个点，且起终点乘积不超过50
-        destinations: that.data.destinations, // 同上
-        ak: "x01RzuY9Guop6j45QvMhQGO7YqTlUp1i",
-      },
-      header: {
-        'Content-Type': 'application/json'
-      },
+      url: app.gData.iServerUrl + '/bearsport/service/friend/friendRequestList?currentUserId=' + app.gData.userInfo.openId,
+      //method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      method: 'GET',
+      // header: {}, // 设置请求的 header
+      header: { 'content-type': 'application/json' },
       success: function (res) {
-        // success 
-        console.log("ret", res.data);
-        var status = res.data.status;
-        var rst = res.data.result;
-        console.log("rst", rst);
-        var listData = that.data.friendList;
-
-        for (var i = 0; i < rst.length; i++) {
-          listData[i].distance = rst[i].distance;
+        for (var i = 0; i < res.data.listData.length; i++) {
+          res.data.listData[i].applyMessage = '请添加我为好友';
+          res.data.listData.applyStatus = false;
         }
+        that.newFriendList = res.data.listData;
 
-        console.log("listData111", listData);
         that.setData({
-          friendList: listData
+          newFriends: that.newFriendList
         });
+
+        console.log("friend", that.data.newFriends);
+
+      }, 
+      fail: function (res) {
+        // fail
       },
-      fail: function () { },
-      complete: function () { }
+      complete: function (res) {
+        // complete
+      }
     })
   },
+//同意好友申请
+  approveRequest: function (e) {
+    var that = this;
 
+    wx.request({
+      // url: 'http://59.110.165.245/Lbs_back/servlet/PositionInsert', //位置新增接口地址
+      url: 'https://littlebearsports.com/bearsport/service/friend/friendRequestApproval',
+      data: {
+
+        "params": {
+          "friendOpenId": e.target.dataset.openid,
+          "relationshipStatus": "1",
+          "openId": app.gData.userInfo.openId
+        }
+
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      success: function (res) {
+        wx.showToast({
+          title: '添加好友成功',
+          icon: 'success',
+          duration: 2000
+        })
+
+        for (var i = 0; i < (that.data.newFriends).length; i++) {
+          if (e.target.dataset.openid == that.data.newFriends[i].openId) {
+            that.newFriendList[i].applyStatus = true;
+          }
+        }
+        that.setData({
+          newFriends: that.newFriendList
+        });
+      },
+      fail: function (res) {
+        console.log('失败');
+      }
+
+    })
+  },
 
   // 滑动切换tab 
   bindChange: function (e) {
