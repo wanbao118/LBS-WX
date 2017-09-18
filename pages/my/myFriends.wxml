@@ -70,10 +70,9 @@
                     {{item.nickName}}
                   </view>
                   <view class="">
-                    <button disabled="{{applyBtn}}" class="weui-btn mini-btn" type="primary" size="mini" bindtap="apply">
-                    {{newFriends.applyStatus?"已接受":"接受"}}</button>
+                    <button disabled="{{item.applyStatus}}" class="weui-btn mini-btn" type="primary" size="mini" bindtap="approveRequest" data-openid="{{item.openId}}">
+                    {{item.applyStatus ? '已接受':'接受'}}</button>
                   </view>
-                  
                 </view>
                 <view class="weui-flex">
                   <view class="weui-flex__item weui-media-box__desc">
