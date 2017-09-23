@@ -170,6 +170,7 @@ App({
     var that = this;
 
     wx.getLocation({
+      type: 'wgs84',
       success: function (res) {
         // success    
         that.gData.longitude = res.longitude

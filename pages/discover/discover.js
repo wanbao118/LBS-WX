@@ -196,11 +196,13 @@ Page({
           for (var i = 0; i < res.data.listData.length; i++) {
 
           res.data.listData[i].lastLoginTime =  util.formatTimestamp(res.data.listData[i].lastLoginTime);
+          if (res.data.listData[i].location.latitude != "" & res.data.listData[i].location.longitude!=""){
           if (dest!=""){
             dest = dest+"|"
           }
           dest = dest + res.data.listData[i].location.latitude + "," + res.data.listData[i].location.longitude
            }
+          }
         }
         console.log("location345", dest);
 
@@ -237,6 +239,7 @@ Page({
         origins: that.data.origins,    //坐标格式为：lat<纬度>,lng<经度>|lat<纬度>,lng<经度>  多个用|分开,最多传50个点，且起终点乘积不超过50
         destinations: that.data.destinations, // 同上
         ak: "x01RzuY9Guop6j45QvMhQGO7YqTlUp1i",
+        coord_type: "wgs84",
       },
       header: {
         'Content-Type': 'application/json'
