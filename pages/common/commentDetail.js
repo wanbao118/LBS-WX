@@ -26,42 +26,7 @@ Page({
         content: "九九八十一难，最难过的，其实是女儿国这一关，因为比起其他的艰难困苦来说，此时的唐僧是真的动心了，一句“来生若有缘分”道尽一切，只是为了心中崇高的理想，纵使心动也要断绝柔情继续西行。为国王惋惜，同时也对唐僧充满崇敬，尤其是了解了史上真实的唐玄奘以后，更是觉得此人了不起。",
         count:30
       },
-      {
-        avatar: util.ossAliyuncs + "/images/banner6.jpg",
-        uName: "张珊珊",
-        time: "2016-12-11",
-        content: "音乐不分年纪，不过令人开心的是你们也不会年轻太久。😝😝😝😝"
-      },
-      {
-        avatar: util.ossAliyuncs + "/images/banner2.jpg",
-        uName: "麦田的守望者",
-        time: "2016-12-11",
-        content: "看的时候还很小，不太明白里面的故事，长大后才发现西游记里水太深了。😢😢😡😡😼😼🍆🍇🍇🍆👧👰👨💑💇💅🐶🐶🙏✈🚲🚲😡😅👿😖😨😢😻🚃🚃🚌"
-      },
-      {
-        avatar: util.ossAliyuncs + "/images/Screenshot_2016-12-13-10-13-16-926.png",
-        uName: "~LUCK",
-        time: "2016-12-11",
-        content: "86版《西游记》绝对是那代人的国民记忆，放假天天等着看，一遍又一遍，悟空被压在五指山下经历春夏秋冬，寒冬大雪里一个人吃雪，路过的小牧童送来水果，那一段我和小伙伴们哭的稀里哗啦，当年的特技后期制作还很落后，但所有演员都是用心在塑造角色，没有艳俗的服装造型，良心制作！ 以后会陪孩子再看"
-      },
-      {
-        avatar: util.ossAliyuncs + "/images/banner3.jpg",
-        uName: "沃德天·娜么帥",
-        time: "2016-12-11",
-        content: "想起，小时候，父亲教我这首歌的样子。"
-      },
-      {
-        avatar: util.ossAliyuncs + "/images/Screenshot_2016-12-13-10-13-38-305.png",
-        uName: "雨碎江南",
-        time: "2016-12-11",
-        content: "我的宿命，分两段， 未遇见你时，和遇见你以后。 你治好我的忧郁，而后赐我悲伤。 忧郁和悲伤之间的片刻欢喜， 透支了我生命全部的热情储蓄。 想饮一些酒，让灵魂失重，好被风吹走。 可一想到终将是你的路人， 便觉得，沦为整个世界的路人。 风虽大，都绕过我灵魂。"
-      },
-      {
-        avatar: util.ossAliyuncs + "/images/banner5.jpg",
-        uName: "雨碎江南",
-        time: "2016-12-01",
-        content: "九九八十一难，最难过的，其实是女儿国这一关，因为比起其他的艰难困苦来说，此时的唐僧是真的动心了，一句“来生若有缘分”道尽一切，只是为了心中崇高的理想，纵使心动也要断绝柔情继续西行。为国王惋惜，同时也对唐僧充满崇敬，尤其是了解了史上真实的唐玄奘以后，更是觉得此人了不起。"
-      }
+      
     ],
     emojiChar: "☺-😋-😌-😍-😏-😜-😝-😞-😔-😪-😭-😁-😂-😃-😅-😆-👿-😒-😓-😔-😏-😖-😘-😚-😒-😡-😢-😣-😤-😢-😨-😳-😵-😷-😸-😻-😼-😽-😾-😿-🙊-🙋-🙏-✈-🚇-🚃-🚌-🍄-🍅-🍆-🍇-🍈-🍉-🍑-🍒-🍓-🐔-🐶-🐷-👦-👧-👱-👩-👰-👨-👲-👳-💃-💄-💅-💆-💇-🌹-💑-💓-💘-🚲",
     //0x1f---
@@ -97,9 +62,7 @@ Page({
       case "2"://犯错
         videoUrl = util.ossAliyuncs + "/videos/%E7%8A%AF%E9%94%99-%E5%8F%8C%E7%AE%A1%E5%B7%B4%E4%B9%8C.mp4"
         break;
-      case "3"://车站
-        videoUrl = util.ossAliyuncs + "/videos/%E8%BD%A6%E7%AB%99-%E5%8F%8C%E7%AE%A1%E5%B7%B4%E4%B9%8C.mp4"
-        break;
+ 
     }
     that.data.detail.videoUrl = videoUrl;
 
@@ -139,7 +102,7 @@ Page({
       for (var i = 0; i < 5; i++) {
         conArr.push({
           avatar: util.ossAliyuncs + "/images/banner5.jpg",
-          uName: "雨碎江南",
+          uName: "我是"+i,
           time: util.formatTime2(new Date()),
           content: "我是上拉加载的新数据" + i
         })

@@ -8,7 +8,7 @@
       <view class="i-left">
         <image class="c-u-img" src="{{c.avatar}}"></image>
       </view>
-      <navigator url="commentDetail?actId={{c.actId}}">
+      <navigator url="../commentDetail?actId={{c.actId}}">
       <view class="i-right">
         <view class="top">
           <text class="u-name">{{c.uName}}</text>

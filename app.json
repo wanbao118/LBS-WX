@@ -1,6 +1,6 @@
 {
-  "pages":[
-    
+  "pages": [
+   
     "pages/action/actionList",
     "pages/action/createAction",
     "pages/action/selectAction",
@@ -12,7 +12,6 @@
     "pages/friends/friend/map",
     "pages/discover/discover",
     "pages/users/user/userDetail",
-     
     "pages/place/placeDetail",
     "pages/my/my",
     "pages/my/myActive",
@@ -27,36 +26,35 @@
     "pages/common/bbs",
     "pages/setup/setup",
     "pages/library/library",
-    "pages/library/video"
-    
-    
+    "pages/library/video",
+    "pages/common/commentDetail"
   ],
-  "window":{
-    "backgroundTextStyle":"white",
+  "window": {
+    "backgroundTextStyle": "white",
     "navigationBarBackgroundColor": "purple",
     "navigationBarTitleText": "BearSports",
-    "navigationBarTextStyle":"white"
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "list": [
-     {
-      "selectedIconPath": "images/home.png",
-     "iconPath": "images/home_default.png", 
-      "pagePath": "pages/action/actionList",
-      "text": "运动"
-    },
-    {
-      "selectedIconPath": "images/cycle.png",  
-     "iconPath": "images/cycle_default.png", 
-      "pagePath": "pages/discover/discover",
-      "text": "发现"
-    },
-    {
-      "selectedIconPath": "images/my.png",  
-     "iconPath": "images/my_default.png", 
-      "pagePath": "pages/my/my",
-      "text": "我的"
-    }
+      {
+        "selectedIconPath": "images/home.png",
+        "iconPath": "images/home_default.png",
+        "pagePath": "pages/action/actionList",
+        "text": "运动"
+      },
+      {
+        "selectedIconPath": "images/cycle.png",
+        "iconPath": "images/cycle_default.png",
+        "pagePath": "pages/discover/discover",
+        "text": "发现"
+      },
+      {
+        "selectedIconPath": "images/my.png",
+        "iconPath": "images/my_default.png",
+        "pagePath": "pages/my/my",
+        "text": "我的"
+      }
     ]
   }
 }
