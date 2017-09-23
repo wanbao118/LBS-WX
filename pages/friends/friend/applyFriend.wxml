@@ -11,7 +11,7 @@
           <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input">
               <view class="weui-cell__bd">
-                <input class="weui-input" placeholder="请输入验证信息" />
+                <input name="applyMessage" class="weui-input" bindinput='applyMessage' placeholder="请输入验证信息" />
               </view>
             </view>
           </view>

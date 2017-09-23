@@ -67,16 +67,16 @@
               <view class="lineB">
                 <view class="weui-flex">
                   <view class="weui-flex__item">
-                    {{item.nickName}}
+                    {{item.user.nickName}}
                   </view>
                   <view class="">
-                    <button disabled="{{item.applyStatus}}" class="weui-btn mini-btn" type="primary" size="mini" bindtap="approveRequest" data-openid="{{item.openId}}">
+                    <button disabled="{{item.applyStatus}}" class="weui-btn mini-btn" type="primary" size="mini" bindtap="approveRequest" data-openid="{{item.user.openId}}">
                     {{item.applyStatus ? '已接受':'接受'}}</button>
                   </view>
                 </view>
                 <view class="weui-flex">
                   <view class="weui-flex__item weui-media-box__desc">
-                    {{item.applyMessage}} | {{item.time}}
+                    {{item.validationMessage}} | {{item.time}}
                   </view>
                 </view>
               </view>

@@ -7,15 +7,23 @@ Page({
    * 页面的初始数据
    */
   data: {
-   applyOpenId:""
+   applyOpenId:"",
+   applyMessage:""
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.data.applyOpenId = options.openId
+    this.data.applyOpenId = options.openId;
+    this.data.applyMessage = options.applyMessage;
     console.log("applyOpenId", this.data.applyOpenId);
+  },
+
+  applyMessage:function(e) {
+    this.setData({
+      applyMessage:e.detail.value
+    })
   },
 
   formSubmit: function(e){
@@ -26,7 +34,8 @@ Page({
       data: {
         "params": {
           "friendOpenId": this.data.applyOpenId,
-          "openId": app.gData.userInfo.openId
+          "openId": app.gData.userInfo.openId,
+          "validationMessage":this.data.applyMessage
         }
       },
       header: {
