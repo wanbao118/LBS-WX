@@ -43,12 +43,12 @@ Page({
     origins: '',
     //测试数据，等后台服务准备好后替换
     friendList: [],
-/**    newFriends: [{ nickName: "张三", applyMessage: "我是张三", time: "2017/09/17", applyStatus:false},
-      { nickName: "李四", applyMessage: "我是李四", time: "2017/09/17", applyStatus: false},
-      {
-        nickName: "王二麻子", applyMessage: "赶紧的，加我", time: "2017/09/10", applyStatus: false
-},]**/
-    newFriends:[]
+    /**    newFriends: [{ nickName: "张三", applyMessage: "我是张三", time: "2017/09/17", applyStatus:false},
+          { nickName: "李四", applyMessage: "我是李四", time: "2017/09/17", applyStatus: false},
+          {
+            nickName: "王二麻子", applyMessage: "赶紧的，加我", time: "2017/09/10", applyStatus: false
+    },]**/
+    newFriends: []
   },
 
   onLoad: function (options) {
@@ -212,11 +212,18 @@ Page({
       // header: {}, // 设置请求的 header
       header: { 'content-type': 'application/json' },
       success: function (res) {
-        for (var i = 0; i < res.data.listData.length; i++) {
-          res.data.listData[i].applyMessage = '请添加我为好友';
-          res.data.listData.applyStatus = false;
+        console.log("===========" + app.gData.userInfo.openId);
+        that.newFriendList = res.data.data;
+
+        for (var i = 0; i < res.data.data.length; i++) {
+          if (res.data.data[i].relationshipStatus == 0) {
+            res.data.data[i].relationshipStatus = false;
+            that.newFriendList[i].applyStatus = false;
+          } else {
+            res.data.data[i].relationshipStatus = true;
+            that.newFriendList[i].applyStatus = true;
+          }
         }
-        that.newFriendList = res.data.listData;
 
         that.setData({
           newFriends: that.newFriendList
@@ -224,7 +231,7 @@ Page({
 
         console.log("friend", that.data.newFriends);
 
-      }, 
+      },
       fail: function (res) {
         // fail
       },
@@ -233,7 +240,7 @@ Page({
       }
     })
   },
-//同意好友申请
+  //同意好友申请
   approveRequest: function (e) {
     var that = this;
 
@@ -261,7 +268,7 @@ Page({
         })
 
         for (var i = 0; i < (that.data.newFriends).length; i++) {
-          if (e.target.dataset.openid == that.data.newFriends[i].openId) {
+          if (e.target.dataset.openid == that.data.newFriends[i].user.openId) {
             that.newFriendList[i].applyStatus = true;
           }
         }
@@ -293,8 +300,7 @@ Page({
     }
   },
 
-  apply: function(e)
-  {
-    console.log("接受按钮");  
+  apply: function (e) {
+    console.log("接受按钮");
   }
 })
